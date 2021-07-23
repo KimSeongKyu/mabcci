@@ -2,7 +2,6 @@ package com.mabcci.domain.member.domain;
 
 import com.mabcci.global.common.BaseTimeEntity;
 import lombok.Builder;
-import lombok.Getter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
