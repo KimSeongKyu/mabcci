@@ -2,10 +2,12 @@ package com.mabcci.domain.member.domain;
 
 import com.mabcci.global.common.BaseTimeEntity;
 import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
+@Getter
 @Entity
 public class Member extends BaseTimeEntity {
 
@@ -50,5 +52,9 @@ public class Member extends BaseTimeEntity {
 
     public boolean checkPassword(final String otherPassword) {
         return this.password.equals(otherPassword);
+    }
+
+    public Long id() {
+        return id;
     }
 }

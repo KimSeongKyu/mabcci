@@ -3,6 +3,7 @@ package com.mabcci.global.common;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
@@ -19,6 +20,14 @@ public class BaseTimeEntity {
 
     @LastModifiedDate
     private LocalDateTime modifiedDate;
+
+    public LocalDateTime getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
 
     public LocalDateTime createdDate() {
         return createdDate;
