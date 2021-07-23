@@ -46,7 +46,7 @@ ex) Login.js만 사용하다가 --> LoginTemplate.js, LoginInput.js를 Login.js�
 
 ## css 관리
 
-하나의 .js파일에 하나의 .css 파일 각각 매칭해서 관리해준다.
+하나의 .js파일에 하나의 .css 파일 각각 매칭해서 관리해준다!
 
 
 
