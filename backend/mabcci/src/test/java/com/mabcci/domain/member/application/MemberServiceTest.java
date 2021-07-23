@@ -1,6 +1,10 @@
 package com.mabcci.domain.member.application;
 
+import com.mabcci.domain.member.domain.Gender;
+import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
+import com.mabcci.domain.member.domain.MemberRole;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,12 +13,14 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest
@@ -29,6 +35,20 @@ class MemberServiceTest {
     @Mock
     private MemberRepository memberRepository;
 
+    private Member member;
+
+    @BeforeEach
+    void setUp() {
+        member = Member.builder()
+                .email("sample@email.com")
+                .password("validPassword")
+                .nickname("sample")
+                .phone("010-1234-5678")
+                .gender(Gender.MALE)
+                .role(MemberRole.USER)
+                .build();
+    }
+
     @DisplayName("MemberService 생성 여부 테스트")
     @Test
     void initialize() {
@@ -38,5 +58,18 @@ class MemberServiceTest {
         );
     }
 
+    @DisplayName("MemberService save 기능 테스트")
+    @Test
+    void save_test() {
+        // given
+        given(memberRepository.save(any())).willReturn(member);
+
+        // when
+        Member savedMember = memberRepository.save(member);
+
+        // then
+        then(memberRepository).should(times(1)).save(any());
+        assertThat(savedMember.nickname()).isEqualTo(member.nickname());
+    }
 
 }
