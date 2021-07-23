@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -73,7 +74,7 @@ class MemberRepositoryTest {
 
     }
 
-    @DisplayName("MemberRepository findByNickname 기능 테스트")
+    @DisplayName("MemberRepository findByNickname 기능 실패 테스트")
     @Test
     void findByNickname_fail_test() {
         // given
@@ -84,6 +85,22 @@ class MemberRepositoryTest {
 
         // then
         assertThat(findMember.isPresent()).isFalse();
+    }
+
+    @DisplayName("MemberRepository findAll 기능 테스트")
+    @Test
+    void findAll_test() {
+        // given
+        testEntityManager.persist(member);
+
+        // when
+        List<Member> members = memberRepository.findAll();
+
+        // then
+        assertAll(
+                () -> assertThat(members).isNotNull(),
+                () -> assertThat(members.size()).isEqualTo(1)
+        );
     }
 
 }
