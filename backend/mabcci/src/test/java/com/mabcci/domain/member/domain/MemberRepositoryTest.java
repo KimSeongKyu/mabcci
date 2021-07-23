@@ -9,6 +9,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -63,10 +65,13 @@ class MemberRepositoryTest {
         testEntityManager.persist(member);
 
         // when
-        memberRepository.findByNickname(member.nickname());
+        Member validFindMember = memberRepository.findByNickname(member.nickname()).get();
 
         // then
-        assertThat(savedMember.id()).isEqualTo(member.id());
-    }
+        assertThat(validFindMember.id()).isEqualTo(member.id());
 
+    }
+//
+//    Member invalidFindMember = memberRepository.findByNickname("invalidNickName").get();
+//        () -> assertThat(invalidFindMember.id()).isEqualTo(member.id())
 }
