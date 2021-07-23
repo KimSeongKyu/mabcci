@@ -12,6 +12,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
 @EnableJpaAuditing
@@ -71,7 +72,18 @@ class MemberRepositoryTest {
         assertThat(validFindMember.id()).isEqualTo(member.id());
 
     }
-//
-//    Member invalidFindMember = memberRepository.findByNickname("invalidNickName").get();
-//        () -> assertThat(invalidFindMember.id()).isEqualTo(member.id())
+
+    @DisplayName("MemberRepository findByNickname 기능 테스트")
+    @Test
+    void findByNickname_fail_test() {
+        // given
+        testEntityManager.persist(member);
+
+        // when
+        Optional<Member> findMember = memberRepository.findByNickname("invalidNickName");
+
+        // then
+        assertThat(findMember.isPresent()).isFalse();
+    }
+
 }
