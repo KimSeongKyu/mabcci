@@ -103,4 +103,18 @@ class MemberRepositoryTest {
         );
     }
 
+    @DisplayName("MemberRepository delete 기능 테스트")
+    @Test
+    void delete_test() {
+        // given
+        Member savedMember = testEntityManager.persist(member);
+
+        // when
+        memberRepository.delete(savedMember);
+        Optional<Member> findMember =  memberRepository.findById(savedMember.id());
+
+        // then
+        assertThat(findMember.isPresent()).isFalse();
+    }
+
 }
