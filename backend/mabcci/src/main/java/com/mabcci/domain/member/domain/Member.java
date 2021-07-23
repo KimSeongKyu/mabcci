@@ -1,12 +1,13 @@
 package com.mabcci.domain.member.domain;
 
+import com.mabcci.global.common.BaseTimeEntity;
 import lombok.Builder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
 @Entity
-public class Member {
+public class Member extends BaseTimeEntity {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MEMBER_ID")
