@@ -16,8 +16,9 @@ class MemberTest {
                 .password("samplePassword")
                 .nickname("sample")
                 .phone("010-1234-5678")
-                .gender("male")
-                .role(MemberRole.General);
+                .gender(Gender.MALE)
+                .role(MemberRole.USER)
+                .build();
 
         assertAll(
                 () -> Assertions.assertThat(member).isNotNull(),
