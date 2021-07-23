@@ -38,7 +38,7 @@
 
 하위 컴포넌트가 생길 시 폴더로 함께 묶어서 관리한다.
 
-ex) Login.js만 사용하다가 ---> LoginTemplate.js, LoginInput.js를 Login.js의 하위컴포넌트로 사용할시
+ex) Login.js만 사용하다가 --> LoginTemplate.js, LoginInput.js를 Login.js의 하위컴포넌트로 사용할시
 
 ​	  Login이라는 폴더에 Login.js, LoginTemplate.js, LoginInput.js 모두 모아준다.
 
