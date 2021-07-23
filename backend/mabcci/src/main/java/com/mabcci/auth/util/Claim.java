@@ -1,7 +1,9 @@
 package com.mabcci.auth.util;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+@Getter
 @RequiredArgsConstructor
 public enum Claim {
 
