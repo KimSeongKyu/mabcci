@@ -1,13 +1,11 @@
 package com.mabcci.member.domain;
 
 import lombok.Builder;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
 @Entity
-@NoArgsConstructor
 public class Member {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +34,9 @@ public class Member {
     @Column(name = "MEMBER_ROLE", nullable = false)
     private MemberRole role;
 
+    protected Member() {
+    }
+
     @Builder
     public Member(String email, String password, String nickname, String phone, Gender gender, MemberRole role) {
         this.email = email;
@@ -46,4 +47,7 @@ public class Member {
         this.role = role;
     }
 
+    public boolean checkPassword(final String otherPassword) {
+        return this.password.equals(otherPassword);
+    }
 }

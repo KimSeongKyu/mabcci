@@ -1,6 +1,5 @@
 package com.mabcci.member.domain;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,8 +43,8 @@ class MemberTest {
 
         // when and then
         assertAll(
-                () -> assertThat(member.checkPassoword(validPassword)).isTrue(),
-                () -> assertThat(member.checkPassoword(invalidPassword)).isFalse()
+                () -> assertThat(member.checkPassword(validPassword)).isTrue(),
+                () -> assertThat(member.checkPassword(invalidPassword)).isFalse()
         );
     }
 
