@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -70,6 +72,20 @@ class MemberServiceTest {
         // then
         then(memberRepository).should(times(1)).save(any());
         assertThat(savedMember.nickname()).isEqualTo(member.nickname());
+    }
+
+    @DisplayName("MemberService findByNickname 기능 테스트")
+    @Test
+    void findByNickname_test() {
+        // given
+        given(memberRepository.findByNickname("sample")).willReturn(Optional.ofNullable(member));
+
+        // when
+        Optional<Member> findMember = memberRepository.findByNickname("sample");
+
+        // then
+        then(memberRepository).should(times(1)).findByNickname(any());
+        assertThat(findMember.isPresent()).isTrue();
     }
 
 }
