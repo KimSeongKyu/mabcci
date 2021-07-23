@@ -7,7 +7,6 @@ import lombok.Getter;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
-@Getter
 @Entity
 public class Member extends BaseTimeEntity {
 
@@ -57,4 +56,9 @@ public class Member extends BaseTimeEntity {
     public Long id() {
         return id;
     }
+
+    public String nickname() {
+        return nickname;
+    }
+
 }

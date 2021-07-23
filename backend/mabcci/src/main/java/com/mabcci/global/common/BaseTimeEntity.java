@@ -21,14 +21,6 @@ public class BaseTimeEntity {
     @LastModifiedDate
     private LocalDateTime modifiedDate;
 
-    public LocalDateTime getModifiedDate() {
-        return modifiedDate;
-    }
-
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
-    }
-
     public LocalDateTime createdDate() {
         return createdDate;
     }

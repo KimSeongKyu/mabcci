@@ -56,4 +56,17 @@ class MemberRepositoryTest {
         assertThat(savedMember.id()).isEqualTo(member.id());
     }
 
+    @DisplayName("MemberRepository findByNickname 기능 테스트")
+    @Test
+    void findByNickname_test() {
+        // given
+        testEntityManager.persist(member);
+
+        // when
+        memberRepository.findByNickname(member.nickname());
+
+        // then
+        assertThat(savedMember.id()).isEqualTo(member.id());
+    }
+
 }
