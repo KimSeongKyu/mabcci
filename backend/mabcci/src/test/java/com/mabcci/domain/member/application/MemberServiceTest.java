@@ -15,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -86,6 +89,21 @@ class MemberServiceTest {
         // then
         then(memberRepository).should(times(1)).findByNickname(any());
         assertThat(findMember.isPresent()).isTrue();
+    }
+
+    @DisplayName("MemberService findAll 기능 테스트")
+    @Test
+    void findAll_test() {
+        // given
+        List<Member> memberList = new ArrayList<>(Arrays.asList(member));
+        given(memberRepository.findAll()).willReturn(memberList);
+
+        // when
+        List<Member> members = memberRepository.findAll();
+
+        // then
+        then(memberRepository).should(times(1)).findAll();
+        assertThat(members.size()).isEqualTo(1);
     }
 
 }
