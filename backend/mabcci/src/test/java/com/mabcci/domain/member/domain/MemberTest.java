@@ -1,4 +1,4 @@
-package com.mabcci.member.domain;
+package com.mabcci.domain.member.domain;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -1,4 +1,4 @@
-package com.mabcci.member.domain;
+package com.mabcci.domain.member.domain;
 
 import lombok.Builder;
 
