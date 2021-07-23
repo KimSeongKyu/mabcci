@@ -24,6 +24,13 @@ public class ClaimTest {
         );
     }
 
+    public static Stream<Arguments> provideClaimsAndValuesForGetValueTest() {
+        return Stream.of(
+                Arguments.of(Claim.TOKEN_TYPE, "JWT"),
+                Arguments.of(Claim.HASH_ALGORITHM, "HS256")
+        );
+    }
+
     @DisplayName(value = "생성 테스트")
     @ParameterizedTest(name = "{index}. ENUM TYPE : {0}")
     @MethodSource(value = "provideClaimsForConstructTest")
@@ -41,5 +48,16 @@ public class ClaimTest {
 
         // then
         assertThat(key).isEqualTo(expectedKey);
+    }
+
+    @DisplayName(value = "value 반환 테스트")
+    @ParameterizedTest(name = "{index}. ENUM TYPE : {0} | value : {1}")
+    @MethodSource(value = "provideClaimsAndValuesForGetValueTest")
+    public void getValueTest(Claim claim, String expectedValue) {
+        // when
+        String value = claim.getValue();
+
+        // then
+        assertThat(value).isEqualTo(expectedValue);
     }
 }
