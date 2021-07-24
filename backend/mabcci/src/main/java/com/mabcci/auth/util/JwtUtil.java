@@ -25,14 +25,14 @@ public class JwtUtil {
                 .collect(toMap(Claim::getKey, Claim::getValue));
     }
 
-    public Map<String, Object> createPayload(final String nickName) {
+    public Map<String, Object> createPayload(final TokenType tokenType, final String nickName) {
         final Map<String, Object> payload = Arrays.stream(Claim.values())
                 .filter(claim -> claim.getType().equals(ClaimType.PAYLOAD))
                 .collect(toMap(Claim::getKey, Claim::getValue));
 
         final long currentTime = new Date().getTime();
 
-        payload.put(Claim.EXPIRATION, currentTime + Claim.EXPIRATION_TIME);
+        payload.put(Claim.EXPIRATION, currentTime + tokenType.getExpirationTime());
         payload.put(Claim.NOT_BEFORE, currentTime);
         payload.put(Claim.ISSUED_AT, currentTime);
         payload.put(Claim.NICK_NAME, nickName);
@@ -44,10 +44,10 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String createToken(final String nickName) {
+    public String createToken(final TokenType tokenType, final String nickName) {
         return Jwts.builder()
                 .setHeader(createHeader())
-                .setClaims(createPayload(nickName))
+                .setClaims(createPayload(tokenType, nickName))
                 .signWith(createSecretKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

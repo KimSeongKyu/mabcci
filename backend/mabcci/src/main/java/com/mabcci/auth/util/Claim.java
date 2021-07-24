@@ -17,7 +17,6 @@ public enum Claim {
     public final static String NOT_BEFORE = "nbf";
     public final static String ISSUED_AT = "iat";
     public final static String NICK_NAME = "nickName";
-    public final static long EXPIRATION_TIME = 1000 * 60 * 30;
 
     private final ClaimType type;
     private final String key;
