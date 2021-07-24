@@ -19,6 +19,14 @@ public class JwtUtil {
     private final static String SECRET_KEY =
             "ssafy mabcci team kim kim joe lim choi";
 
+    public String createToken(final TokenType tokenType, final String nickName) {
+        return Jwts.builder()
+                .setHeader(createHeader())
+                .setClaims(createPayload(tokenType, nickName))
+                .signWith(createSecretKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
     public Map<String, Object> createHeader() {
         return Arrays.stream(Claim.values())
                 .filter(claim -> claim.getType().equals(ClaimType.HEADER))
@@ -42,13 +50,5 @@ public class JwtUtil {
 
     public Key createSecretKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
-    }
-
-    public String createToken(final TokenType tokenType, final String nickName) {
-        return Jwts.builder()
-                .setHeader(createHeader())
-                .setClaims(createPayload(tokenType, nickName))
-                .signWith(createSecretKey(), SignatureAlgorithm.HS256)
-                .compact();
     }
 }
