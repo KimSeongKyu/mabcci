@@ -12,6 +12,7 @@ public class JwtUtil {
 
     public Map<String, Object> createHeader() {
         return Arrays.stream(Claim.values())
+                .filter(claim -> claim.getType().equals(ClaimType.HEADER))
                 .collect(toMap(Claim::getKey, Claim::getValue));
     }
 }
