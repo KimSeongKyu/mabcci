@@ -17,6 +17,13 @@ public class TokenTypeTest {
                 .map(tokenType -> Arguments.of(tokenType));
     }
 
+    public static Stream<Arguments> provideTokenTypesAndExpirationTimesForGetExpirationTimeTest() {
+        return Stream.of(
+                Arguments.of(TokenType.ACCESS_TOKEN, 1000 * 60 * 30),
+                Arguments.of(TokenType.REFRESH_TOKEN, 1000 * 60 * 60 * 24 * 7)
+        );
+    }
+
     @DisplayName(value = "생성 테스트")
     @ParameterizedTest(name = "{index}. ENUM TYPE : {0}")
     @MethodSource(value = "provideTokenTypesForConstructTest")
@@ -24,4 +31,16 @@ public class TokenTypeTest {
         // then
         assertThat(tokenType).isNotNull();
     }
+
+    @DisplayName(value = "Expiration time 반환 테스트")
+    @ParameterizedTest(name = "{index}. ENUM TYPE : {0} |  Expiration time : {1}")
+    @MethodSource(value = "provideTokenTypesAndExpirationTimesForGetExpirationTimeTest")
+    public void getExpirationTimeTest(TokenType tokenType, long expectedExpirationTime) {
+        // when
+        long expirationTime = tokenType.getExpirationTime();
+
+        // then
+        assertThat(expirationTime).isEqualTo(expectedExpirationTime);
+    }
+
 }
