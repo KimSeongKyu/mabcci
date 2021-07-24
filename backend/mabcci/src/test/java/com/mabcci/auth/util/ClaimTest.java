@@ -17,6 +17,13 @@ public class ClaimTest {
                 .map(claim -> Arguments.of(claim));
     }
 
+    public static Stream<Arguments> provideClaimsAndTypesForGetTypeTest() {
+        return Stream.of(
+                Arguments.of(Claim.TOKEN_TYPE, ClaimType.HEADER),
+                Arguments.of(Claim.HASH_ALGORITHM, ClaimType.HEADER)
+        );
+    }
+
     public static Stream<Arguments> provideClaimsAndKeysForGetKeyTest() {
         return Stream.of(
                 Arguments.of(Claim.TOKEN_TYPE, "typ"),
@@ -37,6 +44,17 @@ public class ClaimTest {
     public void constructTest(Claim claim) {
         // then
         assertThat(claim).isNotNull();
+    }
+
+    @DisplayName(value = "type 반환 테스트")
+    @ParameterizedTest(name = "{index}. ENUM TYPE : {0} | claim type : {1}")
+    @MethodSource(value = "provideClaimsAndTypesForGetTypeTest")
+    public void getTypeTest(Claim claim, ClaimType expectedType) {
+        // when
+        ClaimType type = claim.getType();
+
+        // then
+        assertThat(type).isEqualTo(expectedType);
     }
 
     @DisplayName(value = "key 반환 테스트")
