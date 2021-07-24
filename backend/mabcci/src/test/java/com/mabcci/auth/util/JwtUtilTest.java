@@ -3,6 +3,7 @@ package com.mabcci.auth.util;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,5 +46,19 @@ public class JwtUtilTest {
 
         // then
         assertThat(payload.keySet()).contains(expectedKeys);
+    }
+
+    @DisplayName(value = "Token 생성 테스트")
+    @Test
+    public void createTokenTest() {
+        // given
+        JwtUtil jwtUtil = new JwtUtil();
+
+        // when
+        String token = jwtUtil.createToken("닉네임");
+
+        // then
+        Arrays.stream(token.split("."))
+                .forEach(tokenSplitByComma -> assertThat(tokenSplitByComma).isBase64());
     }
 }
