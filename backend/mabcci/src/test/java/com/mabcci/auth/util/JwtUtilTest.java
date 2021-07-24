@@ -3,14 +3,23 @@ package com.mabcci.auth.util;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.security.Key;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class JwtUtilTest {
+
+    public static Stream<Arguments> provideTokenTypesForCreatePayloadAndCreateTokenTest() {
+        return Arrays.stream(TokenType.values())
+                .map(tokenType -> Arguments.of(tokenType));
+    }
 
     @DisplayName(value = "생성 테스트")
     @Test
@@ -37,14 +46,15 @@ public class JwtUtilTest {
     }
 
     @DisplayName(value = "Payload 생성 테스트")
-    @Test
-    public void createPayloadTest() {
+    @ParameterizedTest(name = "{index}. Token Type: {0}")
+    @MethodSource(value = "provideTokenTypesForCreatePayloadAndCreateTokenTest")
+    public void createPayloadTest(TokenType tokenType) {
         // given
         JwtUtil jwtUtil = new JwtUtil();
         String[] expectedKeys = new String[]{"iss", "sub", "aud", "exp", "nbf", "iat", "nickName"};
 
         // when
-        Map<String, Object> payload = jwtUtil.createPayload("닉네임");
+        Map<String, Object> payload = jwtUtil.createPayload(tokenType, "닉네임");
 
         // then
         assertThat(payload.keySet()).contains(expectedKeys);
@@ -64,13 +74,14 @@ public class JwtUtilTest {
     }
 
     @DisplayName(value = "Token 생성 테스트")
-    @Test
-    public void createTokenTest() {
+    @ParameterizedTest(name = "{index}. Token Type: {0}")
+    @MethodSource(value = "provideTokenTypesForCreatePayloadAndCreateTokenTest")
+    public void createTokenTest(TokenType tokenType) {
         // given
         JwtUtil jwtUtil = new JwtUtil();
 
         // when
-        String token = jwtUtil.createToken("닉네임");
+        String token = jwtUtil.createToken(tokenType, "닉네임");
 
         // then
         Arrays.stream(token.split("."))
