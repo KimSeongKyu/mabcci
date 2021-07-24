@@ -8,7 +8,10 @@ import lombok.RequiredArgsConstructor;
 public enum Claim {
 
     TOKEN_TYPE(ClaimType.HEADER, "typ", "JWT"),
-    HASH_ALGORITHM(ClaimType.HEADER, "alg", "HS256");
+    HASH_ALGORITHM(ClaimType.HEADER, "alg", "HS256"),
+    ISSUER(ClaimType.PAYLOAD, "iss", "mabcci system"),
+    SUBJECT(ClaimType.PAYLOAD, "sub", "authorize member"),
+    AUDIENCE(ClaimType.PAYLOAD, "aud", "member");
 
     private final ClaimType type;
     private final String key;
