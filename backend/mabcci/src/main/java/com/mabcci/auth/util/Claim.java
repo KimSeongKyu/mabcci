@@ -7,9 +7,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Claim {
 
-    TOKEN_TYPE("typ", "JWT"),
-    HASH_ALGORITHM("alg", "HS256");
+    TOKEN_TYPE(ClaimType.HEADER, "typ", "JWT"),
+    HASH_ALGORITHM(ClaimType.HEADER, "alg", "HS256");
 
+    private final ClaimType type;
     private final String key;
     private final String value;
 }
