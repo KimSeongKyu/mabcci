@@ -1,5 +1,8 @@
 package com.mabcci.auth.util;
 
+import com.mabcci.auth.domain.Claim;
+import com.mabcci.auth.domain.ClaimType;
+import com.mabcci.auth.domain.TokenType;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;

@@ -1,4 +1,4 @@
-package com.mabcci.auth.util;
+package com.mabcci.auth.domain;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

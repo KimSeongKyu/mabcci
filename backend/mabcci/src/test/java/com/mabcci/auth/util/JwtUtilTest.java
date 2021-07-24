@@ -1,5 +1,6 @@
 package com.mabcci.auth.util;
 
+import com.mabcci.auth.domain.TokenType;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
