@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.toMap;
 public class JwtUtil {
 
     private final static String SECRET_KEY =
-            "creative economy innovation services infrastructure fourth industrial revolution";
+            "ssafy mabcci team kim kim joe lim choi";
 
     public Map<String, Object> createHeader() {
         return Arrays.stream(Claim.values())
@@ -40,13 +40,15 @@ public class JwtUtil {
         return payload;
     }
 
-    public String createToken(final String nickName) {
-        Key secretKey = Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
+    public Key createSecretKey() {
+        return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
+    }
 
+    public String createToken(final String nickName) {
         return Jwts.builder()
                 .setHeader(createHeader())
                 .setClaims(createPayload(nickName))
-                .signWith(secretKey, SignatureAlgorithm.HS256)
+                .signWith(createSecretKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 }
