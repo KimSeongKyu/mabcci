@@ -11,8 +11,6 @@ import static java.util.stream.Collectors.toMap;
 @NoArgsConstructor
 public class JwtUtil {
 
-    private final static long EXPIRATION_TIME = 1000 * 60 * 30;
-
     public Map<String, Object> createHeader() {
         return Arrays.stream(Claim.values())
                 .filter(claim -> claim.getType().equals(ClaimType.HEADER))
@@ -26,10 +24,10 @@ public class JwtUtil {
 
         final long currentTime = new Date().getTime();
 
-        payload.put("exp", currentTime + EXPIRATION_TIME);
-        payload.put("nbf", currentTime);
-        payload.put("iat", currentTime);
-        payload.put("nickName", nickName);
+        payload.put(Claim.EXPIRATION, currentTime + Claim.EXPIRATION_TIME);
+        payload.put(Claim.NOT_BEFORE, currentTime);
+        payload.put(Claim.ISSUED_AT, currentTime);
+        payload.put(Claim.NICK_NAME, nickName);
 
         return payload;
     }
