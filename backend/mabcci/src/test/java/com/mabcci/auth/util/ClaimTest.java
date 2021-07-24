@@ -20,21 +20,30 @@ public class ClaimTest {
     public static Stream<Arguments> provideClaimsAndTypesForGetTypeTest() {
         return Stream.of(
                 Arguments.of(Claim.TOKEN_TYPE, ClaimType.HEADER),
-                Arguments.of(Claim.HASH_ALGORITHM, ClaimType.HEADER)
+                Arguments.of(Claim.HASH_ALGORITHM, ClaimType.HEADER),
+                Arguments.of(Claim.ISSUER, ClaimType.PAYLOAD),
+                Arguments.of(Claim.SUBJECT, ClaimType.PAYLOAD),
+                Arguments.of(Claim.AUDIENCE, ClaimType.PAYLOAD)
         );
     }
 
     public static Stream<Arguments> provideClaimsAndKeysForGetKeyTest() {
         return Stream.of(
                 Arguments.of(Claim.TOKEN_TYPE, "typ"),
-                Arguments.of(Claim.HASH_ALGORITHM, "alg")
+                Arguments.of(Claim.HASH_ALGORITHM, "alg"),
+                Arguments.of(Claim.ISSUER, "iss"),
+                Arguments.of(Claim.SUBJECT, "sub"),
+                Arguments.of(Claim.AUDIENCE, "aud")
         );
     }
 
     public static Stream<Arguments> provideClaimsAndValuesForGetValueTest() {
         return Stream.of(
                 Arguments.of(Claim.TOKEN_TYPE, "JWT"),
-                Arguments.of(Claim.HASH_ALGORITHM, "HS256")
+                Arguments.of(Claim.HASH_ALGORITHM, "HS256"),
+                Arguments.of(Claim.ISSUER, "mabcci system"),
+                Arguments.of(Claim.SUBJECT, "authorize member"),
+                Arguments.of(Claim.AUDIENCE, "member")
         );
     }
 
