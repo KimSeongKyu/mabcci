@@ -32,4 +32,18 @@ public class JwtUtilTest {
         // then
         assertThat(header.keySet()).containsExactly(expectedKeys);
     }
+
+    @DisplayName(value = "Payload 생성 테스트")
+    @Test
+    public void createPayloadTest() {
+        // given
+        JwtUtil jwtUtil = new JwtUtil();
+        String[] expectedKeys = new String[]{"iss", "sub", "aud", "exp", "nbf", "iat", "nickName"};
+
+        // when
+        Map<String, Object> payload = jwtUtil.createPayload("닉네임");
+
+        // then
+        assertThat(payload.keySet()).contains(expectedKeys);
+    }
 }
