@@ -1,8 +1,10 @@
 package com.mabcci.auth.util;
 
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.security.Key;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -46,6 +48,19 @@ public class JwtUtilTest {
 
         // then
         assertThat(payload.keySet()).contains(expectedKeys);
+    }
+
+    @DisplayName(value = "Secret key 생성 테스트")
+    @Test
+    public void createSecretKeyTest() {
+        // given
+        JwtUtil jwtUtil = new JwtUtil();
+
+        // when
+        Key key = jwtUtil.createSecretKey();
+
+        // then
+        assertThat(key.getAlgorithm()).isEqualTo(SignatureAlgorithm.HS256.getJcaName());
     }
 
     @DisplayName(value = "Token 생성 테스트")
