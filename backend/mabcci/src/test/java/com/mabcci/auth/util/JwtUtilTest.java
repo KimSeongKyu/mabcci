@@ -52,10 +52,10 @@ public class JwtUtilTest {
     public void createPayloadTest(TokenType tokenType) {
         // given
         JwtUtil jwtUtil = new JwtUtil();
-        String[] expectedKeys = new String[]{"iss", "sub", "aud", "exp", "nbf", "iat", "nickName"};
+        String[] expectedKeys = new String[]{"iss", "sub", "aud", "exp", "nbf", "iat", "email"};
 
         // when
-        Map<String, Object> payload = jwtUtil.createPayload(tokenType, "닉네임");
+        Map<String, Object> payload = jwtUtil.createPayload(tokenType, "이메일");
 
         // then
         assertThat(payload.keySet()).contains(expectedKeys);
