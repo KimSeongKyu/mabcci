@@ -19,4 +19,18 @@ public class LogoutRequestDtoTest {
         // then
         assertThat(logoutRequestDto).isNotNull();
     }
+
+    @DisplayName(value = "email 반환 테스트")
+    @Test
+    public void getEmailTest() {
+        // given
+        String expectedEmail = "example@example.com";
+        LogoutRequestDto logoutRequestDto = new LogoutRequestDto(expectedEmail);
+
+        // when
+        String email = logoutRequestDto.getEmail();
+
+        // then
+        assertThat(email).isEqualTo(expectedEmail);
+    }
 }
