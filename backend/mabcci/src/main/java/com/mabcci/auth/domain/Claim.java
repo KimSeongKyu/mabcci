@@ -16,7 +16,7 @@ public enum Claim {
     public final static String EXPIRATION = "exp";
     public final static String NOT_BEFORE = "nbf";
     public final static String ISSUED_AT = "iat";
-    public final static String NICK_NAME = "nickName";
+    public final static String EMAIL = "email";
 
     private final ClaimType type;
     private final String key;
