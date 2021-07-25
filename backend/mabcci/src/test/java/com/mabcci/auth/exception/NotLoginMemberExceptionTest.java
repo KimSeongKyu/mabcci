@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class NotLoginMemberExceptionTest {
 
@@ -18,5 +19,21 @@ public class NotLoginMemberExceptionTest {
 
         // then
         assertThat(notLoginMemberException).isNotNull();
+    }
+
+    @DisplayName(value = "toString 테스트")
+    @Test
+    public void toStringTest() {
+        // given
+        String email = "example@example.com";
+        NotLoginMemberException notLoginMemberException = new NotLoginMemberException(email);
+
+        String expectedToString = email + " : 로그인된 계정이 아닙니다.";
+
+        // when
+        String toString = notLoginMemberException.toString();
+
+        // then
+        assertThat(toString).isEqualTo(expectedToString);
     }
 }
