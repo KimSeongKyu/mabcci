@@ -1,5 +1,6 @@
 package com.mabcci.auth.controller;
 
+import com.mabcci.auth.dto.LogoutRequestDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
