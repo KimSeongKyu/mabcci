@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -23,9 +24,9 @@ public class AuthServiceTest {
     @Mock
     private RefreshTokenRepository refreshTokenRepository;
 
-    @DisplayName(value = "로그아웃 테스트")
+    @DisplayName(value = "로그아웃 성공 테스트")
     @Test
-    public void logoutTest() {
+    public void logoutSuccessTest() {
         // given
         RefreshToken refreshToken = RefreshToken.builder()
                 .email("example@example.com")
@@ -40,5 +41,17 @@ public class AuthServiceTest {
         // then
         verify(refreshTokenRepository, times(1)).findById(any());
         verify(refreshTokenRepository, times(1)).delete(any());
+    }
+
+    @DisplayName(value = "로그아웃 실패 테스트")
+    @Test
+    public void logoutFailTest() {
+        // given
+        String email = "example@example.com";
+
+        // when and then
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+            authService.logout(email);
+        });
     }
 }
