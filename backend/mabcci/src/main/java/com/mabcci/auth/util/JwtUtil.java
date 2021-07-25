@@ -41,9 +41,9 @@ public class JwtUtil {
                 .filter(claim -> claim.getType().equals(ClaimType.PAYLOAD))
                 .collect(toMap(Claim::getKey, Claim::getValue));
 
-        final long currentTime = new Date().getTime();
+        final Date currentTime = new Date();
 
-        payload.put(Claim.EXPIRATION, currentTime + tokenType.getExpirationTime());
+        payload.put(Claim.EXPIRATION, currentTime.getTime() + tokenType.getExpirationTime());
         payload.put(Claim.NOT_BEFORE, currentTime);
         payload.put(Claim.ISSUED_AT, currentTime);
         payload.put(Claim.EMAIL, email);
