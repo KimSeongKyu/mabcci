@@ -103,4 +103,19 @@ public class JwtUtilTest {
         // then
         assertThat(validity).isTrue();
     }
+
+    @DisplayName(value = "유효하지 않은 토큰 검증 테스트")
+    @ParameterizedTest(name = "{index}. Token Type: {0}")
+    @MethodSource(value = "provideTokenTypesForTestsAboutToken")
+    public void isNotValidTokenTest(TokenType tokenType) {
+        // given
+        JwtUtil jwtUtil = new JwtUtil();
+        String token = "invalid.test.token";
+
+        // when
+        boolean validity = jwtUtil.isValidToken(token);
+
+        // then
+        assertThat(validity).isFalse();
+    }
 }
