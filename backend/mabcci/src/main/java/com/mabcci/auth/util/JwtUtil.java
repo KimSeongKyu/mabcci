@@ -54,4 +54,16 @@ public class JwtUtil {
     public Key createSecretKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
     }
+
+    public boolean isValidToken(final String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(createSecretKey())
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
