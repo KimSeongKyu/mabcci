@@ -1,11 +1,17 @@
 package com.mabcci.auth.dto;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class LogoutRequestDto {
 
-    private final String email;
+    private String email;
+
+    @Builder
+    public LogoutRequestDto(final String email) {
+        this.email = email;
+    }
 }
