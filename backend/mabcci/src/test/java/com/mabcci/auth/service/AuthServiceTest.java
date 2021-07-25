@@ -2,6 +2,7 @@ package com.mabcci.auth.service;
 
 import com.mabcci.auth.domain.RefreshToken;
 import com.mabcci.auth.domain.RefreshTokenRepository;
+import com.mabcci.auth.exception.NotLoginMemberException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -50,7 +51,7 @@ public class AuthServiceTest {
         String email = "example@example.com";
 
         // when and then
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+        assertThatExceptionOfType(NotLoginMemberException.class).isThrownBy(() -> {
             authService.logout(email);
         });
     }

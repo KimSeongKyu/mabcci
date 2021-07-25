@@ -2,6 +2,7 @@ package com.mabcci.auth.service;
 
 import com.mabcci.auth.domain.RefreshToken;
 import com.mabcci.auth.domain.RefreshTokenRepository;
+import com.mabcci.auth.exception.NotLoginMemberException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,7 @@ public class AuthService {
     @Transactional
     public void logout(final String email) {
         RefreshToken refreshToken = refreshTokenRepository.findById(email)
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new NotLoginMemberException(email));
 
         refreshTokenRepository.delete(refreshToken);
     }
