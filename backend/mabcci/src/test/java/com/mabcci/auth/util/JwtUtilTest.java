@@ -55,7 +55,7 @@ public class JwtUtilTest {
         String[] expectedKeys = new String[]{"iss", "sub", "aud", "exp", "nbf", "iat", "email"};
 
         // when
-        Map<String, Object> payload = jwtUtil.createPayload(tokenType, "이메일");
+        Map<String, Object> payload = jwtUtil.createPayload(tokenType, "example@example.com");
 
         // then
         assertThat(payload.keySet()).contains(expectedKeys);
@@ -82,7 +82,7 @@ public class JwtUtilTest {
         JwtUtil jwtUtil = new JwtUtil();
 
         // when
-        String token = jwtUtil.createToken(tokenType, "닉네임");
+        String token = jwtUtil.createToken(tokenType, "example@example.com");
 
         // then
         Arrays.stream(token.split("."))
@@ -95,7 +95,7 @@ public class JwtUtilTest {
     public void isValidTokenTest(TokenType tokenType) {
         // given
         JwtUtil jwtUtil = new JwtUtil();
-        String token = jwtUtil.createToken(tokenType, "닉네임");
+        String token = jwtUtil.createToken(tokenType, "example@example.com");
 
         // when
         boolean validity = jwtUtil.isValidToken(token);
