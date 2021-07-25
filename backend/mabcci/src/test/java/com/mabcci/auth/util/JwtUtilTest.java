@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class JwtUtilTest {
 
-    public static Stream<Arguments> provideTokenTypesForCreatePayloadAndCreateTokenTest() {
+    public static Stream<Arguments> provideTokenTypesForTestsAboutToken() {
         return Arrays.stream(TokenType.values())
                 .map(tokenType -> Arguments.of(tokenType));
     }
@@ -48,7 +48,7 @@ public class JwtUtilTest {
 
     @DisplayName(value = "Payload 생성 테스트")
     @ParameterizedTest(name = "{index}. Token Type: {0}")
-    @MethodSource(value = "provideTokenTypesForCreatePayloadAndCreateTokenTest")
+    @MethodSource(value = "provideTokenTypesForTestsAboutToken")
     public void createPayloadTest(TokenType tokenType) {
         // given
         JwtUtil jwtUtil = new JwtUtil();
@@ -76,7 +76,7 @@ public class JwtUtilTest {
 
     @DisplayName(value = "Token 생성 테스트")
     @ParameterizedTest(name = "{index}. Token Type: {0}")
-    @MethodSource(value = "provideTokenTypesForCreatePayloadAndCreateTokenTest")
+    @MethodSource(value = "provideTokenTypesForTestsAboutToken")
     public void createTokenTest(TokenType tokenType) {
         // given
         JwtUtil jwtUtil = new JwtUtil();
@@ -87,5 +87,20 @@ public class JwtUtilTest {
         // then
         Arrays.stream(token.split("."))
                 .forEach(tokenSplitByComma -> assertThat(tokenSplitByComma).isBase64());
+    }
+
+    @DisplayName(value = "유효한 토큰 검증 테스트")
+    @ParameterizedTest(name = "{index}. Token Type: {0}")
+    @MethodSource(value = "provideTokenTypesForTestsAboutToken")
+    public void isValidTokenTest(TokenType tokenType) {
+        // given
+        JwtUtil jwtUtil = new JwtUtil();
+        String token = jwtUtil.createToken(tokenType, "닉네임");
+
+        // when
+        boolean validity = jwtUtil.isValidToken(token);
+
+        // then
+        assertThat(validity).isTrue();
     }
 }
