@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mabcci.auth.dto.LogoutRequestDto;
 import com.mabcci.auth.exception.NotLoginMemberException;
 import com.mabcci.auth.service.AuthService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,12 +14,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest
@@ -51,6 +55,28 @@ public class AuthControllerTest {
                 .content(logoutRequestDto)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
                 .andExpect(status().isOk());
+    }
+
+    @DisplayName(value = "로그아웃 API 실패 테스트")
+    @Test
+    public void logoutFailTest() throws Exception {
+        // given
+        String api = "/auth/logout";
+        String email = "example@example.com";
+        String logoutRequestDto = objectMapper.writeValueAsString(
+                LogoutRequestDto.builder()
+                        .email(email)
+                        .build());
+
+        doThrow(NotLoginMemberException.class).when(authService).logout(email);
+
+        // when and then
+        mockMvc.perform(post(api)
+                .content(logoutRequestDto)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
     }
 }
