@@ -1,9 +1,7 @@
 package com.mabcci.domain.member.dto;
 
-import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
-
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -31,5 +29,7 @@ public class MemberResponseDto {
         this.nickname = nickname;
         this.role = role;
     }
+
+
 
 }

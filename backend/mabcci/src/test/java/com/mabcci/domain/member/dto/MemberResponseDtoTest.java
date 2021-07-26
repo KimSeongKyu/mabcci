@@ -25,4 +25,18 @@ class MemberResponseDtoTest {
                 () -> assertThat(memberResponseDto).isExactlyInstanceOf(MemberResponseDto.class)
         );
     }
+
+    @DisplayName("MemberResponse 인스턴스 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        // when
+        MemberResponseDto memberResponseDto = new MemberResponseDto(ID, NICKNAME, ROLE);
+
+        // then
+        assertAll(
+                () -> assertThat(memberResponseDto.getId()).isEqualTo(ID),
+                () -> assertThat(memberResponseDto.getNickName()).isEqualTo(NICKNAME),
+                () -> assertThat(memberResponseDto.getRole()).isEqualTo(ROLE)
+        );
+    }
 }
