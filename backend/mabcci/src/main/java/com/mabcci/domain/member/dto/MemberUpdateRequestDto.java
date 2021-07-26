@@ -4,8 +4,11 @@ import com.mabcci.domain.member.domain.Gender;
 
 public class MemberUpdateRequestDto {
 
-    private final String nickname;
-    private final Gender gender;
+    private String nickname;
+    private Gender gender;
+
+    private MemberUpdateRequestDto() {
+    }
 
     public MemberUpdateRequestDto(String nickname, Gender gender) {
         this.nickname = nickname;

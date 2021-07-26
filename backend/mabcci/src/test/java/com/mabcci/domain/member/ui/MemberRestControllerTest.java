@@ -22,8 +22,7 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -112,7 +111,7 @@ class MemberRestControllerTest {
         String updateRequestDtoString = objectMapper.writeValueAsString(updateRequestDto);
         String memberResponseDtoString = objectMapper.writeValueAsString(memberResponseDto);
 
-        mvc.perform(get("/api/members")
+        mvc.perform(put("/api/members/"+NICKNAME)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(updateRequestDtoString))
                 .andExpect(status().isOk())

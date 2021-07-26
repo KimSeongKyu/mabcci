@@ -3,6 +3,7 @@ package com.mabcci.domain.member.ui;
 import com.mabcci.domain.member.application.MemberService;
 import com.mabcci.domain.member.dto.JoinRequestDto;
 import com.mabcci.domain.member.dto.MemberResponseDto;
+import com.mabcci.domain.member.dto.MemberUpdateRequestDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,13 @@ public class MemberRestController {
         List<MemberResponseDto> members = memberService.findAll();
         validateNull(members);
         return ResponseEntity.ok().body(members);
+    }
+
+    @PutMapping("/api/members/{nickname}")
+    public ResponseEntity<?> update(@RequestBody MemberUpdateRequestDto updateRequestDto) {
+        MemberResponseDto memberResponseDto = memberService.update(updateRequestDto);
+        validateNull(memberResponseDto);
+        return ResponseEntity.ok().body(memberResponseDto);
     }
 
     private void validateNull(Object object) {
