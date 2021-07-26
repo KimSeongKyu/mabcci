@@ -24,22 +24,20 @@ public class JwtUtil {
 
     public String createToken(final TokenType tokenType, final String email) {
         return Jwts.builder()
-                .setHeader(createHeader())
+                .setHeader(createClaim(ClaimType.HEADER))
                 .setClaims(createPayload(tokenType, email))
                 .signWith(createSecretKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public Map<String, Object> createHeader() {
+    public Map<String, Object> createClaim(final ClaimType claimType) {
         return Arrays.stream(Claim.values())
-                .filter(claim -> claim.getType().equals(ClaimType.HEADER))
+                .filter(claim -> claim.getType().equals(claimType))
                 .collect(toMap(Claim::getKey, Claim::getValue));
     }
 
     public Map<String, Object> createPayload(final TokenType tokenType, final String email) {
-        final Map<String, Object> payload = Arrays.stream(Claim.values())
-                .filter(claim -> claim.getType().equals(ClaimType.PAYLOAD))
-                .collect(toMap(Claim::getKey, Claim::getValue));
+        final Map<String, Object> payload = createClaim(ClaimType.PAYLOAD);
 
         final Date currentTime = new Date();
 
