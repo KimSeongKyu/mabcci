@@ -7,6 +7,7 @@ import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.domain.member.dto.JoinRequestDto;
 import com.mabcci.domain.member.dto.MemberResponseDto;
+import com.mabcci.domain.member.dto.MemberUpdateRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -99,5 +100,22 @@ class MemberRestControllerTest {
         mvc.perform(get("/api/members"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(memberResponseDtosString));
+    }
+
+    @DisplayName("MemberRestController update 메서드 테스트")
+    @Test
+    public void update_test() throws Exception {
+        MemberResponseDto memberResponseDto = new MemberResponseDto(member);
+        MemberUpdateRequestDto updateRequestDto = new MemberUpdateRequestDto(NICKNAME, GENDER);
+        given(memberService.update(any())).willReturn(memberResponseDto);
+
+        String updateRequestDtoString = objectMapper.writeValueAsString(updateRequestDto);
+        String memberResponseDtoString = objectMapper.writeValueAsString(memberResponseDto);
+
+        mvc.perform(get("/api/members")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updateRequestDtoString))
+                .andExpect(status().isOk())
+                .andExpect(content().json(memberResponseDtoString));
     }
 }
