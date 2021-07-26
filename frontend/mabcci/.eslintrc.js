@@ -1,6 +1,4 @@
-/* eslint-disable */;
-
-module.exports = {
+/* eslint-disable */ module.exports = {
   env: {
     browser: true,
     es6: true,
@@ -15,5 +13,6 @@ module.exports = {
       },
     ],
     'no-console': 0,
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
   },
 };

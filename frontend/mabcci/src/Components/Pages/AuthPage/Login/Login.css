@@ -1,0 +1,24 @@
+#container {
+  min-width: 320px;
+  max-width: 768px;
+  min-height: 100%;
+  margin: 0 auto;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+}
+
+#container-login {
+  min-height: 1000px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+#container-item {
+  text-align: center;
+}
