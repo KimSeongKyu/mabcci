@@ -98,11 +98,36 @@ button {
   color: white;
 }
 
+/* 스타일 카테고리 이미지 같이 사용해야 함 */
+.btn-style {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  cursor: pointer;
+  background-color: var(--main-color-3);
+  box-shadow: 3px 3px 3px grey;
+  position: relative;
+}
+
+/* 이미지 속성 */
+.btn-style img {
+  width: 70px;
+  height: 50px;
+  position: absolute;
+  top: 5px;
+  left: 0;
+}
+
+.btn-style.active {
+  background-color: var(--main-color-1);
+}
+
 .btn:active,
 .btn-sm:active,
 .btn-rounded:active,
 .btn-rounded-sm:active,
-.btn-util:active {
+.btn-util:active,
+.btn-style:active {
   padding-left: 3px;
   padding-top: 3px;
   box-shadow: none;
