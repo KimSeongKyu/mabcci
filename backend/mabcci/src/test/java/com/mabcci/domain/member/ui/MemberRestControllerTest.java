@@ -17,11 +17,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Collections;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = MemberRestController.class)
@@ -34,7 +36,7 @@ class MemberRestControllerTest {
     private MockMvc mvc;
 
     @MockBean
-    MemberService memberService;
+    private MemberService memberService;
 
     private Member member;
 
@@ -56,6 +58,7 @@ class MemberRestControllerTest {
                 .build();
     }
 
+
     @DisplayName("MemberRestController join 메서드 테스트")
     @Test
     public void join_test() throws Exception {
@@ -75,9 +78,13 @@ class MemberRestControllerTest {
     @Test
     public void findAll_test() throws Exception {
         MemberResponseDto memberResponseDto = new MemberResponseDto(member);
-        given(memberService.findAll()).willReturn(Collections.singletonList(memberResponseDto));
+        List<MemberResponseDto> memberResponseDtos = Collections.singletonList(memberResponseDto);
+        given(memberService.findAll()).willReturn(memberResponseDtos);
+
+        String memberResponseDtosString = objectMapper.writeValueAsString(memberResponseDtos);
 
         mvc.perform(get("/api/members"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().json(memberResponseDtosString));
     }
 }

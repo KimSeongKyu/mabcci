@@ -10,19 +10,22 @@ import javax.validation.constraints.NotNull;
 public class JoinRequestDto {
 
     @Email
-    private final String email;
+    private String email;
 
     @NotNull
-    private final String password;
+    private String password;
 
     @NotNull
-    private final String nickname;
+    private String nickname;
 
     @NotNull
-    private final String phone;
+    private String phone;
 
     @NotNull
-    private final Gender gender;
+    private Gender gender;
+
+    private JoinRequestDto() {
+    }
 
     public JoinRequestDto(String email, String password, String nickname, String phone, Gender gender) {
         this.email = email;

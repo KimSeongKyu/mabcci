@@ -4,7 +4,6 @@ import com.mabcci.global.common.BaseTimeEntity;
 import lombok.Builder;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 
 @Entity
 public class Member extends BaseTimeEntity {
