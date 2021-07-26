@@ -7,7 +7,7 @@ import com.mabcci.domain.member.domain.MemberRole;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
-public class MemberSaveDto {
+public class JoinRequestDto {
 
     @Email
     private final String email;
@@ -24,7 +24,7 @@ public class MemberSaveDto {
     @NotNull
     private final Gender gender;
 
-    public MemberSaveDto(String email, String password, String nickname, String phone, Gender gender) {
+    public JoinRequestDto(String email, String password, String nickname, String phone, Gender gender) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;

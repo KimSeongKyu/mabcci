@@ -14,7 +14,6 @@ public class Member extends BaseTimeEntity {
     @Id
     private Long id;
 
-    @Email
     @Column(name = "MEMBER_EMAIL", nullable = false, unique = true)
     private String email;
 
@@ -60,4 +59,7 @@ public class Member extends BaseTimeEntity {
         return nickname;
     }
 
+    public MemberRole role() {
+        return role;
+    }
 }
