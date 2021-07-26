@@ -6,10 +6,7 @@ import com.mabcci.domain.member.dto.MemberResponseDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -29,6 +26,13 @@ public class MemberRestController {
         MemberResponseDto joinedResponseDto = memberService.join(joinRequestDto.entity());
         validateNull(joinedResponseDto);
         return ResponseEntity.ok().body(joinedResponseDto);
+    }
+
+    @GetMapping("/api/members/{nickname}")
+    public ResponseEntity<?> findByNickname(@PathVariable String nickname) {
+        MemberResponseDto memberResponseDto = memberService.findByNickName(nickname);
+        validateNull(memberResponseDto);
+        return ResponseEntity.ok().body(memberResponseDto);
     }
 
     @GetMapping("/api/members")
