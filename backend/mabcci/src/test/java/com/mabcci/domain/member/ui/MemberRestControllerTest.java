@@ -74,6 +74,19 @@ class MemberRestControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @DisplayName("MemberRestController findByNickname 메서드 테스트")
+    @Test
+    public void findByNickname_test() throws Exception {
+        MemberResponseDto memberResponseDto = new MemberResponseDto(member);
+        given(memberService.findByNickName(any())).willReturn(memberResponseDto);
+        String memberResponseDtoString = objectMapper.writeValueAsString(memberResponseDto);
+
+        mvc.perform(get("/api/members/"+NICKNAME))
+                .andExpect(status().isOk())
+                .andExpect(content().json(memberResponseDtoString));
+    }
+
+
     @DisplayName("MemberRestController findAll 메서드 테스트")
     @Test
     public void findAll_test() throws Exception {
