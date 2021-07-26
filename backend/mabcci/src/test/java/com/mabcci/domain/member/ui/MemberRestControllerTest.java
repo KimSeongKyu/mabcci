@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -116,5 +117,12 @@ class MemberRestControllerTest {
                 .content(updateRequestDtoString))
                 .andExpect(status().isOk())
                 .andExpect(content().json(memberResponseDtoString));
+    }
+
+    @DisplayName("MemberRestController delete 메서드 테스트")
+    @Test
+    public void delete_test() throws Exception {
+        mvc.perform(delete("/api/members/"+NICKNAME))
+                .andExpect(status().isOk());
     }
 }
