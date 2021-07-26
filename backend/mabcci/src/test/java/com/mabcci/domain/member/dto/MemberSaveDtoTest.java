@@ -29,4 +29,21 @@ class MemberSaveDtoTest {
         );
 
     }
+
+    @DisplayName("MemberSaveDto 인스턴스 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        // when
+        MemberSaveDto memberSaveDto = new MemberSaveDto(email, password, nickname, phone, gender);
+
+        // then
+        assertAll(
+                () -> assertThat(memberSaveDto.getEmail()).isEqualTo(email),
+                () -> assertThat(memberSaveDto.getPassword()).isEqualTo(password),
+                () -> assertThat(memberSaveDto.getNickname()).isEqualTo(nickname),
+                () -> assertThat(memberSaveDto.getPhone()).isEqualTo(phone),
+                () -> assertThat(memberSaveDto.getGender()).isEqualTo(gender)
+        );
+
+    }
 }
