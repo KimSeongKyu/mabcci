@@ -13,10 +13,10 @@ public enum Claim {
     SUBJECT(ClaimType.PAYLOAD, "sub", "authorize member"),
     AUDIENCE(ClaimType.PAYLOAD, "aud", "member");
 
-    public final static String EXPIRATION = "exp";
-    public final static String NOT_BEFORE = "nbf";
-    public final static String ISSUED_AT = "iat";
-    public final static String EMAIL = "email";
+    public final static String EXPIRATION_KEY = "exp";
+    public final static String NOT_BEFORE_KEY = "nbf";
+    public final static String ISSUED_AT_KEY = "iat";
+    public final static String EMAIL_KEY = "email";
 
     private final ClaimType type;
     private final String key;

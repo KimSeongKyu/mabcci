@@ -41,10 +41,10 @@ public class JwtUtil {
 
         final Date currentTime = new Date();
 
-        payload.put(Claim.EXPIRATION, currentTime.getTime() + tokenType.getExpirationTime());
-        payload.put(Claim.NOT_BEFORE, currentTime);
-        payload.put(Claim.ISSUED_AT, currentTime);
-        payload.put(Claim.EMAIL, email);
+        payload.put(Claim.EXPIRATION_KEY, currentTime.getTime() + tokenType.getExpirationTime());
+        payload.put(Claim.NOT_BEFORE_KEY, currentTime);
+        payload.put(Claim.ISSUED_AT_KEY, currentTime);
+        payload.put(Claim.EMAIL_KEY, email);
 
         return payload;
     }
