@@ -1,7 +1,6 @@
 package com.mabcci.auth.controller;
 
 import com.mabcci.auth.dto.LogoutRequestDto;
-import com.mabcci.auth.exception.NotLoginMemberException;
 import com.mabcci.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +18,7 @@ public class AuthController {
 
     @PostMapping("/logout")
     public ResponseEntity logout(@RequestBody final LogoutRequestDto logoutRequestDto) {
-        try {
-            authService.logout(logoutRequestDto.getEmail());
-        } catch (NotLoginMemberException notLoginMemberException) {
-            return ResponseEntity.badRequest().body(notLoginMemberException.toString());
-        }
-
-        return ResponseEntity.ok().build();
+        authService.logout(logoutRequestDto.getEmail());
+        return ResponseEntity.noContent().build();
     }
 }
