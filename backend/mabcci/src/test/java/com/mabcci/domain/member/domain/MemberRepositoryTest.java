@@ -109,7 +109,7 @@ class MemberRepositoryTest {
 
         // when
         memberRepository.delete(savedMember);
-        Optional<Member> findMember =  memberRepository.findById(savedMember.id());
+        Optional<Member> findMember = memberRepository.findById(savedMember.id());
 
         // then
         assertThat(findMember.isPresent()).isFalse();

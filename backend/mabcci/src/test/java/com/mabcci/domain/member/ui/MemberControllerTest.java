@@ -92,7 +92,7 @@ class MemberControllerTest {
         String memberResponseDtoString = objectMapper.writeValueAsString(memberResponseDto);
 
         // when and then
-        mvc.perform(get("/api/members/"+NICKNAME))
+        mvc.perform(get("/api/members/" + NICKNAME))
                 .andExpect(status().isOk())
                 .andExpect(content().json(memberResponseDtoString));
     }
@@ -126,7 +126,7 @@ class MemberControllerTest {
         String memberResponseDtoString = objectMapper.writeValueAsString(memberResponseDto);
 
         // when and then
-        mvc.perform(put("/api/members/"+NICKNAME)
+        mvc.perform(put("/api/members/" + NICKNAME)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(updateRequestDtoString))
                 .andExpect(status().isOk())
@@ -143,7 +143,7 @@ class MemberControllerTest {
         String memberDeleteRequestDtoString = objectMapper.writeValueAsString(memberDeleteRequestDto);
 
         // when and then
-        mvc.perform(delete("/api/members/"+NICKNAME)
+        mvc.perform(delete("/api/members/" + NICKNAME)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(memberDeleteRequestDtoString))
                 .andExpect(status().isOk());

@@ -56,7 +56,7 @@ public class MemberController {
     }
 
     private void validateNull(Object object) {
-        if(Objects.isNull(object)) {
+        if (Objects.isNull(object)) {
             throw new AssertionError();
         }
     }
