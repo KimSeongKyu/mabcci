@@ -11,7 +11,7 @@ class MemberDeleteRequestDtoTest {
     private static final String NICKNAME = "nickname";
     private static final String PASSWORD = "password";
 
-    @DisplayName("MemberDeleteRequestDto 인스턴스 생성 여부")
+    @DisplayName("MemberDeleteRequestDto 인스턴스 생성 여부 테스트")
     @Test
     void initialize() {
         MemberDeleteRequestDto memberDeleteRequestDto = new MemberDeleteRequestDto(NICKNAME, PASSWORD);
@@ -20,5 +20,16 @@ class MemberDeleteRequestDtoTest {
                 () -> assertThat(memberDeleteRequestDto).isExactlyInstanceOf(MemberUpdateRequestDto.class)
         );
     }
+
+    @DisplayName("MemberDeleteRequestDto 인스턴스 getter 메서드 테스트")
+    @Test
+    void getter_test() {
+        MemberDeleteRequestDto memberDeleteRequestDto = new MemberDeleteRequestDto(NICKNAME, PASSWORD);
+        assertAll(
+                () -> assertThat(memberDeleteRequestDto.getNickname()).isEqualTo(NICKNAME),
+                () -> assertThat(memberDeleteRequestDto.getPassword()).isEqualTo(PASSWORD)
+        );
+    }
+
 
 }
