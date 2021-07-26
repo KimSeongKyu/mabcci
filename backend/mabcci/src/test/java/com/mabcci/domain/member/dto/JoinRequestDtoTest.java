@@ -16,7 +16,7 @@ class JoinRequestDtoTest {
     private String phone = "01012345678";
     private Gender gender = Gender.MALE;
 
-    @DisplayName("MemberSaveDto 인스턴스 생성 여부 테스트")
+    @DisplayName("JoinRequestDto 인스턴스 생성 여부 테스트")
     @Test
     void initialize() {
         // when
@@ -30,7 +30,7 @@ class JoinRequestDtoTest {
 
     }
 
-    @DisplayName("MemberSaveDto 인스턴스 getter 메서드들 테스트")
+    @DisplayName("JoinRequestDto 인스턴스 getter 메서드들 테스트")
     @Test
     void getter_test() {
         // given
@@ -47,7 +47,7 @@ class JoinRequestDtoTest {
 
     }
 
-    @DisplayName("MemberSaveDto 인스턴스 Member 엔티티로 변환 메서드 테스트")
+    @DisplayName("JoinRequestDto 인스턴스 Member 엔티티로 변환 메서드 테스트")
     @Test
     void entity_test() {
         // given

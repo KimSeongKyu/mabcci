@@ -1,5 +1,6 @@
 package com.mabcci.domain.member.dto;
 
+import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.MemberRole;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,14 +11,16 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class MemberResponseDtoTest {
 
     private static final Long ID = 1L;
+    private static final String EMAIL = "sample@email.com";
     private static final String NICKNAME = "nickname";
+    private static final Gender GENDER = Gender.MALE;
     private static final MemberRole ROLE = MemberRole.USER;
 
     @DisplayName("MemberResponse 인스턴스 생성 여부 테스트")
     @Test
     void initialize() {
         // when
-        MemberResponseDto memberResponseDto = new MemberResponseDto(ID, NICKNAME, ROLE);
+        MemberResponseDto memberResponseDto = new MemberResponseDto(ID, EMAIL, NICKNAME, GENDER, ROLE);
 
         // then
         assertAll(
@@ -30,11 +33,12 @@ class MemberResponseDtoTest {
     @Test
     void getter_test() {
         // when
-        MemberResponseDto memberResponseDto = new MemberResponseDto(ID, NICKNAME, ROLE);
+        MemberResponseDto memberResponseDto = new MemberResponseDto(ID, EMAIL, NICKNAME, GENDER, ROLE);
 
         // then
         assertAll(
                 () -> assertThat(memberResponseDto.getId()).isEqualTo(ID),
+                () -> assertThat(memberResponseDto.getEmail()).isEqualTo(EMAIL),
                 () -> assertThat(memberResponseDto.getNickname()).isEqualTo(NICKNAME),
                 () -> assertThat(memberResponseDto.getRole()).isEqualTo(ROLE)
         );

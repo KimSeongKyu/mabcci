@@ -3,9 +3,13 @@ package com.mabcci.domain.member.application;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.dto.MemberResponseDto;
+import com.mabcci.domain.member.dto.MemberUpdateRequestDto;
 import com.mabcci.domain.member.exception.MemberNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MemberService {
@@ -17,15 +21,28 @@ public class MemberService {
     }
 
     @Transactional
-    public Member join(Member member) {
-        return memberRepository.save(member);
+    public MemberResponseDto join(Member member) {
+        return new MemberResponseDto(memberRepository.save(member));
     }
 
     @Transactional(readOnly = true)
     public MemberResponseDto findByNickName(String nickName) {
-        Member findingMember = memberRepository.findByNickname(nickName)
+        Member findingEntity = memberRepository.findByNickname(nickName)
                 .orElseThrow(MemberNotFoundException::new);
-        return new MemberResponseDto(findingMember);
+        return new MemberResponseDto(findingEntity);
     }
 
+    @Transactional(readOnly = true)
+    public List<MemberResponseDto> findByAll() {
+        return memberRepository.findAll().stream()
+                .map(MemberResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public MemberResponseDto update(MemberUpdateRequestDto memberUpdateRequestDto) {
+        Member entity = memberRepository.findByNickname(memberUpdateRequestDto.getNickName())
+                .orElseThrow(MemberNotFoundException::new);
+        return new MemberResponseDto(entity.update(memberUpdateRequestDto.getNickName(), memberUpdateRequestDto.getGender()));
+    }
 }
