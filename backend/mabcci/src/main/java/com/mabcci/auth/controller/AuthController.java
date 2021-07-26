@@ -19,6 +19,7 @@ public class AuthController {
     @PostMapping("/logout")
     public ResponseEntity logout(@RequestBody final LogoutRequestDto logoutRequestDto) {
         authService.logout(logoutRequestDto.getEmail());
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent()
+                .build();
     }
 }

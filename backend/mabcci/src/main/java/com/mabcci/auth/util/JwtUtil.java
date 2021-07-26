@@ -38,7 +38,6 @@ public class JwtUtil {
 
     public Map<String, Object> createPayload(final TokenType tokenType, final String email) {
         final Map<String, Object> payload = createClaim(ClaimType.PAYLOAD);
-
         final Date currentTime = new Date();
 
         payload.put(Claim.EXPIRATION_KEY, currentTime.getTime() + tokenType.getExpirationTime());
@@ -59,6 +58,7 @@ public class JwtUtil {
                     .setSigningKey(createSecretKey())
                     .build()
                     .parseClaimsJws(token);
+
             return true;
         } catch (Exception e) {
             return false;

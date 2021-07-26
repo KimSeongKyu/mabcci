@@ -10,6 +10,7 @@ public class AuthControllerAdvice {
 
     @ExceptionHandler(NotLoginMemberException.class)
     public ResponseEntity handleNotLoginMemberException(final NotLoginMemberException notLoginMemberException) {
-        return ResponseEntity.badRequest().body(notLoginMemberException.toString());
+        return ResponseEntity.badRequest()
+                .body(notLoginMemberException.toString());
     }
 }
