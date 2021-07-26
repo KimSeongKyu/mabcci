@@ -1,5 +1,6 @@
 package com.mabcci.auth.util;
 
+import com.mabcci.auth.domain.ClaimType;
 import com.mabcci.auth.domain.TokenType;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.jupiter.api.DisplayName;
@@ -17,6 +18,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class JwtUtilTest {
 
+    public static Stream<Arguments> provideClaimTypesForCreateClaimTest() {
+        return Stream.of(
+                Arguments.of(ClaimType.HEADER, new String[]{"typ", "alg"}),
+                Arguments.of(ClaimType.PAYLOAD, new String[]{"iss", "sub", "aud"})
+        );
+    }
+
     public static Stream<Arguments> provideTokenTypesForTestsAboutToken() {
         return Arrays.stream(TokenType.values())
                 .map(tokenType -> Arguments.of(tokenType));
@@ -32,18 +40,18 @@ public class JwtUtilTest {
         assertThat(jwtUtil).isNotNull();
     }
 
-    @DisplayName(value = "Header 생성 테스트")
-    @Test
-    public void createHeaderTest() {
+    @DisplayName(value = "Claim 생성 테스트")
+    @ParameterizedTest(name = "{index}. Claim Type: {0} | keys: {1}")
+    @MethodSource(value = "provideClaimTypesForCreateClaimTest")
+    public void createClaimTest(ClaimType claimType, String[] expectedKeys) {
         // given
         JwtUtil jwtUtil = new JwtUtil();
-        String[] expectedKeys = new String[]{"typ", "alg"};
 
         // when
-        Map<String, Object> header = jwtUtil.createHeader();
+        Map<String, Object> claim = jwtUtil.createClaim(claimType);
 
         // then
-        assertThat(header.keySet()).containsExactly(expectedKeys);
+        assertThat(claim.keySet()).contains(expectedKeys);
     }
 
     @DisplayName(value = "Payload 생성 테스트")
