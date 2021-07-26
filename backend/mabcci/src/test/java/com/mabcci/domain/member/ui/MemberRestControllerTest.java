@@ -49,9 +49,9 @@ class MemberRestControllerTest {
         MemberResponseDto memberResponseDto = new MemberResponseDto(member);
         given(memberService.findAll()).willReturn(Collections.singletonList(memberResponseDto));
 
-        mvc.perform(get("/members"))
-                .andExpect(status().isOk())
-                .andExpect(model().attributeExists("members"));
+        mvc.perform(get("/api/members"))
+                .andExpect(status().isOk());
+                // .andExpect(model().attributeExists("members"));
                 //.andExpect(model().attribute("members", contains(memberResponseDto)));
     }
 }
