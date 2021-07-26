@@ -15,7 +15,7 @@ public class AuthService {
 
     @Transactional
     public void logout(final String email) {
-        final RefreshToken refreshToken = refreshTokenRepository.findById(email)
+        final RefreshToken refreshToken = refreshTokenRepository.findByMemberEmail(email)
                 .orElseThrow(() -> new NotLoginMemberException(email));
 
         refreshTokenRepository.delete(refreshToken);
