@@ -1,38 +1,109 @@
-.App {
-  text-align: center;
+:root {
+  --main-color-1: #f9a77c;
+  --main-color-2: #fbf1e9;
+  --main-color-3: #f2f2f2;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: black;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+button {
+  border: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.btn {
+  max-width: 400px;
+  max-height: 50px;
+  width: 60vw;
+  height: 15vh;
+  background-color: var(--main-color-2);
+  cursor: pointer;
+  box-shadow: 3px 3px 3px grey;
+  transition: all 0.1s;
+}
+
+.btn:hover {
+  background-color: var(--main-color-1);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.btn-sm {
+  max-width: 150px;
+  width: 20vw;
+  height: 25px;
+  background-color: var(--main-color-2);
+  cursor: pointer;
+  box-shadow: 3px 3px 3px grey;
+  transition: all 0.1s;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn-sm:hover {
+  background-color: var(--main-color-1);
+  color: white;
+}
+
+.btn-rounded {
+  max-width: 400px;
+  max-height: 50px;
+  width: 60vw;
+  height: 15vh;
+  background-color: var(--main-color-1);
+  box-shadow: 3px 3px 3px grey;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.btn-rounded:hover {
+  background-color: var(--main-color-2);
+  color: black;
+}
+
+.btn-rounded-sm {
+  max-width: 150px;
+  width: 20vw;
+  height: 25px;
+  background-color: var(--main-color-3);
+  box-shadow: 3px 3px 3px grey;
+  border-radius: 50px;
+  transition: all 0.1s;
+  cursor: pointer;
+}
+
+.btn-rounded-sm:hover {
+  background-color: var(--main-color-1);
+  color: white;
+}
+
+/* 아이콘과 같이 사용하기
+뒤로가기: <i class="fas fa-arrow-left"></i>
+앞으로 가기: <i class="fas fa-arrow-right"></i> 
+플러스: <i class="fas fa-plus"></i>*/
+.btn-util {
+  background-color: var(--main-color-1);
+  box-shadow: 3px 3px 3px grey;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.btn-util i {
+  color: white;
+}
+
+.btn:active,
+.btn-sm:active,
+.btn-rounded:active,
+.btn-rounded-sm:active,
+.btn-util:active {
+  padding-left: 3px;
+  padding-top: 3px;
+  box-shadow: none;
 }
