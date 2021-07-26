@@ -1,6 +1,7 @@
 package com.mabcci.domain.member.dto;
 
 import com.mabcci.domain.member.domain.Gender;
+import com.mabcci.domain.member.domain.Member;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -33,16 +34,34 @@ class MemberSaveDtoTest {
     @DisplayName("MemberSaveDto 인스턴스 getter 메서드들 테스트")
     @Test
     void getter_test() {
-        // when
+        // given
         MemberSaveDto memberSaveDto = new MemberSaveDto(email, password, nickname, phone, gender);
 
-        // then
+        // when and then
         assertAll(
                 () -> assertThat(memberSaveDto.getEmail()).isEqualTo(email),
                 () -> assertThat(memberSaveDto.getPassword()).isEqualTo(password),
                 () -> assertThat(memberSaveDto.getNickname()).isEqualTo(nickname),
                 () -> assertThat(memberSaveDto.getPhone()).isEqualTo(phone),
                 () -> assertThat(memberSaveDto.getGender()).isEqualTo(gender)
+        );
+
+    }
+
+    @DisplayName("MemberSaveDto 인스턴스 Member 엔티티로 변환 메서드 테스트")
+    @Test
+    void entity_test() {
+        // given
+        MemberSaveDto memberSaveDto = new MemberSaveDto(email, password, nickname, phone, gender);
+
+        // when
+        Member member = memberSaveDto.entity();
+
+        // then
+        assertAll(
+                () -> assertThat(member).isNotNull(),
+                () -> assertThat(member).isExactlyInstanceOf(Member.class),
+                () -> assertThat(member.nickname()).isEqualTo(nickname)
         );
 
     }
