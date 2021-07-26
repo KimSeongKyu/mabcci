@@ -2,6 +2,7 @@
   --main-color-1: #f9a77c;
   --main-color-2: #fbf1e9;
   --main-color-3: #f2f2f2;
+  --main-color-4: #ffffff;
 }
 
 * {
@@ -13,6 +14,11 @@
 
 button {
   border: none;
+}
+
+input {
+  border: none;
+  border-bottom: 1px solid black;
 }
 
 .btn {
@@ -98,8 +104,7 @@ button {
   color: white;
 }
 
-/* 스타일 카테고리 이미지 같이 사용해야 함 */
-.btn-style {
+.btn-style-shoes {
   width: 60px;
   height: 60px;
   border-radius: 30px;
@@ -109,8 +114,7 @@ button {
   position: relative;
 }
 
-/* 이미지 속성 */
-.btn-style img {
+.btn-style-shoes img {
   width: 70px;
   height: 50px;
   position: absolute;
@@ -118,8 +122,26 @@ button {
   left: 0;
 }
 
-.btn-style.active {
+.btn-style-shoes.active {
   background-color: var(--main-color-1);
+}
+
+.btn-style-clothes {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  cursor: pointer;
+  background-color: var(--main-color-4);
+  box-shadow: 3px 3px 3px grey;
+  position: relative;
+}
+
+.btn-style-clothes img {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
 }
 
 .btn:active,
@@ -127,7 +149,8 @@ button {
 .btn-rounded:active,
 .btn-rounded-sm:active,
 .btn-util:active,
-.btn-style:active {
+.btn-style-shoes:active,
+.btn-style-clothes:active {
   padding-left: 3px;
   padding-top: 3px;
   box-shadow: none;
