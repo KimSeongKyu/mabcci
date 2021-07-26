@@ -1,17 +1,23 @@
 package com.mabcci.auth.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mabcci.auth.dto.LogoutRequestDto;
 import com.mabcci.auth.service.AuthService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+
+import javax.validation.Valid;
 
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -49,5 +55,25 @@ public class AuthControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
+    }
+
+    @DisplayName(value = "LogoutRequestDto 유효성 검증 테스트")
+    @ParameterizedTest(name = "{index}. email: {0}")
+    @ValueSource(strings = {"notEmailFormat"})
+    @NullAndEmptySource
+    public void validateLogoutRequestDto(String email) throws Exception {
+        // given
+        String api = "/auth/logout";
+        String logoutRequestDto = objectMapper.writeValueAsString(
+                LogoutRequestDto.builder()
+                        .email(email)
+                        .build());
+
+        // when and then
+        mockMvc.perform(post(api)
+                .content(logoutRequestDto)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
     }
 }
