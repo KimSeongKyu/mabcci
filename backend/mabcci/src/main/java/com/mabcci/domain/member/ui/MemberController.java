@@ -13,11 +13,11 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-public class MemberRestController {
+public class MemberController {
 
     private final MemberService memberService;
 
-    public MemberRestController(MemberService memberService) {
+    public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
 

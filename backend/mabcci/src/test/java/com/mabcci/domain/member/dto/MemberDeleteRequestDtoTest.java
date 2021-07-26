@@ -17,7 +17,7 @@ class MemberDeleteRequestDtoTest {
         MemberDeleteRequestDto memberDeleteRequestDto = new MemberDeleteRequestDto(NICKNAME, PASSWORD);
         assertAll(
                 () -> assertThat(memberDeleteRequestDto).isNotNull(),
-                () -> assertThat(memberDeleteRequestDto).isExactlyInstanceOf(MemberUpdateRequestDto.class)
+                () -> assertThat(memberDeleteRequestDto).isExactlyInstanceOf(MemberDeleteRequestDto.class)
         );
     }
 

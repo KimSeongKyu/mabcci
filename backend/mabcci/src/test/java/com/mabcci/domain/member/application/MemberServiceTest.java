@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +20,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
@@ -29,11 +29,11 @@ import static org.mockito.Mockito.times;
 @WebMvcTest
 class MemberServiceTest {
 
-    @InjectMocks
-    private MemberService memberService;
-
-    @Mock
+    @MockBean
     private MemberRepository memberRepository;
+
+    @MockBean
+    private MemberService memberService;
 
     private Member member;
 
@@ -47,15 +47,6 @@ class MemberServiceTest {
                 .gender(Gender.MALE)
                 .role(MemberRole.USER)
                 .build();
-    }
-
-    @DisplayName("MemberService 생성 여부 테스트")
-    @Test
-    void initialize() {
-        assertAll(
-                () -> assertThat(memberService).isNotNull(),
-                () -> assertThat(memberService).isExactlyInstanceOf(MemberService.class)
-        );
     }
 
     @DisplayName("MemberService save 기능 테스트")
