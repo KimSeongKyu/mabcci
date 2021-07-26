@@ -47,10 +47,12 @@ public class MemberService {
     }
 
     @Transactional
-    public void delete(String password, String nickname) {
-        Member entity = memberRepository.findByPasswordAndNickname(password, nickname)
+    public void delete(String nickname, String password) {
+        Member member = memberRepository.findByNicknameAAndPassword(nickname, password).stream()
+                .filter(entity -> entity.checkPassword(password))
+                .findFirst()
                 .orElseThrow(MemberNotFoundException::new);
-        memberRepository.delete(entity);
+        memberRepository.delete(member);
     }
 
 }

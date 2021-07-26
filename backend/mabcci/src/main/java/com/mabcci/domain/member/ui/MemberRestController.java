@@ -2,10 +2,9 @@ package com.mabcci.domain.member.ui;
 
 import com.mabcci.domain.member.application.MemberService;
 import com.mabcci.domain.member.dto.JoinRequestDto;
+import com.mabcci.domain.member.dto.MemberDeleteRequestDto;
 import com.mabcci.domain.member.dto.MemberResponseDto;
 import com.mabcci.domain.member.dto.MemberUpdateRequestDto;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,6 +47,12 @@ public class MemberRestController {
         MemberResponseDto memberResponseDto = memberService.update(updateRequestDto);
         validateNull(memberResponseDto);
         return ResponseEntity.ok().body(memberResponseDto);
+    }
+
+    @DeleteMapping("/api/members/{nickname}")
+    public ResponseEntity<?> delete(@RequestBody MemberDeleteRequestDto memberDeleteRequestDto) {
+        memberService.delete(memberDeleteRequestDto.getNickname(), memberDeleteRequestDto.getPassword());
+        return ResponseEntity.ok().build();
     }
 
     private void validateNull(Object object) {
