@@ -1,0 +1,17 @@
+.container {
+  min-width: 320px;
+  max-width: 768px;
+  min-height: 100%;
+  margin: 0 auto;
+  background-color: lightsalmon;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+}
+
+.input-list {
+  list-style: none;
+  margin-top: 50px;
+}

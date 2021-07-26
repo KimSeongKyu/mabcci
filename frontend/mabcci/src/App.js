@@ -1,24 +1,53 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+// Router
+import { Route } from 'react-router-dom';
+
+// Navbar
+import Nav from './Components/Common/Navbar';
+// Pages - ServicePage
+import Home from './Components/Pages/ServicePage/Home/Home';
+import CommunityMain from './Components/Pages/ServicePage/Community/CommunityMain/CommunityMain';
+import MyPageMain from './Components/Pages/ServicePage/MyPage/MyPageMain/MyPageMain';
+import OOTDMain from './Components/Pages/ServicePage/OOTD/OOTDMain/OOTDMain';
+import StylingMain from './Components/Pages/ServicePage/Styling/StylingMain/StylingMain';
+// Pages - AuthPage
+import Login from './Components/Pages/AuthPage/Login/Login';
+import Signup from './Components/Pages/AuthPage/Signup/Signup';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Nav />
+
+      <Route exact path="/home">
+        <Home />
+      </Route>
+
+      <Route exact path="/community">
+        <CommunityMain />
+      </Route>
+
+      <Route exact path="/mypage">
+        <MyPageMain />
+      </Route>
+
+      <Route exact path="/OOTD">
+        <OOTDMain />
+      </Route>
+
+      <Route exact path="/styling">
+        <StylingMain />
+      </Route>
+
+      <Route exact path="/login">
+        <Login />
+      </Route>
+
+      <Route exact path="/signup">
+        <Signup />
+      </Route>
     </div>
   );
 }
