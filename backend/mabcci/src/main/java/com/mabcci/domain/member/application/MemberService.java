@@ -26,14 +26,14 @@ public class MemberService {
     }
 
     @Transactional(readOnly = true)
-    public MemberResponseDto findByNickName(String nickName) {
-        Member findingEntity = memberRepository.findByNickname(nickName)
+    public MemberResponseDto findByNickName(String nickname) {
+        Member findingEntity = memberRepository.findByNickname(nickname)
                 .orElseThrow(MemberNotFoundException::new);
         return new MemberResponseDto(findingEntity);
     }
 
     @Transactional(readOnly = true)
-    public List<MemberResponseDto> findByAll() {
+    public List<MemberResponseDto> findAll() {
         return memberRepository.findAll().stream()
                 .map(MemberResponseDto::new)
                 .collect(Collectors.toList());
@@ -41,8 +41,16 @@ public class MemberService {
 
     @Transactional
     public MemberResponseDto update(MemberUpdateRequestDto memberUpdateRequestDto) {
-        Member entity = memberRepository.findByNickname(memberUpdateRequestDto.getNickName())
+        Member entity = memberRepository.findByNickname(memberUpdateRequestDto.getNickname())
                 .orElseThrow(MemberNotFoundException::new);
-        return new MemberResponseDto(entity.update(memberUpdateRequestDto.getNickName(), memberUpdateRequestDto.getGender()));
+        return new MemberResponseDto(entity.update(memberUpdateRequestDto.getNickname(), memberUpdateRequestDto.getGender()));
     }
+
+    @Transactional
+    public void delete(String password, String nickname) {
+        Member entity = memberRepository.findByPasswordAndNickname(password, nickname)
+                .orElseThrow(MemberNotFoundException::new);
+        memberRepository.delete(entity);
+    }
+
 }

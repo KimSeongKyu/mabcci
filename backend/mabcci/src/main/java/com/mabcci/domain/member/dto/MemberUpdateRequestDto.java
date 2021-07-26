@@ -2,20 +2,18 @@ package com.mabcci.domain.member.dto;
 
 import com.mabcci.domain.member.domain.Gender;
 
-import javax.validation.constraints.Email;
-
 public class MemberUpdateRequestDto {
 
-    private final String nickName;
+    private final String nickname;
     private final Gender gender;
 
-    public MemberUpdateRequestDto(String nickName, Gender gender) {
-        this.nickName = nickName;
+    public MemberUpdateRequestDto(String nickname, Gender gender) {
+        this.nickname = nickname;
         this.gender = gender;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getNickname() {
+        return nickname;
     }
 
     public Gender getGender() {

@@ -11,9 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,9 +28,6 @@ import static org.mockito.Mockito.times;
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest
 class MemberServiceTest {
-
-    @Autowired
-    private MockMvc mockMvc;
 
     @InjectMocks
     private MemberService memberService;

@@ -21,7 +21,7 @@ class MemberUpdateRequestDtoTest {
         // then
         assertAll(
                 () -> assertThat(memberUpdateRequestDto).isNotNull(),
-                () -> assertThat(memberUpdateRequestDto).isEqualTo(MemberUpdateRequestDto.class)
+                () -> assertThat(memberUpdateRequestDto).isExactlyInstanceOf(MemberUpdateRequestDto.class)
         );
     }
 }
