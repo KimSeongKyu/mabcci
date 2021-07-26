@@ -35,7 +35,7 @@ class MemberResponseDtoTest {
         // then
         assertAll(
                 () -> assertThat(memberResponseDto.getId()).isEqualTo(ID),
-                () -> assertThat(memberResponseDto.getNickName()).isEqualTo(NICKNAME),
+                () -> assertThat(memberResponseDto.getNickname()).isEqualTo(NICKNAME),
                 () -> assertThat(memberResponseDto.getRole()).isEqualTo(ROLE)
         );
     }

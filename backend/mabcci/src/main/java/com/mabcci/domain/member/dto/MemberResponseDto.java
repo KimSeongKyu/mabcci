@@ -31,5 +31,26 @@ public class MemberResponseDto {
     }
 
 
+    public Long getId() {
+        return id;
+    }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public MemberRole getRole() {
+        return role;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer stringBuffer = new StringBuffer();
+        return stringBuffer.append("MemberResponseDto{")
+                .append("id=").append(id)
+                .append(", nickname='").append(nickname).append('\'')
+                .append(", role=").append(role)
+                .append('}')
+                .toString();
+    }
 }
