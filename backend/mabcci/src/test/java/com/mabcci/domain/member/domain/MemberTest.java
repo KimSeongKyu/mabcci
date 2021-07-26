@@ -3,6 +3,7 @@ package com.mabcci.domain.member.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -45,6 +46,20 @@ class MemberTest {
         assertAll(
                 () -> assertThat(member.checkPassword(validPassword)).isTrue(),
                 () -> assertThat(member.checkPassword(invalidPassword)).isFalse()
+        );
+    }
+
+    @DisplayName("Member 인스턴스의 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        // given
+        ReflectionTestUtils.setField(member, "id", 1L);
+
+        // when and then
+        assertAll(
+                () -> assertThat(member.id()).isEqualTo(1L),
+                () -> assertThat(member.nickname()).isEqualTo("validPassword"),
+                () -> assertThat(member.role()).isEqualTo(MemberRole.USER)
         );
     }
 
