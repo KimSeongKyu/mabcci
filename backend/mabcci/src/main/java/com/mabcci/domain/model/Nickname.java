@@ -21,4 +21,7 @@ public class Nickname {
         this.nickname = nickname;
     }
 
+    public String nickname() {
+        return nickname;
+    }
 }
