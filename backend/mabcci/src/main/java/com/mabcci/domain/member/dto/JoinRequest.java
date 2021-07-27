@@ -33,6 +33,10 @@ public final class JoinRequest {
     private JoinRequest() {
     }
 
+    public JoinRequest(final String email, final String password, final String nickname, final String phone, final Gender gender) {
+        this(Email.of(email), Password.of(password), nickname, phone, gender);
+    }
+
     public JoinRequest(@Valid Email email, @Valid Password password, final String nickname, final String phone, final Gender gender) {
         this.email = email;
         this.password = password;

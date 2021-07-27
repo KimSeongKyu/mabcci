@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class NicknameTest {
 
-    @DisplayName("NickName 인스턴스 생성 여부 테스트")
+    @DisplayName("Nickname 인스턴스 생성 여부 테스트")
     @Test
     void constructor_test() {
         final String value = "nickname";
