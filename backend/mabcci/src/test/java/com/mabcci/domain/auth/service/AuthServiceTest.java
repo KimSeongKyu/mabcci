@@ -54,17 +54,20 @@ public class AuthServiceTest {
         String refreshToken = "test.refresh.token";
         LoginRequest loginRequest = new LoginRequest(email, password);
 
-        doReturn(member).when(memberRepository).findByEmailAndPassword(email ,password);
+        doReturn(Optional.of(member)).when(memberRepository).findByEmailAndPassword(email ,password);
         doReturn(accessToken).when(jwtUtil).createToken(TokenType.ACCESS_TOKEN, email);
         doReturn(refreshToken).when(jwtUtil).createToken(TokenType.REFRESH_TOKEN, email);
-        doReturn(any()).when(refreshTokenRepository).save(any());
+        doReturn(RefreshToken.builder()
+                .email(email)
+                .refreshToken(refreshToken)
+                .build()).when(refreshTokenRepository).save(any());
 
         // when
         LoginResponse loginResponse = authService.login(loginRequest);
 
         // then
         verify(memberRepository, times(1)).findByEmailAndPassword(email, password);
-        verify(jwtUtil, times(2)).createToken(any(), email);
+        verify(jwtUtil, times(2)).createToken(any(), any());
         verify(refreshTokenRepository, times(1)).save(any());
 
         assertAll(
