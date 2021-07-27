@@ -12,8 +12,8 @@ public class Email {
     @Column(name = "email")
     private String email;
 
-    public static Email of(final String value) {
-        return new Email(value);
+    public static Email of(final String email) {
+        return new Email(email);
     }
 
     protected Email() {
@@ -21,5 +21,9 @@ public class Email {
 
     private Email(final String email) {
         this.email = email;
+    }
+
+    public String email() {
+        return this.email;
     }
 }
