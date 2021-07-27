@@ -30,4 +30,13 @@ class PasswordTest {
                 () -> assertThat(password).isExactlyInstanceOf(Password.class)
         );
     }
+
+    @DisplayName("Password 인스턴스 password() 기능 테스트")
+    @Test
+    void password_test() {
+        final String value = "password";
+        final Password password = Password.of(value);
+
+        assertThat(password.password()).isEqualTo(value);
+    }
 }

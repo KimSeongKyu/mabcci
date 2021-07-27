@@ -20,4 +20,8 @@ public class Password {
     private Password(final String password) {
         this.password = password;
     }
+
+    public String password() {
+        return password;
+    }
 }
