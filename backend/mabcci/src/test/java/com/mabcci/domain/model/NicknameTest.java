@@ -19,4 +19,15 @@ class NicknameTest {
                 () -> assertThat(nickname).isExactlyInstanceOf(Nickname.class)
         );
     }
+
+    @DisplayName("Nickname 인스턴스 디폴트 생성자를 이용한 생성 여부 테스트")
+    @Test
+    void default_constructor_test() {
+        final Nickname nickname = new Nickname();
+
+        assertAll(
+                () -> assertThat(nickname).isNotNull(),
+                () -> assertThat(nickname).isExactlyInstanceOf(Nickname.class)
+        );
+    }
 }
