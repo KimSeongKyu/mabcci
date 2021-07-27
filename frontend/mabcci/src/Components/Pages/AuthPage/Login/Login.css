@@ -12,7 +12,7 @@
 }
 
 #container-login {
-  min-height: 1000px;
+  min-height: 100vh;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -21,4 +21,27 @@
 
 #container-item {
   text-align: center;
+}
+
+.form-element {
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-element input {
+  margin: 10px;
+  max-width: 400px;
+  width: 60vw;
+}
+
+.passwordFind {
+  margin: 15px;
+}
+
+.btn-transparent {
+  margin: 5px;
+  background-color: white;
+  font-weight: bold;
 }
