@@ -15,6 +15,7 @@ import StylingMain from './Components/Pages/ServicePage/Styling/StylingMain/Styl
 // Pages - AuthPage
 import Login from './Components/Pages/AuthPage/Login/Login';
 import Signup from './Components/Pages/AuthPage/Signup/Signup';
+import Description from './Components/Pages/InitialPage/Description/Description';
 
 function App() {
   return (
@@ -47,6 +48,9 @@ function App() {
 
       <Route exact path="/signup">
         <Signup />
+      </Route>
+      <Route exact path="/desc">
+        <Description />
       </Route>
     </div>
   );

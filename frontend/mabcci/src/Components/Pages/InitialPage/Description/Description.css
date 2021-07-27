@@ -1,0 +1,41 @@
+.desc {
+  background-image: url('../../../../Asset/Images/model.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  max-width: 1200px;
+  height: 100vh;
+  position: relative;
+}
+
+.tmp {
+}
+
+.desc::after {
+  content: '';
+  position: absolute;
+  background: black;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+}
+
+.desc h1 {
+  position: absolute;
+  color: white;
+  z-index: 1;
+  top: 200px;
+  left: 50px;
+  font-size: 3.5rem;
+}
+
+.desc-mabcci {
+  position: absolute;
+  z-index: 1;
+  top: 270px;
+  left: 50px;
+}
+
+.desc-mabcci p {
+  color: white;
+  margin: 0;
+}
