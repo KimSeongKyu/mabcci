@@ -2,11 +2,10 @@ package com.mabcci.domain.auth.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 public final class LoginRequest {
 
-    @NotNull
+    @NotBlank
     @Email
     private String email;
 
