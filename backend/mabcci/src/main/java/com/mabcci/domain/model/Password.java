@@ -22,6 +22,10 @@ public class Password {
         this.password = password;
     }
 
+    public boolean checkPassword(final String other) {
+        return password.equals(other);
+    }
+
     public String password() {
         return password;
     }
@@ -38,4 +42,5 @@ public class Password {
     public int hashCode() {
         return Objects.hash(password());
     }
+
 }
