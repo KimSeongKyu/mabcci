@@ -17,7 +17,7 @@ const LoginForm = () => {
     const response = await LoginApi({ email, password });
 
     if (response.status === 200) {
-      dispatch(LoginSuccess(email));
+      dispatch(LoginSuccess(response.userInfo));
       history.push('/home');
     } else {
       dispatch(LoginFail);

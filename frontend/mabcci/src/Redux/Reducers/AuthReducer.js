@@ -2,9 +2,7 @@ import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, SIGNUP } from '../Type/AuthType';
 
 const initialState = {
   isLoggedin: false,
-  userinfo: {
-    id: '',
-  },
+  userinfo: {},
 };
 
 const AuthReducer = (state = initialState, { type, payload }) => {
@@ -14,7 +12,7 @@ const AuthReducer = (state = initialState, { type, payload }) => {
         ...state,
         isLoggedIn: true,
         userinfo: {
-          id: payload,
+          payload,
         },
       };
     case LOGIN_FAIL:
@@ -34,7 +32,7 @@ const AuthReducer = (state = initialState, { type, payload }) => {
         ...state,
         isLoggedIn: true,
         userinfo: {
-          id: payload,
+          payload,
         },
       };
     default:
