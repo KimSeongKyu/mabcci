@@ -29,5 +29,17 @@ class EmailTest {
         assertThat(email.email()).isEqualTo(value);
     }
 
+    @DisplayName("Email 인스턴스 equals() & hashCode() 기능 테스트")
+    @Test
+    void equals_and_hashcode_test() {
+        final String value = "kwj1270@naver.com";
+        final Email email = Email.of(value);
+        final Email otherEmail = Email.of(value);
+
+        assertAll(
+                () -> assertThat(email).isEqualTo(otherEmail),
+                () -> assertThat(email.hashCode()).isEqualTo(otherEmail.hashCode())
+        );
+    }
 
 }
