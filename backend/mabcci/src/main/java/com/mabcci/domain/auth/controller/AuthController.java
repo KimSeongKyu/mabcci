@@ -1,5 +1,6 @@
 package com.mabcci.domain.auth.controller;
 
+import com.mabcci.domain.auth.dto.LoginRequest;
 import com.mabcci.domain.auth.dto.LogoutRequestDto;
 import com.mabcci.domain.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,11 @@ import javax.validation.Valid;
 public class AuthController {
 
     private final AuthService authService;
+
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody @Valid final LoginRequest loginRequest) {
+        return ResponseEntity.ok(authService.login(loginRequest));
+    }
 
     @PostMapping("/logout")
     public ResponseEntity logout(@RequestBody @Valid final LogoutRequestDto logoutRequestDto) {
