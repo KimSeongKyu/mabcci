@@ -10,9 +10,20 @@ class EmailTest {
 
     @DisplayName("Email 인스턴스 생성 여부 테스트")
     @Test
-    void initialize() {
+    void constructor_test() {
         final String value = "kwj1270@naver.com";
         final Email email = Email.of(value);
+
+        assertAll(
+                () -> assertThat(email).isNotNull(),
+                () -> assertThat(email).isExactlyInstanceOf(Email.class)
+        );
+    }
+
+    @DisplayName("Email 인스턴스 디폴트 생성자를 이용한 생성 여부 테스트")
+    @Test
+    void default_constructor_test() {
+        final Email email = new Email();
 
         assertAll(
                 () -> assertThat(email).isNotNull(),
