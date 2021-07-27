@@ -59,7 +59,8 @@ class MemberTest {
         assertAll(
                 () -> assertThat(member.id()).isEqualTo(1L),
                 () -> assertThat(member.nickname()).isEqualTo("sample"),
-                () -> assertThat(member.role()).isEqualTo(MemberRole.USER)
+                () -> assertThat(member.role()).isEqualTo(MemberRole.USER),
+                () -> assertThat(member.password()).isEqualTo("validPassword")
         );
     }
 
