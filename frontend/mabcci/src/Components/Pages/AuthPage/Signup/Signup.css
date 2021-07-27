@@ -1,17 +1,51 @@
 .container {
   min-width: 320px;
-  max-width: 768px;
+  max-width: 400px;
   min-height: 100%;
   margin: 0 auto;
-  background-color: lightsalmon;
+  background-color: white;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
+  justify-content: center;
   align-content: stretch;
+  text-align: center;
+}
+
+.signup-title {
+  color: var(--main-color-1);
+  margin-top: 30px;
+  margin-left: 20px;
 }
 
 .input-list {
   list-style: none;
   margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.input-list input {
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.select-man-woman {
+  display: flex;
+  justify-content: center;
+}
+
+.select-man-woman button {
+  margin: 30px;
+}
+
+.btn-rounded-man-woman {
+  max-width: 150px;
+  width: 20vw;
+  height: 25px;
+  background-color: var(--main-color-3);
+  box-shadow: 3px 3px 3px grey;
+  border-radius: 50px;
+  transition: all 0.1s;
+  cursor: pointer;
 }

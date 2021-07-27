@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 // Router
@@ -17,9 +17,20 @@ import Login from './Components/Pages/AuthPage/Login/Login';
 import Signup from './Components/Pages/AuthPage/Signup/Signup';
 
 function App() {
+  // 로그인 여부 redux까지 연결 되어야함
+  const [isLoggedin, setisLoggedin] = useState(false);
+  useEffect(() => {
+    const localLoinToken = localStorage.getItem('isLoggedIn');
+    if (localLoinToken) {
+      setisLoggedin(true);
+    } else {
+      setisLoggedin(false);
+    }
+  });
+
   return (
     <div className="App">
-      <Nav />
+      {isLoggedin ? <Nav /> : null}
 
       <Route exact path="/home">
         <Home />
