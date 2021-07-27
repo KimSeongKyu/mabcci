@@ -16,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -39,12 +40,14 @@ public class AuthControllerTest {
     public void loginTest() throws Exception {
         // given
         String api = "/auth/login";
-        LoginRequest loginRequest = new LoginRequest("example@example.com", "testPassword");
         String accessToken = "test.access.token";
         String refreshToken = "test.refresh.token";
 
+        LoginRequest loginRequest = new LoginRequest("example@example.com", "testPassword");
+        LoginResponse loginResponse = new LoginResponse(accessToken, refreshToken);
+
         // when
-        doReturn(new LoginResponse(accessToken, refreshToken)).when(authService).login(loginRequest);
+        doReturn(loginResponse).when(authService).login(any());
 
         // then
         mockMvc.perform(post(api)
