@@ -12,4 +12,12 @@ public final class LoginResponse {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
     }
+
+    public final String getAccessToken() {
+        return accessToken;
+    }
+
+    public final String getRefreshToken() {
+        return refreshToken;
+    }
 }
