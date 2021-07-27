@@ -1,6 +1,8 @@
 package com.mabcci.domain.auth.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mabcci.domain.auth.dto.LoginRequest;
+import com.mabcci.domain.auth.dto.LoginResponse;
 import com.mabcci.domain.auth.dto.LogoutRequestDto;
 import com.mabcci.domain.auth.service.AuthService;
 import org.junit.jupiter.api.DisplayName;
@@ -15,7 +17,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(AuthController.class)
@@ -29,6 +33,28 @@ public class AuthControllerTest {
 
     @MockBean
     private AuthService authService;
+
+    @DisplayName(value = "로그인 API 테스트")
+    @Test
+    public void loginTest() throws Exception {
+        // given
+        String api = "/auth/login";
+        LoginRequest loginRequest = new LoginRequest("example@example.com", "testPassword");
+        String accessToken = "test.access.token";
+        String refreshToken = "test.refresh.token";
+
+        // when
+        doReturn(new LoginResponse(accessToken, refreshToken)).when(authService).login(loginRequest);
+
+        // then
+        mockMvc.perform(post(api)
+                .content(objectMapper.writeValueAsString(loginRequest))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.accessToken").value(accessToken))
+                .andExpect(jsonPath("$.refreshToken").value(refreshToken));
+    }
 
     @DisplayName(value = "로그아웃 API 테스트")
     @Test
