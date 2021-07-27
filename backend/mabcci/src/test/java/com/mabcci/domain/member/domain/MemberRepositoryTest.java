@@ -105,7 +105,7 @@ class MemberRepositoryTest {
         testEntityManager.persist(member);
 
         // when
-        Optional<Member> findMember = memberRepository.findByEmailAndPassword(member.email(), member.password());
+        Optional<Member> findMember = memberRepository.findByEmailAndPassword("invalidEmail", "invalidPassword");
 
         // then
         assertThat(findMember.isPresent()).isFalse();
