@@ -20,4 +20,14 @@ class EmailTest {
         );
     }
 
+    @DisplayName("Email 인스턴스 email() 기능 테스트")
+    @Test
+    void email_test() {
+        final String value = "kwj1270@naver.com";
+        final Email email = Email.of(value);
+
+        assertThat(email.email()).isEqualTo(value);
+    }
+
+
 }
