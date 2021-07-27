@@ -3,6 +3,7 @@ package com.mabcci.domain.model;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotEmpty;
+import java.util.Objects;
 
 @Embeddable
 public class Email {
@@ -25,5 +26,18 @@ public class Email {
 
     public String email() {
         return this.email;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Email email1 = (Email) o;
+        return Objects.equals(email, email1.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email);
     }
 }
