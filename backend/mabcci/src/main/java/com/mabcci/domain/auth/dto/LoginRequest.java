@@ -21,4 +21,11 @@ public final class LoginRequest {
         this.password = password;
     }
 
+    public final String getEmail() {
+        return email;
+    }
+
+    public final String getPassword() {
+        return password;
+    }
 }
