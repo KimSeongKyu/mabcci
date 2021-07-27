@@ -66,6 +66,10 @@ public class Member extends BaseTimeEntity {
         return email;
     }
 
+    public String password() {
+        return password;
+    }
+
     public Member update(String nickName, Gender gender) {
         this.nickname = nickName;
         this.gender = gender;

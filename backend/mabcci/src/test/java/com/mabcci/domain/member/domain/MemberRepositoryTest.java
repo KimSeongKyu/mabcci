@@ -85,6 +85,32 @@ class MemberRepositoryTest {
         assertThat(findMember.isPresent()).isFalse();
     }
 
+    @DisplayName(value = "MemberRepository findByEmailAndPassword 기능 테스트")
+    @Test
+    public void findByEmailAndPassword_test() {
+        // given
+        testEntityManager.persist(member);
+
+        // when
+        Member validFindMember = memberRepository.findByEmailAndPassword(member.email(), member.password()).get();
+
+        // then
+        assertThat(validFindMember.id()).isEqualTo(member.id());
+    }
+
+    @DisplayName(value = "MemberRepository findByEmailAndPassword 기능 실패 테스트")
+    @Test
+    public void findByEmailAndPassword_fail_test() {
+        // given
+        testEntityManager.persist(member);
+
+        // when
+        Optional<Member> findMember = memberRepository.findByEmailAndPassword("invalidEmail", "invalidPassword");
+
+        // then
+        assertThat(findMember.isPresent()).isFalse();
+    }
+
     @DisplayName("MemberRepository findAll 기능 테스트")
     @Test
     void findAll_test() {
