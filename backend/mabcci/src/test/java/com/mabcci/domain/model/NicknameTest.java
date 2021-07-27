@@ -30,4 +30,15 @@ class NicknameTest {
                 () -> assertThat(nickname).isExactlyInstanceOf(Nickname.class)
         );
     }
+
+    @DisplayName("Nickname 인스턴스 nickname() 기능 테스트")
+    @Test
+    void nickname_test() {
+        final String value = "nickname";
+        final Nickname nickname = Nickname.of(value);
+
+        assertThat(nickname.nickname()).isEqualTo(value);
+    }
+
+
 }
