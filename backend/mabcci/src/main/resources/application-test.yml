@@ -1,4 +1,14 @@
 logging:
   level:
     root: trace
-
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/mabcci_test
+    username: root
+    password: root
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
