@@ -18,6 +18,16 @@ class PasswordTest {
                 () -> assertThat(password).isNotNull(),
                 () -> assertThat(password).isExactlyInstanceOf(Password.class)
         );
+    }
 
+    @DisplayName("Password 인스턴스 디폴자 생성자를 이용한 생성 여부 테스트")
+    @Test
+    void default_constructor_test() {
+        final Password password = new Password();
+
+        assertAll(
+                () -> assertThat(password).isNotNull(),
+                () -> assertThat(password).isExactlyInstanceOf(Password.class)
+        );
     }
 }
