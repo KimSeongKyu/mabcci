@@ -1,3 +1,5 @@
+/* web navbar */
+
 .logo-bar {
   width: 100%;
   height: 150px;
@@ -13,24 +15,19 @@
 }
 
 .logo-image {
-  display: block;
-  margin: 0px auto;
   width: 250px;
   height: 100%;
 }
 
-.btn-login {
+.web-navbar-icon {
   display: block;
-  font-size: small;
+  font-size: medium;
   font-weight: 600;
   position: absolute;
   bottom: 70%;
   left: 75%;
   margin: auto;
-}
-
-.btn-linklink {
-  color: green;
+  cursor: pointer;
 }
 
 .menu-bar {
@@ -43,11 +40,14 @@
   border-style: solid;
   font-weight: 500;
   text-decoration: none;
+  text-align: center;
 }
 
 .menu-link {
   width: 576px;
   margin: auto;
+  display: flex;
+  justify-content: space-around;
 }
 
 .menu-bar a {
@@ -55,13 +55,9 @@
   color: #0f0e0e;
 }
 
-.mobile-navbar {
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-}
+/* mobile navbar */
 
-.mobile-menu-bar {
+.mobile-navbar {
   background-color: white;
   height: 50px;
   border-width: 1px 0px 0px 0px;
@@ -69,47 +65,29 @@
   border-style: solid;
   box-shadow: 5px 10px 8px 5px;
   text-align: center;
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }
 
-.mobile-menu-bar a {
+.mobile-navbar a {
   text-decoration: none;
   color: #0f0e0e;
-}
-
-/* .mobile-circle {
-  display: block;
-  margin: 0px auto;
-  width: 180px;
-  height: 80px;
-  background-color: #faf9f8;
-  clip-path: polygon(
-    50% 69%,
-    78% 78%,
-    100% 100%,
-    75% 100%,
-    25% 100%,
-    0 100%,
-    22% 78%
-  );
-  /* clip-path: circle(50% at 50% 100%); */
-/* position: relative;
-} */
-
-.mobile-menu-link {
   padding-top: 5px;
 }
 
-.mobile-menu-link p {
+.mobile-navbar p {
   font-size: x-small;
 }
+
+/* 반응형 */
 
 @media screen and (max-width: 576px) {
   .web-navbar {
     display: none;
   }
-}
-
-@media screen and (max-width: 576px) {
   .menu-link {
     width: 100%;
   }

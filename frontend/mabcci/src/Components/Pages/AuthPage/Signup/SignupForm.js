@@ -66,9 +66,6 @@ function SignupForm() {
           ) : null}
         </li>
       </ul>
-      <h4>성별</h4>
-
-      <h4>선호하는 스타일을 골라주세요!</h4>
     </div>
   );
 }
