@@ -24,4 +24,23 @@ public class LoginRequestTest {
                 () -> assertThat(loginRequest).isExactlyInstanceOf(LoginRequest.class)
         );
     }
+
+    @DisplayName(value = "getter 테스트")
+    @Test
+    public void getterTest() {
+        // given
+        String expectedEmail = "example@example.com";
+        String expectedPassword = "testPassword";
+        LoginRequest loginRequest = new LoginRequest(expectedEmail, expectedPassword);
+
+        // when
+        String email = loginRequest.getEmail();
+        String password = loginRequest.getPassword();
+
+        // then
+        assertAll(
+                () -> assertThat(email).isEqualTo(expectedEmail),
+                () -> assertThat(password).isEqualTo(expectedPassword)
+        );
+    }
 }
