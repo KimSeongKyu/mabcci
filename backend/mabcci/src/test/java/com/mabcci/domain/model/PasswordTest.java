@@ -31,6 +31,19 @@ class PasswordTest {
         );
     }
 
+    @DisplayName("Password 인스턴스 checkPassword() 기능 테스트")
+    @Test
+    void checkPassword_test() {
+        final String value = "password";
+        final String invalidValue = "passward";
+        final Password password = Password.of(value);
+
+        assertAll(
+                () -> assertThat(password.checkPassword(value)).isTrue(),
+                () -> assertThat(password.checkPassword(invalidValue)).isFalse()
+        );
+    }
+
     @DisplayName("Password 인스턴스 password() 기능 테스트")
     @Test
     void password_test() {

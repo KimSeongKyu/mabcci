@@ -1,7 +1,8 @@
 package com.mabcci.domain.member.domain;
 
+import com.mabcci.domain.model.Email;
+import com.mabcci.domain.model.Password;
 import com.mabcci.global.common.BaseTimeEntity;
-import lombok.Builder;
 
 import javax.persistence.*;
 
@@ -13,11 +14,11 @@ public class Member extends BaseTimeEntity {
     @Id
     private Long id;
 
-    @Column(name = "MEMBER_EMAIL", nullable = false, unique = true)
-    private String email;
+    @Embedded
+    private Email email;
 
     @Column(name = "MEMBER_PASSWORD", nullable = false)
-    private String password;
+    private Password password;
 
     @Column(name = "MEMBER_NICKNAME", nullable = false, unique = true)
     private String nickname;
@@ -33,17 +34,20 @@ public class Member extends BaseTimeEntity {
     @Column(name = "MEMBER_ROLE", nullable = false)
     private MemberRole role;
 
-    protected Member() {
+    public static final MemberBuilder builder() {
+        return new MemberBuilder();
     }
 
-    @Builder
-    public Member(String email, String password, String nickname, String phone, Gender gender, MemberRole role) {
-        this.email = email;
-        this.password = password;
-        this.nickname = nickname;
-        this.phone = phone;
-        this.gender = gender;
-        this.role = role;
+    protected Member() { }
+
+    protected Member(final MemberBuilder memberBuilder) {
+        this.id = memberBuilder.id;
+        this.email = memberBuilder.email;
+        this.nickname = memberBuilder.nickname;
+        this.password = memberBuilder.password;
+        this.phone = memberBuilder.phone;
+        this.gender = memberBuilder.gender;
+        this.role = memberBuilder.role;
     }
 
     public boolean checkPassword(final String otherPassword) {
@@ -63,7 +67,7 @@ public class Member extends BaseTimeEntity {
     }
 
     public String email() {
-        return email;
+        return email.email();
     }
 
     public String password() {
@@ -79,4 +83,64 @@ public class Member extends BaseTimeEntity {
     public Gender gender() {
         return gender;
     }
+
+    public static class MemberBuilder {
+        private Long id;
+        private Email email;
+        private Password password;
+        private String nickname;
+        private String phone;
+        private Gender gender;
+        private MemberRole role;
+
+        private MemberBuilder() { }
+
+        public MemberBuilder id(final Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public MemberBuilder email(final String email) {
+            return email(Email.of(email));
+        }
+
+        public MemberBuilder email(final Email email) {
+            this.email = email;
+            return this;
+        }
+
+        public MemberBuilder password(final String password) {
+            return password(Password.of(password));
+        }
+
+        public MemberBuilder password(final Password password) {
+            this.password = password;
+            return this;
+        }
+
+        public MemberBuilder nickname(String nickname) {
+            this.nickname = nickname;
+            return this;
+        }
+
+        public MemberBuilder phone(String phone) {
+            this.phone = phone;
+            return this;
+        }
+
+        public MemberBuilder gender(Gender gender) {
+            this.gender = gender;
+            return this;
+        }
+
+        public MemberBuilder role(MemberRole role) {
+            this.role = role;
+            return this;
+        }
+
+        public Member build() {
+            return new Member(this);
+        }
+    }
+
 }
