@@ -1,26 +1,38 @@
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 import { LoginUrl } from '../ApiUrl';
 
-const LoginApi = async userInfo => {
+const LoginApi = async userAuthInfo => {
   await axios
-    .post(LoginUrl, userInfo, {
+    .post(LoginUrl, userAuthInfo, {
       headers: {
         'Content-Type': 'application/json',
       },
     })
     .then(response => {
-      localStorage.setItem('accessToken', response.data.accessToken);
-      localStorage.setItem('userinfo', userInfo.id);
-      localStorage.setItem('isLoggedIn', 'true');
+      const { accessToken } = response;
+      const { refreshToken } = response;
+      const decoded = jwtDecode(accessToken);
+
+      const userInfo = {
+        email: decoded.email,
+        nickname: decoded.nickname,
+        role: decoded.role,
+      };
+
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('userInfo', userInfo);
 
       return {
         status: response.status,
+        userInfo,
       };
     })
     .catch(response => {
       localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
       localStorage.removeItem('userinfo');
-      localStorage.setItem('isLoggedIn', 'false');
 
       return {
         status: response.status,
