@@ -3,10 +3,9 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import LoginApi from '../../../../API/AuthAPI/LoginApi';
 import { LoginSuccess, LoginFail } from '../../../../Redux/Actions/AuthAction';
-import './Login.css';
 
 const LoginForm = () => {
-  const [id, setId] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
@@ -15,14 +14,14 @@ const LoginForm = () => {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    const response = await LoginApi({ id, password });
+    const response = await LoginApi({ email, password });
 
     if (response.status === 200) {
-      dispatch(LoginSuccess(id));
-      history.push('/');
+      dispatch(LoginSuccess(email));
+      history.push('/home');
     } else {
       dispatch(LoginFail);
-      history.push('/');
+      history.push('/home');
     }
   };
 
@@ -33,32 +32,35 @@ const LoginForm = () => {
           <div className="form-element">
             <input
               type="text"
-              id="id"
-              name="id"
-              placeholder="id"
+              id="email"
+              name="email"
+              placeholder="Email"
               onChange={e => {
-                setId(e.target.value);
+                setEmail(e.target.value);
               }}
             />
-          </div>
-          <div className="form-element">
+
             <input
               type="text"
               id="password"
               name="password"
-              placeholder="password"
+              placeholder="Password"
               onChange={e => {
                 setPassword(e.target.value);
               }}
             />
           </div>
-          <button type="submit">Login</button>
+          <button className="btn" type="submit">
+            Login
+          </button>
         </form>
       </section>
 
       <section className="passwordFind">
         비밀번호를 잊으셨나요?
-        <button type="button">비밀번호찾기</button>
+        <button className="btn-transparent" type="button">
+          비밀번호찾기
+        </button>
       </section>
     </article>
   );
