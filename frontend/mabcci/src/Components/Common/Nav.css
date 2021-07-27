@@ -20,7 +20,10 @@
 }
 
 .web-navbar-icon {
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 120px;
   font-size: medium;
   font-weight: 600;
   position: absolute;
