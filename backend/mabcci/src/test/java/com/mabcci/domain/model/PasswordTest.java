@@ -39,4 +39,18 @@ class PasswordTest {
 
         assertThat(password.password()).isEqualTo(value);
     }
+
+    @DisplayName("Password 인스턴스 equals() & hashCode() 기능 테스트")
+    @Test
+    void equals_and_hashcode_test() {
+        final String value = "password";
+        final Password password = Password.of(value);
+        final Password otherPassword = Password.of(value);
+
+        assertAll(
+                () -> assertThat(password).isEqualTo(otherPassword),
+                () -> assertThat(password.hashCode()).isEqualTo(otherPassword.hashCode())
+        );
+    }
+
 }
