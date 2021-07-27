@@ -3,8 +3,10 @@ package com.mabcci.domain.member.dto;
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
+import com.mabcci.domain.model.Email;
+import com.mabcci.domain.model.Nickname;
 
-import javax.validation.constraints.Email;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -14,12 +16,11 @@ public class MemberResponseDto {
     @NotBlank
     private final Long id;
 
-    @Email
-    private final String email;
+    @Valid
+    private final Email email;
 
-    @NotNull
-    @NotBlank
-    private final String nickname;
+    @Valid
+    private final Nickname nickname;
 
     @NotNull
     @NotBlank
@@ -33,7 +34,7 @@ public class MemberResponseDto {
         this(entity.id(), entity.email(), entity.nickname(), entity.gender(), entity.role());
     }
 
-    public MemberResponseDto(Long id, String email, String nickname, Gender gender, MemberRole role) {
+    public MemberResponseDto(Long id, Email email, Nickname nickname, Gender gender, MemberRole role) {
         this.id = id;
         this.email = email;
         this.nickname = nickname;
@@ -45,12 +46,16 @@ public class MemberResponseDto {
         return id;
     }
 
-    public String getEmail() {
+    public Email getEmail() {
         return email;
     }
 
-    public String getNickname() {
+    public Nickname getNickname() {
         return nickname;
+    }
+
+    public Gender getGender() {
+        return gender;
     }
 
     public MemberRole getRole() {

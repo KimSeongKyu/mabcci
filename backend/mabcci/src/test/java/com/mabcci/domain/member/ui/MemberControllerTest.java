@@ -23,6 +23,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Collections;
 import java.util.List;
 
+import static com.mabcci.domain.model.EmailTest.EMAIL;
+import static com.mabcci.domain.model.NicknameTest.NICKNAME;
+import static com.mabcci.domain.model.PasswordTest.PASSWORD;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
@@ -45,9 +48,6 @@ class MemberControllerTest {
 
     private Member member;
 
-    private static final String EMAIL = "sample@email.com";
-    private static final String PASSWORD = "password";
-    private static final String NICKNAME = "nickname";
     private static final String PHONE = "01012345678";
     private static final Gender GENDER = Gender.MALE;
 

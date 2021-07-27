@@ -22,8 +22,8 @@ public class Password {
         this.password = password;
     }
 
-    public boolean checkPassword(final String other) {
-        return password.equals(other);
+    public boolean checkPassword(final Password other) {
+        return this.equals(other);
     }
 
     public String password() {

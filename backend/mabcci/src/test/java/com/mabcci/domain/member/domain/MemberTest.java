@@ -1,10 +1,14 @@
 package com.mabcci.domain.member.domain;
 
+import com.mabcci.domain.model.Password;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import static com.mabcci.domain.model.EmailTest.EMAIL;
+import static com.mabcci.domain.model.NicknameTest.NICKNAME;
+import static com.mabcci.domain.model.PasswordTest.PASSWORD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,9 +19,9 @@ class MemberTest {
     @BeforeEach
     void setUp() {
         member = Member.builder()
-                .email("sample@email.com")
-                .password("validPassword")
-                .nickname("sample")
+                .email(EMAIL)
+                .password(PASSWORD)
+                .nickname(NICKNAME)
                 .phone("010-1234-5678")
                 .gender(Gender.MALE)
                 .role(MemberRole.USER)
@@ -39,8 +43,8 @@ class MemberTest {
     @Test
     void passwordCheck_test() {
         // given
-        String validPassword = "validPassword";
-        String invalidPassword = "invalidPassword";
+        Password validPassword = PASSWORD;
+        Password invalidPassword = Password.of("invalidPassword");
 
         // when and then
         assertAll(
@@ -58,9 +62,8 @@ class MemberTest {
         // when and then
         assertAll(
                 () -> assertThat(member.id()).isEqualTo(1L),
-                () -> assertThat(member.nickname()).isEqualTo("sample"),
-                () -> assertThat(member.role()).isEqualTo(MemberRole.USER),
-                () -> assertThat(member.password()).isEqualTo("validPassword")
+                () -> assertThat(member.nickname()).isEqualTo(NICKNAME),
+                () -> assertThat(member.role()).isEqualTo(MemberRole.USER)
         );
     }
 

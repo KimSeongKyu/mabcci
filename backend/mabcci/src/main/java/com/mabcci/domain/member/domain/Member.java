@@ -1,6 +1,7 @@
 package com.mabcci.domain.member.domain;
 
 import com.mabcci.domain.model.Email;
+import com.mabcci.domain.model.Nickname;
 import com.mabcci.domain.model.Password;
 import com.mabcci.global.common.BaseTimeEntity;
 
@@ -9,7 +10,8 @@ import javax.persistence.*;
 @Entity
 public class Member extends BaseTimeEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
 
@@ -23,8 +25,10 @@ public class Member extends BaseTimeEntity {
     @Column(name = "member_password", nullable = false))
     private Password password;
 
-    @Column(name = "member_nickname", nullable = false, unique = true)
-    private String nickname;
+    @Embedded
+    @AttributeOverride(name = "nickname", column =
+    @Column(name = "member_nickname", nullable = false, unique = true))
+    private Nickname nickname;
 
     @Column(name = "member_phone", unique = true)
     private String phone;
@@ -54,7 +58,7 @@ public class Member extends BaseTimeEntity {
         this.role = memberBuilder.role;
     }
 
-    public boolean checkPassword(final String otherPassword) {
+    public boolean checkPassword(final Password otherPassword) {
         return password.checkPassword(otherPassword);
     }
 
@@ -62,7 +66,7 @@ public class Member extends BaseTimeEntity {
         return id;
     }
 
-    public String nickname() {
+    public Nickname nickname() {
         return nickname;
     }
 
@@ -70,15 +74,12 @@ public class Member extends BaseTimeEntity {
         return role;
     }
 
-    public String email() {
-        return email.email();
+    public Email email() {
+        return email;
     }
 
-    public String password() {
-        return password;
-    }
 
-    public Member update(String nickName, Gender gender) {
+    public Member update(Nickname nickName, Gender gender) {
         this.nickname = nickName;
         this.gender = gender;
         return this;
@@ -92,7 +93,7 @@ public class Member extends BaseTimeEntity {
         private Long id;
         private Email email;
         private Password password;
-        private String nickname;
+        private Nickname nickname;
         private String phone;
         private Gender gender;
         private MemberRole role;
@@ -123,7 +124,11 @@ public class Member extends BaseTimeEntity {
             return this;
         }
 
-        public MemberBuilder nickname(String nickname) {
+        public MemberBuilder nickname(final String nickname) {
+            return nickname(Nickname.of(nickname));
+        }
+
+        public MemberBuilder nickname(final Nickname nickname) {
             this.nickname = nickname;
             return this;
         }

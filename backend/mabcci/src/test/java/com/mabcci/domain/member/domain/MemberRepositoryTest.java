@@ -1,5 +1,6 @@
 package com.mabcci.domain.member.domain;
 
+import com.mabcci.domain.model.Nickname;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -76,10 +77,11 @@ class MemberRepositoryTest {
     @Test
     void findByNickname_fail_test() {
         // given
+        final Nickname nickname = Nickname.of("invalidNickName");
         testEntityManager.persist(member);
 
         // when
-        Optional<Member> findMember = memberRepository.findByNickname("invalidNickName");
+        Optional<Member> findMember = memberRepository.findByNickname(nickname);
 
         // then
         assertThat(findMember.isPresent()).isFalse();

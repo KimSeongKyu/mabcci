@@ -2,17 +2,21 @@ package com.mabcci.domain.member.dto;
 
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.MemberRole;
+import com.mabcci.domain.model.Email;
+import com.mabcci.domain.model.EmailTest;
+import com.mabcci.domain.model.Nickname;
+import com.mabcci.domain.model.NicknameTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static com.mabcci.domain.model.EmailTest.EMAIL;
+import static com.mabcci.domain.model.NicknameTest.NICKNAME;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class MemberResponseDtoTest {
 
     private static final Long ID = 1L;
-    private static final String EMAIL = "sample@email.com";
-    private static final String NICKNAME = "nickname";
     private static final Gender GENDER = Gender.MALE;
     private static final MemberRole ROLE = MemberRole.USER;
 

@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-class NicknameTest {
+public class NicknameTest {
+
+    public static final Nickname NICKNAME = Nickname.of("nickname");
 
     @DisplayName("Nickname 인스턴스 생성 여부 테스트")
     @Test

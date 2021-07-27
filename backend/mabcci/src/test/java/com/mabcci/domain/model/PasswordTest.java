@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-class PasswordTest {
+public class PasswordTest {
+
+    public static final Password PASSWORD = Password.of("password");
 
     @DisplayName("Password 인스턴스 생성 여부 테스트")
     @Test
@@ -39,8 +41,8 @@ class PasswordTest {
         final Password password = Password.of(value);
 
         assertAll(
-                () -> assertThat(password.checkPassword(value)).isTrue(),
-                () -> assertThat(password.checkPassword(invalidValue)).isFalse()
+                () -> assertThat(password.checkPassword(Password.of(value))).isTrue(),
+                () -> assertThat(password.checkPassword(Password.of(invalidValue))).isFalse()
         );
     }
 

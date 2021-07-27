@@ -5,14 +5,14 @@ import com.mabcci.domain.member.domain.Member;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static com.mabcci.domain.model.EmailTest.EMAIL;
+import static com.mabcci.domain.model.NicknameTest.NICKNAME;
+import static com.mabcci.domain.model.PasswordTest.PASSWORD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class JoinRequestTest {
 
-    private static final String EMAIL = "sample@email.com";
-    private static final String PASSWORD = "password";
-    private static final String NICKNAME = "nickname";
     private static final String PHONE = "01012345678";
     private static final Gender GENDER = Gender.MALE;
 

@@ -5,6 +5,8 @@ import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.dto.MemberResponseDto;
 import com.mabcci.domain.member.dto.MemberUpdateRequestDto;
 import com.mabcci.domain.member.exception.MemberNotFoundException;
+import com.mabcci.domain.model.Nickname;
+import com.mabcci.domain.model.Password;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +28,7 @@ public class MemberService {
     }
 
     @Transactional(readOnly = true)
-    public MemberResponseDto findByNickName(String nickname) {
+    public MemberResponseDto findByNickName(Nickname nickname) {
         Member findingEntity = memberRepository.findByNickname(nickname)
                 .orElseThrow(MemberNotFoundException::new);
         return new MemberResponseDto(findingEntity);
@@ -47,7 +49,7 @@ public class MemberService {
     }
 
     @Transactional
-    public void delete(String nickname, String password) {
+    public void delete(Nickname nickname, Password password) {
         Member member = memberRepository.findByNicknameAndPassword(nickname, password).stream()
                 .filter(entity -> entity.checkPassword(password))
                 .findFirst()

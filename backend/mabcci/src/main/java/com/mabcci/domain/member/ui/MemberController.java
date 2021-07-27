@@ -5,6 +5,7 @@ import com.mabcci.domain.member.dto.JoinRequest;
 import com.mabcci.domain.member.dto.MemberDeleteRequestDto;
 import com.mabcci.domain.member.dto.MemberResponseDto;
 import com.mabcci.domain.member.dto.MemberUpdateRequestDto;
+import com.mabcci.domain.model.Nickname;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class MemberController {
     }
 
     @GetMapping("/api/members/{nickname}")
-    public ResponseEntity<?> findByNickname(@PathVariable String nickname) {
+    public ResponseEntity<?> findByNickname(@Valid @PathVariable Nickname nickname) {
         MemberResponseDto memberResponseDto = memberService.findByNickName(nickname);
         validateNull(memberResponseDto);
         return ResponseEntity.ok().body(memberResponseDto);
