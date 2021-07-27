@@ -24,4 +24,23 @@ public class LoginResponseTest {
                 () -> assertThat(loginResponse).isExactlyInstanceOf(LoginResponse.class)
         );
     }
+
+    @DisplayName(value = "getter 테스트")
+    @Test
+    public void getterTest() {
+        // given
+        String expectedAccessToken = "test.access.token";
+        String expectedRefreshToken = "test.refresh.token";
+        LoginResponse loginResponse = new LoginResponse(expectedAccessToken, expectedRefreshToken);
+
+        // when
+        String accessToken = loginResponse.getAccessToken();
+        String refreshToken = loginResponse.getRefreshToken();
+
+        // then
+        assertAll(
+                () -> assertThat(accessToken).isEqualTo(expectedAccessToken),
+                () -> assertThat(refreshToken).isEqualTo(expectedRefreshToken)
+        );
+    }
 }
