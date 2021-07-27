@@ -3,31 +3,37 @@ package com.mabcci.domain.member.dto;
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
+import com.mabcci.domain.model.Email;
+import com.mabcci.domain.model.Password;
 
-import javax.validation.constraints.Email;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class JoinRequestDto {
+public final class JoinRequest {
 
-    @Email
-    private String email;
+    @Valid
+    private Email email;
+
+    @Valid
+    private Password password;
 
     @NotNull
-    private String password;
-
-    @NotNull
+    @NotEmpty
     private String nickname;
 
     @NotNull
+    @NotEmpty
     private String phone;
 
     @NotNull
+    @NotEmpty
     private Gender gender;
 
-    private JoinRequestDto() {
+    private JoinRequest() {
     }
 
-    public JoinRequestDto(String email, String password, String nickname, String phone, Gender gender) {
+    public JoinRequest(@Valid Email email, @Valid Password password, final String nickname, final String phone, final Gender gender) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
@@ -35,11 +41,11 @@ public class JoinRequestDto {
         this.gender = gender;
     }
 
-    public String getEmail() {
+    public Email getEmail() {
         return email;
     }
 
-    public String getPassword() {
+    public Password getPassword() {
         return password;
     }
 

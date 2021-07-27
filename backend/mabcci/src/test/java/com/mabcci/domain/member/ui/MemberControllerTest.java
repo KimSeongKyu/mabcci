@@ -5,7 +5,7 @@ import com.mabcci.domain.member.application.MemberService;
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
-import com.mabcci.domain.member.dto.JoinRequestDto;
+import com.mabcci.domain.member.dto.JoinRequest;
 import com.mabcci.domain.member.dto.MemberDeleteRequestDto;
 import com.mabcci.domain.member.dto.MemberResponseDto;
 import com.mabcci.domain.member.dto.MemberUpdateRequestDto;
@@ -13,8 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -73,8 +71,8 @@ class MemberControllerTest {
         MemberResponseDto memberResponseDto = new MemberResponseDto(member);
         given(memberService.join(any())).willReturn(memberResponseDto);
 
-        JoinRequestDto joinRequestDto = new JoinRequestDto(EMAIL, PASSWORD, NICKNAME, PHONE, GENDER);
-        String joinRequestDtoString = objectMapper.writeValueAsString(joinRequestDto);
+        JoinRequest joinRequest = new JoinRequest(EMAIL, PASSWORD, NICKNAME, PHONE, GENDER);
+        String joinRequestDtoString = objectMapper.writeValueAsString(joinRequest);
 
         // when and then
         mvc.perform(post("/api/members")

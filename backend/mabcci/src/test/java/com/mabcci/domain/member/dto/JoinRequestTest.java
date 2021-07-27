@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-class JoinRequestDtoTest {
+class JoinRequestTest {
 
     private static final String EMAIL = "sample@email.com";
     private static final String PASSWORD = "password";
@@ -20,12 +20,12 @@ class JoinRequestDtoTest {
     @Test
     void initialize() {
         // when
-        JoinRequestDto joinRequestDto = new JoinRequestDto(EMAIL, PASSWORD, NICKNAME, PHONE, GENDER);
+        JoinRequest joinRequest = new JoinRequest(EMAIL, PASSWORD, NICKNAME, PHONE, GENDER);
 
         // then
         assertAll(
-                () -> assertThat(joinRequestDto).isNotNull(),
-                () -> assertThat(joinRequestDto).isExactlyInstanceOf(JoinRequestDto.class)
+                () -> assertThat(joinRequest).isNotNull(),
+                () -> assertThat(joinRequest).isExactlyInstanceOf(JoinRequest.class)
         );
 
     }
@@ -34,15 +34,15 @@ class JoinRequestDtoTest {
     @Test
     void getter_test() {
         // given
-        JoinRequestDto joinRequestDto = new JoinRequestDto(EMAIL, PASSWORD, NICKNAME, PHONE, GENDER);
+        JoinRequest joinRequest = new JoinRequest(EMAIL, PASSWORD, NICKNAME, PHONE, GENDER);
 
         // when and then
         assertAll(
-                () -> assertThat(joinRequestDto.getEmail()).isEqualTo(EMAIL),
-                () -> assertThat(joinRequestDto.getPassword()).isEqualTo(PASSWORD),
-                () -> assertThat(joinRequestDto.getNickname()).isEqualTo(NICKNAME),
-                () -> assertThat(joinRequestDto.getPhone()).isEqualTo(PHONE),
-                () -> assertThat(joinRequestDto.getGender()).isEqualTo(GENDER)
+                () -> assertThat(joinRequest.getEmail()).isEqualTo(EMAIL),
+                () -> assertThat(joinRequest.getPassword()).isEqualTo(PASSWORD),
+                () -> assertThat(joinRequest.getNickname()).isEqualTo(NICKNAME),
+                () -> assertThat(joinRequest.getPhone()).isEqualTo(PHONE),
+                () -> assertThat(joinRequest.getGender()).isEqualTo(GENDER)
         );
 
     }
@@ -51,10 +51,10 @@ class JoinRequestDtoTest {
     @Test
     void entity_test() {
         // given
-        JoinRequestDto joinRequestDto = new JoinRequestDto(EMAIL, PASSWORD, NICKNAME, PHONE, GENDER);
+        JoinRequest joinRequest = new JoinRequest(EMAIL, PASSWORD, NICKNAME, PHONE, GENDER);
 
         // when
-        Member member = joinRequestDto.entity();
+        Member member = joinRequest.entity();
 
         // then
         assertAll(

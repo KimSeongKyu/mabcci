@@ -9,36 +9,40 @@ import javax.persistence.*;
 @Entity
 public class Member extends BaseTimeEntity {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MEMBER_ID")
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
     private Long id;
 
     @Embedded
+    @AttributeOverride(name = "email", column =
+    @Column(name = "member_email", nullable = false, unique = true, updatable = false))
     private Email email;
 
-    @Column(name = "MEMBER_PASSWORD", nullable = false)
+    @Embedded
+    @AttributeOverride(name = "password", column =
+    @Column(name = "member_password", nullable = false))
     private Password password;
 
-    @Column(name = "MEMBER_NICKNAME", nullable = false, unique = true)
+    @Column(name = "member_nickname", nullable = false, unique = true)
     private String nickname;
 
-    @Column(name = "MEMBER_PHONE", unique = true)
+    @Column(name = "member_phone", unique = true)
     private String phone;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "MEMBER_GENDER", nullable = false)
+    @Column(name = "member_gender", nullable = false)
     private Gender gender;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "MEMBER_ROLE", nullable = false)
+    @Column(name = "member_role", nullable = false)
     private MemberRole role;
 
     public static final MemberBuilder builder() {
         return new MemberBuilder();
     }
 
-    protected Member() { }
+    protected Member() {
+    }
 
     protected Member(final MemberBuilder memberBuilder) {
         this.id = memberBuilder.id;
@@ -51,7 +55,7 @@ public class Member extends BaseTimeEntity {
     }
 
     public boolean checkPassword(final String otherPassword) {
-        return this.password.equals(otherPassword);
+        return password.checkPassword(otherPassword);
     }
 
     public Long id() {
@@ -93,7 +97,8 @@ public class Member extends BaseTimeEntity {
         private Gender gender;
         private MemberRole role;
 
-        private MemberBuilder() { }
+        private MemberBuilder() {
+        }
 
         public MemberBuilder id(final Long id) {
             this.id = id;

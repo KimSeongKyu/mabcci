@@ -1,7 +1,7 @@
 package com.mabcci.domain.member.ui;
 
 import com.mabcci.domain.member.application.MemberService;
-import com.mabcci.domain.member.dto.JoinRequestDto;
+import com.mabcci.domain.member.dto.JoinRequest;
 import com.mabcci.domain.member.dto.MemberDeleteRequestDto;
 import com.mabcci.domain.member.dto.MemberResponseDto;
 import com.mabcci.domain.member.dto.MemberUpdateRequestDto;
@@ -22,8 +22,8 @@ public class MemberController {
     }
 
     @PostMapping(value = "/api/members")
-    public ResponseEntity<?> join(@Valid @RequestBody JoinRequestDto joinRequestDto) {
-        MemberResponseDto joinedResponseDto = memberService.join(joinRequestDto.entity());
+    public ResponseEntity<?> join(@Valid @RequestBody JoinRequest joinRequest) {
+        MemberResponseDto joinedResponseDto = memberService.join(joinRequest.entity());
         validateNull(joinedResponseDto);
         return ResponseEntity.ok().body(joinedResponseDto);
     }
