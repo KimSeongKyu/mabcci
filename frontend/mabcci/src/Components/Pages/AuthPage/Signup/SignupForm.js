@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
+// import { useDispatch } from 'react-redux';
 
 function SignupForm() {
   const [userInfo, setUserInfo] = useState([
     {
       email: '',
       nickname: '',
-      phoneNumber: '',
+      firstPhoneNumber: '',
+      secondPhoneNumber: '',
+      thirdPhoneNumber: '',
       password: '',
       passwordConfirmation: '',
     },
   ]);
+
+  // const dispatch = useDispatch();
 
   // input값에 적은 유저정보 저장하기
   function changeUserInfo(e) {
@@ -39,12 +44,26 @@ function SignupForm() {
           />
         </li>
         <li>
-          <input
-            type="text"
-            placeholder="Phone_number"
-            name="phoneNumber"
-            onChange={changeUserInfo}
-          />
+          <div className="phone-number">
+            <div>PhoneNumber</div>
+            <input
+              type="text"
+              name="firstPhoneNumber"
+              onChange={changeUserInfo}
+            />
+            -
+            <input
+              type="text"
+              name="secondPhoneNumber"
+              onChange={changeUserInfo}
+            />
+            -
+            <input
+              type="text"
+              name="thirdPhoneNumber"
+              onChange={changeUserInfo}
+            />
+          </div>
         </li>
         <li>
           <input
@@ -57,7 +76,7 @@ function SignupForm() {
         <li>
           <input
             type="password"
-            placeholder="Password_confirm"
+            placeholder="PasswordConfirm"
             name="passwordConfirmation"
             onChange={changeUserInfo}
           />
@@ -66,9 +85,6 @@ function SignupForm() {
           ) : null}
         </li>
       </ul>
-      <h4>성별</h4>
-
-      <h4>선호하는 스타일을 골라주세요!</h4>
     </div>
   );
 }
