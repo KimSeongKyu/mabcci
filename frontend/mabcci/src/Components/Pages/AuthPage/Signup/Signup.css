@@ -1,4 +1,4 @@
-.container {
+.signup-container {
   min-width: 320px;
   max-width: 400px;
   min-height: 100%;
@@ -9,6 +9,7 @@
   justify-content: center;
   align-content: stretch;
   text-align: center;
+  margin-bottom: 100px;
 }
 
 .signup-title {
@@ -20,6 +21,7 @@
 .input-list {
   list-style: none;
   margin-top: 50px;
+  margin-bottom: 40px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -30,22 +32,98 @@
   width: 100%;
 }
 
+.phone-number {
+  display: flex;
+  justify-content: space-between;
+}
+
+.phone-number div {
+  color: grey;
+}
+
+.phone-number input {
+  width: 20%;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+::placeholder {
+  color: grey;
+}
+
 .select-man-woman {
   display: flex;
   justify-content: center;
+  margin-bottom: 50px;
 }
 
 .select-man-woman button {
   margin: 30px;
 }
 
-.btn-rounded-man-woman {
+.btn-rounded-man-woman-active {
   max-width: 150px;
   width: 20vw;
   height: 25px;
-  background-color: var(--main-color-3);
+  background-color: var(--main-color-1);
   box-shadow: 3px 3px 3px grey;
   border-radius: 50px;
-  transition: all 0.1s;
+}
+
+.style-box {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.select-style {
+  display: flex;
+  justify-content: space-around;
+}
+
+.select-style button {
+  margin: 5px;
+}
+
+.btn-select-style {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
   cursor: pointer;
+  background-color: var(--main-color-3);
+  box-shadow: 3px 3px 3px grey;
+  position: relative;
+  transition: all 0.1s ease-in-out;
+}
+.btn-select-style-active {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  cursor: pointer;
+  background-color: var(--main-color-1);
+}
+
+.btn-select-style img {
+  width: 70px;
+  height: 50px;
+  position: absolute;
+  top: 5px;
+  left: 0;
+  pointer-events: none;
+  display: block;
+}
+
+.btn-select-style p {
+  margin-bottom: 80px;
+  pointer-events: none;
+}
+
+.btn-select-style:hover {
+  background-color: var(--main-color-1);
+  color: white;
+}
+
+.btn-select-style:active {
+  padding-left: 3px;
+  padding-top: 3px;
+  box-shadow: none;
 }

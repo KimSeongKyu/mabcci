@@ -44,10 +44,12 @@ function Nav() {
         </div>
       </div>
       <div className="mobile-navbar">
-        <Link to="home" className="btn-link">
-          <AiOutlineHome />
-          <p>홈</p>
-        </Link>
+        <div>
+          <Link to="home" className="btn-link">
+            <AiOutlineHome />
+            <p>홈</p>
+          </Link>
+        </div>
         <Link to="OOTD" className="btn-link">
           <BsImages />
           <p>OOTD</p>

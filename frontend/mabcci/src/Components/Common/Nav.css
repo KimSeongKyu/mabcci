@@ -68,8 +68,9 @@
   display: flex;
   justify-content: space-around;
   position: fixed;
-  width: 100%;
   bottom: 0;
+  width: 100%;
+  z-index: 1;
 }
 
 .mobile-navbar a {
@@ -77,6 +78,10 @@
   color: #0f0e0e;
   padding-top: 5px;
 }
+
+/* .mobile-navbar div:hover {
+  color: var(--main-color-1);
+} */
 
 .mobile-navbar p {
   font-size: x-small;

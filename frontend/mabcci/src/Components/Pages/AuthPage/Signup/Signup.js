@@ -7,7 +7,7 @@ import SignupBottom from './SignupBottom';
 function Signup() {
   return (
     <div>
-      <div className="container">
+      <div className="signup-container">
         <SignupHeader />
         <SignupForm />
         <SignupBottom />
