@@ -1,4 +1,5 @@
 {
+  "homepage": "http://localhost:3000/intro",
   "name": "mabcci",
   "version": "0.1.0",
   "private": true,
