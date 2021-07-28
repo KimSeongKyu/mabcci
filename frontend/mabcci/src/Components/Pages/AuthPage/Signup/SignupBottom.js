@@ -10,7 +10,7 @@ import 캐쥬얼 from '../../../../Asset/Images/캐쥬얼.png';
 import 포멀 from '../../../../Asset/Images/포멀.png';
 import {
   SingupSelectStyle,
-  SingupSelectSex,
+  SingupSelectGender,
 } from '../../../../Redux/Actions/SignupAction';
 
 function SignupBottom() {
@@ -18,25 +18,33 @@ function SignupBottom() {
   const history = useHistory();
   const signupRedux = useSelector(state => state.SignupReducer);
 
+  // 회원정보가 다 입력되어 있는지 확인
+
   const handleSubmit = async e => {
     e.preventDefault();
     const data = signupRedux;
-    console.log(signupRedux);
-    const response = await SignupApi(data);
+    const isEmpty = Object.values(data).some(x => x === '' || x.length === 0);
+    console.log(data);
 
-    if (response.status === 200) {
-      history.push('/login');
+    if (isEmpty === true) {
+      alert('회원정보를 모두 입력해주세요');
     } else {
-      alert('회원가입 실패');
+      console.log(data, '회원가입누르면');
+      const response = await SignupApi(signupRedux);
+      if (response.status === 200) {
+        history.push('/login');
+      } else {
+        alert('회원가입 실패');
+      }
     }
   };
 
-  const [selectSex, setSelectSex] = useState('');
+  const [selectGender, setSelectGender] = useState('');
   // 성별 선택 버튼 클릭
   function mwBtnClick(e) {
-    // e.target.classList.toggle('btn-rounded-man-woman-active');
-    setSelectSex(e.target.name);
-    dispatch(SingupSelectSex(e.target.name));
+    e.target.classList.toggle('btn-rounded-man-woman-active');
+    setSelectGender(e.target.name);
+    dispatch(SingupSelectGender(e.target.name));
   }
 
   const [selectStyle, setSelectStyle] = useState([]);
@@ -44,21 +52,25 @@ function SignupBottom() {
   function styleBtnClick(e) {
     e.target.classList.toggle('btn-select-style-active');
     const copy = [...selectStyle];
+    console.log(copy, typeof copy);
     const idx = copy.indexOf(e.target.name);
     if (idx >= 0) {
       copy.splice(idx, 1);
     } else {
       copy.push(e.target.name);
     }
+
     setSelectStyle(copy);
     dispatch(SingupSelectStyle(copy));
+    const data = signupRedux;
+    console.log(data);
   }
 
   return (
     <div>
       <h5>성별</h5>
       <div className="select-man-woman">
-        {selectSex === 'MALE' ? (
+        {selectGender === 'MALE' ? (
           <button
             className="btn-sex-select"
             type="submit"
@@ -78,7 +90,7 @@ function SignupBottom() {
           </button>
         )}
 
-        {selectSex === 'FEMALE' ? (
+        {selectGender === 'FEMALE' ? (
           <button
             className="btn-sex-select"
             type="submit"

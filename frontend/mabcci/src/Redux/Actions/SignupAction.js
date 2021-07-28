@@ -1,7 +1,7 @@
 import {
   SIGNUP_INPUT,
   SIGNUP_SELECT_STYLE,
-  SIGNUP_SELECT_SEX,
+  SIGNUP_SELECT_GENDER,
 } from '../Type/SignupType';
 
 export const SignupInput = data => {
@@ -18,9 +18,9 @@ export const SingupSelectStyle = style => {
   };
 };
 
-export const SingupSelectSex = sex => {
+export const SingupSelectGender = gender => {
   return {
-    type: SIGNUP_SELECT_SEX,
-    payload: sex,
+    type: SIGNUP_SELECT_GENDER,
+    payload: gender,
   };
 };
