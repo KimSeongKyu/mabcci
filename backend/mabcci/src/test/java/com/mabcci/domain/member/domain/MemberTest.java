@@ -9,10 +9,20 @@ import org.springframework.test.util.ReflectionTestUtils;
 import static com.mabcci.domain.model.EmailTest.EMAIL;
 import static com.mabcci.domain.model.NicknameTest.NICKNAME;
 import static com.mabcci.domain.model.PasswordTest.PASSWORD;
+import static com.mabcci.domain.model.PhoneTest.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-class MemberTest {
+public class MemberTest {
+
+    public static final Member MEMBER = Member.builder()
+            .email(EMAIL)
+            .password(PASSWORD)
+            .nickname(NICKNAME)
+            .phone(PHONE)
+            .gender(Gender.MALE)
+            .role(MemberRole.USER)
+            .build();
 
     private Member member;
 
@@ -22,7 +32,7 @@ class MemberTest {
                 .email(EMAIL)
                 .password(PASSWORD)
                 .nickname(NICKNAME)
-                .phone("010-1234-5678")
+                .phone(PHONE)
                 .gender(Gender.MALE)
                 .role(MemberRole.USER)
                 .build();

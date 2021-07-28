@@ -26,6 +26,7 @@ import static com.mabcci.domain.member.domain.MemberRole.*;
 import static com.mabcci.domain.model.EmailTest.EMAIL;
 import static com.mabcci.domain.model.NicknameTest.NICKNAME;
 import static com.mabcci.domain.model.PasswordTest.PASSWORD;
+import static com.mabcci.domain.model.PhoneTest.PHONE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
@@ -47,8 +48,6 @@ class MemberControllerTest {
     private MemberService memberService;
 
     private Member member;
-
-    private static final String PHONE = "01012345678";
 
     @BeforeEach
     void setUp() {
