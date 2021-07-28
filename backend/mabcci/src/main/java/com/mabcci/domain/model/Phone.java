@@ -1,10 +1,14 @@
 package com.mabcci.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 public class Phone {
+
+    private static final String PHONE_FORMAT = "%s-%s-%s";
 
     @Min(2)
     @Max(3)
@@ -34,4 +38,22 @@ public class Phone {
         this.thirdNumber = thirdNumber;
     }
 
+    public String phone() {
+        return String.format(PHONE_FORMAT, firstNumber, secondNumber, thirdNumber);
+    }
+
+    @JsonValue
+    public String firstNumber() {
+        return firstNumber;
+    }
+
+    @JsonValue
+    public String secondNumber() {
+        return secondNumber;
+    }
+
+    @JsonValue
+    public String thirdNumber() {
+        return thirdNumber;
+    }
 }

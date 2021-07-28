@@ -18,7 +18,6 @@ import java.util.Map;
 
 import static java.util.stream.Collectors.toMap;
 
-@Component
 @NoArgsConstructor
 public class JwtUtil {
 

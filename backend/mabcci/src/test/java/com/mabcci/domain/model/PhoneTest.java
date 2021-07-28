@@ -27,13 +27,29 @@ class PhoneTest {
     @DisplayName("Phone 인스턴스 phone() 기능 테스트")
     @Test
     void phone_test() {
-        final String firstPhoneNumber = "010";
-        final String secondPhoneNumber = "1234";
-        final String thirdPhoneNumber = "5678";
+        final String firstNumber = "010";
+        final String secondNumber = "1234";
+        final String thirdNumber = "5678";
 
-        final Phone phone = Phone.from(firstPhoneNumber, secondPhoneNumber, thirdPhoneNumber);
-        final String expected = String.format("%s-%s-%s", firstPhoneNumber, secondPhoneNumber, thirdPhoneNumber);
+        final Phone phone = Phone.from(firstNumber, secondNumber, thirdNumber);
+        final String expected = String.format("%s-%s-%s", firstNumber, secondNumber, thirdNumber);
 
         assertThat(phone.phone()).isEqualTo(expected);
+    }
+
+    @DisplayName("Phone 인스턴스 getter 기능 테스트")
+    @Test
+    void getter_test() {
+        final String firstNumber = "010";
+        final String secondNumber = "1234";
+        final String thirdNumber = "5678";
+
+        final Phone phone = Phone.from(firstNumber, secondNumber, thirdNumber);
+
+        assertAll(
+                () -> assertThat(phone.firstNumber()).isEqualTo(firstNumber),
+                () -> assertThat(phone.secondNumber()).isEqualTo(secondNumber),
+                () -> assertThat(phone.thirdNumber()).isEqualTo(thirdNumber)
+        );
     }
 }
