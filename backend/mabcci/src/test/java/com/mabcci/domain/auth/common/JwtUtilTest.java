@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import static com.mabcci.domain.model.EmailTest.EMAIL;
+import static com.mabcci.domain.member.domain.MemberTest.MEMBER;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class JwtUtilTest {
@@ -53,8 +53,8 @@ public class JwtUtilTest {
     @MethodSource(value = "provideTokenTypesForTestsAboutToken")
     public void createPayloadTest(TokenType tokenType) {
         final JwtUtil jwtUtil = new JwtUtil();
-        final String[] expectedKeys = new String[]{"iss", "sub", "aud", "exp", "nbf", "iat", "email"};
-        final Map<String, Object> payload = jwtUtil.createPayload(tokenType, EMAIL);
+        final String[] expectedKeys = new String[]{"iss", "sub", "aud", "exp", "nbf", "iat", "email", "nickname", "role"};
+        final Map<String, Object> payload = jwtUtil.createPayload(tokenType, MEMBER);
 
         assertThat(payload.keySet()).contains(expectedKeys);
     }
@@ -73,7 +73,7 @@ public class JwtUtilTest {
     @MethodSource(value = "provideTokenTypesForTestsAboutToken")
     public void createTokenTest(TokenType tokenType) {
         final JwtUtil jwtUtil = new JwtUtil();
-        final String token = jwtUtil.createToken(tokenType, EMAIL);
+        final String token = jwtUtil.createToken(tokenType, MEMBER);
 
         Arrays.stream(token.split("."))
                 .forEach(tokenSplitByComma -> assertThat(tokenSplitByComma).isBase64());
@@ -84,7 +84,7 @@ public class JwtUtilTest {
     @MethodSource(value = "provideTokenTypesForTestsAboutToken")
     public void isValidTokenTest(TokenType tokenType) {
         final JwtUtil jwtUtil = new JwtUtil();
-        final String token = jwtUtil.createToken(tokenType, EMAIL);
+        final String token = jwtUtil.createToken(tokenType, MEMBER);
         final boolean validity = jwtUtil.isValidToken(token);
 
         assertThat(validity).isTrue();
