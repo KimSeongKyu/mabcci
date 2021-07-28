@@ -1,11 +1,11 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, SIGNUP } from '../Type/AuthType';
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from '../Type/LoginType';
 
 const initialState = {
   isLoggedin: false,
   userinfo: {},
 };
 
-const AuthReducer = (state = initialState, { type, payload }) => {
+const LoginReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case LOGIN_SUCCESS:
       return {
@@ -27,17 +27,9 @@ const AuthReducer = (state = initialState, { type, payload }) => {
         isLoggedIn: false,
         userinfo: null,
       };
-    case SIGNUP:
-      return {
-        ...state,
-        isLoggedIn: true,
-        userinfo: {
-          payload,
-        },
-      };
     default:
       return state;
   }
 };
 
-export default AuthReducer;
+export default LoginReducer;

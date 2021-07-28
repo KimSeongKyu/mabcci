@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 // Router
 import { Route } from 'react-router-dom';
+
+// Redux
+import { useSelector } from 'react-redux';
 
 // Navbar
 import Nav from './Components/Common/Navbar';
@@ -18,9 +21,23 @@ import Signup from './Components/Pages/AuthPage/Signup/Signup';
 import Description from './Components/Pages/InitialPage/Description/Description';
 
 function App() {
+  // 로그인 여부 redux까지 연결 되어야함
+  const [isLoggedin, setisLoggedin] = useState(false);
+  useEffect(() => {
+    const localLoinToken = localStorage.getItem('accessToken');
+    if (localLoinToken) {
+      setisLoggedin(true);
+    } else {
+      setisLoggedin(false);
+    }
+  });
+
+  const loginRedux = useSelector(state => state.LoginReducer);
+
   return (
     <div className="App">
-      <Nav />
+      {loginRedux.isLoggedin}
+      {isLoggedin ? <Nav /> : null}
 
       <Route exact path="/home">
         <Home />

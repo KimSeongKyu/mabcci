@@ -1,34 +1,33 @@
 import React from 'react';
 import './Signup.css';
-// import { useHistory } from 'react-router-dom';
-// import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import SignupHeader from './SignupHeader';
 import SignupForm from './SignupForm';
 import SignupBottom from './SignupBottom';
+import { LoginSuccess, Logout } from '../../../../Redux/Actions/LoginAction';
 
 function Signup() {
-  // const history = useHistory();
+  const dispatch = useDispatch();
 
-  // // 회원가입 제출
-  // function signUp() {
-  //   const data = userInfo;
-  //   const USER_CREATE_URL = 'api/members';
+  function Login() {
+    localStorage.setItem('accessToken', 'hi');
+    dispatch(LoginSuccess('로그인OK'));
+  }
 
-  //   axios
-  //     .post(USER_CREATE_URL, data)
-  //     .then(function () {
-  //       alert('회원가입성공!');
-  //       history.push('home');
-  //     })
-  //     .catch(function (err) {
-  //       console.log(err);
-  //       alert('회원가입실패');
-  //     });
-  // }
+  function LogOut() {
+    localStorage.removeItem('accessToken');
+    dispatch(Logout('로그아웃OK'));
+  }
 
   return (
     <div>
-      <div className="container">
+      <div className="signup-container">
+        <button type="submit" onClick={Login}>
+          로그인
+        </button>
+        <button type="submit" onClick={LogOut}>
+          로그아웃
+        </button>
         <SignupHeader />
         <SignupForm />
         <SignupBottom />

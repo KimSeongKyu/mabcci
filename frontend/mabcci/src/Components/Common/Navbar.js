@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import './Nav.css';
-import { Row, Col } from 'react-bootstrap';
 import { AiOutlineLogin, AiOutlineHome } from 'react-icons/ai';
 import { FiUser } from 'react-icons/fi';
 import { FaRegComments } from 'react-icons/fa';
@@ -11,91 +11,78 @@ import { Link } from 'react-router-dom';
 import logo from '../../Asset/Images/logo.png';
 
 function Nav() {
+  // 로그인 여부 redux까지 연결 되어야함
+  const [isLoggedin, setisLoggedin] = useState(false);
+  useEffect(() => {
+    const localLoinToken = localStorage.getItem('accessToken');
+    if (localLoinToken) {
+      setisLoggedin(true);
+    } else {
+      setisLoggedin(false);
+    }
+  });
+
+  const loginRedux = useSelector(state => state.LoginReducer);
+
   return (
     <div>
       <div className="web-navbar">
+        {loginRedux.isLoggedin}
         <div className="logo-bar">
           <Link to="home">
             <img className="logo-image" src={logo} alt="로고" />
           </Link>
-          <div className="btn-login">
+          {isLoggedin ? (
+            <div className="web-navbar-icon">
+              <MdAccessAlarm />
+              <MdAccountCircle />
+            </div>
+          ) : (
             <Link to="login">
               <AiOutlineLogin /> Login
             </Link>
-            <MdAccessAlarm />
-            <Link to="MyPage">
-              <MdAccountCircle />
-            </Link>
-          </div>
+          )}
         </div>
         <div className="menu-bar">
           <div className="menu-link">
-            <Row>
-              <Col>
-                <Link to="home" className="btn-link">
-                  Home
-                </Link>
-              </Col>
-              <Col>
-                <Link to="OOTD" className="btn-link">
-                  OOTD
-                </Link>
-              </Col>
-              <Col>
-                <Link to="styling" className="btn-link">
-                  Styling
-                </Link>
-              </Col>
-              <Col>
-                <Link to="Community" className="btn-link">
-                  커뮤니티
-                </Link>
-              </Col>
-            </Row>
+            <Link to="home" className="btn-link">
+              Home
+            </Link>
+            <Link to="OOTD" className="btn-link">
+              OOTD
+            </Link>
+            <Link to="styling" className="btn-link">
+              Styling
+            </Link>
+            <Link to="Community" className="btn-link">
+              Community
+            </Link>
           </div>
         </div>
       </div>
-
       <div className="mobile-navbar">
-        <div className="mobile-menu-bar">
-          <div className="mobile-menu-link">
-            <Row>
-              <Col>
-                <Link to="home" className="btn-link">
-                  <div>
-                    <AiOutlineHome />
-                    <p>홈</p>
-                  </div>
-                </Link>
-              </Col>
-              <Col>
-                <Link to="OOTD" className="btn-link">
-                  <BsImages />
-                  <p>OOTD</p>
-                </Link>
-              </Col>
-
-              <Col>
-                <Link to="styling" className="btn-link">
-                  <IoShirtOutline />
-                  <p>스타일링</p>
-                </Link>
-              </Col>
-              <Col>
-                <Link to="community" className="btn-link">
-                  <FaRegComments />
-                  <p>커뮤니티</p>
-                </Link>
-              </Col>
-              <Col>
-                <Link to="mypage" className="btn-link">
-                  <FiUser />
-                  <p>내정보</p>
-                </Link>
-              </Col>
-            </Row>
-          </div>
+        <div>
+          <Link to="home" className="btn-link">
+            <AiOutlineHome />
+            <p>홈</p>
+          </Link>
         </div>
+        <Link to="OOTD" className="btn-link">
+          <BsImages />
+          <p>OOTD</p>
+        </Link>
+        <Link to="styling" className="btn-link">
+          <IoShirtOutline />
+          <p>스타일링</p>
+        </Link>
+        <Link to="community" className="btn-link">
+          <FaRegComments />
+          <p>커뮤니티</p>
+        </Link>
+        <Link to="mypage" className="btn-link">
+          <FiUser />
+          <p>내정보</p>
+        </Link>
       </div>
     </div>
   );
