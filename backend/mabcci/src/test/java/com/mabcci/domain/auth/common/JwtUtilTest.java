@@ -34,10 +34,7 @@ public class JwtUtilTest {
     @DisplayName(value = "생성 테스트")
     @Test
     public void constructTest() {
-        // given and when
-        JwtUtil jwtUtil = new JwtUtil();
-
-        // then
+        final JwtUtil jwtUtil = new JwtUtil();
         assertThat(jwtUtil).isNotNull();
     }
 

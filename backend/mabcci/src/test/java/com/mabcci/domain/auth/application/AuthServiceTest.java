@@ -1,5 +1,6 @@
 package com.mabcci.domain.auth.application;
 
+import com.mabcci.domain.auth.common.JwtUtil;
 import com.mabcci.domain.auth.domain.RefreshToken;
 import com.mabcci.domain.auth.domain.RefreshTokenRepository;
 import com.mabcci.domain.auth.domain.TokenType;
@@ -7,7 +8,6 @@ import com.mabcci.domain.auth.dto.LoginRequest;
 import com.mabcci.domain.auth.dto.LoginResponse;
 import com.mabcci.domain.auth.dto.LogoutRequest;
 import com.mabcci.domain.auth.exception.NotLoginMemberException;
-import com.mabcci.domain.auth.common.JwtUtil;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.exception.MemberNotFoundException;

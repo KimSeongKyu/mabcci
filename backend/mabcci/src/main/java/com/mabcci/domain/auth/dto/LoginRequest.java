@@ -4,7 +4,6 @@ import com.mabcci.domain.model.Email;
 import com.mabcci.domain.model.Password;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public final class LoginRequest {

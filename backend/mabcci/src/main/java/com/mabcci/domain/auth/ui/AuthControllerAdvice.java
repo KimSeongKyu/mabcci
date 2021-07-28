@@ -15,7 +15,7 @@ public class AuthControllerAdvice {
     }
 
     @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity handleNotLoginNullPointerException(final NullPointerException nullPointerException) {
+    public ResponseEntity handleNullPointerException(final NullPointerException nullPointerException) {
         return ResponseEntity.badRequest()
                 .body(nullPointerException.toString());
     }

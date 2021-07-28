@@ -1,16 +1,19 @@
 package com.mabcci.domain.auth.ui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mabcci.domain.auth.application.AuthService;
 import com.mabcci.domain.auth.dto.LoginRequest;
 import com.mabcci.domain.auth.dto.LoginResponse;
 import com.mabcci.domain.auth.dto.LogoutRequest;
-import com.mabcci.domain.auth.application.AuthService;
 import com.mabcci.domain.model.Email;
 import com.mabcci.domain.model.Password;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.*;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -54,7 +57,6 @@ public class AuthControllerTest {
     @DisplayName(value = "로그인 API 테스트")
     @Test
     public void loginTest() throws Exception {
-        // given
         final String accessToken = "test.access.token";
         final String refreshToken = "test.refresh.token";
         final LoginRequest loginRequest = new LoginRequest(EMAIL, PASSWORD);

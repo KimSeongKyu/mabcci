@@ -5,29 +5,27 @@ import com.mabcci.domain.model.Nickname;
 
 import javax.validation.Valid;
 
-public class MemberUpdateRequestDto {
+public final class MemberUpdateRequestDto {
 
     @Valid
     private Nickname nickname;
+
+    @Valid
     private Gender gender;
 
     private MemberUpdateRequestDto() {
     }
 
-    public MemberUpdateRequestDto(String nickname, Gender gender) {
-        this(Nickname.of(nickname), gender);
-    }
-
-    public MemberUpdateRequestDto(@Valid Nickname nickname, Gender gender) {
+    public MemberUpdateRequestDto(@Valid final Nickname nickname, @Valid final Gender gender) {
         this.nickname = nickname;
         this.gender = gender;
     }
 
-    public Nickname getNickname() {
+    public final Nickname getNickname() {
         return nickname;
     }
 
-    public Gender getGender() {
+    public final Gender getGender() {
         return gender;
     }
 }

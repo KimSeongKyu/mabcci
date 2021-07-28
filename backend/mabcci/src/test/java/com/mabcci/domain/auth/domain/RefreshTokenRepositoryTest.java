@@ -28,7 +28,7 @@ public class RefreshTokenRepositoryTest {
     @ParameterizedTest(name = "{index}. refresh token: {0}")
     @NullAndEmptySource
     public void validateRefreshTokenTest(String value) {
-        RefreshToken refreshToken = RefreshToken.builder()
+        final RefreshToken refreshToken = RefreshToken.builder()
                 .email(EMAIL)
                 .refreshToken(value)
                 .build();

@@ -3,23 +3,28 @@ package com.mabcci.domain.member.dto;
 import com.mabcci.domain.model.Nickname;
 import com.mabcci.domain.model.Password;
 
-public class MemberDeleteRequestDto {
+import javax.validation.Valid;
+
+public final class MemberDeleteRequestDto {
+    @Valid
     private Nickname nickname;
+
+    @Valid
     private Password password;
 
     private MemberDeleteRequestDto() {
     }
 
-    public MemberDeleteRequestDto(Nickname nickname, Password password) {
+    public MemberDeleteRequestDto(@Valid final Nickname nickname, @Valid final Password password) {
         this.nickname = nickname;
         this.password = password;
     }
 
-    public Nickname getNickname() {
+    public final Nickname getNickname() {
         return nickname;
     }
 
-    public Password getPassword() {
+    public final Password getPassword() {
         return password;
     }
 }

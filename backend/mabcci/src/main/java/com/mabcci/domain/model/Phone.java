@@ -1,37 +1,43 @@
 package com.mabcci.domain.model;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
+import javax.persistence.Embeddable;
+import javax.validation.constraints.NotEmpty;
+import java.util.Objects;
+
+@Embeddable
 public class Phone {
 
-    @Min(2)
-    @Max(3)
     @NotEmpty
-    private String firstNumber;
+    private String phone;
 
-    @Min(3)
-    @Max(4)
-    @NotEmpty
-    private String secondNumber;
-
-    @Min(3)
-    @Max(4)
-    @NotEmpty
-    private String thirdNumber;
-
-    public static Phone from(final String firstNumber, final String secondNumber, final String thirdNumber) {
-        return new Phone(firstNumber, secondNumber, thirdNumber);
+    public static Phone of(final String phone) {
+        return new Phone(phone);
     }
 
     protected Phone() {
     }
 
-    private Phone(final String firstNumber, final String secondNumber, final String thirdNumber) {
-        this.firstNumber = firstNumber;
-        this.secondNumber = secondNumber;
-        this.thirdNumber = thirdNumber;
+    private Phone(final String phone) {
+        this.phone = phone;
     }
 
+    @JsonValue
+    public String phone() {
+        return phone;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Phone phone1 = (Phone) o;
+        return Objects.equals(phone(), phone1.phone());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(phone());
+    }
 }
