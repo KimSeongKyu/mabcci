@@ -8,6 +8,7 @@ import com.mabcci.domain.auth.dto.LoginRequest;
 import com.mabcci.domain.auth.dto.LoginResponse;
 import com.mabcci.domain.auth.dto.LogoutRequest;
 import com.mabcci.domain.auth.exception.NotLoginMemberException;
+import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.exception.MemberNotFoundException;
 import com.mabcci.domain.model.Email;
@@ -35,11 +36,11 @@ public class AuthService {
     @Transactional
     public LoginResponse login(final LoginRequest loginRequest) {
         final Email email = loginRequest.getEmail();
-        memberRepository.findByEmailAndPassword(email, loginRequest.getPassword())
+        final Member member = memberRepository.findByEmailAndPassword(email, loginRequest.getPassword())
                 .orElseThrow(MemberNotFoundException::new);
 
-        final String accessToken = jwtUtil.createToken(TokenType.ACCESS_TOKEN, email);
-        final String refreshToken = jwtUtil.createToken(TokenType.REFRESH_TOKEN, email);
+        final String accessToken = jwtUtil.createToken(TokenType.ACCESS_TOKEN, member);
+        final String refreshToken = jwtUtil.createToken(TokenType.REFRESH_TOKEN, member);
 
         refreshTokenRepository.save(RefreshToken.builder()
                 .email(email)
