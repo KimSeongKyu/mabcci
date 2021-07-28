@@ -3,7 +3,7 @@
   max-width: 768px;
   min-height: 100%;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: var(--main-color-4);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -34,7 +34,7 @@
 }
 
 .form-element {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,6 +57,10 @@
 
 .btn-transparent {
   margin: 5px;
-  background-color: white;
+  background-color: var(--main-color-4);
   font-weight: bold;
+}
+
+.loginfail {
+  margin-bottom: 20px;
 }

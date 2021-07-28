@@ -7,6 +7,7 @@ import { LoginSuccess, LoginFail } from '../../../../Redux/Actions/LoginAction';
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoggedInFail, setIsLoggedInFail] = useState(false);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -14,14 +15,23 @@ const LoginForm = () => {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    const response = await LoginApi({ email, password });
+    const userAuthInfo = {
+      email,
+      password,
+    };
 
+    const response = await LoginApi(userAuthInfo);
+
+    console.log(response);
+    console.log('develop');
     if (response.status === 200) {
       dispatch(LoginSuccess(response.userInfo));
       history.push('/home');
     } else {
-      dispatch(LoginFail);
-      history.push('/home');
+      dispatch(LoginFail());
+      setEmail('');
+      setPassword('');
+      setIsLoggedInFail(true);
     }
   };
 
@@ -35,6 +45,7 @@ const LoginForm = () => {
               id="email"
               name="email"
               placeholder="Email"
+              value={email}
               onChange={e => {
                 setEmail(e.target.value);
               }}
@@ -45,10 +56,18 @@ const LoginForm = () => {
               id="password"
               name="password"
               placeholder="Password"
+              value={password}
               onChange={e => {
                 setPassword(e.target.value);
               }}
             />
+          </div>
+          <div className="loginfail">
+            {isLoggedInFail ? (
+              <p>아이디 또는 비밀번호를 다시 확인해주세요.</p>
+            ) : (
+              <p> </p>
+            )}
           </div>
           <button className="btn" type="submit">
             Login
