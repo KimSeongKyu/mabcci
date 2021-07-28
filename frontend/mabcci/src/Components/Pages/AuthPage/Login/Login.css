@@ -12,7 +12,7 @@
 }
 
 .container-login {
-  min-height: 100vh;
+  min-height: 70vh;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -25,6 +25,12 @@
 
 .container-item h3 {
   color: var(--main-color-1);
+  margin-top: 20px;
+}
+
+.container-item > p {
+  color: grey;
+  font-size: 0.8rem;
 }
 
 .form-element {
@@ -42,6 +48,11 @@
 
 .passwordFind {
   margin: 15px;
+}
+
+.passwordFind > P {
+  color: grey;
+  font-size: 0.8rem;
 }
 
 .btn-transparent {

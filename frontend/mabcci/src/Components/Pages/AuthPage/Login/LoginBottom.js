@@ -4,9 +4,9 @@ const LoginBottom = () => {
   return (
     <footer className="container-item">
       <hr />
-      계정이 없으신가요?
+      <p>계정이 없으신가요?</p>
       <button className="btn-transparent" type="button">
-        회원가입하기
+        <p>회원가입하기</p>
       </button>
     </footer>
   );
