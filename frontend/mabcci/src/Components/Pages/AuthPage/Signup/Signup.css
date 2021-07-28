@@ -127,3 +127,8 @@
   padding-top: 3px;
   box-shadow: none;
 }
+
+.warnning {
+  color: red;
+  font-size: small;
+}

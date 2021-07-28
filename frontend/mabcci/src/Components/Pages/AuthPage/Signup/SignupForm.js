@@ -1,18 +1,23 @@
+/* eslint-disable */
+
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { SignupInput } from '../../../../Redux/Actions/SignupAction';
 // import { useDispatch } from 'react-redux';
 
 function SignupForm() {
-  const [userInfo, setUserInfo] = useState([
-    {
-      email: '',
-      nickname: '',
-      firstPhoneNumber: '',
-      secondPhoneNumber: '',
-      thirdPhoneNumber: '',
-      password: '',
-      passwordConfirmation: '',
-    },
-  ]);
+  const dispatch = useDispatch();
+
+
+  const [userInfo, setUserInfo] = useState({
+    email: '',
+    nickname: '',
+    firstPhoneNumber: '',
+    secondPhoneNumber: '',
+    thirdPhoneNumber: '',
+    password: '',
+    passwordConfirmation: '',
+  });
 
   // const dispatch = useDispatch();
 
@@ -23,6 +28,8 @@ function SignupForm() {
       ...userInfo,
       [name]: value,
     });
+    console.log(e.target.value)
+    dispatch(SignupInput(userInfo));
   }
   return (
     <div>
@@ -47,23 +54,28 @@ function SignupForm() {
           <div className="phone-number">
             <div>PhoneNumber</div>
             <input
-              type="text"
               name="firstPhoneNumber"
+              maxLength="3"
               onChange={changeUserInfo}
             />
             -
             <input
-              type="text"
               name="secondPhoneNumber"
+              maxLength="4"
               onChange={changeUserInfo}
             />
             -
             <input
-              type="text"
               name="thirdPhoneNumber"
+              maxLength="4"
               onChange={changeUserInfo}
             />
           </div>
+            {isNaN(Number(userInfo.firstPhoneNumber)) === true ||
+            isNaN(Number(userInfo.secondPhoneNumber)) === true ||
+            isNaN(Number(userInfo.thirdPhoneNumber)) === true ? (
+              <p className="warnning">숫자를 입력해주세요</p>
+            ) : null}
         </li>
         <li>
           <input
@@ -79,9 +91,10 @@ function SignupForm() {
             placeholder="PasswordConfirm"
             name="passwordConfirmation"
             onChange={changeUserInfo}
+            
           />
           {userInfo.password !== userInfo.passwordConfirmation ? (
-            <p>비밀번호 맞춰주소</p>
+            <p className="warnning">비밀번호가 다릅니다!</p>
           ) : null}
         </li>
       </ul>
