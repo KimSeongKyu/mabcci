@@ -64,3 +64,8 @@
 .loginfail {
   margin-bottom: 20px;
 }
+
+.id-warnning {
+  position: absolute;
+  margin-top: 85px;
+}

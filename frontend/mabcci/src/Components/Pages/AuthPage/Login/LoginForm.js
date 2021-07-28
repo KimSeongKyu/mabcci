@@ -61,13 +61,12 @@ const LoginForm = () => {
                 setPassword(e.target.value);
               }}
             />
-          </div>
-          <div className="loginfail">
+
             {isLoggedInFail ? (
-              <p>아이디 또는 비밀번호를 다시 확인해주세요.</p>
-            ) : (
-              <p> </p>
-            )}
+              <p className="id-warnning">
+                아이디 또는 비밀번호를 다시 확인해주세요.
+              </p>
+            ) : null}
           </div>
           <button className="btn" type="submit">
             Login

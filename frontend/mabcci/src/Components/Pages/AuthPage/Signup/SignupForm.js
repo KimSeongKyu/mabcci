@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import SignupApi from '../../../../API/AuthAPI/SingupApi';
+import SignupApi from '../../../../API/AuthAPI/SignupApi';
 import 미니멀 from '../../../../Asset/Images/미니멀.png';
 import 스트릿 from '../../../../Asset/Images/스트릿.png';
 import 아메카지 from '../../../../Asset/Images/아메카지.png';
@@ -61,15 +61,14 @@ function SignupForm() {
     });
   }
 
-  // email 체크
+  // email 알맞게 입력했는지 체크
   const comCheck = userInfo.email.slice(
     userInfo.email.length - 4,
     userInfo.email.length,
   );
-
   const atCheck = userInfo.email.includes('@');
 
-  // signup 가능 체크
+  // signup 실행해도 되는지 체크
   const isEmpty = Object.values(userInfo).some(
     x => x === '' || x.length === 0,
   );
@@ -85,8 +84,6 @@ function SignupForm() {
       phonenumber : userInfo.firstPhoneNumber + '-' + userInfo.secondPhoneNumber + '-' + userInfo.thirdPhoneNumber,
       categories : userInfo.categories
     }
-
-    console.log(data)
 
     const response = await SignupApi(data);
 
@@ -166,7 +163,7 @@ function SignupForm() {
             name="MALE"
             onClick={mwBtnClick}
           >
-            Man
+            <p>Man</p>
           </button>
         ) : (
           <button
@@ -175,7 +172,7 @@ function SignupForm() {
             name="MALE"
             onClick={mwBtnClick}
           >
-            Man
+            <p>Man</p>
           </button>
         )}
 
@@ -186,7 +183,7 @@ function SignupForm() {
             name="FEMALE"
             onClick={mwBtnClick}
           >
-            Woman
+            <p>Woman</p>
           </button>
         ) : (
           <button
@@ -195,7 +192,7 @@ function SignupForm() {
             name="FEMALE"
             onClick={mwBtnClick}
           >
-            Woman
+            <p>Woman</p>
           </button>
         )}
       </div>
@@ -279,7 +276,7 @@ function SignupForm() {
           onClick={handleSubmit}
           className="btn-signup-nonactive"
         >
-          회원정보를 모두 입력해주세요
+          <h5>회원정보를 모두 입력해주세요</h5>
         </button>
       ) : (
         <button type="submit" onClick={handleSubmit} className="btn-rounded">
