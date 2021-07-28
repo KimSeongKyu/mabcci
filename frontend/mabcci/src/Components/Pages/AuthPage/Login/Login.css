@@ -34,7 +34,7 @@
 }
 
 .form-element {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -59,4 +59,8 @@
   margin: 5px;
   background-color: var(--main-color-4);
   font-weight: bold;
+}
+
+.loginfail {
+  margin-bottom: 20px;
 }
