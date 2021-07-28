@@ -14,6 +14,8 @@ import Home from './Components/Pages/ServicePage/Home/Home';
 import CommunityMain from './Components/Pages/ServicePage/Community/CommunityMain/CommunityMain';
 import MyPageMain from './Components/Pages/ServicePage/MyPage/MyPageMain/MyPageMain';
 import OOTDMain from './Components/Pages/ServicePage/OOTD/OOTDMain/OOTDMain';
+import OOTDDetail from './Components/Pages/ServicePage/OOTD/OOTDDetail/OOTDDetail';
+import OOTDWrite from './Components/Pages/ServicePage/OOTD/OOTDWrite/OOTDWrite';
 import StylingMain from './Components/Pages/ServicePage/Styling/StylingMain/StylingMain';
 // Pages - AuthPage
 import Login from './Components/Pages/AuthPage/Login/Login';
@@ -53,6 +55,14 @@ function App() {
 
       <Route exact path="/OOTD">
         <OOTDMain />
+      </Route>
+
+      <Route exact path="/OOTDDetail">
+        <OOTDDetail />
+      </Route>
+
+      <Route exact path="/OOTDWrite">
+        <OOTDWrite />
       </Route>
 
       <Route exact path="/styling">
