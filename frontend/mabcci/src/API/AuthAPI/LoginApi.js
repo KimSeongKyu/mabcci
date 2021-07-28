@@ -15,6 +15,8 @@ const LoginApi = async userAuthInfo => {
     const decoded = jwtDecode(accessToken);
     const userInfo = {
       email: decoded.email,
+      nickname: decoded.nickname,
+      role: decoded.role,
     };
 
     localStorage.setItem('accessToken', accessToken);
@@ -26,6 +28,8 @@ const LoginApi = async userAuthInfo => {
       userInfo,
     };
   } catch (response) {
+    console.log(response);
+
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('userinfo');
