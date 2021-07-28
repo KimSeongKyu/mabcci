@@ -18,6 +18,12 @@
   margin-left: 20px;
 }
 
+/* .input-box {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+} */
+
 .input-list {
   list-style: none;
   margin-top: 50px;
@@ -72,15 +78,6 @@
   cursor: pointer;
   color: white;
 }
-
-/* .btn-rounded-man-woman-active {
-  max-width: 150px;
-  width: 20vw;
-  height: 25px;
-  background-color: var(--main-color-1);
-  box-shadow: 3px 3px 3px grey;
-  border-radius: 50px;
-} */
 
 .style-box {
   margin-top: 50px;
@@ -143,4 +140,16 @@
 .warnning {
   color: red;
   font-size: small;
+}
+
+.btn-signup-nonactive {
+  max-width: 400px;
+  max-height: 50px;
+  width: 60vw;
+  height: 15vh;
+  background-color: var(--main-color-3);
+  box-shadow: 3px 3px 3px grey;
+  border-radius: 10px;
+  color: black;
+  pointer-events: none;
 }

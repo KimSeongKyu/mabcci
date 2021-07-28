@@ -1,19 +1,20 @@
 import {
   SIGNUP_INPUT,
   SIGNUP_SELECT_STYLE,
-  SIGNUP_SELECT_SEX,
+  SIGNUP_SELECT_GENDER,
 } from '../Type/SignupType';
 
 const SignupInfo = {
   email: '',
   nickname: '',
+  PhoneNumber: '',
   firstPhoneNumber: '',
   secondPhoneNumber: '',
   thirdPhoneNumber: '',
   password: '',
   passwordConfirmation: '',
-  selectStyle: [],
-  selectSex: '',
+  categories: [],
+  gender: '',
 };
 const SignupReducer = (state = SignupInfo, { type, payload }) => {
   switch (type) {
@@ -21,6 +22,7 @@ const SignupReducer = (state = SignupInfo, { type, payload }) => {
       const copy = { ...state };
       copy.email = payload.email;
       copy.nickname = payload.nickname;
+      copy.PhoneNumber = `${payload.firstPhoneNumber}-${payload.secondPhoneNumber}-${payload.thirdPhoneNumber}`;
       copy.firstPhoneNumber = payload.firstPhoneNumber;
       copy.secondPhoneNumber = payload.secondPhoneNumber;
       copy.thirdPhoneNumber = payload.thirdPhoneNumber;
@@ -30,12 +32,12 @@ const SignupReducer = (state = SignupInfo, { type, payload }) => {
     }
     case SIGNUP_SELECT_STYLE: {
       const copy = { ...state };
-      copy.selectStyle = payload;
+      copy.categories = payload;
       return copy;
     }
-    case SIGNUP_SELECT_SEX: {
+    case SIGNUP_SELECT_GENDER: {
       const copy = { ...state };
-      copy.selectSex = payload;
+      copy.gender = payload;
       return copy;
     }
 
