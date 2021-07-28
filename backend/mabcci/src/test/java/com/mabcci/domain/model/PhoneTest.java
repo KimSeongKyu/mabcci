@@ -30,4 +30,17 @@ public class PhoneTest {
         assertThat(phone.phone()).isEqualTo(phoneString);
     }
 
+    @DisplayName("Phone 인스턴스 equals() & hashCode() 기능 테스트")
+    @Test
+    void equals_and_hashcode_test() {
+        final String phoneString = "010-1234-5678";
+        final Phone phone = Phone.of(phoneString);
+        final Phone other = Phone.of(phoneString);
+
+        assertAll(
+                () -> assertThat(phone).isEqualTo(other),
+                () -> assertThat(phone.hashCode()).isEqualTo(other.hashCode())
+        );
+    }
+
 }

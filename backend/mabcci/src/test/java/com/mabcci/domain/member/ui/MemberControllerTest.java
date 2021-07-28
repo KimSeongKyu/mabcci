@@ -23,6 +23,7 @@ import java.util.List;
 
 import static com.mabcci.domain.member.domain.Gender.MALE;
 import static com.mabcci.domain.member.domain.MemberRole.*;
+import static com.mabcci.domain.member.domain.MemberTest.MEMBER;
 import static com.mabcci.domain.model.EmailTest.EMAIL;
 import static com.mabcci.domain.model.NicknameTest.NICKNAME;
 import static com.mabcci.domain.model.PasswordTest.PASSWORD;
@@ -47,28 +48,14 @@ class MemberControllerTest {
     @MockBean
     private MemberService memberService;
 
-    private Member member;
-
-    @BeforeEach
-    void setUp() {
-        member = Member.builder()
-                .email(EMAIL)
-                .password(PASSWORD)
-                .nickname(NICKNAME)
-                .phone(PHONE)
-                .gender(MALE)
-                .role(USER)
-                .build();
-    }
-
 
     @DisplayName("MemberRestController join 메서드 테스트")
     @Test
     public void join_test() throws Exception {
-        final MemberResponseDto memberResponseDto = new MemberResponseDto(member);
+        final MemberResponseDto memberResponseDto = new MemberResponseDto(MEMBER);
         final JoinRequest joinRequest = new JoinRequest(EMAIL, PASSWORD, NICKNAME, PHONE, MALE);
         final String joinRequestDtoString = objectMapper.writeValueAsString(joinRequest);
-
+        System.out.println(joinRequestDtoString);
         given(memberService.join(any())).willReturn(memberResponseDto);
 
         mvc.perform(post("/api/members")
@@ -80,7 +67,7 @@ class MemberControllerTest {
     @DisplayName("MemberRestController findByNickname 메서드 테스트")
     @Test
     public void findByNickname_test() throws Exception {
-        final MemberResponseDto memberResponseDto = new MemberResponseDto(member);
+        final MemberResponseDto memberResponseDto = new MemberResponseDto(MEMBER);
         final String memberResponseDtoString = objectMapper.writeValueAsString(memberResponseDto);
 
         given(memberService.findByNickName(any())).willReturn(memberResponseDto);
@@ -94,7 +81,7 @@ class MemberControllerTest {
     @DisplayName("MemberRestController findAll 메서드 테스트")
     @Test
     public void findAll_test() throws Exception {
-        final MemberResponseDto memberResponseDto = new MemberResponseDto(member);
+        final MemberResponseDto memberResponseDto = new MemberResponseDto(MEMBER);
         final List<MemberResponseDto> memberResponseDtos = Collections.singletonList(memberResponseDto);
         final String memberResponseString = objectMapper.writeValueAsString(memberResponseDtos);
 
@@ -108,7 +95,7 @@ class MemberControllerTest {
     @DisplayName("MemberRestController update 메서드 테스트")
     @Test
     public void update_test() throws Exception {
-        final MemberResponseDto memberResponseDto = new MemberResponseDto(member);
+        final MemberResponseDto memberResponseDto = new MemberResponseDto(MEMBER);
         final MemberUpdateRequestDto updateRequestDto = new MemberUpdateRequestDto(NICKNAME, MALE);
         final String updateRequestDtoString = objectMapper.writeValueAsString(updateRequestDto);
         final String memberResponseDtoString = objectMapper.writeValueAsString(memberResponseDto);

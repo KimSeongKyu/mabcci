@@ -11,55 +11,44 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 public class MemberController {
 
     private final MemberService memberService;
 
-    public MemberController(MemberService memberService) {
+    public MemberController(final MemberService memberService) {
         this.memberService = memberService;
     }
 
     @PostMapping(value = "/api/members")
-    public ResponseEntity<?> join(@Valid @RequestBody JoinRequest joinRequest) {
-        MemberResponseDto joinedResponseDto = memberService.join(joinRequest.entity());
-        validateNull(joinedResponseDto);
+    public ResponseEntity<?> join(@Valid @RequestBody final JoinRequest joinRequest) {
+        final MemberResponseDto joinedResponseDto = memberService.join(joinRequest.entity());
         return ResponseEntity.ok().body(joinedResponseDto);
     }
 
     @GetMapping("/api/members/{nickname}")
-    public ResponseEntity<?> findByNickname(@Valid @PathVariable Nickname nickname) {
-        MemberResponseDto memberResponseDto = memberService.findByNickName(nickname);
-        validateNull(memberResponseDto);
+    public ResponseEntity<?> findByNickname(@Valid @PathVariable final Nickname nickname) {
+        final MemberResponseDto memberResponseDto = memberService.findByNickName(nickname);
         return ResponseEntity.ok().body(memberResponseDto);
     }
 
     @GetMapping("/api/members")
     public ResponseEntity<?> findAll() {
-        List<MemberResponseDto> members = memberService.findAll();
-        validateNull(members);
+        final List<MemberResponseDto> members = memberService.findAll();
         return ResponseEntity.ok().body(members);
     }
 
     @PutMapping("/api/members/{nickname}")
-    public ResponseEntity<?> update(@RequestBody MemberUpdateRequestDto updateRequestDto) {
-        MemberResponseDto memberResponseDto = memberService.update(updateRequestDto);
-        validateNull(memberResponseDto);
+    public ResponseEntity<?> update(@Valid @RequestBody final MemberUpdateRequestDto updateRequestDto) {
+        final MemberResponseDto memberResponseDto = memberService.update(updateRequestDto);
         return ResponseEntity.ok().body(memberResponseDto);
     }
 
     @DeleteMapping("/api/members/{nickname}")
-    public ResponseEntity<?> delete(@RequestBody MemberDeleteRequestDto memberDeleteRequestDto) {
+    public ResponseEntity<?> delete(@Valid @RequestBody final MemberDeleteRequestDto memberDeleteRequestDto) {
         memberService.delete(memberDeleteRequestDto.getNickname(), memberDeleteRequestDto.getPassword());
         return ResponseEntity.ok().build();
-    }
-
-    private void validateNull(Object object) {
-        if (Objects.isNull(object)) {
-            throw new AssertionError();
-        }
     }
 
 }

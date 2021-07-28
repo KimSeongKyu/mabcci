@@ -44,7 +44,7 @@ public class Member extends BaseTimeEntity {
     @Column(name = "member_role", nullable = false)
     private MemberRole role;
 
-    public static final MemberBuilder builder() {
+    public static MemberBuilder builder() {
         return new MemberBuilder();
     }
 
@@ -81,8 +81,7 @@ public class Member extends BaseTimeEntity {
         return email;
     }
 
-
-    public Member update(Nickname nickName, Gender gender) {
+    public Member update(final Nickname nickName, final Gender gender) {
         this.nickname = nickName;
         this.gender = gender;
         return this;
@@ -145,12 +144,12 @@ public class Member extends BaseTimeEntity {
             return this;
         }
 
-        public MemberBuilder gender(Gender gender) {
+        public MemberBuilder gender(final Gender gender) {
             this.gender = gender;
             return this;
         }
 
-        public MemberBuilder role(MemberRole role) {
+        public MemberBuilder role(final MemberRole role) {
             this.role = role;
             return this;
         }

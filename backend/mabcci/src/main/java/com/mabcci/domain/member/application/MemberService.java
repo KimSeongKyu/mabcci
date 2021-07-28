@@ -23,13 +23,13 @@ public class MemberService {
     }
 
     @Transactional
-    public MemberResponseDto join(Member member) {
+    public MemberResponseDto join(final Member member) {
         return new MemberResponseDto(memberRepository.save(member));
     }
 
     @Transactional(readOnly = true)
-    public MemberResponseDto findByNickName(Nickname nickname) {
-        Member findingEntity = memberRepository.findByNickname(nickname)
+    public MemberResponseDto findByNickName(final Nickname nickname) {
+        final Member findingEntity = memberRepository.findByNickname(nickname)
                 .orElseThrow(MemberNotFoundException::new);
         return new MemberResponseDto(findingEntity);
     }
@@ -42,15 +42,15 @@ public class MemberService {
     }
 
     @Transactional
-    public MemberResponseDto update(MemberUpdateRequestDto memberUpdateRequestDto) {
-        Member entity = memberRepository.findByNickname(memberUpdateRequestDto.getNickname())
+    public MemberResponseDto update(final MemberUpdateRequestDto memberUpdateRequestDto) {
+        final Member entity = memberRepository.findByNickname(memberUpdateRequestDto.getNickname())
                 .orElseThrow(MemberNotFoundException::new);
         return new MemberResponseDto(entity.update(memberUpdateRequestDto.getNickname(), memberUpdateRequestDto.getGender()));
     }
 
     @Transactional
-    public void delete(Nickname nickname, Password password) {
-        Member member = memberRepository.findByNicknameAndPassword(nickname, password).stream()
+    public void delete(final Nickname nickname, final Password password) {
+        final Member member = memberRepository.findByNicknameAndPassword(nickname, password).stream()
                 .filter(entity -> entity.checkPassword(password))
                 .findFirst()
                 .orElseThrow(MemberNotFoundException::new);

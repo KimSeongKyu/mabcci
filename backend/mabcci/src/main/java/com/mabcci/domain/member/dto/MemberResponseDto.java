@@ -10,31 +10,33 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-public class MemberResponseDto {
-
-    @NotNull
-    @NotBlank
-    private final Long id;
+public final class MemberResponseDto {
 
     @Valid
-    private final Email email;
+    @NotNull
+    @NotBlank
+    private Long id;
 
     @Valid
-    private final Nickname nickname;
+    private Email email;
 
-    @NotNull
-    @NotBlank
-    private final Gender gender;
+    @Valid
+    private Nickname nickname;
 
-    @NotNull
-    @NotBlank
-    private final MemberRole role;
+    @Valid
+    private Gender gender;
 
-    public MemberResponseDto(Member entity) {
+    @Valid
+    private MemberRole role;
+
+    private MemberResponseDto() {
+    }
+
+    public MemberResponseDto(final Member entity) {
         this(entity.id(), entity.email(), entity.nickname(), entity.gender(), entity.role());
     }
 
-    public MemberResponseDto(Long id, Email email, Nickname nickname, Gender gender, MemberRole role) {
+    public MemberResponseDto(final Long id, @Valid final Email email, @Valid final Nickname nickname, @Valid final Gender gender, @Valid final MemberRole role) {
         this.id = id;
         this.email = email;
         this.nickname = nickname;
@@ -42,23 +44,23 @@ public class MemberResponseDto {
         this.role = role;
     }
 
-    public Long getId() {
+    public final Long getId() {
         return id;
     }
 
-    public Email getEmail() {
+    public final Email getEmail() {
         return email;
     }
 
-    public Nickname getNickname() {
+    public final Nickname getNickname() {
         return nickname;
     }
 
-    public Gender getGender() {
+    public final Gender getGender() {
         return gender;
     }
 
-    public MemberRole getRole() {
+    public final MemberRole getRole() {
         return role;
     }
 
