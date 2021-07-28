@@ -2,12 +2,10 @@ package com.mabcci.domain.member.ui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mabcci.domain.member.application.MemberService;
-import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.dto.JoinRequest;
 import com.mabcci.domain.member.dto.MemberDeleteRequestDto;
 import com.mabcci.domain.member.dto.MemberResponseDto;
 import com.mabcci.domain.member.dto.MemberUpdateRequestDto;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +20,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.mabcci.domain.member.domain.Gender.MALE;
-import static com.mabcci.domain.member.domain.MemberRole.*;
 import static com.mabcci.domain.member.domain.MemberTest.MEMBER;
 import static com.mabcci.domain.model.EmailTest.EMAIL;
 import static com.mabcci.domain.model.NicknameTest.NICKNAME;

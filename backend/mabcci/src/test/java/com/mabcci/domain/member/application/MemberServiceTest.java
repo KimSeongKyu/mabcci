@@ -1,6 +1,5 @@
 package com.mabcci.domain.member.application;
 
-import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.dto.MemberResponseDto;
 import com.mabcci.domain.model.Password;
@@ -18,7 +17,7 @@ import java.util.Optional;
 
 import static com.mabcci.domain.member.domain.MemberTest.MEMBER;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;

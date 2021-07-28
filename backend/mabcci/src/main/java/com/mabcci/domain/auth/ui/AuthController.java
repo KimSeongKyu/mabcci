@@ -1,8 +1,8 @@
 package com.mabcci.domain.auth.ui;
 
+import com.mabcci.domain.auth.application.AuthService;
 import com.mabcci.domain.auth.dto.LoginRequest;
 import com.mabcci.domain.auth.dto.LogoutRequest;
-import com.mabcci.domain.auth.application.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

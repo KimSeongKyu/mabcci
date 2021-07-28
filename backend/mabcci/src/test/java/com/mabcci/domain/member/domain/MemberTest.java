@@ -11,7 +11,7 @@ import static com.mabcci.domain.model.NicknameTest.NICKNAME;
 import static com.mabcci.domain.model.PasswordTest.PASSWORD;
 import static com.mabcci.domain.model.PhoneTest.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class MemberTest {
 

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static com.mabcci.domain.model.NicknameTest.NICKNAME;
 import static com.mabcci.domain.model.PasswordTest.PASSWORD;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class MemberDeleteRequestDtoTest {
 

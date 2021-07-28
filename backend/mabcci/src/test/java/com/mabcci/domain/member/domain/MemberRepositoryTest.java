@@ -1,9 +1,6 @@
 package com.mabcci.domain.member.domain;
 
-import com.mabcci.domain.model.Email;
 import com.mabcci.domain.model.Nickname;
-import com.mabcci.domain.model.PhoneTest;
-import org.apache.logging.log4j.util.Strings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.mabcci.domain.member.domain.Gender.MALE;
-import static com.mabcci.domain.member.domain.MemberRole.*;
+import static com.mabcci.domain.member.domain.MemberRole.USER;
 import static com.mabcci.domain.model.Email.of;
 import static com.mabcci.domain.model.EmailTest.EMAIL;
 import static com.mabcci.domain.model.NicknameTest.NICKNAME;
@@ -24,7 +21,7 @@ import static com.mabcci.domain.model.PasswordTest.PASSWORD;
 import static com.mabcci.domain.model.PhoneTest.PHONE;
 import static org.apache.logging.log4j.util.Strings.EMPTY;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 @EnableJpaAuditing
 @DataJpaTest

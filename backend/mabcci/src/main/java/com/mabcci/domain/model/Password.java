@@ -18,7 +18,8 @@ public class Password {
         return new Password(password);
     }
 
-    protected Password() {}
+    protected Password() {
+    }
 
     private Password(final String password) {
         this.password = password;

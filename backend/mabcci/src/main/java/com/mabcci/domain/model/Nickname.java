@@ -18,7 +18,8 @@ public class Nickname {
         return new Nickname(nickname);
     }
 
-    protected Nickname() { }
+    protected Nickname() {
+    }
 
     private Nickname(final String nickname) {
         this.nickname = nickname;
