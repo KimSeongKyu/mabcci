@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import LoginApi from '../../../../API/AuthAPI/LoginApi';
-import { LoginSuccess, LoginFail } from '../../../../Redux/Actions/AuthAction';
+import { LoginSuccess, LoginFail } from '../../../../Redux/Actions/LoginAction';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');

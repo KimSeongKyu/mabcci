@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import SignupApi from '../../../../API/AuthAPI/SingupApi';
 import 미니멀 from '../../../../Asset/Images/미니멀.png';
 import 스트릿 from '../../../../Asset/Images/스트릿.png';
@@ -7,17 +8,21 @@ import 아메카지 from '../../../../Asset/Images/아메카지.png';
 import 오피스 from '../../../../Asset/Images/오피스.png';
 import 캐쥬얼 from '../../../../Asset/Images/캐쥬얼.png';
 import 포멀 from '../../../../Asset/Images/포멀.png';
+import {
+  SingupSelectStyle,
+  // SingupSelectSex,
+} from '../../../../Redux/Actions/SignupAction';
 
 function SignupBottom() {
+  const dispatch = useDispatch();
   const history = useHistory();
-
-  // const [selectStyle, setSelectStyle] = useState([]);
-  // const [selectSex, setSelectSex] = useState('');
+  const signupRedux = useSelector(state => state.SignupReducer);
 
   const handleSubmit = async e => {
     e.preventDefault();
-
-    const response = await SignupApi();
+    const data = signupRedux;
+    console.log(signupRedux);
+    const response = await SignupApi(data);
 
     if (response.status === 200) {
       history.push('/login');
@@ -25,15 +30,29 @@ function SignupBottom() {
       alert('회원가입 실패');
     }
   };
-
+  // const [selectSex, setSelectSex] = useState('');
   // 성별 선택 버튼 클릭
   function mwBtnClick(e) {
     e.target.classList.toggle('btn-rounded-man-woman-active');
+    // console.log(e.target.name);
+    // setSelectSex(e.target.name);
+    // console.log(selectSex);
+    // dispatch(SingupSelectSex(selectSex));
   }
 
+  const [selectStyle, setSelectStyle] = useState([]);
   // 스타일 선택 버튼 클릭
   function styleBtnClick(e) {
     e.target.classList.toggle('btn-select-style-active');
+    const copy = [...selectStyle];
+    const idx = copy.indexOf(e.target.name);
+    if (idx >= 0) {
+      copy.splice(idx, 1);
+    } else {
+      copy.push(e.target.name);
+    }
+    setSelectStyle(copy);
+    dispatch(SingupSelectStyle(copy));
   }
 
   return (

@@ -23,12 +23,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 120px;
+  width: 50px;
   font-size: medium;
   font-weight: 600;
   position: absolute;
   bottom: 70%;
-  left: 75%;
+  left: 85%;
   margin: auto;
   cursor: pointer;
 }

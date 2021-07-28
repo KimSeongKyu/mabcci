@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import './Nav.css';
 import { AiOutlineLogin, AiOutlineHome } from 'react-icons/ai';
 import { FiUser } from 'react-icons/fi';
@@ -10,21 +11,37 @@ import { Link } from 'react-router-dom';
 import logo from '../../Asset/Images/logo.png';
 
 function Nav() {
+  // 로그인 여부 redux까지 연결 되어야함
+  const [isLoggedin, setisLoggedin] = useState(false);
+  useEffect(() => {
+    const localLoinToken = localStorage.getItem('accessToken');
+    if (localLoinToken) {
+      setisLoggedin(true);
+    } else {
+      setisLoggedin(false);
+    }
+  });
+
+  const loginRedux = useSelector(state => state.LoginReducer);
+
   return (
     <div>
       <div className="web-navbar">
+        {loginRedux.isLoggedin}
         <div className="logo-bar">
           <Link to="home">
             <img className="logo-image" src={logo} alt="로고" />
           </Link>
-          <div className="web-navbar-icon">
+          {isLoggedin ? (
+            <div className="web-navbar-icon">
+              <MdAccessAlarm />
+              <MdAccountCircle />
+            </div>
+          ) : (
             <Link to="login">
               <AiOutlineLogin /> Login
             </Link>
-
-            <MdAccessAlarm />
-            <MdAccountCircle />
-          </div>
+          )}
         </div>
         <div className="menu-bar">
           <div className="menu-link">
