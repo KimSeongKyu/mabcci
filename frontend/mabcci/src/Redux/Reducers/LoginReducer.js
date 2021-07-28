@@ -12,7 +12,9 @@ const LoginReducer = (state = initialState, { type, payload }) => {
         ...state,
         isLoggedIn: true,
         userinfo: {
-          payload,
+          email: payload.email,
+          nickname: payload.nickname,
+          role: payload.role,
         },
       };
     case LOGIN_FAIL:
