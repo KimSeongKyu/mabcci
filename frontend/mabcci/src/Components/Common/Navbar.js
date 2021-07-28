@@ -24,6 +24,22 @@ function Nav() {
 
   const loginRedux = useSelector(state => state.LoginReducer);
 
+  // popover 띄우기
+  const [popover, setpopover] = useState(false);
+
+  // mypage icon제외 클릭시 popover 사라지게 하기
+  const mypage = document.querySelector('.mypage');
+  document.addEventListener('click', function (event) {
+    console.log(mypage);
+    if (event.target.closest('.mypage')) return;
+    setpopover(false);
+  });
+
+  // popover 띄우는 함수
+  function openPopover() {
+    setpopover(true);
+  }
+
   return (
     <div>
       <div className="web-navbar">
@@ -35,13 +51,22 @@ function Nav() {
           {isLoggedin ? (
             <div className="web-navbar-icon">
               <MdAccessAlarm />
-              <MdAccountCircle />
+              <MdAccountCircle className="mypage" onClick={openPopover} />
             </div>
           ) : (
             <Link to="login">
               <AiOutlineLogin /> Login
             </Link>
           )}
+
+          {popover ? (
+            <div className="popover-box">
+              <p>로그아웃</p>
+              <Link to="mypage">
+                <p>마이페이지</p>
+              </Link>
+            </div>
+          ) : null}
         </div>
         <div className="menu-bar">
           <div className="menu-link">

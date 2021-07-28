@@ -24,13 +24,31 @@
   justify-content: space-between;
   align-items: center;
   width: 50px;
-  font-size: medium;
+  font-size: large;
   font-weight: 600;
   position: absolute;
   bottom: 70%;
   left: 85%;
   margin: auto;
   cursor: pointer;
+}
+
+.popover-box {
+  width: 100px;
+  font-size: medium;
+  font-weight: 600;
+  position: absolute;
+  bottom: 25%;
+  left: 84%;
+  margin: auto;
+  cursor: pointer;
+  box-shadow: 3px 3px 3px grey;
+}
+
+.popover-box p {
+  margin: 5px;
+  text-align: start;
+  padding-left: 4px;
 }
 
 .menu-bar {

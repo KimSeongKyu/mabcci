@@ -29,8 +29,8 @@ function SignupBottom() {
     if (isEmpty === true) {
       alert('회원정보를 모두 입력해주세요');
     } else {
+      console.log(data, '회원가입누르면');
       const response = await SignupApi(signupRedux);
-
       if (response.status === 200) {
         history.push('/login');
       } else {
@@ -42,7 +42,7 @@ function SignupBottom() {
   const [selectGender, setSelectGender] = useState('');
   // 성별 선택 버튼 클릭
   function mwBtnClick(e) {
-    // e.target.classList.toggle('btn-rounded-man-woman-active');
+    e.target.classList.toggle('btn-rounded-man-woman-active');
     setSelectGender(e.target.name);
     dispatch(SingupSelectGender(e.target.name));
   }
@@ -52,6 +52,7 @@ function SignupBottom() {
   function styleBtnClick(e) {
     e.target.classList.toggle('btn-select-style-active');
     const copy = [...selectStyle];
+    console.log(copy, typeof copy);
     const idx = copy.indexOf(e.target.name);
     if (idx >= 0) {
       copy.splice(idx, 1);

@@ -20,6 +20,7 @@ const SignupReducer = (state = SignupInfo, { type, payload }) => {
   switch (type) {
     case SIGNUP_INPUT: {
       const copy = { ...state };
+      console.log(payload, '확인점');
       copy.email = payload.email;
       copy.nickname = payload.nickname;
       copy.PhoneNumber = `${payload.firstPhoneNumber}-${payload.secondPhoneNumber}-${payload.thirdPhoneNumber}`;
