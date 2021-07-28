@@ -3,6 +3,7 @@ package com.mabcci.domain.member.domain;
 import com.mabcci.domain.model.Email;
 import com.mabcci.domain.model.Nickname;
 import com.mabcci.domain.model.Password;
+import com.mabcci.domain.model.Phone;
 import com.mabcci.global.common.BaseTimeEntity;
 
 import javax.persistence.*;
@@ -30,8 +31,10 @@ public class Member extends BaseTimeEntity {
     @Column(name = "member_nickname", nullable = false, unique = true))
     private Nickname nickname;
 
-    @Column(name = "member_phone", unique = true)
-    private String phone;
+    @Embedded
+    @AttributeOverride(name = "phone", column =
+    @Column(name = "member_phone", nullable = false, unique = true))
+    private Phone phone;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "member_gender", nullable = false)
@@ -41,7 +44,7 @@ public class Member extends BaseTimeEntity {
     @Column(name = "member_role", nullable = false)
     private MemberRole role;
 
-    public static final MemberBuilder builder() {
+    public static MemberBuilder builder() {
         return new MemberBuilder();
     }
 
@@ -78,8 +81,7 @@ public class Member extends BaseTimeEntity {
         return email;
     }
 
-
-    public Member update(Nickname nickName, Gender gender) {
+    public Member update(final Nickname nickName, final Gender gender) {
         this.nickname = nickName;
         this.gender = gender;
         return this;
@@ -94,7 +96,7 @@ public class Member extends BaseTimeEntity {
         private Email email;
         private Password password;
         private Nickname nickname;
-        private String phone;
+        private Phone phone;
         private Gender gender;
         private MemberRole role;
 
@@ -133,17 +135,21 @@ public class Member extends BaseTimeEntity {
             return this;
         }
 
-        public MemberBuilder phone(String phone) {
+        public MemberBuilder phone(final String phone) {
+            return phone(Phone.of(phone));
+        }
+
+        public MemberBuilder phone(final Phone phone) {
             this.phone = phone;
             return this;
         }
 
-        public MemberBuilder gender(Gender gender) {
+        public MemberBuilder gender(final Gender gender) {
             this.gender = gender;
             return this;
         }
 
-        public MemberBuilder role(MemberRole role) {
+        public MemberBuilder role(final MemberRole role) {
             this.role = role;
             return this;
         }

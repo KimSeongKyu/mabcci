@@ -17,6 +17,8 @@ public enum Claim {
     public final static String NOT_BEFORE_KEY = "nbf";
     public final static String ISSUED_AT_KEY = "iat";
     public final static String EMAIL_KEY = "email";
+    public final static String NICKNAME_KEY = "nickname";
+    public final static String ROLE_KEY = "role";
 
     private final ClaimType type;
     private final String key;

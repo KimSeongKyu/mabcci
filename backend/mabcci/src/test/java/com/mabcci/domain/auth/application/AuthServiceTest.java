@@ -1,5 +1,6 @@
 package com.mabcci.domain.auth.application;
 
+import com.mabcci.domain.auth.common.JwtUtil;
 import com.mabcci.domain.auth.domain.RefreshToken;
 import com.mabcci.domain.auth.domain.RefreshTokenRepository;
 import com.mabcci.domain.auth.domain.TokenType;
@@ -7,12 +8,13 @@ import com.mabcci.domain.auth.dto.LoginRequest;
 import com.mabcci.domain.auth.dto.LoginResponse;
 import com.mabcci.domain.auth.dto.LogoutRequest;
 import com.mabcci.domain.auth.exception.NotLoginMemberException;
-import com.mabcci.domain.auth.common.JwtUtil;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
+import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.domain.member.exception.MemberNotFoundException;
 import com.mabcci.domain.model.Email;
 import org.apache.logging.log4j.util.Strings;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,6 +25,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static com.mabcci.domain.model.EmailTest.EMAIL;
+import static com.mabcci.domain.model.NicknameTest.NICKNAME;
 import static com.mabcci.domain.model.PasswordTest.PASSWORD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -55,8 +58,8 @@ public class AuthServiceTest {
         final String refreshToken = "test.refresh.token";
 
         doReturn(Optional.of(member)).when(memberRepository).findByEmailAndPassword(EMAIL, PASSWORD);
-        doReturn(accessToken).when(jwtUtil).createToken(TokenType.ACCESS_TOKEN, EMAIL);
-        doReturn(refreshToken).when(jwtUtil).createToken(TokenType.REFRESH_TOKEN, EMAIL);
+        doReturn(accessToken).when(jwtUtil).createToken(TokenType.ACCESS_TOKEN, member);
+        doReturn(refreshToken).when(jwtUtil).createToken(TokenType.REFRESH_TOKEN, member);
         doReturn(RefreshToken.builder()
                 .email(EMAIL)
                 .refreshToken(refreshToken)

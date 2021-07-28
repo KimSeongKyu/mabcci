@@ -6,10 +6,9 @@ import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.domain.model.Email;
 import com.mabcci.domain.model.Nickname;
 import com.mabcci.domain.model.Password;
+import com.mabcci.domain.model.Phone;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 public final class JoinRequest {
 
@@ -22,18 +21,16 @@ public final class JoinRequest {
     @Valid
     private Nickname nickname;
 
-    @NotNull
-    @NotEmpty
-    private String phone;
+    @Valid
+    private Phone phone;
 
-//    @NotNull
-//    @NotEmpty
+    @Valid
     private Gender gender;
 
     private JoinRequest() {
     }
 
-    public JoinRequest(@Valid Email email, @Valid Password password, @Valid Nickname nickname, final String phone, final Gender gender) {
+    public JoinRequest(@Valid final Email email, @Valid final Password password, @Valid final Nickname nickname, @Valid final Phone phone, @Valid final Gender gender) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
@@ -41,27 +38,27 @@ public final class JoinRequest {
         this.gender = gender;
     }
 
-    public Email getEmail() {
+    public final Email getEmail() {
         return email;
     }
 
-    public Password getPassword() {
+    public final Password getPassword() {
         return password;
     }
 
-    public Nickname getNickname() {
+    public final Nickname getNickname() {
         return nickname;
     }
 
-    public String getPhone() {
+    public final Phone getPhone() {
         return phone;
     }
 
-    public Gender getGender() {
+    public final Gender getGender() {
         return gender;
     }
 
-    public Member entity() {
+    public final Member entity() {
         return Member.builder()
                 .email(email)
                 .password(password)

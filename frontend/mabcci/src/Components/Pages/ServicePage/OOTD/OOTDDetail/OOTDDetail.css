@@ -1,0 +1,10 @@
+.ootddetail-header {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.ootddetail-header h3 {
+  color: var(--main-color-1);
+  margin-top: 20px;
+}
