@@ -1,5 +1,6 @@
 package com.mabcci.domain.model;
 
+import org.assertj.core.util.Strings;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -21,5 +22,18 @@ class PhoneTest {
                 () -> assertThat(phone).isNotNull(),
                 () -> assertThat(phone).isExactlyInstanceOf(Phone.class)
         );
+    }
+
+    @DisplayName("Phone 인스턴스 phone() 기능 테스트")
+    @Test
+    void phone_test() {
+        final String firstPhoneNumber = "010";
+        final String secondPhoneNumber = "1234";
+        final String thirdPhoneNumber = "5678";
+
+        final Phone phone = Phone.from(firstPhoneNumber, secondPhoneNumber, thirdPhoneNumber);
+        final String expected = String.format("%s-%s-%s", firstPhoneNumber, secondPhoneNumber, thirdPhoneNumber);
+
+        assertThat(phone.phone()).isEqualTo(expected);
     }
 }
