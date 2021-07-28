@@ -1,9 +1,14 @@
 import React from 'react';
+import MabcciReview from './MabcciReview';
+import MyPageFeed from './MyPageFeed';
+import MyPageProfile from './MyPageProfile';
 
 function MyPageMain() {
   return (
-    <div>
-      <h3>마이페이지 입니다.</h3>
+    <div id="container">
+      <MyPageProfile />
+      <MabcciReview />
+      <MyPageFeed />
     </div>
   );
 }

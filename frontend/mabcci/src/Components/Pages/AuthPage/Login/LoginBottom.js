@@ -2,7 +2,7 @@ import React from 'react';
 
 const LoginBottom = () => {
   return (
-    <footer id="container-item">
+    <footer className="container-item">
       <hr />
       계정이 없으신가요?
       <button className="btn-transparent" type="button">

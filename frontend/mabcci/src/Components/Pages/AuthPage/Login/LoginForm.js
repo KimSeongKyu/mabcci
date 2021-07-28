@@ -26,7 +26,7 @@ const LoginForm = () => {
   };
 
   return (
-    <article id="container-item">
+    <article className="container-item">
       <section className="loginForm">
         <form className="form" onSubmit={handleSubmit}>
           <div className="form-element">

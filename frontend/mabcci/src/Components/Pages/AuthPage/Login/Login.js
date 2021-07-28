@@ -6,8 +6,8 @@ import LoginBottom from './LoginBottom';
 
 const Login = () => {
   return (
-    <div id="container">
-      <div id="container-login">
+    <div className="container">
+      <div className="container-login">
         <LoginHeader />
         <LoginForm />
         <LoginBottom />
