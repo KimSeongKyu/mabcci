@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotEmpty;
+import java.util.Objects;
 
 @Embeddable
 public class Phone {
@@ -25,5 +26,18 @@ public class Phone {
     @JsonValue
     public String phone() {
         return phone;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Phone phone1 = (Phone) o;
+        return Objects.equals(phone(), phone1.phone());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(phone());
     }
 }
