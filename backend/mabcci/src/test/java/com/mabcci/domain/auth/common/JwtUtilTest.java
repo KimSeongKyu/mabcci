@@ -1,7 +1,7 @@
 package com.mabcci.domain.auth.common;
 
 import com.mabcci.domain.auth.domain.vo.ClaimType;
-import com.mabcci.domain.auth.domain.vo.TokenType;
+import com.mabcci.domain.auth.domain.vo.JwtTokenType;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ public class JwtUtilTest {
     }
 
     public static Stream<Arguments> provideTokenTypesForTestsAboutToken() {
-        return Arrays.stream(TokenType.values())
+        return Arrays.stream(JwtTokenType.values())
                 .map(tokenType -> Arguments.of(tokenType));
     }
 
@@ -51,10 +51,10 @@ public class JwtUtilTest {
     @DisplayName(value = "Payload 생성 테스트")
     @ParameterizedTest(name = "{index}. Token Type: {0}")
     @MethodSource(value = "provideTokenTypesForTestsAboutToken")
-    public void createPayloadTest(TokenType tokenType) {
+    public void createPayloadTest(JwtTokenType jwtTokenType) {
         final JwtUtil jwtUtil = new JwtUtil();
         final String[] expectedKeys = new String[]{"iss", "sub", "aud", "exp", "nbf", "iat", "email", "nickname", "role"};
-        final Map<String, Object> payload = jwtUtil.createPayload(tokenType, MEMBER);
+        final Map<String, Object> payload = jwtUtil.createPayload(jwtTokenType, MEMBER);
 
         assertThat(payload.keySet()).contains(expectedKeys);
     }
@@ -71,9 +71,9 @@ public class JwtUtilTest {
     @DisplayName(value = "Token 생성 테스트")
     @ParameterizedTest(name = "{index}. Token Type: {0}")
     @MethodSource(value = "provideTokenTypesForTestsAboutToken")
-    public void createTokenTest(TokenType tokenType) {
+    public void createTokenTest(JwtTokenType jwtTokenType) {
         final JwtUtil jwtUtil = new JwtUtil();
-        final String token = jwtUtil.createToken(tokenType, MEMBER);
+        final String token = jwtUtil.createToken(jwtTokenType, MEMBER);
 
         Arrays.stream(token.split("."))
                 .forEach(tokenSplitByComma -> assertThat(tokenSplitByComma).isBase64());
@@ -82,9 +82,9 @@ public class JwtUtilTest {
     @DisplayName(value = "유효한 토큰 검증 테스트")
     @ParameterizedTest(name = "{index}. Token Type: {0}")
     @MethodSource(value = "provideTokenTypesForTestsAboutToken")
-    public void isValidTokenTest(TokenType tokenType) {
+    public void isValidTokenTest(JwtTokenType jwtTokenType) {
         final JwtUtil jwtUtil = new JwtUtil();
-        final String token = jwtUtil.createToken(tokenType, MEMBER);
+        final String token = jwtUtil.createToken(jwtTokenType, MEMBER);
         final boolean validity = jwtUtil.isValidToken(token);
 
         assertThat(validity).isTrue();
@@ -93,7 +93,7 @@ public class JwtUtilTest {
     @DisplayName(value = "유효하지 않은 토큰 검증 테스트")
     @ParameterizedTest(name = "{index}. Token Type: {0}")
     @MethodSource(value = "provideTokenTypesForTestsAboutToken")
-    public void isNotValidTokenTest(TokenType tokenType) {
+    public void isNotValidTokenTest(JwtTokenType jwtTokenType) {
         final JwtUtil jwtUtil = new JwtUtil();
         final String token = "invalid.test.token";
         final boolean validity = jwtUtil.isValidToken(token);

@@ -3,7 +3,7 @@ package com.mabcci.domain.auth.application;
 import com.mabcci.domain.auth.common.JwtUtil;
 import com.mabcci.domain.auth.domain.RefreshToken;
 import com.mabcci.domain.auth.domain.RefreshTokenRepository;
-import com.mabcci.domain.auth.domain.vo.TokenType;
+import com.mabcci.domain.auth.domain.vo.JwtTokenType;
 import com.mabcci.domain.auth.dto.LoginRequest;
 import com.mabcci.domain.auth.dto.LoginResponse;
 import com.mabcci.domain.auth.dto.LogoutRequest;
@@ -55,8 +55,8 @@ public class AuthServiceTest {
         final String refreshToken = "test.refresh.token";
 
         doReturn(Optional.of(member)).when(memberRepository).findByEmailAndPassword(EMAIL, PASSWORD);
-        doReturn(accessToken).when(jwtUtil).createToken(TokenType.ACCESS_TOKEN, member);
-        doReturn(refreshToken).when(jwtUtil).createToken(TokenType.REFRESH_TOKEN, member);
+        doReturn(accessToken).when(jwtUtil).createToken(JwtTokenType.ACCESS_TOKEN, member);
+        doReturn(refreshToken).when(jwtUtil).createToken(JwtTokenType.REFRESH_TOKEN, member);
         doReturn(RefreshToken.builder()
                 .email(EMAIL)
                 .refreshToken(refreshToken)

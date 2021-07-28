@@ -10,32 +10,32 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TokenTypeTest {
+public class JwtTokenTypeTest {
 
     public static Stream<Arguments> provideTokenTypesForConstructTest() {
-        return Arrays.stream(TokenType.values())
-                .map(tokenType -> Arguments.of(tokenType));
+        return Arrays.stream(JwtTokenType.values())
+                .map(jwtTokenType -> Arguments.of(jwtTokenType));
     }
 
-    public static Stream<Arguments> provideTokenTypesAndExpirationTimesForGetExpirationTimeTest() {
+    public static Stream<Arguments> provideJwtTokenTypesAndExpirationTimesForExpirationTimeTest() {
         return Stream.of(
-                Arguments.of(TokenType.ACCESS_TOKEN, 1000 * 60 * 30),
-                Arguments.of(TokenType.REFRESH_TOKEN, 1000 * 60 * 60 * 24 * 7)
+                Arguments.of(JwtTokenType.ACCESS_TOKEN, 1000 * 60 * 30),
+                Arguments.of(JwtTokenType.REFRESH_TOKEN, 1000 * 60 * 60 * 24 * 7)
         );
     }
 
     @DisplayName(value = "생성 테스트")
     @ParameterizedTest(name = "{index}. ENUM TYPE : {0}")
     @MethodSource(value = "provideTokenTypesForConstructTest")
-    public void constructTest(TokenType tokenType) {
-        assertThat(tokenType).isNotNull();
+    public void constructTest(JwtTokenType jwtTokenType) {
+        assertThat(jwtTokenType).isNotNull();
     }
 
     @DisplayName(value = "Expiration time 반환 테스트")
     @ParameterizedTest(name = "{index}. ENUM TYPE : {0} |  Expiration time : {1}")
     @MethodSource(value = "provideTokenTypesAndExpirationTimesForGetExpirationTimeTest")
-    public void getExpirationTimeTest(TokenType tokenType, long expectedExpirationTime) {
-        final long expirationTime = tokenType.expirationTime();
+    public void expirationTimeTest(JwtTokenType jwtTokenType, Long expectedExpirationTime) {
+        final Long expirationTime = jwtTokenType.expirationTime();
         assertThat(expirationTime).isEqualTo(expectedExpirationTime);
     }
 

@@ -2,7 +2,7 @@ package com.mabcci.domain.auth.common;
 
 import com.mabcci.domain.auth.domain.vo.Claim;
 import com.mabcci.domain.auth.domain.vo.ClaimType;
-import com.mabcci.domain.auth.domain.vo.TokenType;
+import com.mabcci.domain.auth.domain.vo.JwtTokenType;
 import com.mabcci.domain.member.domain.Member;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -26,10 +26,10 @@ public class JwtUtil {
     public JwtUtil() {
     }
 
-    public String createToken(final TokenType tokenType, final Member member) {
+    public String createToken(final JwtTokenType jwtTokenType, final Member member) {
         return Jwts.builder()
                 .setHeader(createClaim(ClaimType.HEADER))
-                .setClaims(createPayload(tokenType, member))
+                .setClaims(createPayload(jwtTokenType, member))
                 .signWith(createSecretKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -40,11 +40,11 @@ public class JwtUtil {
                 .collect(toMap(Claim::key, Claim::value));
     }
 
-    public Map<String, Object> createPayload(final TokenType tokenType, final Member member) {
+    public Map<String, Object> createPayload(final JwtTokenType jwtTokenType, final Member member) {
         final Map<String, Object> payload = createClaim(ClaimType.PAYLOAD);
         final Date currentTime = new Date();
 
-        payload.put(Claim.EXPIRATION_KEY, currentTime.getTime() + tokenType.expirationTime());
+        payload.put(Claim.EXPIRATION_KEY, currentTime.getTime() + jwtTokenType.expirationTime());
         payload.put(Claim.NOT_BEFORE_KEY, currentTime);
         payload.put(Claim.ISSUED_AT_KEY, currentTime);
         payload.put(Claim.EMAIL_KEY, member.email());
