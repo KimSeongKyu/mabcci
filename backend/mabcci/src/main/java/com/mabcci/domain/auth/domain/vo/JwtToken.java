@@ -1,5 +1,7 @@
 package com.mabcci.domain.auth.domain.vo;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
@@ -21,5 +23,10 @@ public class JwtToken implements Serializable {
 
     public static JwtToken of(final String jwtToken) {
         return new JwtToken(jwtToken);
+    }
+
+    @JsonValue
+    public String jwtToken() {
+        return jwtToken;
     }
 }
