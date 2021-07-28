@@ -1,15 +1,16 @@
-package com.mabcci.domain.auth.service;
+package com.mabcci.domain.auth.application;
 
 import com.mabcci.domain.auth.domain.RefreshToken;
 import com.mabcci.domain.auth.domain.RefreshTokenRepository;
 import com.mabcci.domain.auth.domain.TokenType;
 import com.mabcci.domain.auth.dto.LoginRequest;
 import com.mabcci.domain.auth.dto.LoginResponse;
+import com.mabcci.domain.auth.dto.LogoutRequest;
 import com.mabcci.domain.auth.exception.NotLoginMemberException;
-import com.mabcci.domain.auth.util.JwtUtil;
-import com.mabcci.domain.member.domain.Member;
+import com.mabcci.domain.auth.common.JwtUtil;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.exception.MemberNotFoundException;
+import com.mabcci.domain.model.Email;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +24,8 @@ public class AuthService {
     private final JwtUtil jwtUtil;
 
     @Transactional
-    public void logout(final String email) {
+    public void logout(final LogoutRequest logoutRequest) {
+        final Email email = logoutRequest.getEmail();
         final RefreshToken refreshToken = refreshTokenRepository.findById(email)
                 .orElseThrow(() -> new NotLoginMemberException(email));
 
@@ -32,7 +34,7 @@ public class AuthService {
 
     @Transactional
     public LoginResponse login(final LoginRequest loginRequest) {
-        final String email = loginRequest.getEmail();
+        final Email email = loginRequest.getEmail();
         memberRepository.findByEmailAndPassword(email, loginRequest.getPassword())
                 .orElseThrow(MemberNotFoundException::new);
 

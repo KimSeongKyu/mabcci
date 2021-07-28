@@ -1,22 +1,25 @@
 package com.mabcci.domain.member.dto;
 
+import com.mabcci.domain.model.Nickname;
+import com.mabcci.domain.model.Password;
+
 public class MemberDeleteRequestDto {
-    private String nickname;
-    private String password;
+    private Nickname nickname;
+    private Password password;
 
     private MemberDeleteRequestDto() {
     }
 
-    public MemberDeleteRequestDto(String nickname, String password) {
+    public MemberDeleteRequestDto(Nickname nickname, Password password) {
         this.nickname = nickname;
         this.password = password;
     }
 
-    public String getNickname() {
+    public Nickname getNickname() {
         return nickname;
     }
 
-    public String getPassword() {
+    public Password getPassword() {
         return password;
     }
 }

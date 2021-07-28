@@ -2,7 +2,7 @@ import React from 'react';
 
 const LoginHeader = () => {
   return (
-    <header id="container-item">
+    <header className="container-item">
       <h3>로그인</h3>
     </header>
   );

@@ -28,7 +28,6 @@ public class TokenTypeTest {
     @ParameterizedTest(name = "{index}. ENUM TYPE : {0}")
     @MethodSource(value = "provideTokenTypesForConstructTest")
     public void constructTest(TokenType tokenType) {
-        // then
         assertThat(tokenType).isNotNull();
     }
 
@@ -36,10 +35,7 @@ public class TokenTypeTest {
     @ParameterizedTest(name = "{index}. ENUM TYPE : {0} |  Expiration time : {1}")
     @MethodSource(value = "provideTokenTypesAndExpirationTimesForGetExpirationTimeTest")
     public void getExpirationTimeTest(TokenType tokenType, long expectedExpirationTime) {
-        // when
-        long expirationTime = tokenType.getExpirationTime();
-
-        // then
+        final long expirationTime = tokenType.getExpirationTime();
         assertThat(expirationTime).isEqualTo(expectedExpirationTime);
     }
 

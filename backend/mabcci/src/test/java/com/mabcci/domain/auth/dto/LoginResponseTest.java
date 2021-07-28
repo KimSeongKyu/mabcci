@@ -8,39 +8,29 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class LoginResponseTest {
 
-    @DisplayName(value = "생성 테스트")
+    @DisplayName("LoginResponse 인스턴스 생성 여부 테스트")
     @Test
     public void constructTest() {
-        // given
-        String accessToken = "test.access.token";
-        String refreshToken = "test.refresh.token";
+        final String accessToken = "test.access.token";
+        final String refreshToken = "test.refresh.token";
+        final LoginResponse loginResponse = new LoginResponse(accessToken, refreshToken);
 
-        // when
-        LoginResponse loginResponse = new LoginResponse(accessToken, refreshToken);
-
-        // then
         assertAll(
                 () -> assertThat(loginResponse).isNotNull(),
                 () -> assertThat(loginResponse).isExactlyInstanceOf(LoginResponse.class)
         );
     }
 
-    @DisplayName(value = "getter 테스트")
+    @DisplayName("LoginResponseTest getter 메서드들 테스트")
     @Test
     public void getterTest() {
-        // given
-        String expectedAccessToken = "test.access.token";
-        String expectedRefreshToken = "test.refresh.token";
-        LoginResponse loginResponse = new LoginResponse(expectedAccessToken, expectedRefreshToken);
+        final String expectedAccessToken = "test.access.token";
+        final String expectedRefreshToken = "test.refresh.token";
+        final LoginResponse loginResponse = new LoginResponse(expectedAccessToken, expectedRefreshToken);
 
-        // when
-        String accessToken = loginResponse.getAccessToken();
-        String refreshToken = loginResponse.getRefreshToken();
-
-        // then
         assertAll(
-                () -> assertThat(accessToken).isEqualTo(expectedAccessToken),
-                () -> assertThat(refreshToken).isEqualTo(expectedRefreshToken)
+                () -> assertThat(loginResponse.getAccessToken()).isEqualTo(expectedAccessToken),
+                () -> assertThat(loginResponse.getRefreshToken()).isEqualTo(expectedRefreshToken)
         );
     }
 }

@@ -1,5 +1,8 @@
 package com.mabcci.domain.member.domain;
 
+import com.mabcci.domain.model.Email;
+import com.mabcci.domain.model.Nickname;
+import org.apache.logging.log4j.util.Strings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,6 +14,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import java.util.List;
 import java.util.Optional;
 
+import static com.mabcci.domain.member.domain.Gender.MALE;
+import static com.mabcci.domain.member.domain.MemberRole.*;
+import static com.mabcci.domain.model.Email.of;
+import static com.mabcci.domain.model.EmailTest.EMAIL;
+import static com.mabcci.domain.model.NicknameTest.NICKNAME;
+import static com.mabcci.domain.model.PasswordTest.PASSWORD;
+import static org.apache.logging.log4j.util.Strings.EMPTY;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,12 +33,12 @@ class MemberRepositoryTest {
     @BeforeEach
     void setUp() {
         member = Member.builder()
-                .email("sample@email.com")
-                .password("validPassword")
-                .nickname("sample")
+                .email(EMAIL)
+                .password(PASSWORD)
+                .nickname(NICKNAME)
                 .phone("010-1234-5678")
-                .gender(Gender.MALE)
-                .role(MemberRole.USER)
+                .gender(MALE)
+                .role(USER)
                 .build();
     }
 
@@ -41,7 +51,6 @@ class MemberRepositoryTest {
     @DisplayName("MemberRepository 구현체 존재 여부 테스트")
     @Test
     void initialize() {
-        // when and then
         assertAll(
                 () -> assertThat(memberRepository).isNotNull(),
                 () -> assertThat(memberRepository).isInstanceOf(MemberRepository.class)
@@ -51,76 +60,57 @@ class MemberRepositoryTest {
     @DisplayName("MemberRepository save 기능 테스트")
     @Test
     void save_test() {
-        // when
-        Member savedMember = memberRepository.save(member);
-
-        // then
+        final Member savedMember = memberRepository.save(member);
         assertThat(savedMember.id()).isEqualTo(member.id());
     }
 
     @DisplayName("MemberRepository findByNickname 기능 테스트")
     @Test
     void findByNickname_test() {
-        // given
         testEntityManager.persist(member);
 
-        // when
-        Member validFindMember = memberRepository.findByNickname(member.nickname()).get();
+        final Member findMember = memberRepository.findByNickname(member.nickname()).get();
 
-        // then
-        assertThat(validFindMember.id()).isEqualTo(member.id());
+        assertThat(findMember.id()).isEqualTo(member.id());
 
     }
 
     @DisplayName("MemberRepository findByNickname 기능 실패 테스트")
     @Test
     void findByNickname_fail_test() {
-        // given
+        final Nickname nickname = Nickname.of("invalidNickName");
+
         testEntityManager.persist(member);
+        final Optional<Member> findMember = memberRepository.findByNickname(nickname);
 
-        // when
-        Optional<Member> findMember = memberRepository.findByNickname("invalidNickName");
-
-        // then
         assertThat(findMember.isPresent()).isFalse();
     }
 
     @DisplayName(value = "MemberRepository findByEmailAndPassword 기능 테스트")
     @Test
     public void findByEmailAndPassword_test() {
-        // given
         testEntityManager.persist(member);
 
-        // when
-        Member validFindMember = memberRepository.findByEmailAndPassword(member.email(), member.password()).get();
+        final Member findMember = memberRepository.findByEmailAndPassword(EMAIL, PASSWORD).get();
 
-        // then
-        assertThat(validFindMember.id()).isEqualTo(member.id());
+        assertThat(findMember.id()).isEqualTo(member.id());
     }
 
     @DisplayName(value = "MemberRepository findByEmailAndPassword 기능 실패 테스트")
     @Test
     public void findByEmailAndPassword_fail_test() {
-        // given
         testEntityManager.persist(member);
+        final Optional<Member> findMember = memberRepository.findByEmailAndPassword(of(EMPTY), PASSWORD);
 
-        // when
-        Optional<Member> findMember = memberRepository.findByEmailAndPassword("invalidEmail", "invalidPassword");
-
-        // then
         assertThat(findMember.isPresent()).isFalse();
     }
 
     @DisplayName("MemberRepository findAll 기능 테스트")
     @Test
     void findAll_test() {
-        // given
         testEntityManager.persist(member);
+        final List<Member> members = memberRepository.findAll();
 
-        // when
-        List<Member> members = memberRepository.findAll();
-
-        // then
         assertAll(
                 () -> assertThat(members).isNotNull(),
                 () -> assertThat(members.size()).isEqualTo(1)
@@ -130,14 +120,11 @@ class MemberRepositoryTest {
     @DisplayName("MemberRepository delete 기능 테스트")
     @Test
     void delete_test() {
-        // given
-        Member savedMember = testEntityManager.persist(member);
+        final Member savedMember = testEntityManager.persist(member);
 
-        // when
         memberRepository.delete(savedMember);
-        Optional<Member> findMember = memberRepository.findById(savedMember.id());
+        final Optional<Member> findMember = memberRepository.findById(savedMember.id());
 
-        // then
         assertThat(findMember.isPresent()).isFalse();
     }
 

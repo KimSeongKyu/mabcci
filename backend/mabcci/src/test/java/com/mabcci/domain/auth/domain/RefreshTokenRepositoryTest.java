@@ -1,6 +1,5 @@
 package com.mabcci.domain.auth.domain;
 
-import com.mabcci.domain.member.domain.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
@@ -11,6 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.validation.ConstraintViolationException;
 
+import static com.mabcci.domain.model.EmailTest.EMAIL;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @EnableJpaAuditing
@@ -21,9 +21,6 @@ public class RefreshTokenRepositoryTest {
     private RefreshTokenRepository refreshTokenRepository;
 
     @Autowired
-    private MemberRepository memberRepository;
-
-    @Autowired
     private TestEntityManager testEntityManager;
 
 
@@ -31,14 +28,11 @@ public class RefreshTokenRepositoryTest {
     @ParameterizedTest(name = "{index}. refresh token: {0}")
     @NullAndEmptySource
     public void validateRefreshTokenTest(String value) {
-        // given
-        String email = "example@example.com";
         RefreshToken refreshToken = RefreshToken.builder()
-                .email(email)
+                .email(EMAIL)
                 .refreshToken(value)
                 .build();
 
-        // when and then
         assertThatExceptionOfType(ConstraintViolationException.class).isThrownBy(() -> {
             refreshTokenRepository.save(refreshToken);
             testEntityManager.flush();

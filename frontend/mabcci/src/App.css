@@ -1,8 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Rozha+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
 :root {
   --main-color-1: #f9a77c;
   --main-color-2: #fbf1e9;
   --main-color-3: #f2f2f2;
   --main-color-4: #ffffff;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+a {
+  font-family: 'Gowun Dodum', sans-serif;
 }
 
 * {
