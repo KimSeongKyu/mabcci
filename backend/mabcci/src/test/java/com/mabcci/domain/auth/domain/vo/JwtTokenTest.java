@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class JwtTokenTest {
 
+    public static final JwtToken JWT_TOKEN = JwtToken.of("test.jwt.token");
+
     @DisplayName(value = "JwtToken 인스턴스 생성 여부 테스트")
     @Test
     public void constructor_test() {
@@ -29,5 +31,14 @@ public class JwtTokenTest {
                 () -> assertThat(jwtToken).isNotNull(),
                 () -> assertThat(jwtToken).isExactlyInstanceOf(JwtToken.class)
         );
+    }
+
+    @DisplayName(value = "JwtToken 인스턴스 jwtToken() 기능 테스트")
+    @Test
+    public void jwtToken_test() {
+        final String value = "test.jwt.token";
+        final JwtToken jwtToken = JwtToken.of(value);
+
+        assertThat(jwtToken.jwtToken()).isEqualTo(value);
     }
 }
