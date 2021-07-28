@@ -1,4 +1,4 @@
-#container {
+.container {
   min-width: 320px;
   max-width: 768px;
   min-height: 100%;
@@ -11,7 +11,7 @@
   align-content: stretch;
 }
 
-#container-login {
+.container-login {
   min-height: 100vh;
   background-color: #ffffff;
   display: flex;
@@ -19,8 +19,12 @@
   justify-content: space-around;
 }
 
-#container-item {
+.container-item {
   text-align: center;
+}
+
+.container-item h3 {
+  color: var(--main-color-1);
 }
 
 .form-element {

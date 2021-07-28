@@ -1,4 +1,4 @@
-.container {
+/* .container {
   min-width: 320px;
   max-width: 768px;
   min-height: 100%;
@@ -9,7 +9,7 @@
   justify-content: flex-start;
   align-items: stretch;
   align-content: stretch;
-}
+} */
 
 .input-list {
   list-style: none;
