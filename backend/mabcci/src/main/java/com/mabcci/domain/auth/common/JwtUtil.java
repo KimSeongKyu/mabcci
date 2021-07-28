@@ -20,7 +20,6 @@ import static java.util.stream.Collectors.toMap;
 
 @Component
 @NoArgsConstructor
-@Component
 public class JwtUtil {
 
     private final static String SECRET_KEY =

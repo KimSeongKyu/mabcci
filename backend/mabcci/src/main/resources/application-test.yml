@@ -1,6 +1,3 @@
-logging:
-  level:
-    root: trace
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -8,7 +5,12 @@ spring:
     username: root
     password: root
   jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
+    properties:
+      hibernate.enable_lazy_load_no_trans: true
+      hibernate.format_sql: true

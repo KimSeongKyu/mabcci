@@ -17,7 +17,7 @@ public class RefreshToken {
     private Email email;
 
     @NotBlank
-    @Column(name = "refresh_token", nullable = false, unique = true)
+    @Column(name = "refresh_token", length = 500, nullable = false, unique = true)
     private String refreshToken;
 
     @Builder
