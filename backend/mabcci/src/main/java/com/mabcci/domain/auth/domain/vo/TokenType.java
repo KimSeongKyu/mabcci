@@ -1,4 +1,4 @@
-package com.mabcci.domain.auth.domain;
+package com.mabcci.domain.auth.domain.vo;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

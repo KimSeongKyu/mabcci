@@ -1,12 +1,9 @@
 package com.mabcci.domain.auth.common;
 
-import com.mabcci.domain.auth.domain.Claim;
-import com.mabcci.domain.auth.domain.ClaimType;
-import com.mabcci.domain.auth.domain.TokenType;
+import com.mabcci.domain.auth.domain.vo.Claim;
+import com.mabcci.domain.auth.domain.vo.ClaimType;
+import com.mabcci.domain.auth.domain.vo.TokenType;
 import com.mabcci.domain.member.domain.Member;
-import com.mabcci.domain.member.domain.MemberRole;
-import com.mabcci.domain.model.Email;
-import com.mabcci.domain.model.Nickname;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
