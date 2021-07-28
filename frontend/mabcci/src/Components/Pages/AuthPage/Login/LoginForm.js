@@ -21,7 +21,8 @@ const LoginForm = () => {
 
     const response = await LoginApi(userAuthInfo);
 
-    console.log('seongaeee');
+    console.log(response);
+    console.log('develop');
     if (response.status === 200) {
       dispatch(LoginSuccess(response.userInfo));
       history.push('/home');
