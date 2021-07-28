@@ -5,24 +5,22 @@ import { SignupUrl } from '../ApiUrl';
 const SignupApi = async userInfo => {
   const history = useHistory();
 
-  await axios
-    .post(SignupUrl, userInfo)
-    .then(res => {
-      alert('회원가입성공!');
-      history.push('login');
+  try {
+    const res = await axios.post(SignupUrl, userInfo);
+    alert('회원가입성공!');
+    history.push('login');
 
-      return {
-        status: res.status,
-      };
-    })
-    .catch(err => {
-      console.log(err);
-      alert('회원가입실패');
+    return {
+      status: res.status,
+    };
+  } catch (err) {
+    console.log(err);
+    alert('회원가입실패');
 
-      return {
-        status: err.status,
-      };
-    });
+    return {
+      status: err.status,
+    };
+  }
 };
 
 export default SignupApi;
