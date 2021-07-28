@@ -28,8 +28,6 @@ const LoginApi = async userAuthInfo => {
       userInfo,
     };
   } catch (response) {
-    console.log(response);
-
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('userinfo');
