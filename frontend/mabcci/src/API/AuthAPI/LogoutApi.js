@@ -2,10 +2,16 @@ import axios from 'axios';
 import { LogoutUrl } from '../ApiUrl';
 
 const LogoutApi = async () => {
-  await axios
-    .get(LogoutUrl)
-    .then(() => {})
-    .catch(() => {});
+  try {
+    const response = await axios.get(LogoutUrl);
+    return {
+      status: response.status,
+    };
+  } catch (response) {
+    return {
+      status: response.status,
+    };
+  }
 };
 
 export default LogoutApi;
