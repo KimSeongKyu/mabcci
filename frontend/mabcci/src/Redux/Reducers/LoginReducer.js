@@ -2,7 +2,7 @@ import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from '../Type/LoginType';
 
 const initialState = {
   isLoggedin: false,
-  userinfo: {},
+  userInfo: {},
 };
 
 const LoginReducer = (state = initialState, { type, payload }) => {
@@ -11,7 +11,7 @@ const LoginReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         isLoggedIn: true,
-        userinfo: {
+        userInfo: {
           email: payload.email,
           nickname: payload.nickname,
           role: payload.role,
@@ -21,13 +21,13 @@ const LoginReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         isLoggedIn: false,
-        userinfo: null,
+        userInfo: null,
       };
     case LOGOUT:
       return {
         ...state,
         isLoggedIn: false,
-        userinfo: null,
+        userInfo: null,
       };
     default:
       return state;
