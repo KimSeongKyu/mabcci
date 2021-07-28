@@ -1,10 +1,5 @@
 package com.mabcci.domain.auth.domain.vo;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-@Getter
-@RequiredArgsConstructor
 public enum Claim {
 
     TOKEN_TYPE(ClaimType.HEADER, "typ", "JWT"),
@@ -23,4 +18,22 @@ public enum Claim {
     private final ClaimType type;
     private final String key;
     private final String value;
+
+    Claim(final ClaimType type, final String key, final String value) {
+        this.type = type;
+        this.key = key;
+        this.value = value;
+    }
+
+    public final ClaimType type() {
+        return type;
+    }
+
+    public final String key() {
+        return key;
+    }
+
+    public final String value() {
+        return value;
+    }
 }

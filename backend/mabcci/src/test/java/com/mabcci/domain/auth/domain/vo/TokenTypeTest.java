@@ -35,7 +35,7 @@ public class TokenTypeTest {
     @ParameterizedTest(name = "{index}. ENUM TYPE : {0} |  Expiration time : {1}")
     @MethodSource(value = "provideTokenTypesAndExpirationTimesForGetExpirationTimeTest")
     public void getExpirationTimeTest(TokenType tokenType, long expectedExpirationTime) {
-        final long expirationTime = tokenType.getExpirationTime();
+        final long expirationTime = tokenType.expirationTime();
         assertThat(expirationTime).isEqualTo(expectedExpirationTime);
     }
 

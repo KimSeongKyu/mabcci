@@ -58,7 +58,7 @@ public class ClaimTest {
     @ParameterizedTest(name = "{index}. ENUM TYPE : {0} | claim type : {1}")
     @MethodSource(value = "provideClaimsAndTypesForGetTypeTest")
     public void getTypeTest(Claim claim, ClaimType expectedType) {
-        final ClaimType type = claim.getType();
+        final ClaimType type = claim.type();
         assertThat(type).isEqualTo(expectedType);
     }
 
@@ -66,7 +66,7 @@ public class ClaimTest {
     @ParameterizedTest(name = "{index}. ENUM TYPE : {0} | key : {1}")
     @MethodSource(value = "provideClaimsAndKeysForGetKeyTest")
     public void getKeyTest(Claim claim, String expectedKey) {
-        final String key = claim.getKey();
+        final String key = claim.key();
         assertThat(key).isEqualTo(expectedKey);
     }
 
@@ -74,7 +74,7 @@ public class ClaimTest {
     @ParameterizedTest(name = "{index}. ENUM TYPE : {0} | value : {1}")
     @MethodSource(value = "provideClaimsAndValuesForGetValueTest")
     public void getValueTest(Claim claim, String expectedValue) {
-        final String value = claim.getValue();
+        final String value = claim.value();
         assertThat(value).isEqualTo(expectedValue);
     }
 }

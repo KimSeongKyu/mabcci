@@ -7,7 +7,6 @@ import com.mabcci.domain.member.domain.Member;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
@@ -19,11 +18,13 @@ import java.util.Map;
 import static java.util.stream.Collectors.toMap;
 
 @Component
-@NoArgsConstructor
 public class JwtUtil {
 
     private final static String SECRET_KEY =
             "ssafy mabcci team kim kim joe lim choi";
+
+    public JwtUtil() {
+    }
 
     public String createToken(final TokenType tokenType, final Member member) {
         return Jwts.builder()
@@ -35,15 +36,15 @@ public class JwtUtil {
 
     public Map<String, Object> createClaim(final ClaimType claimType) {
         return Arrays.stream(Claim.values())
-                .filter(claim -> claim.getType().equals(claimType))
-                .collect(toMap(Claim::getKey, Claim::getValue));
+                .filter(claim -> claim.type().equals(claimType))
+                .collect(toMap(Claim::key, Claim::value));
     }
 
     public Map<String, Object> createPayload(final TokenType tokenType, final Member member) {
         final Map<String, Object> payload = createClaim(ClaimType.PAYLOAD);
         final Date currentTime = new Date();
 
-        payload.put(Claim.EXPIRATION_KEY, currentTime.getTime() + tokenType.getExpirationTime());
+        payload.put(Claim.EXPIRATION_KEY, currentTime.getTime() + tokenType.expirationTime());
         payload.put(Claim.NOT_BEFORE_KEY, currentTime);
         payload.put(Claim.ISSUED_AT_KEY, currentTime);
         payload.put(Claim.EMAIL_KEY, member.email());

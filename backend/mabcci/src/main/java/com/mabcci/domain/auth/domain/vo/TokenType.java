@@ -1,14 +1,17 @@
 package com.mabcci.domain.auth.domain.vo;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-@Getter
-@RequiredArgsConstructor
 public enum TokenType {
 
-    ACCESS_TOKEN(1000 * 60 * 30),
-    REFRESH_TOKEN(1000 * 60 * 60 * 24 * 7);
+    ACCESS_TOKEN(1000 * 60 * 30L),
+    REFRESH_TOKEN(1000 * 60 * 60 * 24 * 7L);
 
-    private final long expirationTime;
+    private final Long expirationTime;
+
+    TokenType(final Long expirationTime) {
+        this.expirationTime = expirationTime;
+    }
+
+    public final Long expirationTime() {
+        return expirationTime;
+    }
 }

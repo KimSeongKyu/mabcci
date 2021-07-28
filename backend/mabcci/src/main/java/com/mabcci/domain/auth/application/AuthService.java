@@ -12,17 +12,22 @@ import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.exception.MemberNotFoundException;
 import com.mabcci.domain.model.Email;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@RequiredArgsConstructor
 public class AuthService {
 
     private final RefreshTokenRepository refreshTokenRepository;
     private final MemberRepository memberRepository;
     private final JwtUtil jwtUtil;
+
+    public AuthService(final RefreshTokenRepository refreshTokenRepository, final MemberRepository memberRepository,
+                       final JwtUtil jwtUtil) {
+        this.refreshTokenRepository = refreshTokenRepository;
+        this.memberRepository = memberRepository;
+        this.jwtUtil = jwtUtil;
+    }
 
     @Transactional
     public void logout(final LogoutRequest logoutRequest) {
