@@ -1,8 +1,8 @@
-package com.mabcci.domain.auth.controller;
+package com.mabcci.domain.auth.ui;
 
 import com.mabcci.domain.auth.dto.LoginRequest;
-import com.mabcci.domain.auth.dto.LogoutRequestDto;
-import com.mabcci.domain.auth.service.AuthService;
+import com.mabcci.domain.auth.dto.LogoutRequest;
+import com.mabcci.domain.auth.application.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +25,8 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity logout(@RequestBody @Valid final LogoutRequestDto logoutRequestDto) {
-        authService.logout(logoutRequestDto.getEmail());
+    public ResponseEntity logout(@Valid @RequestBody final LogoutRequest logoutRequest) {
+        authService.logout(logoutRequest);
         return ResponseEntity.noContent()
                 .build();
     }

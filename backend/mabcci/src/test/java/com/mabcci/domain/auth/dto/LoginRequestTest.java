@@ -3,44 +3,32 @@ package com.mabcci.domain.auth.dto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static com.mabcci.domain.model.EmailTest.EMAIL;
+import static com.mabcci.domain.model.PasswordTest.PASSWORD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class LoginRequestTest {
 
-    @DisplayName(value = "생성 테스트")
+    @DisplayName("생성 테스트")
     @Test
     public void constructTest() {
-        // given
-        String email = "example@example.com";
-        String password = "testPassword";
+        final LoginRequest loginRequest = new LoginRequest(EMAIL, PASSWORD);
 
-        // when
-        LoginRequest loginRequest = new LoginRequest(email, password);
-
-        // then
         assertAll(
                 () -> assertThat(loginRequest).isNotNull(),
                 () -> assertThat(loginRequest).isExactlyInstanceOf(LoginRequest.class)
         );
     }
 
-    @DisplayName(value = "getter 테스트")
+    @DisplayName("getter 테스트")
     @Test
     public void getterTest() {
-        // given
-        String expectedEmail = "example@example.com";
-        String expectedPassword = "testPassword";
-        LoginRequest loginRequest = new LoginRequest(expectedEmail, expectedPassword);
+        final LoginRequest loginRequest = new LoginRequest(EMAIL, PASSWORD);
 
-        // when
-        String email = loginRequest.getEmail();
-        String password = loginRequest.getPassword();
-
-        // then
         assertAll(
-                () -> assertThat(email).isEqualTo(expectedEmail),
-                () -> assertThat(password).isEqualTo(expectedPassword)
+                () -> assertThat(loginRequest.getEmail()).isEqualTo(EMAIL),
+                () -> assertThat(loginRequest.getPassword()).isEqualTo(PASSWORD)
         );
     }
 }

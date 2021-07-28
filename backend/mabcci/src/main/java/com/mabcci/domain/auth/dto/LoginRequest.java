@@ -1,30 +1,35 @@
 package com.mabcci.domain.auth.dto;
 
-import javax.validation.constraints.Email;
+import com.mabcci.domain.model.Email;
+import com.mabcci.domain.model.Password;
+
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public final class LoginRequest {
 
-    @NotBlank
-    @Email
-    private String email;
+    @Valid
+    @NotNull
+    private Email email;
 
-    @NotBlank
-    private String password;
+    @Valid
+    @NotNull
+    private Password password;
 
     private LoginRequest() {
     }
 
-    public LoginRequest(final String email, final String password) {
+    public LoginRequest(@Valid final Email email, @Valid final Password password) {
         this.email = email;
         this.password = password;
     }
 
-    public final String getEmail() {
+    public final Email getEmail() {
         return email;
     }
 
-    public final String getPassword() {
+    public final Password getPassword() {
         return password;
     }
 }

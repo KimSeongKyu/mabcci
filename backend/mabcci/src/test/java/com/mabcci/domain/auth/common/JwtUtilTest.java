@@ -1,4 +1,4 @@
-package com.mabcci.domain.auth.util;
+package com.mabcci.domain.auth.common;
 
 import com.mabcci.domain.auth.domain.ClaimType;
 import com.mabcci.domain.auth.domain.TokenType;
@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import static com.mabcci.domain.model.EmailTest.EMAIL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class JwtUtilTest {
@@ -44,13 +45,9 @@ public class JwtUtilTest {
     @ParameterizedTest(name = "{index}. Claim Type: {0} | keys: {1}")
     @MethodSource(value = "provideClaimTypesForCreateClaimTest")
     public void createClaimTest(ClaimType claimType, String[] expectedKeys) {
-        // given
-        JwtUtil jwtUtil = new JwtUtil();
+        final JwtUtil jwtUtil = new JwtUtil();
+        final Map<String, Object> claim = jwtUtil.createClaim(claimType);
 
-        // when
-        Map<String, Object> claim = jwtUtil.createClaim(claimType);
-
-        // then
         assertThat(claim.keySet()).contains(expectedKeys);
     }
 
@@ -58,27 +55,19 @@ public class JwtUtilTest {
     @ParameterizedTest(name = "{index}. Token Type: {0}")
     @MethodSource(value = "provideTokenTypesForTestsAboutToken")
     public void createPayloadTest(TokenType tokenType) {
-        // given
-        JwtUtil jwtUtil = new JwtUtil();
-        String[] expectedKeys = new String[]{"iss", "sub", "aud", "exp", "nbf", "iat", "email"};
+        final JwtUtil jwtUtil = new JwtUtil();
+        final String[] expectedKeys = new String[]{"iss", "sub", "aud", "exp", "nbf", "iat", "email"};
+        final Map<String, Object> payload = jwtUtil.createPayload(tokenType, EMAIL);
 
-        // when
-        Map<String, Object> payload = jwtUtil.createPayload(tokenType, "example@example.com");
-
-        // then
         assertThat(payload.keySet()).contains(expectedKeys);
     }
 
     @DisplayName(value = "Secret key 생성 테스트")
     @Test
     public void createSecretKeyTest() {
-        // given
-        JwtUtil jwtUtil = new JwtUtil();
+        final JwtUtil jwtUtil = new JwtUtil();
+        final Key key = jwtUtil.createSecretKey();
 
-        // when
-        Key key = jwtUtil.createSecretKey();
-
-        // then
         assertThat(key.getAlgorithm()).isEqualTo(SignatureAlgorithm.HS256.getJcaName());
     }
 
@@ -86,13 +75,9 @@ public class JwtUtilTest {
     @ParameterizedTest(name = "{index}. Token Type: {0}")
     @MethodSource(value = "provideTokenTypesForTestsAboutToken")
     public void createTokenTest(TokenType tokenType) {
-        // given
-        JwtUtil jwtUtil = new JwtUtil();
+        final JwtUtil jwtUtil = new JwtUtil();
+        final String token = jwtUtil.createToken(tokenType, EMAIL);
 
-        // when
-        String token = jwtUtil.createToken(tokenType, "example@example.com");
-
-        // then
         Arrays.stream(token.split("."))
                 .forEach(tokenSplitByComma -> assertThat(tokenSplitByComma).isBase64());
     }
@@ -101,14 +86,10 @@ public class JwtUtilTest {
     @ParameterizedTest(name = "{index}. Token Type: {0}")
     @MethodSource(value = "provideTokenTypesForTestsAboutToken")
     public void isValidTokenTest(TokenType tokenType) {
-        // given
-        JwtUtil jwtUtil = new JwtUtil();
-        String token = jwtUtil.createToken(tokenType, "example@example.com");
+        final JwtUtil jwtUtil = new JwtUtil();
+        final String token = jwtUtil.createToken(tokenType, EMAIL);
+        final boolean validity = jwtUtil.isValidToken(token);
 
-        // when
-        boolean validity = jwtUtil.isValidToken(token);
-
-        // then
         assertThat(validity).isTrue();
     }
 
@@ -116,14 +97,10 @@ public class JwtUtilTest {
     @ParameterizedTest(name = "{index}. Token Type: {0}")
     @MethodSource(value = "provideTokenTypesForTestsAboutToken")
     public void isNotValidTokenTest(TokenType tokenType) {
-        // given
-        JwtUtil jwtUtil = new JwtUtil();
-        String token = "invalid.test.token";
+        final JwtUtil jwtUtil = new JwtUtil();
+        final String token = "invalid.test.token";
+        final boolean validity = jwtUtil.isValidToken(token);
 
-        // when
-        boolean validity = jwtUtil.isValidToken(token);
-
-        // then
         assertThat(validity).isFalse();
     }
 }

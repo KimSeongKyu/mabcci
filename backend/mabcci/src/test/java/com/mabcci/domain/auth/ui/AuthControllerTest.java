@@ -1,17 +1,16 @@
-package com.mabcci.domain.auth.controller;
+package com.mabcci.domain.auth.ui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mabcci.domain.auth.dto.LoginRequest;
 import com.mabcci.domain.auth.dto.LoginResponse;
-import com.mabcci.domain.auth.dto.LogoutRequestDto;
-import com.mabcci.domain.auth.service.AuthService;
+import com.mabcci.domain.auth.dto.LogoutRequest;
+import com.mabcci.domain.auth.application.AuthService;
+import com.mabcci.domain.model.Email;
+import com.mabcci.domain.model.Password;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -20,6 +19,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.stream.Stream;
 
+import static com.mabcci.domain.model.EmailTest.EMAIL;
+import static com.mabcci.domain.model.PasswordTest.PASSWORD;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -41,11 +42,11 @@ public class AuthControllerTest {
 
     public static Stream<Arguments> provideEmailAndPasswordsForValidateLoginRequestTest() {
         return Stream.of(
-                Arguments.of("example@example.com", null),
-                Arguments.of("example@example.com", ""),
-                Arguments.of(null, "testPassword"),
-                Arguments.of("", "testPassword"),
-                Arguments.of("notEmailFormat", "testPassword")
+                Arguments.of(EMAIL, null),
+                Arguments.of(EMAIL, ""),
+                Arguments.of(null, PASSWORD),
+                Arguments.of("", PASSWORD),
+                Arguments.of("notEmailFormat", PASSWORD)
 
         );
     }
@@ -54,18 +55,14 @@ public class AuthControllerTest {
     @Test
     public void loginTest() throws Exception {
         // given
-        String api = "/auth/login";
-        String accessToken = "test.access.token";
-        String refreshToken = "test.refresh.token";
+        final String accessToken = "test.access.token";
+        final String refreshToken = "test.refresh.token";
+        final LoginRequest loginRequest = new LoginRequest(EMAIL, PASSWORD);
+        final LoginResponse loginResponse = new LoginResponse(accessToken, refreshToken);
 
-        LoginRequest loginRequest = new LoginRequest("example@example.com", "testPassword");
-        LoginResponse loginResponse = new LoginResponse(accessToken, refreshToken);
-
-        // when
         doReturn(loginResponse).when(authService).login(any());
 
-        // then
-        mockMvc.perform(post(api)
+        mockMvc.perform(post("/auth/login")
                 .content(objectMapper.writeValueAsString(loginRequest))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -76,14 +73,11 @@ public class AuthControllerTest {
 
     @DisplayName(value = "LoginRequest 유효성 검증 테스트")
     @ParameterizedTest(name = "{index}. email: {0} | password: {1}")
-    @MethodSource(value = "provideLoginRequestsForValidateLoginRequestTest")
-    public void validateLoginRequestTest(String email, String password) throws Exception {
-        // given
-        String api = "/auth/login";
-        LoginRequest loginRequest = new LoginRequest(email, password);
+    @MethodSource(value = "provideEmailAndPasswordsForValidateLoginRequestTest")
+    public void validateLoginRequestTest(Email email, Password password) throws Exception {
+        final LoginRequest loginRequest = new LoginRequest(email, password);
 
-        // when and then
-        mockMvc.perform(post(api)
+        mockMvc.perform(post("/auth/login")
                 .content(objectMapper.writeValueAsString(loginRequest))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -93,19 +87,11 @@ public class AuthControllerTest {
     @DisplayName(value = "로그아웃 API 테스트")
     @Test
     public void logoutTest() throws Exception {
-        // given
-        String api = "/auth/logout";
-        String email = "example@example.com";
-        String logoutRequestDto = objectMapper.writeValueAsString(
-                LogoutRequestDto.builder()
-                        .email(email)
-                        .build());
+        final String logoutRequestString = objectMapper.writeValueAsString(new LogoutRequest(EMAIL));
+        doNothing().when(authService).logout(any());
 
-        doNothing().when(authService).logout(email);
-
-        // when and then
-        mockMvc.perform(post(api)
-                .content(logoutRequestDto)
+        mockMvc.perform(post("/auth/logout")
+                .content(logoutRequestString)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
@@ -116,16 +102,10 @@ public class AuthControllerTest {
     @ValueSource(strings = {"notEmailFormat"})
     @NullAndEmptySource
     public void validateLogoutRequestDto(String email) throws Exception {
-        // given
-        String api = "/auth/logout";
-        String logoutRequestDto = objectMapper.writeValueAsString(
-                LogoutRequestDto.builder()
-                        .email(email)
-                        .build());
+        final String logoutRequestDtoString = objectMapper.writeValueAsString(new LogoutRequest(Email.of(email)));
 
-        // when and then
-        mockMvc.perform(post(api)
-                .content(logoutRequestDto)
+        mockMvc.perform(post("/auth/logout")
+                .content(logoutRequestDtoString)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());

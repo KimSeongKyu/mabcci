@@ -2,10 +2,8 @@ package com.mabcci.domain.member.ui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mabcci.domain.member.application.MemberService;
-import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
-import com.mabcci.domain.member.domain.MemberRole;
-import com.mabcci.domain.member.dto.JoinRequestDto;
+import com.mabcci.domain.member.dto.JoinRequest;
 import com.mabcci.domain.member.dto.MemberDeleteRequestDto;
 import com.mabcci.domain.member.dto.MemberResponseDto;
 import com.mabcci.domain.member.dto.MemberUpdateRequestDto;
@@ -13,8 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -25,6 +21,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Collections;
 import java.util.List;
 
+import static com.mabcci.domain.member.domain.Gender.MALE;
+import static com.mabcci.domain.member.domain.MemberRole.*;
+import static com.mabcci.domain.model.EmailTest.EMAIL;
+import static com.mabcci.domain.model.NicknameTest.NICKNAME;
+import static com.mabcci.domain.model.PasswordTest.PASSWORD;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
@@ -47,11 +48,7 @@ class MemberControllerTest {
 
     private Member member;
 
-    private static final String EMAIL = "sample@email.com";
-    private static final String PASSWORD = "password";
-    private static final String NICKNAME = "nickname";
     private static final String PHONE = "01012345678";
-    private static final Gender GENDER = Gender.MALE;
 
     @BeforeEach
     void setUp() {
@@ -60,8 +57,8 @@ class MemberControllerTest {
                 .password(PASSWORD)
                 .nickname(NICKNAME)
                 .phone(PHONE)
-                .gender(GENDER)
-                .role(MemberRole.USER)
+                .gender(MALE)
+                .role(USER)
                 .build();
     }
 
@@ -69,14 +66,12 @@ class MemberControllerTest {
     @DisplayName("MemberRestController join 메서드 테스트")
     @Test
     public void join_test() throws Exception {
-        // given
-        MemberResponseDto memberResponseDto = new MemberResponseDto(member);
+        final MemberResponseDto memberResponseDto = new MemberResponseDto(member);
+        final JoinRequest joinRequest = new JoinRequest(EMAIL, PASSWORD, NICKNAME, PHONE, MALE);
+        final String joinRequestDtoString = objectMapper.writeValueAsString(joinRequest);
+
         given(memberService.join(any())).willReturn(memberResponseDto);
 
-        JoinRequestDto joinRequestDto = new JoinRequestDto(EMAIL, PASSWORD, NICKNAME, PHONE, GENDER);
-        String joinRequestDtoString = objectMapper.writeValueAsString(joinRequestDto);
-
-        // when and then
         mvc.perform(post("/api/members")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(joinRequestDtoString))
@@ -86,12 +81,11 @@ class MemberControllerTest {
     @DisplayName("MemberRestController findByNickname 메서드 테스트")
     @Test
     public void findByNickname_test() throws Exception {
-        // given
-        MemberResponseDto memberResponseDto = new MemberResponseDto(member);
-        given(memberService.findByNickName(any())).willReturn(memberResponseDto);
-        String memberResponseDtoString = objectMapper.writeValueAsString(memberResponseDto);
+        final MemberResponseDto memberResponseDto = new MemberResponseDto(member);
+        final String memberResponseDtoString = objectMapper.writeValueAsString(memberResponseDto);
 
-        // when and then
+        given(memberService.findByNickName(any())).willReturn(memberResponseDto);
+
         mvc.perform(get("/api/members/" + NICKNAME))
                 .andExpect(status().isOk())
                 .andExpect(content().json(memberResponseDtoString));
@@ -101,31 +95,27 @@ class MemberControllerTest {
     @DisplayName("MemberRestController findAll 메서드 테스트")
     @Test
     public void findAll_test() throws Exception {
-        // given
-        MemberResponseDto memberResponseDto = new MemberResponseDto(member);
-        List<MemberResponseDto> memberResponseDtos = Collections.singletonList(memberResponseDto);
+        final MemberResponseDto memberResponseDto = new MemberResponseDto(member);
+        final List<MemberResponseDto> memberResponseDtos = Collections.singletonList(memberResponseDto);
+        final String memberResponseString = objectMapper.writeValueAsString(memberResponseDtos);
+
         given(memberService.findAll()).willReturn(memberResponseDtos);
 
-        String memberResponseDtosString = objectMapper.writeValueAsString(memberResponseDtos);
-
-        // when and then
         mvc.perform(get("/api/members"))
                 .andExpect(status().isOk())
-                .andExpect(content().json(memberResponseDtosString));
+                .andExpect(content().json(memberResponseString));
     }
 
     @DisplayName("MemberRestController update 메서드 테스트")
     @Test
     public void update_test() throws Exception {
-        // given
-        MemberResponseDto memberResponseDto = new MemberResponseDto(member);
-        MemberUpdateRequestDto updateRequestDto = new MemberUpdateRequestDto(NICKNAME, GENDER);
+        final MemberResponseDto memberResponseDto = new MemberResponseDto(member);
+        final MemberUpdateRequestDto updateRequestDto = new MemberUpdateRequestDto(NICKNAME, MALE);
+        final String updateRequestDtoString = objectMapper.writeValueAsString(updateRequestDto);
+        final String memberResponseDtoString = objectMapper.writeValueAsString(memberResponseDto);
+
         given(memberService.update(any())).willReturn(memberResponseDto);
 
-        String updateRequestDtoString = objectMapper.writeValueAsString(updateRequestDto);
-        String memberResponseDtoString = objectMapper.writeValueAsString(memberResponseDto);
-
-        // when and then
         mvc.perform(put("/api/members/" + NICKNAME)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(updateRequestDtoString))
@@ -136,13 +126,11 @@ class MemberControllerTest {
     @DisplayName("MemberRestController delete 메서드 테스트")
     @Test
     public void delete_test() throws Exception {
-        // given
-        MemberDeleteRequestDto memberDeleteRequestDto = new MemberDeleteRequestDto(NICKNAME, PASSWORD);
+        final MemberDeleteRequestDto memberDeleteRequestDto = new MemberDeleteRequestDto(NICKNAME, PASSWORD);
+        final String memberDeleteRequestDtoString = objectMapper.writeValueAsString(memberDeleteRequestDto);
+
         doNothing().when(memberService).delete(any(), any());
 
-        String memberDeleteRequestDtoString = objectMapper.writeValueAsString(memberDeleteRequestDto);
-
-        // when and then
         mvc.perform(delete("/api/members/" + NICKNAME)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(memberDeleteRequestDtoString))

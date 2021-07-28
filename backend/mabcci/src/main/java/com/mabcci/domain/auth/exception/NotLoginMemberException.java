@@ -1,16 +1,23 @@
 package com.mabcci.domain.auth.exception;
 
-import lombok.RequiredArgsConstructor;
+import com.mabcci.domain.model.Email;
 
-@RequiredArgsConstructor
 public class NotLoginMemberException extends RuntimeException {
 
-    private final static String NOT_LOGIN_MEMBER_MESSAGE = " : 로그인된 계정이 아닙니다.";
+    private final static String NOT_LOGIN_MEMBER_MESSAGE = "%s : 로그인된 계정이 아닙니다.";
 
     private final String email;
 
+    public NotLoginMemberException(final Email email) {
+        this(email.email());
+    }
+
+    public NotLoginMemberException(final String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
-        return email + NOT_LOGIN_MEMBER_MESSAGE;
+        return String.format(NOT_LOGIN_MEMBER_MESSAGE, email);
     }
 }
