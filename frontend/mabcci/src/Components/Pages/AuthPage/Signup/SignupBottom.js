@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import SignupApi from '../../../../API/AuthAPI/SingupApi';
+import SignupApi from '../../../../API/AuthAPI/SignupApi';
 import 미니멀 from '../../../../Asset/Images/미니멀.png';
 import 스트릿 from '../../../../Asset/Images/스트릿.png';
 import 아메카지 from '../../../../Asset/Images/아메카지.png';
@@ -52,7 +52,6 @@ function SignupBottom() {
   function styleBtnClick(e) {
     e.target.classList.toggle('btn-select-style-active');
     const copy = [...selectStyle];
-    console.log(copy, typeof copy);
     const idx = copy.indexOf(e.target.name);
     if (idx >= 0) {
       copy.splice(idx, 1);

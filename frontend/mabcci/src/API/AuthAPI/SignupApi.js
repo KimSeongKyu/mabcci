@@ -6,7 +6,11 @@ const SignupApi = async userInfo => {
   const history = useHistory();
 
   try {
-    const res = await axios.post(SignupUrl, userInfo);
+    const res = await axios.post(SignupUrl, userInfo, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     alert('회원가입성공!');
     history.push('login');
 
