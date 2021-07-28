@@ -41,4 +41,17 @@ public class JwtTokenTest {
 
         assertThat(jwtToken.jwtToken()).isEqualTo(value);
     }
+
+    @DisplayName(value = "JwtToken 인스턴스 equals() & hashCode() 기능 테스트")
+    @Test
+    public void equals_and_hashCode_test() {
+        final String value = "test.jwt.token";
+        final JwtToken jwtToken = JwtToken.of(value);
+        final JwtToken other = JwtToken.of(value);
+
+        assertAll(
+                () -> assertThat(jwtToken).isEqualTo(other),
+                () -> assertThat(jwtToken.hashCode()).isEqualTo(other.hashCode())
+        );
+    }
 }
