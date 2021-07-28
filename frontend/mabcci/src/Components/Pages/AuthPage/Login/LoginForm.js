@@ -14,7 +14,11 @@ const LoginForm = () => {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    const response = await LoginApi({ email, password });
+    const userAuthInfo = {
+      email,
+      password,
+    };
+    const response = await LoginApi(userAuthInfo);
 
     if (response.status === 200) {
       dispatch(LoginSuccess(response.userInfo));
