@@ -10,7 +10,7 @@ import 캐쥬얼 from '../../../../Asset/Images/캐쥬얼.png';
 import 포멀 from '../../../../Asset/Images/포멀.png';
 import {
   SingupSelectStyle,
-  // SingupSelectSex,
+  SingupSelectSex,
 } from '../../../../Redux/Actions/SignupAction';
 
 function SignupBottom() {
@@ -30,14 +30,13 @@ function SignupBottom() {
       alert('회원가입 실패');
     }
   };
-  // const [selectSex, setSelectSex] = useState('');
+
+  const [selectSex, setSelectSex] = useState('');
   // 성별 선택 버튼 클릭
   function mwBtnClick(e) {
-    e.target.classList.toggle('btn-rounded-man-woman-active');
-    // console.log(e.target.name);
-    // setSelectSex(e.target.name);
-    // console.log(selectSex);
-    // dispatch(SingupSelectSex(selectSex));
+    // e.target.classList.toggle('btn-rounded-man-woman-active');
+    setSelectSex(e.target.name);
+    dispatch(SingupSelectSex(e.target.name));
   }
 
   const [selectStyle, setSelectStyle] = useState([]);
@@ -59,22 +58,45 @@ function SignupBottom() {
     <div>
       <h5>성별</h5>
       <div className="select-man-woman">
-        <button
-          className="btn-rounded-sm"
-          type="submit"
-          name="Man"
-          onClick={mwBtnClick}
-        >
-          Man
-        </button>
-        <button
-          className="btn-rounded-sm"
-          type="submit"
-          name="Woman"
-          onClick={mwBtnClick}
-        >
-          Woman
-        </button>
+        {selectSex === 'MALE' ? (
+          <button
+            className="btn-sex-select"
+            type="submit"
+            name="MALE"
+            onClick={mwBtnClick}
+          >
+            Man
+          </button>
+        ) : (
+          <button
+            className="btn-rounded-sm"
+            type="submit"
+            name="MALE"
+            onClick={mwBtnClick}
+          >
+            Man
+          </button>
+        )}
+
+        {selectSex === 'FEMALE' ? (
+          <button
+            className="btn-sex-select"
+            type="submit"
+            name="FEMALE"
+            onClick={mwBtnClick}
+          >
+            Woman
+          </button>
+        ) : (
+          <button
+            className="btn-rounded-sm"
+            type="submit"
+            name="FEMALE"
+            onClick={mwBtnClick}
+          >
+            Woman
+          </button>
+        )}
       </div>
 
       <h5>선호하는 스타일을 골라주세요!</h5>

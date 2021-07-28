@@ -33,8 +33,12 @@ const SignupReducer = (state = SignupInfo, { type, payload }) => {
       copy.selectStyle = payload;
       return copy;
     }
-    case SIGNUP_SELECT_SEX:
-      return state;
+    case SIGNUP_SELECT_SEX: {
+      const copy = { ...state };
+      copy.selectSex = payload;
+      return copy;
+    }
+
     default:
       return state;
   }

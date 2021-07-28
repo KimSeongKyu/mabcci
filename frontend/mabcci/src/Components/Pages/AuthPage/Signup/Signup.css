@@ -61,14 +61,26 @@
   margin: 30px;
 }
 
-.btn-rounded-man-woman-active {
+.btn-sex-select {
   max-width: 150px;
   width: 20vw;
   height: 25px;
   background-color: var(--main-color-1);
   box-shadow: 3px 3px 3px grey;
   border-radius: 50px;
+  transition: all 0.1s;
+  cursor: pointer;
+  color: white;
 }
+
+/* .btn-rounded-man-woman-active {
+  max-width: 150px;
+  width: 20vw;
+  height: 25px;
+  background-color: var(--main-color-1);
+  box-shadow: 3px 3px 3px grey;
+  border-radius: 50px;
+} */
 
 .style-box {
   margin-top: 50px;

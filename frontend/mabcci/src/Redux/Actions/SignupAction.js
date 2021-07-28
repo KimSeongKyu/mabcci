@@ -18,8 +18,9 @@ export const SingupSelectStyle = style => {
   };
 };
 
-export const SingupSelectSex = () => {
+export const SingupSelectSex = sex => {
   return {
     type: SIGNUP_SELECT_SEX,
+    payload: sex,
   };
 };

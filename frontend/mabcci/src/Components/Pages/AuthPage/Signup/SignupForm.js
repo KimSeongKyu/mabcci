@@ -28,7 +28,6 @@ function SignupForm() {
       ...userInfo,
       [name]: value,
     });
-    console.log(e.target.value)
     dispatch(SignupInput(userInfo));
   }
   return (
@@ -71,11 +70,11 @@ function SignupForm() {
               onChange={changeUserInfo}
             />
           </div>
-            {isNaN(Number(userInfo.firstPhoneNumber)) === true ||
-            isNaN(Number(userInfo.secondPhoneNumber)) === true ||
-            isNaN(Number(userInfo.thirdPhoneNumber)) === true ? (
-              <p className="warnning">숫자를 입력해주세요</p>
-            ) : null}
+          {isNaN(Number(userInfo.firstPhoneNumber)) === true ||
+          isNaN(Number(userInfo.secondPhoneNumber)) === true ||
+          isNaN(Number(userInfo.thirdPhoneNumber)) === true ? (
+            <p className="warnning">숫자를 입력해주세요</p>
+          ) : null}
         </li>
         <li>
           <input
@@ -91,7 +90,6 @@ function SignupForm() {
             placeholder="PasswordConfirm"
             name="passwordConfirmation"
             onChange={changeUserInfo}
-            
           />
           {userInfo.password !== userInfo.passwordConfirmation ? (
             <p className="warnning">비밀번호가 다릅니다!</p>
