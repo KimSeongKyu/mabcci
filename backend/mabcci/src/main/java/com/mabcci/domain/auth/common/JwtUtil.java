@@ -1,8 +1,9 @@
-package com.mabcci.domain.auth.util;
+package com.mabcci.domain.auth.common;
 
 import com.mabcci.domain.auth.domain.Claim;
 import com.mabcci.domain.auth.domain.ClaimType;
 import com.mabcci.domain.auth.domain.TokenType;
+import com.mabcci.domain.model.Email;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -19,12 +20,13 @@ import static java.util.stream.Collectors.toMap;
 
 @Component
 @NoArgsConstructor
+@Component
 public class JwtUtil {
 
     private final static String SECRET_KEY =
             "ssafy mabcci team kim kim joe lim choi";
 
-    public String createToken(final TokenType tokenType, final String email) {
+    public String createToken(final TokenType tokenType, final Email email) {
         return Jwts.builder()
                 .setHeader(createClaim(ClaimType.HEADER))
                 .setClaims(createPayload(tokenType, email))
@@ -38,14 +40,14 @@ public class JwtUtil {
                 .collect(toMap(Claim::getKey, Claim::getValue));
     }
 
-    public Map<String, Object> createPayload(final TokenType tokenType, final String email) {
+    public Map<String, Object> createPayload(final TokenType tokenType, final Email email) {
         final Map<String, Object> payload = createClaim(ClaimType.PAYLOAD);
         final Date currentTime = new Date();
 
         payload.put(Claim.EXPIRATION_KEY, currentTime.getTime() + tokenType.getExpirationTime());
         payload.put(Claim.NOT_BEFORE_KEY, currentTime);
         payload.put(Claim.ISSUED_AT_KEY, currentTime);
-        payload.put(Claim.EMAIL_KEY, email);
+        payload.put(Claim.EMAIL_KEY, email.email());
 
         return payload;
     }

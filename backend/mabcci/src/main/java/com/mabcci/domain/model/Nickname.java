@@ -1,5 +1,7 @@
 package com.mabcci.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotEmpty;
@@ -22,6 +24,7 @@ public class Nickname {
         this.nickname = nickname;
     }
 
+    @JsonValue
     public String nickname() {
         return nickname;
     }

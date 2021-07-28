@@ -19,10 +19,8 @@ class JoinRequestTest {
     @DisplayName("JoinRequestDto 인스턴스 생성 여부 테스트")
     @Test
     void initialize() {
-        // when
-        JoinRequest joinRequest = new JoinRequest(EMAIL, PASSWORD, NICKNAME, PHONE, GENDER);
+        final JoinRequest joinRequest = new JoinRequest(EMAIL, PASSWORD, NICKNAME, PHONE, GENDER);
 
-        // then
         assertAll(
                 () -> assertThat(joinRequest).isNotNull(),
                 () -> assertThat(joinRequest).isExactlyInstanceOf(JoinRequest.class)
@@ -33,10 +31,8 @@ class JoinRequestTest {
     @DisplayName("JoinRequestDto 인스턴스 getter 메서드들 테스트")
     @Test
     void getter_test() {
-        // given
-        JoinRequest joinRequest = new JoinRequest(EMAIL, PASSWORD, NICKNAME, PHONE, GENDER);
+        final JoinRequest joinRequest = new JoinRequest(EMAIL, PASSWORD, NICKNAME, PHONE, GENDER);
 
-        // when and then
         assertAll(
                 () -> assertThat(joinRequest.getEmail()).isEqualTo(EMAIL),
                 () -> assertThat(joinRequest.getPassword()).isEqualTo(PASSWORD),
@@ -50,13 +46,9 @@ class JoinRequestTest {
     @DisplayName("JoinRequestDto 인스턴스 Member 엔티티로 변환 메서드 테스트")
     @Test
     void entity_test() {
-        // given
-        JoinRequest joinRequest = new JoinRequest(EMAIL, PASSWORD, NICKNAME, PHONE, GENDER);
+        final JoinRequest joinRequest = new JoinRequest(EMAIL, PASSWORD, NICKNAME, PHONE, GENDER);
+        final Member member = joinRequest.entity();
 
-        // when
-        Member member = joinRequest.entity();
-
-        // then
         assertAll(
                 () -> assertThat(member).isNotNull(),
                 () -> assertThat(member).isExactlyInstanceOf(Member.class),

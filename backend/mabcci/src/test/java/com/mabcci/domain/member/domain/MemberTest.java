@@ -31,7 +31,6 @@ class MemberTest {
     @DisplayName("Member 인스턴스 생성 여부 테스트")
     @Test
     void initialize() {
-        // when and then
         assertAll(
                 () -> assertThat(member).isNotNull(),
                 () -> assertThat(member).isExactlyInstanceOf(Member.class)
@@ -42,13 +41,10 @@ class MemberTest {
     @DisplayName("Member 인스턴스의 password 일치 여부 테스트")
     @Test
     void passwordCheck_test() {
-        // given
-        Password validPassword = PASSWORD;
-        Password invalidPassword = Password.of("invalidPassword");
+        final Password invalidPassword = Password.of("invalidPassword");
 
-        // when and then
         assertAll(
-                () -> assertThat(member.checkPassword(validPassword)).isTrue(),
+                () -> assertThat(member.checkPassword(PASSWORD)).isTrue(),
                 () -> assertThat(member.checkPassword(invalidPassword)).isFalse()
         );
     }
@@ -56,10 +52,8 @@ class MemberTest {
     @DisplayName("Member 인스턴스의 getter 메서드들 테스트")
     @Test
     void getter_test() {
-        // given
         ReflectionTestUtils.setField(member, "id", 1L);
 
-        // when and then
         assertAll(
                 () -> assertThat(member.id()).isEqualTo(1L),
                 () -> assertThat(member.nickname()).isEqualTo(NICKNAME),

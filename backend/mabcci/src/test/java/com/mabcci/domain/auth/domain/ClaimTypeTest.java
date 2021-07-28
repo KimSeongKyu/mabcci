@@ -21,7 +21,6 @@ public class ClaimTypeTest {
     @ParameterizedTest(name = "{index}. ENUM TYPE : {0}")
     @MethodSource(value = "provideClaimTypesForConstructTest")
     public void constructTest(ClaimType claimType) {
-        // then
         assertThat(claimType).isNotNull();
     }
 }

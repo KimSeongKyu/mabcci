@@ -1,15 +1,18 @@
-package com.mabcci.domain.auth.service;
+package com.mabcci.domain.auth.application;
 
 import com.mabcci.domain.auth.domain.RefreshToken;
 import com.mabcci.domain.auth.domain.RefreshTokenRepository;
 import com.mabcci.domain.auth.domain.TokenType;
 import com.mabcci.domain.auth.dto.LoginRequest;
 import com.mabcci.domain.auth.dto.LoginResponse;
+import com.mabcci.domain.auth.dto.LogoutRequest;
 import com.mabcci.domain.auth.exception.NotLoginMemberException;
-import com.mabcci.domain.auth.util.JwtUtil;
+import com.mabcci.domain.auth.common.JwtUtil;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.exception.MemberNotFoundException;
+import com.mabcci.domain.model.Email;
+import org.apache.logging.log4j.util.Strings;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,6 +22,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
+import static com.mabcci.domain.model.EmailTest.EMAIL;
+import static com.mabcci.domain.model.PasswordTest.PASSWORD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -43,29 +48,24 @@ public class AuthServiceTest {
     @Mock
     private JwtUtil jwtUtil;
 
-    @DisplayName(value = "로그인 성공 테스트")
+    @DisplayName("AuthService 로그인 성공 테스트")
     @Test
     public void loginSuccessTest() {
-        // given
-        String email = "example@example.com";
-        String password = "testPassword";
-        String accessToken = "test.access.token";
-        String refreshToken = "test.refresh.token";
-        LoginRequest loginRequest = new LoginRequest(email, password);
+        final String accessToken = "test.access.token";
+        final String refreshToken = "test.refresh.token";
 
-        doReturn(Optional.of(member)).when(memberRepository).findByEmailAndPassword(email, password);
-        doReturn(accessToken).when(jwtUtil).createToken(TokenType.ACCESS_TOKEN, email);
-        doReturn(refreshToken).when(jwtUtil).createToken(TokenType.REFRESH_TOKEN, email);
+        doReturn(Optional.of(member)).when(memberRepository).findByEmailAndPassword(EMAIL, PASSWORD);
+        doReturn(accessToken).when(jwtUtil).createToken(TokenType.ACCESS_TOKEN, EMAIL);
+        doReturn(refreshToken).when(jwtUtil).createToken(TokenType.REFRESH_TOKEN, EMAIL);
         doReturn(RefreshToken.builder()
-                .email(email)
+                .email(EMAIL)
                 .refreshToken(refreshToken)
                 .build()).when(refreshTokenRepository).save(any());
 
-        // when
-        LoginResponse loginResponse = authService.login(loginRequest);
+        final LoginRequest loginRequest = new LoginRequest(EMAIL, PASSWORD);
+        final LoginResponse loginResponse = authService.login(loginRequest);
 
-        // then
-        verify(memberRepository, times(1)).findByEmailAndPassword(email, password);
+        verify(memberRepository, times(1)).findByEmailAndPassword(EMAIL, PASSWORD);
         verify(jwtUtil, times(2)).createToken(any(), any());
         verify(refreshTokenRepository, times(1)).save(any());
 
@@ -75,46 +75,32 @@ public class AuthServiceTest {
         );
     }
 
-    @DisplayName(value = "로그인 실패 테스트")
+    @DisplayName("AuthService 로그인 실패 테스트")
     @Test
     public void loginFailTest() {
-        // given
-        LoginRequest loginRequest = new LoginRequest("example@example.com", "testPassword");
-
-        // when and then
-        assertThatExceptionOfType(MemberNotFoundException.class).isThrownBy(() -> {
-            authService.login(loginRequest);
-        });
+        final LoginRequest loginRequest = new LoginRequest(Email.of(Strings.EMPTY), PASSWORD);
+        assertThatExceptionOfType(MemberNotFoundException.class).isThrownBy(() -> authService.login(loginRequest));
     }
 
-    @DisplayName(value = "로그아웃 성공 테스트")
+    @DisplayName("AuthService 로그아웃 성공 테스트")
     @Test
     public void logoutSuccessTest() {
-        // given
-        RefreshToken refreshToken = RefreshToken.builder()
-                .email("example@example.com")
+        final RefreshToken refreshToken = RefreshToken.builder()
+                .email(EMAIL)
                 .refreshToken("test.refresh.token")
                 .build();
         doReturn(Optional.of(refreshToken)).when(refreshTokenRepository).findById(any());
         doNothing().when(refreshTokenRepository).delete(any());
 
-        // when
-        authService.logout(any());
+        authService.logout(new LogoutRequest(EMAIL));
 
-        // then
         verify(refreshTokenRepository, times(1)).findById(any());
         verify(refreshTokenRepository, times(1)).delete(any());
     }
 
-    @DisplayName(value = "로그아웃 실패 테스트")
+    @DisplayName("AuthService 로그아웃 실패 테스트")
     @Test
     public void logoutFailTest() {
-        // given
-        String email = "example@example.com";
-
-        // when and then
-        assertThatExceptionOfType(NotLoginMemberException.class).isThrownBy(() -> {
-            authService.logout(email);
-        });
+        assertThatExceptionOfType(NotLoginMemberException.class).isThrownBy(() -> authService.logout(new LogoutRequest(EMAIL)));
     }
 }

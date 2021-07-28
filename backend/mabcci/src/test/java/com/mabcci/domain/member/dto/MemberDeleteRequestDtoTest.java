@@ -13,7 +13,7 @@ class MemberDeleteRequestDtoTest {
     @DisplayName("MemberDeleteRequestDto 인스턴스 생성 여부 테스트")
     @Test
     void initialize() {
-        MemberDeleteRequestDto memberDeleteRequestDto = new MemberDeleteRequestDto(NICKNAME, PASSWORD);
+        final MemberDeleteRequestDto memberDeleteRequestDto = new MemberDeleteRequestDto(NICKNAME, PASSWORD);
         assertAll(
                 () -> assertThat(memberDeleteRequestDto).isNotNull(),
                 () -> assertThat(memberDeleteRequestDto).isExactlyInstanceOf(MemberDeleteRequestDto.class)
@@ -23,7 +23,7 @@ class MemberDeleteRequestDtoTest {
     @DisplayName("MemberDeleteRequestDto 인스턴스 getter 메서드 테스트")
     @Test
     void getter_test() {
-        MemberDeleteRequestDto memberDeleteRequestDto = new MemberDeleteRequestDto(NICKNAME, PASSWORD);
+        final MemberDeleteRequestDto memberDeleteRequestDto = new MemberDeleteRequestDto(NICKNAME, PASSWORD);
         assertAll(
                 () -> assertThat(memberDeleteRequestDto.getNickname()).isEqualTo(NICKNAME),
                 () -> assertThat(memberDeleteRequestDto.getPassword()).isEqualTo(PASSWORD)

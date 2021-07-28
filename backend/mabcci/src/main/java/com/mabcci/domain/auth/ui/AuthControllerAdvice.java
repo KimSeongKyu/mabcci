@@ -1,4 +1,4 @@
-package com.mabcci.domain.auth.controller;
+package com.mabcci.domain.auth.ui;
 
 import com.mabcci.domain.auth.exception.NotLoginMemberException;
 import org.springframework.http.ResponseEntity;
@@ -12,5 +12,11 @@ public class AuthControllerAdvice {
     public ResponseEntity handleNotLoginMemberException(final NotLoginMemberException notLoginMemberException) {
         return ResponseEntity.badRequest()
                 .body(notLoginMemberException.toString());
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity handleNotLoginNullPointerException(final NullPointerException nullPointerException) {
+        return ResponseEntity.badRequest()
+                .body(nullPointerException.toString());
     }
 }

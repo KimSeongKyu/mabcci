@@ -1,5 +1,7 @@
 package com.mabcci.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotEmpty;
@@ -9,7 +11,7 @@ import java.util.Objects;
 public class Password {
 
     @NotEmpty
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     public static Password of(final String password) {
@@ -26,6 +28,7 @@ public class Password {
         return this.equals(other);
     }
 
+    @JsonValue
     public String password() {
         return password;
     }

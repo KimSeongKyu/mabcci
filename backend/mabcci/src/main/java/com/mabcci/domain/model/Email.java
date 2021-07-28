@@ -1,12 +1,15 @@
 package com.mabcci.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class Email {
+public class Email implements Serializable {
 
     @javax.validation.constraints.Email
     @NotEmpty
@@ -24,6 +27,7 @@ public class Email {
         this.email = email;
     }
 
+    @JsonValue
     public String email() {
         return this.email;
     }
@@ -40,4 +44,5 @@ public class Email {
     public int hashCode() {
         return Objects.hash(email());
     }
+
 }

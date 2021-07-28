@@ -2,10 +2,6 @@ package com.mabcci.domain.member.dto;
 
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.MemberRole;
-import com.mabcci.domain.model.Email;
-import com.mabcci.domain.model.EmailTest;
-import com.mabcci.domain.model.Nickname;
-import com.mabcci.domain.model.NicknameTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -23,10 +19,8 @@ class MemberResponseDtoTest {
     @DisplayName("MemberResponse 인스턴스 생성 여부 테스트")
     @Test
     void initialize() {
-        // when
-        MemberResponseDto memberResponseDto = new MemberResponseDto(ID, EMAIL, NICKNAME, GENDER, ROLE);
+        final MemberResponseDto memberResponseDto = new MemberResponseDto(ID, EMAIL, NICKNAME, GENDER, ROLE);
 
-        // then
         assertAll(
                 () -> assertThat(memberResponseDto).isNotNull(),
                 () -> assertThat(memberResponseDto).isExactlyInstanceOf(MemberResponseDto.class)
@@ -36,10 +30,8 @@ class MemberResponseDtoTest {
     @DisplayName("MemberResponse 인스턴스 getter 메서드들 테스트")
     @Test
     void getter_test() {
-        // when
-        MemberResponseDto memberResponseDto = new MemberResponseDto(ID, EMAIL, NICKNAME, GENDER, ROLE);
+        final MemberResponseDto memberResponseDto = new MemberResponseDto(ID, EMAIL, NICKNAME, GENDER, ROLE);
 
-        // then
         assertAll(
                 () -> assertThat(memberResponseDto.getId()).isEqualTo(ID),
                 () -> assertThat(memberResponseDto.getEmail()).isEqualTo(EMAIL),
