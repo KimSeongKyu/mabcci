@@ -15,8 +15,9 @@
 }
 
 .logo-image {
+  margin-top: 20px;
   width: 250px;
-  height: 100%;
+  height: auto;
 }
 
 .web-navbar-icon {

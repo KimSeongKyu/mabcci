@@ -57,9 +57,9 @@ const LoginForm = () => {
       </section>
 
       <section className="passwordFind">
-        비밀번호를 잊으셨나요?
+        <p>비밀번호를 잊으셨나요?</p>
         <button className="btn-transparent" type="button">
-          비밀번호찾기
+          <p>비밀번호찾기</p>
         </button>
       </section>
     </article>
