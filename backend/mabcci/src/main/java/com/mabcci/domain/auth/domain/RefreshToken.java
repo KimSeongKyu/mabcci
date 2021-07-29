@@ -3,10 +3,7 @@ package com.mabcci.domain.auth.domain;
 import com.mabcci.domain.auth.domain.vo.JwtToken;
 import com.mabcci.domain.model.Email;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -19,6 +16,7 @@ public class RefreshToken {
     private Email email;
 
     @NotNull
+    @Embedded
     @AttributeOverride(name = "jwt_token", column =
     @Column(name = "refresh_token", nullable = false, unique = true))
     private JwtToken refreshToken;

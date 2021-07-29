@@ -1,26 +1,22 @@
 package com.mabcci.domain.auth.domain.vo;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
-public class ClaimTypeTest {
+class ClaimTypeTest {
 
-    public static Stream<Arguments> provideClaimTypesForConstructTest() {
-        return Arrays.stream(ClaimType.values())
-                .map(claimType -> Arguments.of(claimType));
-    }
-
-    @DisplayName(value = "생성 테스트")
-    @ParameterizedTest(name = "{index}. ENUM TYPE : {0}")
-    @MethodSource(value = "provideClaimTypesForConstructTest")
-    public void constructTest(ClaimType claimType) {
-        assertThat(claimType).isNotNull();
+    @DisplayName("ClaimType 인스턴스 생성 여부 테스트")
+    @Test
+    void initialize() {
+        Arrays.stream(ClaimType.values())
+                .forEach(claimType -> assertAll(
+                        () -> assertThat(claimType).isNotNull(),
+                        () -> assertThat(claimType).isExactlyInstanceOf(ClaimType.class)
+                ));
     }
 }

@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @EnableJpaAuditing
 @DataJpaTest
-public class RefreshTokenRepositoryTest {
+class RefreshTokenRepositoryTest {
 
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
@@ -24,11 +24,10 @@ public class RefreshTokenRepositoryTest {
     @Autowired
     private TestEntityManager testEntityManager;
 
-
-    @DisplayName(value = "refresh token 유효성 검증 테스트")
+    @DisplayName("RefreshTokenRepository 인스턴스 refresh token 유효성 검증 테스트")
     @ParameterizedTest(name = "{index}. refresh token: {0}")
     @NullSource
-    public void validateRefreshTokenTest(JwtToken value) {
+    void validate_refresh_token_test(final JwtToken value) {
         final RefreshToken refreshToken = RefreshToken.builder()
                 .email(EMAIL)
                 .refreshToken(value)

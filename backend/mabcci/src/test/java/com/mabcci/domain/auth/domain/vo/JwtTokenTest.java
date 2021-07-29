@@ -6,13 +6,13 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-public class JwtTokenTest {
+class JwtTokenTest {
 
     public static final JwtToken JWT_TOKEN = JwtToken.of("test.jwt.token");
 
-    @DisplayName(value = "JwtToken 인스턴스 생성 여부 테스트")
+    @DisplayName("JwtToken 인스턴스 생성 여부 테스트")
     @Test
-    public void constructor_test() {
+    void initialize() {
         final String value = "test.jwt.token";
         final JwtToken jwtToken = JwtToken.of(value);
 
@@ -22,9 +22,9 @@ public class JwtTokenTest {
         );
     }
 
-    @DisplayName(value = "JwtToken 인스턴스 디폴트 생성자를 이용한 생성 여부 테스트")
+    @DisplayName("JwtToken 인스턴스 디폴트 생성자를 이용한 생성 여부 테스트")
     @Test
-    public void default_constructor_test() {
+    void default_constructor_test() {
         final JwtToken jwtToken = new JwtToken();
 
         assertAll(
@@ -33,18 +33,18 @@ public class JwtTokenTest {
         );
     }
 
-    @DisplayName(value = "JwtToken 인스턴스 jwtToken() 기능 테스트")
+    @DisplayName("JwtToken 인스턴스 문자열 값 반환 기능 테스트")
     @Test
-    public void jwtToken_test() {
+    void jwtToken_test() {
         final String value = "test.jwt.token";
         final JwtToken jwtToken = JwtToken.of(value);
 
         assertThat(jwtToken.jwtToken()).isEqualTo(value);
     }
 
-    @DisplayName(value = "JwtToken 인스턴스 equals() & hashCode() 기능 테스트")
+    @DisplayName("JwtToken 인스턴스 equals() & hashCode() 기능 테스트")
     @Test
-    public void equals_and_hashCode_test() {
+    void equals_and_hashCode_test() {
         final String value = "test.jwt.token";
         final JwtToken jwtToken = JwtToken.of(value);
         final JwtToken other = JwtToken.of(value);

@@ -32,7 +32,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class AuthServiceTest {
+class AuthServiceTest {
 
     @InjectMocks
     private AuthService authService;
@@ -49,9 +49,9 @@ public class AuthServiceTest {
     @Mock
     private JwtUtil jwtUtil;
 
-    @DisplayName("AuthService 로그인 성공 테스트")
+    @DisplayName("AuthService 인스턴스 로그인 기능 성공 테스트")
     @Test
-    public void loginSuccessTest() {
+    void login_success_test() {
         final JwtToken accessToken = JwtToken.of("test.access.token");
         final JwtToken refreshToken = JwtToken.of("test.refresh.token");
 
@@ -76,16 +76,16 @@ public class AuthServiceTest {
         );
     }
 
-    @DisplayName("AuthService 로그인 실패 테스트")
+    @DisplayName("AuthService 인스턴스 로그인 기능 실패 테스트")
     @Test
-    public void loginFailTest() {
+    void login_fail_test() {
         final LoginRequest loginRequest = new LoginRequest(Email.of(Strings.EMPTY), PASSWORD);
         assertThatExceptionOfType(MemberNotFoundException.class).isThrownBy(() -> authService.login(loginRequest));
     }
 
-    @DisplayName("AuthService 로그아웃 성공 테스트")
+    @DisplayName("AuthService 인스턴스 로그아웃 기능 성공 테스트")
     @Test
-    public void logoutSuccessTest() {
+    void logout_success_test() {
         final RefreshToken refreshToken = RefreshToken.builder()
                 .email(EMAIL)
                 .refreshToken("test.refresh.token")
@@ -99,9 +99,9 @@ public class AuthServiceTest {
         verify(refreshTokenRepository, times(1)).delete(any());
     }
 
-    @DisplayName("AuthService 로그아웃 실패 테스트")
+    @DisplayName("AuthService 인스턴스 로그아웃 기능 실패 테스트")
     @Test
-    public void logoutFailTest() {
+    void logout_fail_test() {
         assertThatExceptionOfType(NotLoginMemberException.class).isThrownBy(() -> authService.logout(new LogoutRequest(EMAIL)));
     }
 }
