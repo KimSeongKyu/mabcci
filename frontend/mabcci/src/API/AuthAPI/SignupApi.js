@@ -11,7 +11,6 @@ const SignupApi = async userInfo => {
         'Content-Type': 'application/json',
       },
     });
-    alert('회원가입성공!');
     history.push('login');
 
     return {
@@ -19,7 +18,6 @@ const SignupApi = async userInfo => {
     };
   } catch (err) {
     console.log(err);
-    alert('회원가입실패');
 
     return {
       status: err.status,

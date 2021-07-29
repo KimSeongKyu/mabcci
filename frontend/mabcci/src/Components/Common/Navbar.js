@@ -29,8 +29,7 @@ function Nav() {
 
   // mypage icon제외 클릭시 popover 사라지게 하기
   const mypage = document.querySelector('.mypage');
-  document.addEventListener('click', function (event) {
-    console.log(mypage);
+  document.addEventListener('click', function clickOutside(event) {
     if (event.target.closest('.mypage')) return;
     setpopover(false);
   });

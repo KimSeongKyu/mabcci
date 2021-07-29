@@ -23,6 +23,7 @@ function SignupForm() {
     passwordConfirmation: '',
     gender: '',
     categories: [],
+    btnCategories: [],
   });
 
   // input값에 적은 유저정보 저장하기
@@ -36,29 +37,45 @@ function SignupForm() {
 
   // 성별 선택 버튼 클릭
   function mwBtnClick(e) {
-    console.log(e.target)
-    console.log(e.target.name);
     setUserInfo({
       ...userInfo,
       ['gender']: e.target.name,
     });
   }
 
+
+
   // 스타일 선택 버튼 클릭
   function styleBtnClick(e) {
-    e.target.classList.toggle('btn-select-style-active');
     const copy = [...userInfo.categories];
-    const idx = copy.indexOf(e.target.name);
-    if (idx >= 0) {
-      copy.splice(idx, 1);
-    } else {
-      copy.push(e.target.name);
+    const btnCheck = [...userInfo.btnCategories]
+
+    const selectCategory = {
+      category: e.target.name
     }
 
+    var index = -2
+    for(var i=0; i < copy.length; i +=1) {
+      if (copy[i].category === selectCategory.category) {
+        index = i
+      }
+    }
+
+
+    if (index > -1) {
+      copy.splice(index, 1);
+      btnCheck.splice(index, 1);
+    } else {
+      copy.push(selectCategory);
+      btnCheck.push(e.target.name);
+    }
     setUserInfo({
       ...userInfo,
       ['categories']: copy,
+      ['btnCategories']: btnCheck,
     });
+
+    console.log(userInfo)
   }
 
   // signup 버튼 실행시
@@ -76,7 +93,10 @@ function SignupForm() {
         '-' +
         userInfo.thirdPhoneNumber,
       categories: userInfo.categories,
+      
     };
+
+    console.log(data)
 
     const response = await SignupApi(data);
 
@@ -260,7 +280,11 @@ function SignupForm() {
         <div className="select-style">
           <div>
             <button
-              className="btn-select-style"
+              className={
+                userInfo.btnCategories.includes('미니멀') === false
+                  ? 'btn-select-style'
+                  : 'btn-select-style-active'
+              }
               type="submit"
               name="미니멀"
               onClick={styleBtnClick}
@@ -271,7 +295,11 @@ function SignupForm() {
           </div>
           <div>
             <button
-              className="btn-select-style"
+              className={
+                userInfo.btnCategories.includes('스트릿') === false
+                  ? 'btn-select-style'
+                  : 'btn-select-style-active'
+              }
               type="submit"
               name="스트릿"
               onClick={styleBtnClick}
@@ -282,7 +310,11 @@ function SignupForm() {
           </div>
           <div>
             <button
-              className="btn-select-style"
+              className={
+                userInfo.btnCategories.includes('아메카지') === false
+                  ? 'btn-select-style'
+                  : 'btn-select-style-active'
+              }
               type="submit"
               name="아메카지"
               onClick={styleBtnClick}
@@ -295,7 +327,11 @@ function SignupForm() {
         <div className="select-style">
           <div>
             <button
-              className="btn-select-style"
+              className={
+                userInfo.btnCategories.includes('오피스') === false
+                  ? 'btn-select-style'
+                  : 'btn-select-style-active'
+              }
               type="submit"
               name="오피스"
               onClick={styleBtnClick}
@@ -306,7 +342,11 @@ function SignupForm() {
           </div>
           <div>
             <button
-              className="btn-select-style"
+              className={
+                userInfo.btnCategories.includes('캐쥬얼') === false
+                  ? 'btn-select-style'
+                  : 'btn-select-style-active'
+              }
               type="submit"
               name="캐쥬얼"
               onClick={styleBtnClick}
@@ -317,7 +357,11 @@ function SignupForm() {
           </div>
           <div>
             <button
-              className="btn-select-style"
+              className={
+                userInfo.btnCategories.includes('포멀') === false
+                  ? 'btn-select-style'
+                  : 'btn-select-style-active'
+              }
               type="submit"
               name="포멀"
               onClick={styleBtnClick}
@@ -334,7 +378,7 @@ function SignupForm() {
           onClick={handleSubmit}
           className="btn-signup-nonactive"
         >
-          <h5>회원정보를 모두 입력해주세요</h5>
+          <p>회원정보를 모두 입력해주세요</p>
         </button>
       ) : (
         <button type="submit" onClick={handleSubmit} className="btn-rounded">
