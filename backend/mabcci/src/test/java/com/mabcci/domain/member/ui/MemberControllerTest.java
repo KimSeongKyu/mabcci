@@ -1,6 +1,7 @@
 package com.mabcci.domain.member.ui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mabcci.domain.member.application.MemberJoiningService;
 import com.mabcci.domain.member.application.MemberService;
 import com.mabcci.domain.member.dto.JoinRequest;
 import com.mabcci.domain.member.dto.MemberDeleteRequestDto;
@@ -45,6 +46,8 @@ class MemberControllerTest {
     @MockBean
     private MemberService memberService;
 
+    @MockBean
+    private MemberJoiningService memberJoiningService;
 
     @DisplayName("MemberRestController join 메서드 테스트")
     @Test
@@ -53,7 +56,7 @@ class MemberControllerTest {
         final JoinRequest joinRequest = new JoinRequest(EMAIL, PASSWORD, NICKNAME, PHONE, MALE);
         final String joinRequestDtoString = objectMapper.writeValueAsString(joinRequest);
         System.out.println(joinRequestDtoString);
-        given(memberService.join(any())).willReturn(memberResponseDto);
+        given(memberJoiningService.join(any())).willReturn(memberResponseDto);
 
         mvc.perform(post("/api/members")
                 .contentType(MediaType.APPLICATION_JSON)

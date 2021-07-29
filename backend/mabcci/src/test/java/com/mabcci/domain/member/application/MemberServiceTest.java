@@ -31,11 +31,14 @@ class MemberServiceTest {
     @InjectMocks
     private MemberService memberService;
 
+    @InjectMocks
+    private MemberJoiningService memberJoiningService;
+
     @DisplayName("MemberService 인스턴스 join() 기능 테스트")
     @Test
     void join_test() {
         given(memberRepository.save(any())).willReturn(MEMBER);
-        final MemberResponseDto memberResponseDto = memberService.join(MEMBER);
+        final MemberResponseDto memberResponseDto = memberJoiningService.join(MEMBER);
 
         assertAll(
                 () -> assertThat(memberResponseDto.getEmail()).isEqualTo(MEMBER.email()),

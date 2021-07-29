@@ -44,6 +44,10 @@ public class Member extends BaseTimeEntity {
     @Column(name = "member_role", nullable = false)
     private MemberRole role;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "member_specs_id")
+    private MemberSpecs memberSpecs;
+
     public static MemberBuilder builder() {
         return new MemberBuilder();
     }
@@ -87,6 +91,10 @@ public class Member extends BaseTimeEntity {
         return this;
     }
 
+    public void updateMemberSpecs(final MemberSpecs memberSpecs) {
+        this.memberSpecs = memberSpecs;
+    }
+
     public Gender gender() {
         return gender;
     }
@@ -108,17 +116,9 @@ public class Member extends BaseTimeEntity {
             return this;
         }
 
-        public MemberBuilder email(final String email) {
-            return email(Email.of(email));
-        }
-
         public MemberBuilder email(final Email email) {
             this.email = email;
             return this;
-        }
-
-        public MemberBuilder password(final String password) {
-            return password(Password.of(password));
         }
 
         public MemberBuilder password(final Password password) {
@@ -126,17 +126,9 @@ public class Member extends BaseTimeEntity {
             return this;
         }
 
-        public MemberBuilder nickname(final String nickname) {
-            return nickname(Nickname.of(nickname));
-        }
-
         public MemberBuilder nickname(final Nickname nickname) {
             this.nickname = nickname;
             return this;
-        }
-
-        public MemberBuilder phone(final String phone) {
-            return phone(Phone.of(phone));
         }
 
         public MemberBuilder phone(final Phone phone) {

@@ -22,11 +22,6 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    @Transactional
-    public MemberResponseDto join(final Member member) {
-        return new MemberResponseDto(memberRepository.save(member));
-    }
-
     @Transactional(readOnly = true)
     public MemberResponseDto findByNickName(final Nickname nickname) {
         final Member findingEntity = memberRepository.findByNickname(nickname)

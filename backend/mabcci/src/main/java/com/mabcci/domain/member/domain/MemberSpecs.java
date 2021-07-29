@@ -1,25 +1,47 @@
 package com.mabcci.domain.member.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class MemberSpecs {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_specs_id")
     private Long id;
 
+    @Column(name = "member_specs_height")
     private int height;
+
+    @Column(name = "member_specs_weight")
     private int weight;
+
+    @Column(name = "member_specs_foot_size")
     private int footSize;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "member_specs_form")
     private BodyForm form;
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public int getFootSize() {
+        return footSize;
+    }
+
+    public BodyForm getForm() {
+        return form;
+    }
 
     protected MemberSpecs() {
     }
 
-    private MemberSpecs(MemberSpecsBuilder memberSpecsBuilder) {
+    private MemberSpecs(final MemberSpecsBuilder memberSpecsBuilder) {
         this.height = memberSpecsBuilder.height;
         this.weight = memberSpecsBuilder.weight;
         this.footSize = memberSpecsBuilder.footSize;

@@ -30,6 +30,7 @@ class MemberSpecsTest {
         );
     }
 
+
     private MemberSpecs memberSpecs(int height, int weight, int footSize, BodyForm bodyForm) {
         return MemberSpecs.Build()
                 .height(height)
