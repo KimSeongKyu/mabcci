@@ -1,10 +1,72 @@
-.ootddetail-header {
+.detail-header {
   text-align: left;
   display: flex;
   flex-direction: column;
 }
 
-.ootddetail-header h3 {
+.detail-title > h3 {
   color: var(--main-color-1);
   margin-top: 20px;
+}
+
+.detail-info {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+  margin-left: 20px;
+}
+
+.detail-info-photo {
+  filter: drop-shadow(5px 5px 4px rgba(0, 0, 0, 0.25));
+}
+
+.detail-info-content {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.detail-info-content > p {
+  margin: 2px;
+}
+
+.detail-content {
+  position: relative;
+  left: 15%;
+}
+
+.detail-ootd-photo > img {
+  max-width: 70%;
+  height: auto;
+}
+
+.detail-ootd-like {
+  margin: 10px;
+}
+
+.detail-ootd-heart {
+  size: 100;
+  cursor: pointer;
+}
+
+.detail-ootd-content {
+  margin: 10px;
+}
+
+.detail-ootd-clothes {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+}
+
+.detail-ootd-clothes1 {
+  margin-right: 15px;
+  font-weight: bold;
+}
+
+@media screen and (min-width: 576px) {
+  .detail-title {
+    display: none;
+  }
 }

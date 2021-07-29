@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import LoginApi from '../../../../API/AuthAPI/LoginApi';
-import { LoginSuccess, LoginFail } from '../../../../Redux/Actions/LoginAction';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedInFail, setIsLoggedInFail] = useState(false);
 
-  const dispatch = useDispatch();
   const history = useHistory();
 
   const handleSubmit = async e => {
@@ -25,10 +22,8 @@ const LoginForm = () => {
     console.log(response);
     console.log('develop');
     if (response.status === 200) {
-      dispatch(LoginSuccess(response.userInfo));
       history.push('/home');
     } else {
-      dispatch(LoginFail());
       setEmail('');
       setPassword('');
       setIsLoggedInFail(true);

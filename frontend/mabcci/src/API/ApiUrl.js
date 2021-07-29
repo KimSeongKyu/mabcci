@@ -5,7 +5,7 @@ export const SignupUrl = '/auth/members';
 export const OOTDWriteUrl = '/api/ootd';
 export const OOTDUpdateUrl = '/api/ootd/{id}';
 export const OOTDDeleteUrl = '/api/ootd/{id}';
-export const OOTDDetailUrl = '/api/ootd/{id}'; //
+export const OOTDDetailUrl = '/api/ootd/{id}';
 export const OOTDSearchUrl = '/api/ootd?search=?&size=20&page=?';
 export const OOTDListUrl = '/api/ootd?size=20&page=?';
 export const OOTDMyPageListUrl = '';
