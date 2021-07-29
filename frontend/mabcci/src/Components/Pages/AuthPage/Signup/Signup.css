@@ -32,32 +32,32 @@
   color: red;
   font-size: small;
   position: absolute;
-  margin-left: 135px;
-  margin-bottom: 200px;
+  margin-left: 33%;
+  margin-bottom: 49%;
 }
 
 .warnning-phone {
   color: red;
   font-size: small;
   position: absolute;
-  margin-top: 20px;
-  margin-left: 140px;
+  margin-top: 7%;
+  margin-left: 35%;
 }
 
 .warnning-password {
   color: red;
   font-size: small;
   position: absolute;
-  margin-top: 280px;
-  margin-left: 155px;
+  margin-top: 70%;
+  margin-left: 41%;
 }
 
 .warnning-password-length {
   color: red;
   font-size: small;
   position: absolute;
-  margin-top: 250px;
-  margin-left: 135px;
+  margin-top: 62%;
+  margin-left: 35%;
 }
 
 .input-list input {
@@ -130,15 +130,29 @@
   position: relative;
   transition: all 0.1s ease-in-out;
 }
+
+.btn-select-style img {
+  width: 70px;
+  height: 50px;
+  position: absolute;
+  top: 5px;
+  left: 0;
+  pointer-events: none;
+  display: block;
+}
+
 .btn-select-style-active {
   width: 60px;
   height: 60px;
   border-radius: 30px;
   cursor: pointer;
   background-color: var(--main-color-1);
+  box-shadow: 3px 3px 3px grey;
+  position: relative;
+  transition: all 0.1s ease-in-out;
 }
 
-.btn-select-style img {
+.btn-select-style-active img {
   width: 70px;
   height: 50px;
   position: absolute;
@@ -164,6 +178,12 @@
   box-shadow: none;
 }
 
+.btn-select-style-active:active {
+  padding-left: 3px;
+  padding-top: 3px;
+  box-shadow: none;
+}
+
 .btn-signup-nonactive {
   max-width: 400px;
   max-height: 50px;
@@ -178,4 +198,20 @@
 
 .choice-gender {
   pointer-events: none;
+}
+
+/* 반응형 */
+
+@media screen and (max-width: 576px) {
+  .input-list {
+    width: 350px;
+    margin: auto;
+    margin-bottom: 40px;
+  }
+  .warnning-password-length {
+    margin-top: 70%;
+  }
+  .warnning-password {
+    margin-top: 80%;
+  }
 }

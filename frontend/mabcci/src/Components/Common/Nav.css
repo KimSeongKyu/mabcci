@@ -81,7 +81,7 @@
 
 .mobile-navbar {
   background-color: white;
-  height: 50px;
+  height: 70px;
   border-width: 1px 0px 0px 0px;
   border-top-color: #faf9f8;
   border-style: solid;
@@ -89,6 +89,7 @@
   text-align: center;
   display: flex;
   justify-content: space-around;
+  align-items: center;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -98,7 +99,6 @@
 .mobile-navbar a {
   text-decoration: none;
   color: #0f0e0e;
-  padding-top: 5px;
 }
 
 /* .mobile-navbar div:hover {
@@ -106,7 +106,7 @@
 } */
 
 .mobile-navbar p {
-  font-size: x-small;
+  font-size: small;
 }
 
 /* 반응형 */
