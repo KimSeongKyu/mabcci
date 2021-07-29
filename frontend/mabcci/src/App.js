@@ -20,11 +20,14 @@ import StylingMain from './Components/Pages/ServicePage/Styling/StylingMain/Styl
 // Pages - AuthPage
 import Login from './Components/Pages/AuthPage/Login/Login';
 import Signup from './Components/Pages/AuthPage/Signup/Signup';
+// Pages - InitialPage
 import Description from './Components/Pages/InitialPage/Description/Description';
+import Intro from './Components/Pages/InitialPage/Intro/Intro';
 
 function App() {
   // 로그인 여부 redux까지 연결 되어야함
   const [isLoggedin, setisLoggedin] = useState(false);
+
   useEffect(() => {
     const localLoinToken = localStorage.getItem('accessToken');
     if (localLoinToken) {
@@ -38,8 +41,11 @@ function App() {
 
   return (
     <div className="App">
-      {loginRedux.isLoggedin}
       {isLoggedin ? <Nav /> : null}
+
+      <Route exact path="/intro">
+        <Intro />
+      </Route>
 
       <Route exact path="/home">
         <Home />
