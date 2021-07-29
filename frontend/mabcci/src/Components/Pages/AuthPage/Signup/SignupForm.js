@@ -10,7 +10,6 @@ import 오피스 from '../../../../Asset/Images/오피스.png';
 import 캐쥬얼 from '../../../../Asset/Images/캐쥬얼.png';
 import 포멀 from '../../../../Asset/Images/포멀.png';
 
-
 function SignupForm() {
   const history = useHistory();
 
@@ -26,7 +25,6 @@ function SignupForm() {
     categories: [],
   });
 
-
   // input값에 적은 유저정보 저장하기
   function changeUserInfo(e) {
     const { name, value } = e.target;
@@ -38,10 +36,12 @@ function SignupForm() {
 
   // 성별 선택 버튼 클릭
   function mwBtnClick(e) {
+    console.log(e.target)
+    console.log(e.target.name);
     setUserInfo({
       ...userInfo,
-      ['gender']: e.target.name
-    })
+      ['gender']: e.target.name,
+    });
   }
 
   // 스타일 선택 버튼 클릭
@@ -61,29 +61,22 @@ function SignupForm() {
     });
   }
 
-  // email 알맞게 입력했는지 체크
-  const comCheck = userInfo.email.slice(
-    userInfo.email.length - 4,
-    userInfo.email.length,
-  );
-  const atCheck = userInfo.email.includes('@');
-
-  // signup 실행해도 되는지 체크
-  const isEmpty = Object.values(userInfo).some(
-    x => x === '' || x.length === 0,
-  );
-
-  // signup 버튼
+  // signup 버튼 실행시
   const handleSubmit = async e => {
     e.preventDefault();
     const data = {
-      email : userInfo.email,
-      nickname : userInfo.nickname,
-      password : userInfo.password,
-      gender : userInfo.gender,
-      phonenumber : userInfo.firstPhoneNumber + '-' + userInfo.secondPhoneNumber + '-' + userInfo.thirdPhoneNumber,
-      categories : userInfo.categories
-    }
+      email: userInfo.email,
+      nickname: userInfo.nickname,
+      password: userInfo.password,
+      gender: userInfo.gender,
+      phoneNumber:
+        userInfo.firstPhoneNumber +
+        '-' +
+        userInfo.secondPhoneNumber +
+        '-' +
+        userInfo.thirdPhoneNumber,
+      categories: userInfo.categories,
+    };
 
     const response = await SignupApi(data);
 
@@ -92,7 +85,67 @@ function SignupForm() {
     } else {
       alert('회원가입 실패');
     }
-    
+  };
+
+  // email 알맞게 입력했는지 체크
+
+  // .com으로 끝나는지
+  const comCheck = userInfo.email.slice(
+    userInfo.email.length - 4,
+    userInfo.email.length,
+  );
+
+  // @ 개수가 몇개인지
+  var count = 0;
+  var pos = userInfo.email.indexOf('@')
+  const atCheck = () => {
+    while (pos !== -1) {
+      count += 1;
+      pos = userInfo.email.indexOf('@', pos + 1)
+    } return count
+  }
+
+  const isEmail = () => {
+    if (
+      comCheck !== '.com' ||
+      userInfo.email.includes('@') === false ||
+      userInfo.email.slice(0, 1) === '@' ||
+      atCheck() > 1
+    ) {
+      return false;
+    } 
+    return true
+  }
+
+  // phoneNumber 알맞게 입력했는지 체크
+  const isphoneNumber = () => {
+    if (
+      isNaN(Number(userInfo.firstPhoneNumber)) === true ||
+      isNaN(Number(userInfo.secondPhoneNumber)) === true ||
+      isNaN(Number(userInfo.thirdPhoneNumber)) === true ||
+      userInfo.firstPhoneNumber.length !== 3 ||
+      userInfo.secondPhoneNumber.length < 3 ||
+      userInfo.thirdPhoneNumber.length !== 4
+    ) {
+      return false;
+    } 
+    return true;
+  }
+
+  // signup 실행해도 되는지 체크 1 (정보 다 적었는지)
+  const isEmpty = Object.values(userInfo).some(x => x === '' || x.length === 0);
+
+  // signup 실행해도 되는지 체크 2 (정보 알맞게 적었는지)
+  const isCorrect = () => {
+    if (
+      isEmail() === false ||
+      userInfo.password !== userInfo.passwordConfirmation ||
+      (userInfo.password.length < 10 && userInfo.password.length) ||
+      isphoneNumber() === false
+    ) {
+      return false;
+    }
+    return true;
   };
 
   return (
@@ -104,8 +157,8 @@ function SignupForm() {
           name="email"
           onChange={changeUserInfo}
         />
-        {comCheck !== '.com' || atCheck === false ? (
-          <p className="warnning">이메일 형식으로 입력해주세요</p>
+        {isEmail() === false && userInfo.email.length > 0 ? (
+          <p className="warnning-email">이메일 형식으로 입력해주세요</p>
         ) : null}
         <input
           type="text"
@@ -133,10 +186,11 @@ function SignupForm() {
             onChange={changeUserInfo}
           />
         </div>
-        {isNaN(Number(userInfo.firstPhoneNumber)) === true ||
-        isNaN(Number(userInfo.secondPhoneNumber)) === true ||
-        isNaN(Number(userInfo.thirdPhoneNumber)) === true ? (
-          <p className="warnning">숫자를 입력해주세요</p>
+        {isphoneNumber() === false &&
+        (userInfo.firstPhoneNumber.length > 0 ||
+          userInfo.secondPhoneNumber.length > 0 ||
+          userInfo.thirdPhoneNumber.length > 0) ? (
+          <p className="warnning-phone">번호를 알맞게 입력해주세요</p>
         ) : null}
         <input
           type="password"
@@ -151,7 +205,11 @@ function SignupForm() {
           onChange={changeUserInfo}
         />
         {userInfo.password !== userInfo.passwordConfirmation ? (
-          <p className="warnning">비밀번호가 다릅니다!</p>
+          <p className="warnning-password">비밀번호가 다릅니다!</p>
+        ) : null}
+
+        {userInfo.password.length < 10 && userInfo.password.length > 0 ? (
+          <p className="warnning-password-length">10자 이상으로 작성해주세요</p>
         ) : null}
       </div>
       <h5>성별</h5>
@@ -159,40 +217,40 @@ function SignupForm() {
         {userInfo.gender === 'MALE' ? (
           <button
             className="btn-sex-select"
-            type="submit"
             name="MALE"
+            type="submit"
             onClick={mwBtnClick}
           >
-            <p>Man</p>
+            <p className="choice-gender">Man</p>
           </button>
         ) : (
           <button
             className="btn-rounded-sm"
-            type="submit"
             name="MALE"
+            type="submit"
             onClick={mwBtnClick}
           >
-            <p>Man</p>
+            <p className="choice-gender">Man</p>
           </button>
         )}
 
         {userInfo.gender === 'FEMALE' ? (
           <button
             className="btn-sex-select"
-            type="submit"
             name="FEMALE"
+            type="submit"
             onClick={mwBtnClick}
           >
-            <p>Woman</p>
+            <p className="choice-gender">Woman</p>
           </button>
         ) : (
           <button
             className="btn-rounded-sm"
-            type="submit"
             name="FEMALE"
+            type="submit"
             onClick={mwBtnClick}
           >
-            <p>Woman</p>
+            <p className="choice-gender">Woman</p>
           </button>
         )}
       </div>
@@ -270,7 +328,7 @@ function SignupForm() {
           </div>
         </div>
       </div>
-      {isEmpty === true ? (
+      {isEmpty === true || isCorrect() === false ? (
         <button
           type="submit"
           onClick={handleSubmit}
