@@ -1,5 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import OOTDFeed from './OOTDFeed';
+import OOTDHeader from './OOTDHeader';
 
 function OOTDMain() {
   const history = useHistory();
@@ -11,8 +13,9 @@ function OOTDMain() {
   }
 
   return (
-    <div>
-      <h3>OOTD 페이지입니다.</h3>
+    <div className="container">
+      <OOTDHeader />
+      <OOTDFeed />
     </div>
   );
 }
