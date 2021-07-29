@@ -1,0 +1,34 @@
+.ootd-write {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.ootd-util {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ootd-util p > span:nth-child(1) {
+  margin-right: 20px;
+}
+
+.ootd-util span {
+  font-size: 1.2rem;
+  color: rgb(158, 158, 158);
+  cursor: pointer;
+}
+
+.ootd-util span.active {
+  color: black;
+}
+
+.ootd-feed img {
+  width: 100%;
+  height: auto;
+}
+
+.card {
+  border: none !important;
+}

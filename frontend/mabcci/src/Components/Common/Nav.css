@@ -57,9 +57,7 @@
   height: 30px;
   background-color: white;
   display: block;
-  border-width: 0px 0px 1px 0px;
-  border-bottom-color: lightgrey;
-  border-style: solid;
+  box-shadow: 1px 1px 5px grey;
   font-weight: 500;
   text-decoration: none;
   text-align: center;

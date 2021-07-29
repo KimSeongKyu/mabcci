@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import OOTDFeed from './OOTDFeed';
 import OOTDHeader from './OOTDHeader';
+import './OOTD.css';
 
 function OOTDMain() {
   const history = useHistory();
