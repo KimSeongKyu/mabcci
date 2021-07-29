@@ -1,23 +1,25 @@
 package com.mabcci.domain.auth.dto;
 
+import com.mabcci.domain.auth.domain.vo.JwtToken;
+
 public final class LoginResponse {
 
-    private String accessToken;
-    private String refreshToken;
+    private JwtToken accessToken;
+    private JwtToken refreshToken;
 
     private LoginResponse() {
     }
 
-    public LoginResponse(final String accessToken, final String refreshToken) {
+    public LoginResponse(final JwtToken accessToken, final JwtToken refreshToken) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
     }
 
-    public final String getAccessToken() {
+    public final JwtToken getAccessToken() {
         return accessToken;
     }
 
-    public final String getRefreshToken() {
+    public final JwtToken getRefreshToken() {
         return refreshToken;
     }
 }

@@ -3,6 +3,7 @@ package com.mabcci.domain.auth.application;
 import com.mabcci.domain.auth.common.JwtUtil;
 import com.mabcci.domain.auth.domain.RefreshToken;
 import com.mabcci.domain.auth.domain.RefreshTokenRepository;
+import com.mabcci.domain.auth.domain.vo.JwtToken;
 import com.mabcci.domain.auth.domain.vo.JwtTokenType;
 import com.mabcci.domain.auth.dto.LoginRequest;
 import com.mabcci.domain.auth.dto.LoginResponse;
@@ -44,8 +45,8 @@ public class AuthService {
         final Member member = memberRepository.findByEmailAndPassword(email, loginRequest.getPassword())
                 .orElseThrow(MemberNotFoundException::new);
 
-        final String accessToken = jwtUtil.createToken(JwtTokenType.ACCESS_TOKEN, member);
-        final String refreshToken = jwtUtil.createToken(JwtTokenType.REFRESH_TOKEN, member);
+        final JwtToken accessToken = jwtUtil.createToken(JwtTokenType.ACCESS_TOKEN, member);
+        final JwtToken refreshToken = jwtUtil.createToken(JwtTokenType.REFRESH_TOKEN, member);
 
         refreshTokenRepository.save(RefreshToken.builder()
                 .email(email)

@@ -1,6 +1,7 @@
 package com.mabcci.domain.auth.common;
 
 import com.mabcci.domain.auth.domain.vo.ClaimType;
+import com.mabcci.domain.auth.domain.vo.JwtToken;
 import com.mabcci.domain.auth.domain.vo.JwtTokenType;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.jupiter.api.DisplayName;
@@ -73,10 +74,10 @@ public class JwtUtilTest {
     @MethodSource(value = "provideTokenTypesForTestsAboutToken")
     public void createTokenTest(JwtTokenType jwtTokenType) {
         final JwtUtil jwtUtil = new JwtUtil();
-        final String token = jwtUtil.createToken(jwtTokenType, MEMBER);
+        final JwtToken jwtToken = jwtUtil.createToken(jwtTokenType, MEMBER);
 
-        Arrays.stream(token.split("."))
-                .forEach(tokenSplitByComma -> assertThat(tokenSplitByComma).isBase64());
+        Arrays.stream(jwtToken.jwtToken().split("."))
+                .forEach(jwtTokenSplitByComma -> assertThat(jwtTokenSplitByComma).isBase64());
     }
 
     @DisplayName(value = "유효한 토큰 검증 테스트")
@@ -84,19 +85,18 @@ public class JwtUtilTest {
     @MethodSource(value = "provideTokenTypesForTestsAboutToken")
     public void isValidTokenTest(JwtTokenType jwtTokenType) {
         final JwtUtil jwtUtil = new JwtUtil();
-        final String token = jwtUtil.createToken(jwtTokenType, MEMBER);
-        final boolean validity = jwtUtil.isValidToken(token);
+        final JwtToken jwtToken = jwtUtil.createToken(jwtTokenType, MEMBER);
+        final boolean validity = jwtUtil.isValidToken(jwtToken);
 
         assertThat(validity).isTrue();
     }
 
     @DisplayName(value = "유효하지 않은 토큰 검증 테스트")
-    @ParameterizedTest(name = "{index}. Token Type: {0}")
-    @MethodSource(value = "provideTokenTypesForTestsAboutToken")
-    public void isNotValidTokenTest(JwtTokenType jwtTokenType) {
+    @Test
+    public void isNotValidTokenTest() {
         final JwtUtil jwtUtil = new JwtUtil();
-        final String token = "invalid.test.token";
-        final boolean validity = jwtUtil.isValidToken(token);
+        final JwtToken jwtToken = JwtToken.of("invalid.test.token");
+        final boolean validity = jwtUtil.isValidToken(jwtToken);
 
         assertThat(validity).isFalse();
     }

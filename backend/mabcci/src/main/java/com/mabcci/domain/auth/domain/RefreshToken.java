@@ -1,25 +1,27 @@
 package com.mabcci.domain.auth.domain;
 
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.mabcci.domain.auth.domain.vo.JwtToken;
 import com.mabcci.domain.model.Email;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class RefreshToken {
 
+    @NotNull
     @EmbeddedId
     @AttributeOverride(name = "email", column =
     @Column(name = "refresh_token_email", nullable = false, unique = true))
     private Email email;
 
-    @NotBlank
-    @Column(name = "refresh_token", length = 500, nullable = false, unique = true)
-    private String refreshToken;
+    @NotNull
+    @AttributeOverride(name = "jwt_token", column =
+    @Column(name = "refresh_token", nullable = false, unique = true))
+    private JwtToken refreshToken;
 
     protected RefreshToken() {
     }
@@ -37,14 +39,13 @@ public class RefreshToken {
         return email;
     }
 
-    @JsonValue
-    public String refreshToken() {
+    public JwtToken refreshToken() {
         return refreshToken;
     }
 
     public static class RefreshTokenBuilder {
         private Email email;
-        private String refreshToken;
+        private JwtToken refreshToken;
 
         private RefreshTokenBuilder() {
         }
@@ -59,6 +60,10 @@ public class RefreshToken {
         }
 
         public RefreshTokenBuilder refreshToken(final String refreshToken) {
+            return refreshToken(JwtToken.of(refreshToken));
+        }
+
+        public RefreshTokenBuilder refreshToken(final JwtToken refreshToken) {
             this.refreshToken = refreshToken;
             return this;
         }

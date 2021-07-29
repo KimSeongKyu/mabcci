@@ -19,8 +19,8 @@ public class JwtTokenTypeTest {
 
     public static Stream<Arguments> provideJwtTokenTypesAndExpirationTimesForExpirationTimeTest() {
         return Stream.of(
-                Arguments.of(JwtTokenType.ACCESS_TOKEN, 1000 * 60 * 30),
-                Arguments.of(JwtTokenType.REFRESH_TOKEN, 1000 * 60 * 60 * 24 * 7)
+                Arguments.of(JwtTokenType.ACCESS_TOKEN, 1000 * 60 * 30L),
+                Arguments.of(JwtTokenType.REFRESH_TOKEN, 1000 * 60 * 60 * 24 * 7L)
         );
     }
 
@@ -33,7 +33,7 @@ public class JwtTokenTypeTest {
 
     @DisplayName(value = "Expiration time 반환 테스트")
     @ParameterizedTest(name = "{index}. ENUM TYPE : {0} |  Expiration time : {1}")
-    @MethodSource(value = "provideTokenTypesAndExpirationTimesForGetExpirationTimeTest")
+    @MethodSource(value = "provideJwtTokenTypesAndExpirationTimesForExpirationTimeTest")
     public void expirationTimeTest(JwtTokenType jwtTokenType, Long expectedExpirationTime) {
         final Long expirationTime = jwtTokenType.expirationTime();
         assertThat(expirationTime).isEqualTo(expectedExpirationTime);

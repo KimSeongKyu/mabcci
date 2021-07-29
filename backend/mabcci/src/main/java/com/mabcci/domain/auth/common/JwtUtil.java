@@ -2,6 +2,7 @@ package com.mabcci.domain.auth.common;
 
 import com.mabcci.domain.auth.domain.vo.Claim;
 import com.mabcci.domain.auth.domain.vo.ClaimType;
+import com.mabcci.domain.auth.domain.vo.JwtToken;
 import com.mabcci.domain.auth.domain.vo.JwtTokenType;
 import com.mabcci.domain.member.domain.Member;
 import io.jsonwebtoken.Jwts;
@@ -26,12 +27,12 @@ public class JwtUtil {
     public JwtUtil() {
     }
 
-    public String createToken(final JwtTokenType jwtTokenType, final Member member) {
-        return Jwts.builder()
+    public JwtToken createToken(final JwtTokenType jwtTokenType, final Member member) {
+        return JwtToken.of(Jwts.builder()
                 .setHeader(createClaim(ClaimType.HEADER))
                 .setClaims(createPayload(jwtTokenType, member))
                 .signWith(createSecretKey(), SignatureAlgorithm.HS256)
-                .compact();
+                .compact());
     }
 
     public Map<String, Object> createClaim(final ClaimType claimType) {
@@ -58,12 +59,12 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
     }
 
-    public boolean isValidToken(final String token) {
+    public boolean isValidToken(final JwtToken jwtToken) {
         try {
             Jwts.parserBuilder()
                     .setSigningKey(createSecretKey())
                     .build()
-                    .parseClaimsJws(token);
+                    .parseClaimsJws(jwtToken.jwtToken());
 
             return true;
         } catch (Exception e) {

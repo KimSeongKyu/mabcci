@@ -2,6 +2,7 @@ package com.mabcci.domain.auth.ui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mabcci.domain.auth.application.AuthService;
+import com.mabcci.domain.auth.domain.vo.JwtToken;
 import com.mabcci.domain.auth.dto.LoginRequest;
 import com.mabcci.domain.auth.dto.LoginResponse;
 import com.mabcci.domain.auth.dto.LogoutRequest;
@@ -57,8 +58,8 @@ public class AuthControllerTest {
     @DisplayName(value = "로그인 API 테스트")
     @Test
     public void loginTest() throws Exception {
-        final String accessToken = "test.access.token";
-        final String refreshToken = "test.refresh.token";
+        final JwtToken accessToken = JwtToken.of("test.access.token");
+        final JwtToken refreshToken = JwtToken.of("test.refresh.token");
         final LoginRequest loginRequest = new LoginRequest(EMAIL, PASSWORD);
         final LoginResponse loginResponse = new LoginResponse(accessToken, refreshToken);
 
@@ -69,8 +70,8 @@ public class AuthControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.accessToken").value(accessToken))
-                .andExpect(jsonPath("$.refreshToken").value(refreshToken));
+                .andExpect(jsonPath("$.accessToken").value(accessToken.jwtToken()))
+                .andExpect(jsonPath("$.refreshToken").value(refreshToken.jwtToken()));
     }
 
     @DisplayName(value = "LoginRequest 유효성 검증 테스트")

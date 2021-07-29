@@ -3,6 +3,7 @@ package com.mabcci.domain.auth.application;
 import com.mabcci.domain.auth.common.JwtUtil;
 import com.mabcci.domain.auth.domain.RefreshToken;
 import com.mabcci.domain.auth.domain.RefreshTokenRepository;
+import com.mabcci.domain.auth.domain.vo.JwtToken;
 import com.mabcci.domain.auth.domain.vo.JwtTokenType;
 import com.mabcci.domain.auth.dto.LoginRequest;
 import com.mabcci.domain.auth.dto.LoginResponse;
@@ -51,8 +52,8 @@ public class AuthServiceTest {
     @DisplayName("AuthService 로그인 성공 테스트")
     @Test
     public void loginSuccessTest() {
-        final String accessToken = "test.access.token";
-        final String refreshToken = "test.refresh.token";
+        final JwtToken accessToken = JwtToken.of("test.access.token");
+        final JwtToken refreshToken = JwtToken.of("test.refresh.token");
 
         doReturn(Optional.of(member)).when(memberRepository).findByEmailAndPassword(EMAIL, PASSWORD);
         doReturn(accessToken).when(jwtUtil).createToken(JwtTokenType.ACCESS_TOKEN, member);
