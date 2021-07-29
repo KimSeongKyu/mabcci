@@ -19,6 +19,17 @@ class MemberSpecsTest {
         );
     }
 
+    @DisplayName("MemberSpecs 인스턴스 디폴트 생성자를 이용한 생성 여부 테스트")
+    @Test
+    void default_constructor_test() {
+        final MemberSpecs memberSpecs = new MemberSpecs();
+
+        assertAll(
+                () -> assertThat(memberSpecs).isNotNull(),
+                () -> assertThat(memberSpecs).isExactlyInstanceOf(MemberSpecs.class)
+        );
+    }
+
     private MemberSpecs memberSpecs(int height, int weight, int footSize, BodyForm bodyForm) {
         return MemberSpecs.Build()
                 .height(height)
