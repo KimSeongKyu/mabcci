@@ -24,7 +24,7 @@ class MemberSpecsTest {
                 .height(height)
                 .weight(weight)
                 .footSize(footSize)
-                .form(form)
+                .form(bodyForm)
                 .build();
     }
 
