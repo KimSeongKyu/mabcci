@@ -1,18 +1,22 @@
 import React from 'react';
-import blackcircle from './Image/blackcircle.png';
+import userphoto from './Images/userphoto.png';
 
 const OOTDHeader = () => {
   return (
-    <header className="ootddetail-header">
-      <div className="title">
+    <header className="detail-header">
+      <div className="detail-title">
         <h3>OOTD</h3>
       </div>
       <div className="detail-info">
-        <img src={blackcircle} alt="tmpUserImage" width="70" />
-        <p>username</p>
-        <p>날짜</p>
-        <p>조회수</p>
+        <div className="detail-info-photo">
+          <img src={userphoto} alt="UserImage" width="70" />
+        </div>
+        <div className="detail-info-content">
+          <p>김고은</p>
+          <p>2021.07.29 views:50</p>
+        </div>
       </div>
+      <hr />
     </header>
   );
 };

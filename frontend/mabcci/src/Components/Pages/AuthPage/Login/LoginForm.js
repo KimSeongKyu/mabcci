@@ -28,10 +28,10 @@ const LoginForm = () => {
       dispatch(LoginSuccess(response.userInfo));
       history.push('/home');
     } else {
-      dispatch(LoginFail());
       setEmail('');
       setPassword('');
       setIsLoggedInFail(true);
+      dispatch(LoginFail());
     }
   };
 
@@ -52,7 +52,7 @@ const LoginForm = () => {
             />
 
             <input
-              type="text"
+              type="password"
               id="password"
               name="password"
               placeholder="Password"
