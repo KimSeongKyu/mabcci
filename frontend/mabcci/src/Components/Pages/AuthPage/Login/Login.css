@@ -1,0 +1,70 @@
+.container {
+  min-width: 320px;
+  max-width: 768px;
+  min-height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  align-content: stretch;
+}
+
+.container-login {
+  min-height: 70vh;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.container-item {
+  text-align: center;
+}
+
+.container-item h3 {
+  color: var(--main-color-1);
+  margin-top: 20px;
+}
+
+.container-item > p {
+  color: grey;
+  font-size: 0.8rem;
+}
+
+.form-element {
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-element input {
+  margin: 10px;
+  max-width: 400px;
+  width: 60vw;
+}
+
+.passwordFind {
+  margin: 15px;
+}
+
+.passwordFind > P {
+  color: grey;
+  font-size: 0.8rem;
+}
+
+.btn-transparent {
+  margin: 5px;
+  background-color: var(--main-color-4);
+  font-weight: bold;
+}
+
+.loginfail {
+  margin-bottom: 20px;
+}
+
+.id-warnning {
+  position: absolute;
+  margin-top: 85px;
+}

@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Rozha+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+:root {
+  --main-color-1: #f9a77c;
+  --main-color-2: #fbf1e9;
+  --main-color-3: #f2f2f2;
+  --main-color-4: #ffffff;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+a {
+  font-family: 'Gowun Dodum', sans-serif;
+  margin: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: black;
+}
+
+button {
+  border: none;
+}
+
+input {
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.btn {
+  max-width: 400px;
+  max-height: 50px;
+  width: 60vw;
+  height: 15vh;
+  background-color: var(--main-color-2);
+  cursor: pointer;
+  box-shadow: 3px 3px 3px grey;
+  transition: all 0.1s;
+}
+
+.btn:hover {
+  background-color: var(--main-color-1);
+  color: white;
+}
+
+.btn-sm {
+  max-width: 150px;
+  width: 20vw;
+  height: 25px;
+  background-color: var(--main-color-2);
+  cursor: pointer;
+  box-shadow: 3px 3px 3px grey;
+  transition: all 0.1s;
+}
+
+.btn-sm:hover {
+  background-color: var(--main-color-1);
+  color: white;
+}
+
+.btn-rounded {
+  max-width: 400px;
+  max-height: 50px;
+  width: 60vw;
+  height: 15vh;
+  background-color: var(--main-color-1);
+  box-shadow: 3px 3px 3px grey;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.btn-rounded:hover {
+  background-color: var(--main-color-2);
+  color: black;
+}
+
+.btn-rounded-sm {
+  max-width: 150px;
+  width: 20vw;
+  height: 25px;
+  background-color: var(--main-color-3);
+  box-shadow: 3px 3px 3px grey;
+  border-radius: 50px;
+  transition: all 0.1s;
+  cursor: pointer;
+}
+
+.btn-rounded-sm:hover {
+  background-color: var(--main-color-1);
+  color: white;
+}
+
+/* 아이콘과 같이 사용하기
+뒤로가기: <i class="fas fa-arrow-left"></i>
+앞으로 가기: <i class="fas fa-arrow-right"></i> 
+플러스: <i class="fas fa-plus"></i>*/
+.btn-util {
+  background-color: var(--main-color-1);
+  box-shadow: 3px 3px 3px grey;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.btn-util i {
+  color: white;
+}
+
+.btn-style-shoes {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  cursor: pointer;
+  background-color: var(--main-color-3);
+  box-shadow: 3px 3px 3px grey;
+  position: relative;
+}
+
+.btn-style-shoes img {
+  width: 70px;
+  height: 50px;
+  position: absolute;
+  top: 5px;
+  left: 0;
+}
+
+.btn-style-shoes.active {
+  background-color: var(--main-color-1);
+}
+
+.btn-style-clothes {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  cursor: pointer;
+  background-color: var(--main-color-4);
+  box-shadow: 3px 3px 3px grey;
+  position: relative;
+}
+
+.btn-style-clothes img {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.btn:active,
+.btn-sm:active,
+.btn-rounded:active,
+.btn-rounded-sm:active,
+.btn-util:active,
+.btn-style-shoes:active,
+.btn-style-clothes:active {
+  padding-left: 3px;
+  padding-top: 3px;
+  box-shadow: none;
+}

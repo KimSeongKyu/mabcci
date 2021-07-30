@@ -1,0 +1,125 @@
+/* web navbar */
+
+.logo-bar {
+  width: 100%;
+  height: 150px;
+  background-color: white;
+  display: block;
+  text-align: center;
+  position: relative;
+}
+
+.logo-bar a {
+  text-decoration: none;
+  color: #0f0e0e;
+}
+
+.logo-image {
+  margin-top: 20px;
+  width: 250px;
+  height: auto;
+}
+
+.web-navbar-icon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50px;
+  font-size: large;
+  font-weight: 600;
+  position: absolute;
+  bottom: 70%;
+  left: 85%;
+  margin: auto;
+  cursor: pointer;
+}
+
+.popover-box {
+  width: 100px;
+  font-size: medium;
+  font-weight: 600;
+  position: absolute;
+  bottom: 25%;
+  left: 84%;
+  margin: auto;
+  cursor: pointer;
+  box-shadow: 3px 3px 3px grey;
+}
+
+.popover-box p {
+  margin: 5px;
+  text-align: start;
+  padding-left: 4px;
+}
+
+.menu-bar {
+  width: 100%;
+  height: 30px;
+  background-color: white;
+  display: block;
+  box-shadow: 1px 1px 5px grey;
+  font-weight: 500;
+  text-decoration: none;
+  text-align: center;
+}
+
+.menu-link {
+  width: 576px;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+.menu-bar a {
+  text-decoration: none;
+  color: #0f0e0e;
+}
+
+/* mobile navbar */
+
+.mobile-navbar {
+  background-color: white;
+  height: 50px;
+  border-width: 1px 0px 0px 0px;
+  border-top-color: #faf9f8;
+  border-style: solid;
+  box-shadow: 5px 10px 8px 5px;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.mobile-navbar a {
+  text-decoration: none;
+  color: #0f0e0e;
+  padding-top: 5px;
+}
+
+/* .mobile-navbar div:hover {
+  color: var(--main-color-1);
+} */
+
+.mobile-navbar p {
+  font-size: x-small;
+}
+
+/* 반응형 */
+
+@media screen and (max-width: 576px) {
+  .web-navbar {
+    display: none;
+  }
+  .menu-link {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .mobile-navbar {
+    display: none;
+  }
+}
