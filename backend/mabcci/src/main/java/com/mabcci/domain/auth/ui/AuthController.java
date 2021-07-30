@@ -14,10 +14,13 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
-@RequiredArgsConstructor
 public class AuthController {
 
     private final AuthService authService;
+
+    public AuthController(final AuthService authService) {
+        this.authService = authService;
+    }
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid final LoginRequest loginRequest) {
