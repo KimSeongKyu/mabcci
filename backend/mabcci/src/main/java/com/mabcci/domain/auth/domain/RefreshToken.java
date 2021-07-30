@@ -17,8 +17,8 @@ public class RefreshToken {
 
     @NotNull
     @Embedded
-    @AttributeOverride(name = "jwt_token", column =
-    @Column(name = "refresh_token", nullable = false, unique = true))
+    @AttributeOverride(name = "jwtToken", column =
+    @Column(name = "refresh_token", length = 500, nullable = false, unique = true))
     private JwtToken refreshToken;
 
     protected RefreshToken() {

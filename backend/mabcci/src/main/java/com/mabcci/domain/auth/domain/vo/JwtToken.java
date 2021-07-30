@@ -12,7 +12,7 @@ import java.util.Objects;
 public class JwtToken implements Serializable {
 
     @NotBlank
-    @Column(name = "jwt_token", length = 500, nullable = false, unique = true)
+    @Column(name = "jwt_token", nullable = false, unique = true)
     private String jwtToken;
 
     protected JwtToken() {
