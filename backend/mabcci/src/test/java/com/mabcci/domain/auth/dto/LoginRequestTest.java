@@ -8,11 +8,11 @@ import static com.mabcci.domain.model.PasswordTest.PASSWORD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-public class LoginRequestTest {
+class LoginRequestTest {
 
-    @DisplayName("생성 테스트")
+    @DisplayName("LoginRequest 인스턴스 생성 여부 테스트")
     @Test
-    public void constructTest() {
+    void initialize() {
         final LoginRequest loginRequest = new LoginRequest(EMAIL, PASSWORD);
 
         assertAll(
@@ -21,9 +21,9 @@ public class LoginRequestTest {
         );
     }
 
-    @DisplayName("getter 테스트")
+    @DisplayName("LoginRequest 인스턴스 getter들 테스트")
     @Test
-    public void getterTest() {
+    void getter_test() {
         final LoginRequest loginRequest = new LoginRequest(EMAIL, PASSWORD);
 
         assertAll(

@@ -2,6 +2,7 @@ package com.mabcci.domain.auth.ui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mabcci.domain.auth.application.AuthService;
+import com.mabcci.domain.auth.domain.vo.JwtToken;
 import com.mabcci.domain.auth.dto.LoginRequest;
 import com.mabcci.domain.auth.dto.LoginResponse;
 import com.mabcci.domain.auth.dto.LogoutRequest;
@@ -32,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(AuthController.class)
-public class AuthControllerTest {
+class AuthControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -43,7 +44,7 @@ public class AuthControllerTest {
     @MockBean
     private AuthService authService;
 
-    public static Stream<Arguments> provideEmailAndPasswordsForValidateLoginRequestTest() {
+    static Stream<Arguments> provide_email_and_passwords_for_validate_login_request_test() {
         return Stream.of(
                 Arguments.of(EMAIL, null),
                 Arguments.of(EMAIL, ""),
@@ -54,11 +55,11 @@ public class AuthControllerTest {
         );
     }
 
-    @DisplayName(value = "로그인 API 테스트")
+    @DisplayName(value = "AuthController 인스턴스 로그인 API 테스트")
     @Test
-    public void loginTest() throws Exception {
-        final String accessToken = "test.access.token";
-        final String refreshToken = "test.refresh.token";
+    void login_test() throws Exception {
+        final JwtToken accessToken = JwtToken.of("test.access.token");
+        final JwtToken refreshToken = JwtToken.of("test.refresh.token");
         final LoginRequest loginRequest = new LoginRequest(EMAIL, PASSWORD);
         final LoginResponse loginResponse = new LoginResponse(accessToken, refreshToken);
 
@@ -69,14 +70,14 @@ public class AuthControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.accessToken").value(accessToken))
-                .andExpect(jsonPath("$.refreshToken").value(refreshToken));
+                .andExpect(jsonPath("$.accessToken").value(accessToken.jwtToken()))
+                .andExpect(jsonPath("$.refreshToken").value(refreshToken.jwtToken()));
     }
 
-    @DisplayName(value = "LoginRequest 유효성 검증 테스트")
+    @DisplayName("AuthController 인스턴스 LoginRequest 유효성 검증 테스트")
     @ParameterizedTest(name = "{index}. email: {0} | password: {1}")
-    @MethodSource(value = "provideEmailAndPasswordsForValidateLoginRequestTest")
-    public void validateLoginRequestTest(Email email, Password password) throws Exception {
+    @MethodSource("provide_email_and_passwords_for_validate_login_request_test")
+    void validate_login_request_test(final Email email, final Password password) throws Exception {
         final LoginRequest loginRequest = new LoginRequest(email, password);
 
         mockMvc.perform(post("/auth/login")
@@ -86,9 +87,9 @@ public class AuthControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @DisplayName(value = "로그아웃 API 테스트")
+    @DisplayName("AuthController 인스턴스 로그아웃 API 테스트")
     @Test
-    public void logoutTest() throws Exception {
+    void logout_test() throws Exception {
         final String logoutRequestString = objectMapper.writeValueAsString(new LogoutRequest(EMAIL));
         doNothing().when(authService).logout(any());
 
@@ -99,11 +100,11 @@ public class AuthControllerTest {
                 .andExpect(status().isNoContent());
     }
 
-    @DisplayName(value = "LogoutRequestDto 유효성 검증 테스트")
+    @DisplayName("AuthController 인스턴스 LogoutRequest 유효성 검증 테스트")
     @ParameterizedTest(name = "{index}. email: {0}")
     @ValueSource(strings = {"notEmailFormat"})
     @NullAndEmptySource
-    public void validateLogoutRequestDto(String email) throws Exception {
+    void validate_logout_request_test(final String email) throws Exception {
         final String logoutRequestDtoString = objectMapper.writeValueAsString(new LogoutRequest(Email.of(email)));
 
         mockMvc.perform(post("/auth/logout")

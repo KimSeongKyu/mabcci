@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(AuthControllerAdvice.class)
-public class AuthControllerAdviceTest {
+class AuthControllerAdviceTest {
 
     @Autowired
     private WebApplicationContext context;
@@ -40,15 +40,15 @@ public class AuthControllerAdviceTest {
     private AuthController authController;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(context)
                 .addFilter(new CharacterEncodingFilter("UTF-8", true))
                 .build();
     }
 
-    @DisplayName(value = "로그인하지 않은 유저가 로그아웃할 경우 NotLoginMemberException 발생 테스트")
+    @DisplayName(value = "AuthControllerAdvice 인스턴스 로그인하지 않은 유저가 로그아웃할 경우 NotLoginMemberException 발생 테스트")
     @Test
-    public void NotLoginMemberTryToLogoutThrowExceptionTest() throws Exception {
+    void not_login_member_try_to_logout_throw_not_login_member_exception_test() throws Exception {
         final String logoutRequestDtoString = objectMapper.writeValueAsString(new LogoutRequest(EMAIL));
         final NotLoginMemberException notLoginMemberException = new NotLoginMemberException(EMAIL);
 
