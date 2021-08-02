@@ -18,4 +18,18 @@ class CategoryTest {
                 () -> assertThat(category).isExactlyInstanceOf(Category.class)
         );
     }
+
+
+    @DisplayName("Category 인스턴스 생성자를 이용한 생성 테스트")
+    @Test
+    void constructor_test() {
+        final String categoryName = "categoryName";
+        final Category category = new Category(categoryName);
+
+        assertAll(
+                () -> assertThat(category).isNotNull(),
+                () -> assertThat(category).isExactlyInstanceOf(Category.class)
+        );
+    }
+
 }
