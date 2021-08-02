@@ -1,6 +1,7 @@
 package com.mabcci.domain.member.ui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mabcci.domain.member.application.MemberJoinService;
 import com.mabcci.domain.member.application.MemberService;
 import com.mabcci.domain.member.dto.JoinRequest;
 import com.mabcci.domain.member.dto.MemberDeleteRequestDto;
@@ -16,7 +17,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import static com.mabcci.domain.member.domain.Gender.MALE;
@@ -36,6 +39,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers = MemberController.class)
 class MemberControllerTest {
 
+    private static final HashSet<String> CATEGORIES = new HashSet<>(Arrays.asList("categoryName"));
+
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -45,15 +50,17 @@ class MemberControllerTest {
     @MockBean
     private MemberService memberService;
 
+    @MockBean
+    private MemberJoinService memberJoinService;
 
     @DisplayName("MemberRestController join 메서드 테스트")
     @Test
     public void join_test() throws Exception {
         final MemberResponseDto memberResponseDto = new MemberResponseDto(MEMBER);
-        final JoinRequest joinRequest = new JoinRequest(EMAIL, PASSWORD, NICKNAME, PHONE, MALE);
+        final JoinRequest joinRequest = new JoinRequest(EMAIL, PASSWORD, NICKNAME, PHONE, MALE, CATEGORIES);
         final String joinRequestDtoString = objectMapper.writeValueAsString(joinRequest);
         System.out.println(joinRequestDtoString);
-        given(memberService.join(any())).willReturn(memberResponseDto);
+        given(memberJoinService.join(any(), any())).willReturn(memberResponseDto);
 
         mvc.perform(post("/api/members")
                 .contentType(MediaType.APPLICATION_JSON)

@@ -1,11 +1,13 @@
 package com.mabcci.domain.member.domain;
 
+import com.mabcci.domain.membercategory.domain.MemberCategory;
 import com.mabcci.domain.model.Password;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import static com.mabcci.domain.category.domain.CategoryTest.CATEGORY;
 import static com.mabcci.domain.model.EmailTest.EMAIL;
 import static com.mabcci.domain.model.NicknameTest.NICKNAME;
 import static com.mabcci.domain.model.PasswordTest.PASSWORD;
@@ -69,6 +71,15 @@ public class MemberTest {
                 () -> assertThat(member.nickname()).isEqualTo(NICKNAME),
                 () -> assertThat(member.role()).isEqualTo(MemberRole.USER)
         );
+    }
+
+    @DisplayName("Member 인스턴스의 MemberCategory 값 추가 테스트")
+    @Test
+    void addMemberCategory_test() {
+        final MemberCategory memberCategory = MemberCategory.createMemberCategory(MEMBER, CATEGORY);
+        member.addMemberCategory(memberCategory);
+
+        assertThat(member.memberCategories().size()).isEqualTo(1);
     }
 
 }
