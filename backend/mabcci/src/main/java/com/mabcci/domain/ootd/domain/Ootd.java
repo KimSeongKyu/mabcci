@@ -1,7 +1,9 @@
 package com.mabcci.domain.ootd.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.mabcci.domain.member.domain.Member;
+import com.mabcci.domain.ootdcategory.domain.OotdCategory;
 import com.mabcci.global.common.BaseTimeEntity;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
@@ -9,6 +11,7 @@ import org.hibernate.annotations.DynamicInsert;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
+import java.util.List;
 
 @Entity
 @DynamicInsert
@@ -44,6 +47,10 @@ public class Ootd extends BaseTimeEntity {
     @Column(name = "ootd_views", nullable = false)
     @ColumnDefault("0")
     private Long views;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "ootd", cascade = CascadeType.ALL)
+    private List<OotdCategory> ootdCategories;
 
     protected Ootd() {
     }

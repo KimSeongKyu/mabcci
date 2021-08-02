@@ -19,23 +19,15 @@ public class MemberCategory {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    protected MemberCategory() {
-    }
-
     public static MemberCategory createMemberCategory(final Member member, final Category category) {
         return new MemberCategory(member, category);
     }
 
+    protected MemberCategory() {
+    }
+
     private MemberCategory(final Member member, final Category category) {
-        changeMember(member);
-        changeCategory(category);
-    }
-
-    public void changeMember(final Member member) {
         this.member = member;
-    }
-
-    public void changeCategory(final Category category) {
         this.category = category;
     }
 
