@@ -3,6 +3,7 @@ package com.mabcci.domain.ootd.domain;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.global.common.BaseTimeEntity;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
@@ -41,6 +42,7 @@ public class Ootd extends BaseTimeEntity {
 
     @PositiveOrZero
     @Column(name = "ootd_views")
+    @ColumnDefault("0L")
     private Long views;
 
     protected Ootd() {
@@ -53,10 +55,16 @@ public class Ootd extends BaseTimeEntity {
         this.bottom = ootdBuilder.bottom;
         this.shoes = ootdBuilder.shoes;
         this.accessory = ootdBuilder.accessory;
+        this.views = ootdBuilder.views;
     }
 
     public static OotdBuilder builder() {
         return new OotdBuilder();
+    }
+
+    @JsonValue
+    public Long id() {
+        return id;
     }
 
     @JsonValue
@@ -89,6 +97,11 @@ public class Ootd extends BaseTimeEntity {
         return accessory;
     }
 
+    @JsonValue
+    public Long views() {
+        return views;
+    }
+
     public static class OotdBuilder {
         private Member member;
         private String content;
@@ -96,6 +109,7 @@ public class Ootd extends BaseTimeEntity {
         private String bottom;
         private String shoes;
         private String accessory;
+        private Long views;
 
         private OotdBuilder() {
         }
@@ -127,6 +141,11 @@ public class Ootd extends BaseTimeEntity {
 
         public OotdBuilder accessory(final String accessory) {
             this.accessory = accessory;
+            return this;
+        }
+
+        public OotdBuilder views(final Long views) {
+            this.views = views;
             return this;
         }
 
