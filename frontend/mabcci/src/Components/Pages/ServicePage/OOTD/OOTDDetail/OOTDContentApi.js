@@ -1,54 +1,50 @@
-import React from 'react';
-import { useParams, useState, useEffect } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { OOTDDetailApi } from '../../../../../API/OOTDAPI/OOTDDetailApi';
 
-const OOTDContent = () => {
+const OOTDContentApi = () => {
   const { id, nickname } = useParams();
-  const InitialUser = {
+
+  const [user, setUser] = useState({
     nickname,
-    userphoto: '',
-  };
-  const IntialDetail = {
+    userphoto: '사진',
+  });
+
+  const [detail, setDetail] = useState({
     id,
-    registeredTime: '',
-    views: '',
-    picture: '',
-    likeMembers: [],
     content: '',
     top: '',
     bottom: '',
     shoes: '',
     accessory: '',
-  };
-
-  const { user, setUser } = useState(InitialUser);
-  const { detail, setDetail } = useState(IntialDetail);
+    picture: '',
+    views: '',
+    registeredTime: '',
+    likeMembers: [],
+  });
 
   useEffect(async () => {
-    const reponse = await OOTDDetailApi(id);
-    setDetail(detail, ...reponse.data);
-  }, [user, detail]);
+    const response = await OOTDDetailApi(id);
+    setDetail({ ...detail, ...response.detail });
+  }, []);
 
   return (
     <article className="detail-content">
       <section className="detail-info">
-        <div className="detail-info-photo">
-          <img src={user.userphoto} alt="UserImage" width="70" />
-        </div>
+        <div className="detail-info-photo">{user.userphoto}</div>
         <div className="detail-info-content">
-          <p>{nickname}</p>
+          <p>{user.nickname}</p>
           <p>
             {detail.registeredTime} views:{detail.views}
           </p>
         </div>
       </section>
-      <section className="detail-ootd-photo">
-        <img src={detail.picture} alt="OotdPhoto" />
-      </section>
+      <section className="detail-ootd-photo">{detail.picture}</section>
       <section className="detail-ootd">
         <div className="detail-ootd-like">
-          <AiOutlineHeart className="detail-ootd-heart" /> 23
+          <AiOutlineHeart className="detail-ootd-heart" />
+          {detail.likeMembers.length}
         </div>
         <div className="detail-ootd-content">
           <p>{detail.content}</p>
@@ -72,4 +68,4 @@ const OOTDContent = () => {
   );
 };
 
-export default OOTDContent;
+export default OOTDContentApi;
