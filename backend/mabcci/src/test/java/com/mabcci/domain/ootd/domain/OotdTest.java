@@ -3,6 +3,7 @@ package com.mabcci.domain.ootd.domain;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static com.mabcci.domain.member.domain.MemberTest.MEMBER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -12,12 +13,13 @@ class OotdTest {
     @Test
     void initialize() {
         final Ootd ootd = Ootd.builder()
-                .member(member)
+                .member(MEMBER)
                 .content("content")
                 .top("top")
                 .bottom("bottom")
                 .shoes("shoes")
-                .accessory("accessory");
+                .accessory("accessory")
+                .build();
 
         assertAll(
                 () -> assertThat(ootd).isNotNull(),
