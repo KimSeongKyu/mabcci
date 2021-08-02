@@ -30,7 +30,8 @@ public final class JoinRequest {
     private JoinRequest() {
     }
 
-    public JoinRequest(@Valid final Email email, @Valid final Password password, @Valid final Nickname nickname, @Valid final Phone phone, @Valid final Gender gender) {
+    public JoinRequest(@Valid final Email email, @Valid final Password password,
+                       @Valid final Nickname nickname, @Valid final Phone phone, @Valid final Gender gender) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;

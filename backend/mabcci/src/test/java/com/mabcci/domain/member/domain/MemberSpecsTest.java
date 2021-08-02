@@ -11,7 +11,7 @@ class MemberSpecsTest {
     @DisplayName("MemberSpecs 인스턴스 생성 여부 테스트")
     @Test
     void constructor_test() {
-        final MemberSpecs memberSpecs = memberSpecs(170, 68, 255, BodyForm.SLENDER);
+        final MemberSpecs memberSpecs = memberSpecs(170, 68, 255, BodyType.TRIANGLE);
 
         assertAll(
                 () -> assertThat(memberSpecs).isNotNull(),
@@ -31,12 +31,12 @@ class MemberSpecsTest {
     }
 
 
-    private MemberSpecs memberSpecs(int height, int weight, int footSize, BodyForm bodyForm) {
+    private MemberSpecs memberSpecs(int height, int weight, int footSize, BodyType bodyType) {
         return MemberSpecs.Build()
                 .height(height)
                 .weight(weight)
                 .footSize(footSize)
-                .form(bodyForm)
+                .form(bodyType)
                 .build();
     }
 

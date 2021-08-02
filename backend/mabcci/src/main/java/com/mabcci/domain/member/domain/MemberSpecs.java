@@ -19,8 +19,8 @@ public class MemberSpecs {
     private int footSize;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "member_specs_form")
-    private BodyForm form;
+    @Column(name = "member_specs_type")
+    private BodyType bodyType;
 
     public int getHeight() {
         return height;
@@ -34,8 +34,8 @@ public class MemberSpecs {
         return footSize;
     }
 
-    public BodyForm getForm() {
-        return form;
+    public BodyType getForm() {
+        return bodyType;
     }
 
     protected MemberSpecs() {
@@ -45,7 +45,7 @@ public class MemberSpecs {
         this.height = memberSpecsBuilder.height;
         this.weight = memberSpecsBuilder.weight;
         this.footSize = memberSpecsBuilder.footSize;
-        this.form = memberSpecsBuilder.form;
+        this.bodyType = memberSpecsBuilder.bodyType;
     }
 
     public static MemberSpecsBuilder Build() {
@@ -56,7 +56,7 @@ public class MemberSpecs {
         private int height;
         private int weight;
         private int footSize;
-        private BodyForm form;
+        private BodyType bodyType;
 
         public MemberSpecsBuilder height(final int height) {
             this.height = height;
@@ -73,8 +73,8 @@ public class MemberSpecs {
             return this;
         }
 
-        public MemberSpecsBuilder form(final BodyForm form) {
-            this.form = form;
+        public MemberSpecsBuilder form(final BodyType bodyType) {
+            this.bodyType = bodyType;
             return this;
         }
 
