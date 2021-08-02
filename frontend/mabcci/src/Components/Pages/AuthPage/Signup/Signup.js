@@ -1,8 +1,8 @@
 import React from 'react';
 import './Signup.css';
 import { useDispatch } from 'react-redux';
-import SignupHeader from './SignupHeader';
 import SignupForm from './SignupForm';
+import SignupHeader from './SignupHeader';
 import { LoginSuccess, Logout } from '../../../../Redux/Actions/LoginAction';
 
 function Signup() {

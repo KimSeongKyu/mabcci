@@ -3,6 +3,7 @@
   max-width: 400px;
   min-height: 100%;
   margin: 0 auto;
+  margin-top: 10px;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -18,7 +19,7 @@
   margin-left: 20px;
 }
 
-.input-list {
+.signup-input-list {
   list-style: none;
   margin-top: 50px;
   margin-bottom: 40px;
@@ -28,7 +29,7 @@
   flex-direction: column;
 }
 
-.warnning-email {
+.signup-warnning-email {
   color: red;
   font-size: small;
   position: absolute;
@@ -36,7 +37,7 @@
   margin-bottom: 49%;
 }
 
-.warnning-phone {
+.signup-warnning-phone {
   color: red;
   font-size: small;
   position: absolute;
@@ -44,37 +45,37 @@
   margin-left: 35%;
 }
 
-.warnning-password {
+.signup-warnning-password {
   color: red;
   font-size: small;
   position: absolute;
   margin-top: 70%;
-  margin-left: 41%;
+  margin-left: 39%;
 }
 
-.warnning-password-length {
+.signup-warnning-password-length {
   color: red;
   font-size: small;
   position: absolute;
   margin-top: 62%;
-  margin-left: 35%;
+  margin-left: 20%;
 }
 
-.input-list input {
+.signup-input-list input {
   margin-bottom: 30px;
   width: 100%;
 }
 
-.phone-number {
+.signup-phone-number {
   display: flex;
   justify-content: space-between;
 }
 
-.phone-number div {
+.signup-phone-number div {
   color: grey;
 }
 
-.phone-number input {
+.signup-phone-number input {
   width: 20%;
   border: 1px solid black;
   border-radius: 5px;
@@ -84,17 +85,17 @@
   color: grey;
 }
 
-.select-man-woman {
+.signup-select-man-woman {
   display: flex;
   justify-content: center;
   margin-bottom: 50px;
 }
 
-.select-man-woman button {
+.signup-select-man-woman button {
   margin: 30px;
 }
 
-.btn-sex-select {
+.signup-btn-sex-select {
   max-width: 150px;
   width: 20vw;
   height: 25px;
@@ -106,21 +107,21 @@
   color: white;
 }
 
-.style-box {
+.signup-style-box {
   margin-top: 50px;
   margin-bottom: 50px;
 }
 
-.select-style {
+.signup-select-style {
   display: flex;
   justify-content: space-around;
 }
 
-.select-style button {
+.signup-select-style button {
   margin: 5px;
 }
 
-.btn-select-style {
+.signup-btn-select-style {
   width: 60px;
   height: 60px;
   border-radius: 30px;
@@ -131,7 +132,7 @@
   transition: all 0.1s ease-in-out;
 }
 
-.btn-select-style img {
+.signup-btn-select-style img {
   width: 70px;
   height: 50px;
   position: absolute;
@@ -141,7 +142,7 @@
   display: block;
 }
 
-.btn-select-style-active {
+.signup-btn-select-style-active {
   width: 60px;
   height: 60px;
   border-radius: 30px;
@@ -152,7 +153,7 @@
   transition: all 0.1s ease-in-out;
 }
 
-.btn-select-style-active img {
+.signup-btn-select-style-active img {
   width: 70px;
   height: 50px;
   position: absolute;
@@ -162,29 +163,29 @@
   display: block;
 }
 
-.btn-select-style p {
+.signup-btn-select-style p {
   margin-bottom: 80px;
   pointer-events: none;
 }
 
-.btn-select-style:hover {
+.signup-btn-select-style:hover {
   background-color: var(--main-color-1);
   color: white;
 }
 
-.btn-select-style:active {
+.signup-btn-select-style:active {
   padding-left: 3px;
   padding-top: 3px;
   box-shadow: none;
 }
 
-.btn-select-style-active:active {
+.signup-btn-select-style-active:active {
   padding-left: 3px;
   padding-top: 3px;
   box-shadow: none;
 }
 
-.btn-signup-nonactive {
+.signup-btn-signup-nonactive {
   max-width: 400px;
   max-height: 50px;
   width: 60vw;
@@ -196,22 +197,22 @@
   pointer-events: none;
 }
 
-.choice-gender {
+.signup-choice-gender {
   pointer-events: none;
 }
 
 /* 반응형 */
 
 @media screen and (max-width: 576px) {
-  .input-list {
+  .signup-input-list {
     width: 350px;
     margin: auto;
     margin-bottom: 40px;
   }
-  .warnning-password-length {
+  .signup-warnning-password-length {
     margin-top: 70%;
   }
-  .warnning-password {
+  .signup-warnning-password {
     margin-top: 80%;
   }
 }

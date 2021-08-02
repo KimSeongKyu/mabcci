@@ -3,14 +3,15 @@
   max-width: 768px;
   min-height: 100%;
   margin: 0 auto;
-  background-color: var(--main-color-4);
+  background-color: white;
   display: block;
   text-align: center;
+  margin-bottom: 100px;
 }
 
-.swiper-container {
-  width: 80%;
-  max-height: 50%;
+.OOTDWrite-container h5 {
+  margin-top: 30px;
+  margin-bottom: 15px;
 }
 
 .swiper-zoom-container img {
@@ -21,4 +22,51 @@
 
 .swiper-slide {
   overflow: hidden;
+}
+
+.OOTDWrite-input-file {
+  margin-top: 10px;
+  padding: 6px 15px;
+  background-color: var(--main-color-2);
+  border-radius: 20px;
+  color: black;
+  cursor: pointer;
+}
+
+.OOTDWrite-input-file:hover {
+  background-color: var(--main-color-1);
+}
+
+.OOTDWrite-input-file:active {
+  padding-left: 3px;
+  padding-top: 3px;
+  box-shadow: none;
+}
+
+.OOTDWrite-input-box {
+  width: 60vh;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+.OOTDWrite-hash-input {
+  width: 100%;
+}
+
+.OOTDWrite-input-box textarea {
+  width: 100%;
+}
+
+.OOTDWrite-input-brand {
+  display: flex;
+  justify-content: space-between;
+}
+
+.OOTDWrite-input-brand svg {
+  margin-top: 5px;
+}
+
+.OOTDWrite-input-brand p {
+  margin-right: 30px;
+  font-weight: 800;
 }
