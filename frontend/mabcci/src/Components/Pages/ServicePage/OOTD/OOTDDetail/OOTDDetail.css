@@ -1,7 +1,6 @@
 .detail-header {
   text-align: left;
-  display: flex;
-  flex-direction: column;
+  margin-left: 10px;
 }
 
 .detail-title > h3 {
@@ -12,8 +11,9 @@
 .detail-info {
   display: flex;
   flex-direction: row;
+  max-width: 70%;
   margin-top: 30px;
-  margin-left: 20px;
+  margin-bottom: 20px;
 }
 
 .detail-info-photo {
