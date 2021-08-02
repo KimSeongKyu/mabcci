@@ -41,6 +41,17 @@ class OotdTest {
         );
     }
 
+    @DisplayName("Ootd 인스턴스 디폴트 생성자를 이용한 생성 여부 테스트")
+    @Test
+    void default_constructor_test() {
+        final Ootd ootd = new Ootd();
+
+        assertAll(
+                () -> assertThat(ootd).isNotNull(),
+                () -> assertThat(ootd).isExactlyInstanceOf(Ootd.class)
+        );
+    }
+
     @DisplayName("Ootd 인스턴스의 getter 메서드들 테스트")
     @Test
     void getter_test() {
