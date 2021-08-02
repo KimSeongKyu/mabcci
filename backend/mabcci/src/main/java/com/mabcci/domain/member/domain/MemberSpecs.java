@@ -48,6 +48,10 @@ public class MemberSpecs {
         this.bodyType = memberSpecsBuilder.bodyType;
     }
 
+    public static MemberSpecs noContent() {
+        return new MemberSpecs();
+    }
+
     public static MemberSpecsBuilder Build() {
         return new MemberSpecsBuilder();
     }

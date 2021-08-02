@@ -70,7 +70,7 @@ public class Member extends BaseTimeEntity {
 
     public void addMemberCategory(final MemberCategory memberCategory) {
         memberCategories.add(memberCategory);
-        memberCategory.setMember(this);
+        memberCategory.addMember(this);
     }
 
     public static MemberBuilder builder() {

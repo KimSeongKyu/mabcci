@@ -1,6 +1,6 @@
 package com.mabcci.domain.member.ui;
 
-import com.mabcci.domain.member.application.MemberJoiningService;
+import com.mabcci.domain.member.application.MemberJoinService;
 import com.mabcci.domain.member.application.MemberService;
 import com.mabcci.domain.member.dto.JoinRequest;
 import com.mabcci.domain.member.dto.MemberDeleteRequestDto;
@@ -17,16 +17,16 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
-    private final MemberJoiningService memberJoiningService;
+    private final MemberJoinService memberJoinService;
 
-    public MemberController(final MemberService memberService, final MemberJoiningService memberJoiningService) {
+    public MemberController(final MemberService memberService, final MemberJoinService memberJoinService) {
         this.memberService = memberService;
-        this.memberJoiningService = memberJoiningService;
+        this.memberJoinService = memberJoinService;
     }
 
     @PostMapping(value = "/api/members")
     public ResponseEntity<?> join(@Valid @RequestBody final JoinRequest joinRequest) {
-        final MemberResponseDto joinedResponseDto = memberJoiningService.join(joinRequest.entity());
+        final MemberResponseDto joinedResponseDto = memberJoinService.join(joinRequest.member(), joinRequest.getCategories());
         return ResponseEntity.ok().body(joinedResponseDto);
     }
 

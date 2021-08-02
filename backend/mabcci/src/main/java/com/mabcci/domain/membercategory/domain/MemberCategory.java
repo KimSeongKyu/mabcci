@@ -4,7 +4,6 @@ import com.mabcci.domain.category.domain.Category;
 import com.mabcci.domain.member.domain.Member;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 public class MemberCategory {
@@ -28,15 +27,19 @@ public class MemberCategory {
     }
 
     private MemberCategory(final Member member, final Category category) {
+        changeMember(member);
+        changeCategory(category);
+    }
+
+    public void changeMember(final Member member) {
         this.member = member;
+    }
+
+    public void changeCategory(final Category category) {
         this.category = category;
     }
 
-    public void setMember(final Member member) {
+    public void addMember(final Member member) {
         this.member = member;
-    }
-
-    public Collection<Object> memberCategory() {
-        return null;
     }
 }
