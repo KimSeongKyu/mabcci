@@ -1,5 +1,6 @@
 package com.mabcci.domain.ootd.domain;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.global.common.BaseTimeEntity;
 import org.hibernate.annotations.DynamicInsert;
@@ -57,6 +58,36 @@ public class Ootd extends BaseTimeEntity {
 
     public static OotdBuilder builder() {
         return new OotdBuilder();
+    }
+
+    @JsonValue
+    public Member member() {
+        return member;
+    }
+
+    @JsonValue
+    public String content() {
+        return content;
+    }
+
+    @JsonValue
+    public String top() {
+        return top;
+    }
+
+    @JsonValue
+    public String bottom() {
+        return bottom;
+    }
+
+    @JsonValue
+    public String shoes() {
+        return shoes;
+    }
+
+    @JsonValue
+    public String accessory() {
+        return accessory;
     }
 
     public static class OotdBuilder {
