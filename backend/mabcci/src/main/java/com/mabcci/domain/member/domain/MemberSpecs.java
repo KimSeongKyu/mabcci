@@ -23,6 +23,10 @@ public class MemberSpecs {
     @Column(name = "member_specs_type")
     private BodyType bodyType;
 
+    public static MemberSpecs noContent() {
+        return new MemberSpecs();
+    }
+
     public int height() {
         return height;
     }
@@ -47,10 +51,6 @@ public class MemberSpecs {
         this.weight = memberSpecsBuilder.weight;
         this.footSize = memberSpecsBuilder.footSize;
         this.bodyType = memberSpecsBuilder.bodyType;
-    }
-
-    public static MemberSpecs noContent() {
-        return new MemberSpecs();
     }
 
     public static MemberSpecsBuilder Build() {

@@ -6,11 +6,18 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-class MemberSpecsTest {
+public class MemberSpecsTest {
 
-    private static final int HEIGHT = 170;
-    private static final int WEIGHT = 68;
-    private static final int FOOT_SIZE = 255;
+    public static final int HEIGHT = 170;
+    public static final int WEIGHT = 68;
+    public static final int FOOT_SIZE = 255;
+    public static final BodyType BODY_TYPE = BodyType.TRIANGLE;
+    public static final MemberSpecs MEMBER_SPECS = MemberSpecs.Build()
+            .height(HEIGHT)
+            .weight(WEIGHT)
+            .footSize(FOOT_SIZE)
+            .form(BODY_TYPE)
+            .build();
 
     @DisplayName("MemberSpecs 인스턴스 생성 여부 테스트")
     @Test

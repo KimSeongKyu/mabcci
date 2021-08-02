@@ -65,6 +65,7 @@ public class Member extends BaseTimeEntity {
         this.phone = memberBuilder.phone;
         this.gender = memberBuilder.gender;
         this.role = memberBuilder.role;
+        this.memberSpecs = memberBuilder.memberSpecs;
     }
 
     public void addMemberCategory(final MemberCategory memberCategory) {
@@ -96,14 +97,18 @@ public class Member extends BaseTimeEntity {
         return email;
     }
 
-    public Member update(final Nickname nickName, final Gender gender) {
-        this.nickname = nickName;
-        this.gender = gender;
-        return this;
+    public MemberSpecs memberSpecs() {
+        return memberSpecs;
     }
 
     public void updateMemberSpecs(final MemberSpecs memberSpecs) {
         this.memberSpecs = memberSpecs;
+    }
+
+    public Member update(final Nickname nickName, final Gender gender) {
+        this.nickname = nickName;
+        this.gender = gender;
+        return this;
     }
 
     public Gender gender() {
@@ -122,6 +127,7 @@ public class Member extends BaseTimeEntity {
         private Phone phone;
         private Gender gender;
         private MemberRole role;
+        private MemberSpecs memberSpecs;
 
         private MemberBuilder() {
         }
@@ -156,9 +162,15 @@ public class Member extends BaseTimeEntity {
             return this;
         }
 
+        public MemberBuilder memberSpecs(final MemberSpecs memberSpecs) {
+            this.memberSpecs = memberSpecs;
+            return this;
+        }
+
         public Member build() {
             return new Member(this);
         }
+
     }
 
 }

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import static com.mabcci.domain.category.domain.CategoryTest.CATEGORY;
+import static com.mabcci.domain.member.domain.MemberSpecsTest.MEMBER_SPECS;
 import static com.mabcci.domain.model.EmailTest.EMAIL;
 import static com.mabcci.domain.model.NicknameTest.NICKNAME;
 import static com.mabcci.domain.model.PasswordTest.PASSWORD;
@@ -24,6 +25,7 @@ public class MemberTest {
             .phone(PHONE)
             .gender(Gender.MALE)
             .role(MemberRole.USER)
+            .memberSpecs(MEMBER_SPECS)
             .build();
 
     private Member member;
