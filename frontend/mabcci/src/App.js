@@ -16,6 +16,7 @@ import MyPageMain from './Components/Pages/ServicePage/MyPage/MyPageMain/MyPageM
 import OOTDMain from './Components/Pages/ServicePage/OOTD/OOTDMain/OOTDMain';
 import OOTDDetail from './Components/Pages/ServicePage/OOTD/OOTDDetail/OOTDDetail';
 import OOTDWrite from './Components/Pages/ServicePage/OOTD/OOTDWrite/OOTDWrite';
+import OOTDWrite2 from './Components/Pages/ServicePage/OOTD/OOTDWrite/OOTDWrite2';
 import StylingMain from './Components/Pages/ServicePage/Styling/StylingMain/StylingMain';
 // Pages - AuthPage
 import Login from './Components/Pages/AuthPage/Login/Login';

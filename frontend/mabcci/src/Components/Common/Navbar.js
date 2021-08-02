@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 import logo from '../../Asset/Images/logo.png';
 
 function Nav() {
-  // 로그인 여부 redux까지 연결 되어야함
   const [isLoggedin, setisLoggedin] = useState(false);
   useEffect(() => {
     const localLoinToken = localStorage.getItem('accessToken');
@@ -24,32 +23,30 @@ function Nav() {
 
   const loginRedux = useSelector(state => state.LoginReducer);
 
-  // popover 띄우기
   const [popover, setpopover] = useState(false);
 
-  // mypage icon제외 클릭시 popover 사라지게 하기
-  const mypage = document.querySelector('.mypage');
-  document.addEventListener('click', function (event) {
-    console.log(mypage);
-    if (event.target.closest('.mypage')) return;
-    setpopover(false);
-  });
+  const openPopover = () => {
+    setpopover(!popover);
+  };
 
-  // popover 띄우는 함수
-  function openPopover() {
-    setpopover(true);
-  }
+  const [nowMenu, setNowMenu] = useState('');
+
+  const selectMenu = e => {
+    setNowMenu(e.target.name);
+    console.log(e.target);
+    console.log(nowMenu);
+  };
 
   return (
     <div>
-      <div className="web-navbar">
+      <div className="navbar-web">
         {loginRedux.isLoggedin}
-        <div className="logo-bar">
+        <div className="navbar-logo-bar">
           <Link to="home">
-            <img className="logo-image" src={logo} alt="로고" />
+            <img className="navbar-logo-image" src={logo} alt="로고" />
           </Link>
           {isLoggedin ? (
-            <div className="web-navbar-icon">
+            <div className="navbar-web-icon">
               <MdAccessAlarm />
               <MdAccountCircle className="mypage" onClick={openPopover} />
             </div>
@@ -60,7 +57,7 @@ function Nav() {
           )}
 
           {popover ? (
-            <div className="popover-box">
+            <div className="navbar-popover-box">
               <p>로그아웃</p>
               <Link to="mypage">
                 <p>마이페이지</p>
@@ -68,45 +65,74 @@ function Nav() {
             </div>
           ) : null}
         </div>
-        <div className="menu-bar">
-          <div className="menu-link">
-            <Link to="home" className="btn-link">
+        <div className="navbar-menu-bar">
+          <div className="navbar-menu-link">
+            <Link
+              to="home"
+              onClick={selectMenu}
+              name="home"
+              id={nowMenu === 'home' ? 'navbar-menu-link-selected' : null}
+            >
               Home
             </Link>
-            <Link to="OOTD" className="btn-link">
+            <Link
+              to="OOTD"
+              onClick={selectMenu}
+              name="OOTD"
+              id={nowMenu === 'OOTD' ? 'navbar-menu-link-selected' : null}
+            >
               OOTD
             </Link>
-            <Link to="styling" className="btn-link">
+            <Link
+              to="styling"
+              onClick={selectMenu}
+              name="Styling"
+              id={nowMenu === 'Styling' ? 'navbar-menu-link-selected' : null}
+            >
               Styling
             </Link>
-            <Link to="Community" className="btn-link">
+            <Link
+              to="Community"
+              onClick={selectMenu}
+              name="Community"
+              id={nowMenu === 'Community' ? 'navbar-menu-link-selected' : null}
+            >
               Community
             </Link>
           </div>
         </div>
       </div>
-      <div className="mobile-navbar">
-        <div>
-          <Link to="home" className="btn-link">
+
+      <div className="navbar-mobile">
+        <Link to="home">
+          <div className="navbar-mobile-btn">
             <AiOutlineHome />
-            <p>홈</p>
-          </Link>
-        </div>
-        <Link to="OOTD" className="btn-link">
-          <BsImages />
-          <p>OOTD</p>
+            <p name="home">HOME</p>
+          </div>
         </Link>
-        <Link to="styling" className="btn-link">
-          <IoShirtOutline />
-          <p>스타일링</p>
+        <Link to="OOTD">
+          <div className="navbar-mobile-btn">
+            <BsImages />
+            <p>OOTD</p>
+          </div>
         </Link>
-        <Link to="community" className="btn-link">
-          <FaRegComments />
-          <p>커뮤니티</p>
+        <Link to="styling">
+          <div className="navbar-mobile-btn">
+            <IoShirtOutline />
+            <p>스타일링</p>
+          </div>
         </Link>
-        <Link to="mypage" className="btn-link">
-          <FiUser />
-          <p>내정보</p>
+        <Link to="community">
+          <div className="navbar-mobile-btn">
+            <FaRegComments />
+            <p>커뮤니티</p>
+          </div>
+        </Link>
+        <Link to="mypage">
+          <div className="navbar-mobile-btn">
+            <FiUser />
+            <p>내 정보</p>
+          </div>
         </Link>
       </div>
     </div>
