@@ -32,4 +32,17 @@ class OotdTest {
                 () -> assertThat(ootd).isExactlyInstanceOf(Ootd.class)
         );
     }
+
+    @DisplayName("Ootd 인스턴스의 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        assertAll(
+                () -> assertThat(ootd.member()).isEqualTo(MEMBER),
+                () -> assertThat(ootd.content()).isEqualTo("content"),
+                () -> assertThat(ootd.top()).isEqualTo("top"),
+                () -> assertThat(ootd.bottom()).isEqualTo("bottom"),
+                () -> assertThat(ootd.shoes()).isEqualTo("shoes"),
+                () -> assertThat(ootd.accessory()).isEqualTo("accessory")
+        );
+    }
 }
