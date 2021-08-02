@@ -65,7 +65,7 @@ function App() {
 
         <Route exact path="/OOTD" component={OOTDMain} />
 
-        <Route exact path="/OOTDDetail" component={OOTDDetail} />
+        <Route exact path="/OOTDDetail/:id/:nickname" component={OOTDDetail} />
 
         <Route exact path="/OOTDWrite" componet={OOTDWrite} />
 
