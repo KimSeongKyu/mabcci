@@ -79,7 +79,7 @@ public class MemberTest {
         final MemberCategory memberCategory = MemberCategory.createMemberCategory(MEMBER, CATEGORY);
         member.addMemberCategory(memberCategory);
 
-        assertThat(memberCategory.memberCategory().size()).isEqualTo(1);
+        assertThat(member.memberCategories().size()).isEqualTo(1);
     }
 
 }

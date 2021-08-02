@@ -9,8 +9,7 @@ import com.mabcci.domain.model.Phone;
 import com.mabcci.global.common.BaseTimeEntity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class Member extends BaseTimeEntity {
@@ -54,7 +53,7 @@ public class Member extends BaseTimeEntity {
 
     @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<MemberCategory> memberCategories = new ArrayList<>();
+    private Set<MemberCategory> memberCategories = new HashSet<>();
 
     protected Member() {
     }
@@ -110,6 +109,10 @@ public class Member extends BaseTimeEntity {
 
     public Gender gender() {
         return gender;
+    }
+
+    public Set<MemberCategory> memberCategories() {
+        return memberCategories;
     }
 
     public static class MemberBuilder {

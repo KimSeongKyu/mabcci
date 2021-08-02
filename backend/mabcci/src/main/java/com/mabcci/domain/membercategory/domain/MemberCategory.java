@@ -4,6 +4,7 @@ import com.mabcci.domain.category.domain.Category;
 import com.mabcci.domain.member.domain.Member;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 public class MemberCategory {
@@ -33,5 +34,9 @@ public class MemberCategory {
 
     public void setMember(final Member member) {
         this.member = member;
+    }
+
+    public Collection<Object> memberCategory() {
+        return null;
     }
 }
