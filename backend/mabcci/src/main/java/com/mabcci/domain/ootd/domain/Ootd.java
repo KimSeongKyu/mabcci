@@ -39,9 +39,8 @@ public class Ootd extends BaseTimeEntity {
     @Column(name = "ootd_accessory")
     private String accessory;
 
-    @NotNull
     @PositiveOrZero
-    @Column(name = "ootd_views", nullable = false)
+    @Column(name = "ootd_views")
     private Long views;
 
     protected Ootd() {
