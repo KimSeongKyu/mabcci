@@ -98,7 +98,7 @@ function OOTDWrite() {
       <div className="OOTDWrite-input-box">
         <div className="OOTDWrite-input-brand">
           <IoShirt />
-          <p>top</p>
+          <p>Top</p>
           <input type="text" placeholder="내용입력" />
         </div>
         <div className="OOTDWrite-input-brand">
