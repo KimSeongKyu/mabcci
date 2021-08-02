@@ -59,7 +59,6 @@ public class Member extends BaseTimeEntity {
     }
 
     protected Member(final MemberBuilder memberBuilder) {
-        this.id = memberBuilder.id;
         this.email = memberBuilder.email;
         this.nickname = memberBuilder.nickname;
         this.password = memberBuilder.password;
@@ -117,7 +116,6 @@ public class Member extends BaseTimeEntity {
 
     public static class MemberBuilder {
 
-        private Long id;
         private Email email;
         private Password password;
         private Nickname nickname;
@@ -126,11 +124,6 @@ public class Member extends BaseTimeEntity {
         private MemberRole role;
 
         private MemberBuilder() {
-        }
-
-        public MemberBuilder id(final Long id) {
-            this.id = id;
-            return this;
         }
 
         public MemberBuilder email(final Email email) {

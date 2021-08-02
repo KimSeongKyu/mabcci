@@ -8,10 +8,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MemberSpecsTest {
 
+    private static final int HEIGHT = 170;
+    private static final int WEIGHT = 68;
+    private static final int FOOT_SIZE = 255;
+
     @DisplayName("MemberSpecs 인스턴스 생성 여부 테스트")
     @Test
     void constructor_test() {
-        final MemberSpecs memberSpecs = memberSpecs(170, 68, 255, BodyType.TRIANGLE);
+        final MemberSpecs memberSpecs = memberSpecs(HEIGHT, WEIGHT, FOOT_SIZE, BodyType.TRIANGLE);
 
         assertAll(
                 () -> assertThat(memberSpecs).isNotNull(),
@@ -27,6 +31,19 @@ class MemberSpecsTest {
         assertAll(
                 () -> assertThat(memberSpecs).isNotNull(),
                 () -> assertThat(memberSpecs).isExactlyInstanceOf(MemberSpecs.class)
+        );
+    }
+
+    @DisplayName("MemberSpecs 인스턴스 getter 기능 테스트")
+    @Test
+    void getter_test() {
+        final MemberSpecs memberSpecs = memberSpecs(HEIGHT, WEIGHT, FOOT_SIZE, BodyType.TRIANGLE);
+
+        assertAll(
+                () -> assertThat(memberSpecs.height()).isEqualTo(HEIGHT),
+                () -> assertThat(memberSpecs.weight()).isEqualTo(WEIGHT),
+                () -> assertThat(memberSpecs.footSize()).isEqualTo(FOOT_SIZE),
+                () -> assertThat(memberSpecs.form()).isEqualTo(BodyType.TRIANGLE)
         );
     }
 

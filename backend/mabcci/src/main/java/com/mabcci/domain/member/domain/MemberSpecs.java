@@ -5,7 +5,8 @@ import javax.persistence.*;
 @Entity
 public class MemberSpecs {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_specs_id")
     private Long id;
 
@@ -22,19 +23,19 @@ public class MemberSpecs {
     @Column(name = "member_specs_type")
     private BodyType bodyType;
 
-    public int getHeight() {
+    public int height() {
         return height;
     }
 
-    public int getWeight() {
+    public int weight() {
         return weight;
     }
 
-    public int getFootSize() {
+    public int footSize() {
         return footSize;
     }
 
-    public BodyType getForm() {
+    public BodyType form() {
         return bodyType;
     }
 
@@ -61,6 +62,9 @@ public class MemberSpecs {
         private int weight;
         private int footSize;
         private BodyType bodyType;
+
+        private MemberSpecsBuilder() {
+        }
 
         public MemberSpecsBuilder height(final int height) {
             this.height = height;
