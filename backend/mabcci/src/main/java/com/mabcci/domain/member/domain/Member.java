@@ -1,5 +1,7 @@
 package com.mabcci.domain.member.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mabcci.domain.membercategory.domain.MemberCategory;
 import com.mabcci.domain.model.Email;
 import com.mabcci.domain.model.Nickname;
 import com.mabcci.domain.model.Password;
@@ -7,6 +9,8 @@ import com.mabcci.domain.model.Phone;
 import com.mabcci.global.common.BaseTimeEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Member extends BaseTimeEntity {
@@ -48,9 +52,9 @@ public class Member extends BaseTimeEntity {
     @JoinColumn(name = "member_specs_id")
     private MemberSpecs memberSpecs;
 
-    public static MemberBuilder builder() {
-        return new MemberBuilder();
-    }
+    @JsonIgnore
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<MemberCategory> memberCategories = new ArrayList<>();
 
     protected Member() {
     }
@@ -63,6 +67,15 @@ public class Member extends BaseTimeEntity {
         this.phone = memberBuilder.phone;
         this.gender = memberBuilder.gender;
         this.role = memberBuilder.role;
+    }
+
+    public void addMemberCategory(final MemberCategory memberCategory) {
+        memberCategories.add(memberCategory);
+        memberCategory.setMember(this);
+    }
+
+    public static MemberBuilder builder() {
+        return new MemberBuilder();
     }
 
     public boolean checkPassword(final Password otherPassword) {
@@ -100,6 +113,7 @@ public class Member extends BaseTimeEntity {
     }
 
     public static class MemberBuilder {
+
         private Long id;
         private Email email;
         private Password password;

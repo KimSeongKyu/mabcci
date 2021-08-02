@@ -31,4 +31,7 @@ public class MemberCategory {
         this.category = category;
     }
 
+    public void setMember(final Member member) {
+        this.member = member;
+    }
 }
