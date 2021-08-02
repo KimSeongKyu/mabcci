@@ -84,6 +84,8 @@ function SignupForm() {
     } else {
       console.log(response.status);
     }
+
+    alert('회원가입 실패');
   };
 
   const isEmail = () => {

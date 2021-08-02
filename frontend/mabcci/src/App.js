@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 // Router
-import { Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
 // Redux
 import { useSelector } from 'react-redux';
@@ -25,6 +25,8 @@ import Signup from './Components/Pages/AuthPage/Signup/Signup';
 import Description from './Components/Pages/InitialPage/Description/Description';
 import Intro from './Components/Pages/InitialPage/Intro/Intro';
 
+import { PrivateRoute, PublicRoute } from './CustomRouter';
+
 function App() {
   // 로그인 여부 redux까지 연결 되어야함
   const [isLoggedin, setisLoggedin] = useState(false);
@@ -44,53 +46,31 @@ function App() {
     <div className="App">
       {isLoggedin ? <Nav /> : null}
 
-      <Route exact path="/intro">
-        <Intro />
-      </Route>
+      <Switch>
+        <PublicRoute exact path="/intro" component={Intro} />
 
-      <Route exact path="/home">
-        <Home />
-      </Route>
+        <PublicRoute exact path="/login" component={Login} />
 
-      <Route exact path="/community">
-        <CommunityMain />
-      </Route>
+        <PublicRoute exact path="/signup" component={Signup} />
 
-      <Route exact path="/mypage">
-        <MyPageMain />
-      </Route>
+        <PublicRoute exact path="/desc" component={Description} />
 
-      <Route exact path="/OOTD">
-        <OOTDMain />
-      </Route>
+        <PrivateRoute exact path="/" component={Home} />
 
-      <Route exact path="/OOTDDetail">
-        <OOTDDetail />
-      </Route>
+        <PrivateRoute exact path="/home" component={Home} />
 
-      <Route exact path="/OOTDWrite">
-        <OOTDWrite />
-      </Route>
+        <PrivateRoute exact path="/community" component={CommunityMain} />
 
-      <Route exact path="/OOTDWrite2">
-        <OOTDWrite2 />
-      </Route>
+        <PrivateRoute exact path="/mypage" component={MyPageMain} />
 
-      <Route exact path="/styling">
-        <StylingMain />
-      </Route>
+        <PrivateRoute exact path="/OOTD" component={OOTDMain} />
 
-      <Route exact path="/login">
-        <Login />
-      </Route>
+        <PrivateRoute exact path="/OOTDDetail" component={OOTDDetail} />
 
-      <Route exact path="/signup">
-        <Signup />
-      </Route>
+        <PrivateRoute exact path="/OOTDWrite" componet={OOTDWrite} />
 
-      <Route exact path="/desc">
-        <Description />
-      </Route>
+        <PrivateRoute exact path="/styling" component={StylingMain} />
+      </Switch>
     </div>
   );
 }
