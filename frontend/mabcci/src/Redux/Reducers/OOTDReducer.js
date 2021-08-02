@@ -134,10 +134,7 @@ const initialState = {
 const OotdReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case OOTDAll: {
-      // 복사후 받아온 ootd 피드들을 push
-      const feed = [...state];
-      feed.push(...payload);
-      return feed;
+      return [...state, ...payload];
     }
     default:
       return state;
