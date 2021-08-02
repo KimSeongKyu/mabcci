@@ -21,28 +21,35 @@ import InputTags from './InputTags';
 SwiperCore.use([Zoom, Navigation, Pagination]);
 
 function OOTDWrite() {
-  const [myImage, setMyImage] = useState(['']);
+  const [myImage, setMyImage] = useState([]);
 
   const addImage = e => {
-    const nowSelectImage = e.target.value;
-    setMyImage([...myImage, nowSelectImage]);
-    e.target.value = '';
+    const nowSelectImage = e.target.files[0];
+    const nowImageUrl = URL.createObjectURL(nowSelectImage);
+    setMyImage([...myImage, nowImageUrl]);
+  };
+
+  const removeImage = e => {
+    const nowIdx = e.target.value;
+    const copyMyImage = [...myImage];
+    copyMyImage.splice(nowIdx, 1);
+    setMyImage(copyMyImage);
   };
 
   const [tags, setTags] = useState([]);
 
   const getTags = tag => {
-    console.log(tag, '개별');
-    if (tag.length > 0) {
-      setTags(tag.slice(0, tag.length - 1));
-    }
+    setTags(tag);
   };
 
   return (
     <div className="OOTDWrite-container">
       <h5>OOTD Write</h5>
 
-      <div className="Photo-container">
+      <div>
+        {myImage.length === 0 ? (
+          <div className="OOTDWrite-initial-image">No images yet</div>
+        ) : null}
         <Swiper
           style={{
             '--swiper-navigation-color': '#f9a77c',
@@ -55,11 +62,19 @@ function OOTDWrite() {
           }}
           className="mySwiper"
         >
-          {myImage.map(function imageList(image) {
+          {myImage.map(function imageList(image, i) {
             return (
               <SwiperSlide>
-                <div className="swiper-zoom-container">
+                <div className="swiper-zoom-container" key={image}>
                   <img src={image} alt="사진을 추가해주세요" />
+                  <button
+                    type="submit"
+                    onClick={removeImage}
+                    value={i}
+                    className="btn-util OOTDWrite-btn-remove"
+                  >
+                    X
+                  </button>
                 </div>
               </SwiperSlide>
             );
@@ -73,7 +88,7 @@ function OOTDWrite() {
           onChange={addImage}
         >
           <GrGallery />
-          + Photo
+          Add your photo
           <input
             type="file"
             id="input-file"
@@ -106,6 +121,7 @@ function OOTDWrite() {
         </div>
       </div>
       <div className="OOTDWrite-input-box">
+        <p>Tag</p>
         <InputTags
           onTag={getTags}
           tagColor="#48c774"
@@ -114,7 +130,8 @@ function OOTDWrite() {
         />
       </div>
       <div className="OOTDWrite-input-box">
-        <textarea name="" id="" cols="30" rows="5" placeholder="Content" />
+        <p>Content</p>
+        <textarea name="" id="" cols="30" rows="5" />
       </div>
       <button type="submit" className="OOTDWrite-btn btn-rounded-sm">
         Submit

@@ -11,13 +11,44 @@
 
 .OOTDWrite-container h5 {
   margin-top: 30px;
-  margin-bottom: 15px;
+  margin-bottom: 45px;
+}
+
+.OOTDWrite-initial-image {
+  width: 60%;
+  height: 40vh;
+  margin: auto;
+  border: 1px solid lightgrey;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: lightgrey;
+}
+
+.swiper-zoom-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .swiper-zoom-container img {
   background-size: hover;
-  width: 70vh;
+  width: 60%;
   height: 70vh;
+  position: relative;
+}
+
+.OOTDWrite-btn-remove {
+  position: absolute;
+  color: lightgray;
+  width: 20px;
+  height: 20px;
+  font-size: xx-small;
+  background-color: var(--main-color-2);
+  font-weight: 800;
+  margin-bottom: 50%;
+  margin-left: 50%;
 }
 
 .swiper-slide {
@@ -31,6 +62,7 @@
   border-radius: 20px;
   color: black;
   cursor: pointer;
+  margin-bottom: 30px;
 }
 
 .OOTDWrite-input-file:hover {
@@ -43,10 +75,20 @@
   box-shadow: none;
 }
 
+.OOTDWrite-input-file svg {
+  margin-right: 5px;
+}
+
 .OOTDWrite-input-box {
-  width: 60vh;
+  width: 60%;
   margin: 0 auto;
   margin-top: 30px;
+}
+
+.OOTDWrite-input-box p {
+  text-align: start;
+  font-size: small;
+  font-weight: 800;
 }
 
 .OOTDWrite-hash-input {
@@ -85,4 +127,10 @@
 .OOTDWrite-btn {
   border-radius: 0;
   margin-top: 30px;
+}
+
+@media screen and (max-width: 576px) {
+  .OOTDWrite-input-box {
+    width: 60vh;
+  }
 }
