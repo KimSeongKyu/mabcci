@@ -36,7 +36,7 @@ function SignupForm() {
 
   // 성별 선택 버튼 클릭
   function mwBtnClick(e) {
-    console.log(e.target)
+    console.log(e.target);
     console.log(e.target.name);
     setUserInfo({
       ...userInfo,
@@ -81,10 +81,10 @@ function SignupForm() {
     const response = await SignupApi(data);
 
     if (response.status === 200) {
-      history.push('/login');
-    } else {
-      alert('회원가입 실패');
+      return history.push('/login');
     }
+
+    alert('회원가입 실패');
   };
 
   // email 알맞게 입력했는지 체크
@@ -97,13 +97,14 @@ function SignupForm() {
 
   // @ 개수가 몇개인지
   var count = 0;
-  var pos = userInfo.email.indexOf('@')
+  var pos = userInfo.email.indexOf('@');
   const atCheck = () => {
     while (pos !== -1) {
       count += 1;
-      pos = userInfo.email.indexOf('@', pos + 1)
-    } return count
-  }
+      pos = userInfo.email.indexOf('@', pos + 1);
+    }
+    return count;
+  };
 
   const isEmail = () => {
     if (
@@ -113,9 +114,9 @@ function SignupForm() {
       atCheck() > 1
     ) {
       return false;
-    } 
-    return true
-  }
+    }
+    return true;
+  };
 
   // phoneNumber 알맞게 입력했는지 체크
   const isphoneNumber = () => {
@@ -128,9 +129,9 @@ function SignupForm() {
       userInfo.thirdPhoneNumber.length !== 4
     ) {
       return false;
-    } 
+    }
     return true;
-  }
+  };
 
   // signup 실행해도 되는지 체크 1 (정보 다 적었는지)
   const isEmpty = Object.values(userInfo).some(x => x === '' || x.length === 0);
