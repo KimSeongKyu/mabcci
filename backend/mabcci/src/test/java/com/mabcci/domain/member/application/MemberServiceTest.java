@@ -53,37 +53,6 @@ class MemberServiceTest {
         );
     }
 
-    @DisplayName("MemberService 인스턴스 findByNickname() 기능 테스트")
-    @Test
-    void findByNickname_test() {
-        given(memberRepository.findByNickname(any())).willReturn(Optional.ofNullable(MEMBER));
-        final MemberResponseDto memberResponseDto = memberService.findByNickName(MEMBER.nickname());
-
-        assertAll(
-                () -> assertThat(memberResponseDto.getEmail()).isEqualTo(MEMBER.email()),
-                () -> assertThat(memberResponseDto.getNickname()).isEqualTo(MEMBER.nickname()),
-                () -> assertThat(memberResponseDto.getGender()).isEqualTo(MEMBER.gender()),
-                () -> assertThat(memberResponseDto.getRole()).isEqualTo(MEMBER.role())
-        );
-    }
-
-    @DisplayName("MemberService 인스턴스 findAll() 기능 테스트")
-    @Test
-    void findAll_test() {
-        final List list = new ArrayList(Arrays.asList(MEMBER));
-        given(memberRepository.findAll()).willReturn((list));
-        final List<MemberResponseDto> memberResponseDtos = memberService.findAll();
-        final MemberResponseDto memberResponseDto = memberResponseDtos.get(0);
-
-        assertAll(
-                () -> assertThat(memberResponseDtos.size()).isEqualTo(1),
-                () -> assertThat(memberResponseDto.getEmail()).isEqualTo(MEMBER.email()),
-                () -> assertThat(memberResponseDto.getNickname()).isEqualTo(MEMBER.nickname()),
-                () -> assertThat(memberResponseDto.getGender()).isEqualTo(MEMBER.gender()),
-                () -> assertThat(memberResponseDto.getRole()).isEqualTo(MEMBER.role())
-        );
-    }
-
     @DisplayName("MemberService 인스턴스 delete() 기능 테스트")
     @Test
     void delete_test() {

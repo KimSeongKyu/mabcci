@@ -10,9 +10,6 @@ import com.mabcci.domain.model.Password;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 public class MemberService {
 
@@ -20,20 +17,6 @@ public class MemberService {
 
     public MemberService(final MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
-    }
-
-    @Transactional(readOnly = true)
-    public MemberResponseDto findByNickName(final Nickname nickname) {
-        final Member findingEntity = memberRepository.findByNickname(nickname)
-                .orElseThrow(MemberNotFoundException::new);
-        return new MemberResponseDto(findingEntity);
-    }
-
-    @Transactional(readOnly = true)
-    public List<MemberResponseDto> findAll() {
-        return memberRepository.findAll().stream()
-                .map(MemberResponseDto::new)
-                .collect(Collectors.toList());
     }
 
     @Transactional

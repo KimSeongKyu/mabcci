@@ -14,6 +14,7 @@ import java.util.Optional;
 
 import static com.mabcci.domain.member.domain.Gender.MALE;
 import static com.mabcci.domain.member.domain.MemberRole.USER;
+import static com.mabcci.domain.member.domain.MemberSpecsTest.*;
 import static com.mabcci.domain.model.Email.of;
 import static com.mabcci.domain.model.EmailTest.EMAIL;
 import static com.mabcci.domain.model.NicknameTest.NICKNAME;
@@ -38,6 +39,12 @@ class MemberRepositoryTest {
                 .phone(PHONE)
                 .gender(MALE)
                 .role(USER)
+                .memberSpecs(MemberSpecs.Build()
+                        .height(HEIGHT)
+                        .weight(WEIGHT)
+                        .footSize(FOOT_SIZE)
+                        .form(BodyType.TRIANGLE)
+                        .build())
                 .build();
     }
 
@@ -67,7 +74,6 @@ class MemberRepositoryTest {
     @Test
     void findByNickname_test() {
         testEntityManager.persist(member);
-
         final Member findMember = memberRepository.findByNickname(member.nickname()).get();
 
         assertThat(findMember.id()).isEqualTo(member.id());

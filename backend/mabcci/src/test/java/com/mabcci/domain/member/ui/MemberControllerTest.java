@@ -1,6 +1,7 @@
 package com.mabcci.domain.member.ui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mabcci.domain.member.application.MemberFindService;
 import com.mabcci.domain.member.application.MemberJoinService;
 import com.mabcci.domain.member.application.MemberService;
 import com.mabcci.domain.member.dto.JoinRequest;
@@ -51,6 +52,9 @@ class MemberControllerTest {
     private MemberService memberService;
 
     @MockBean
+    private MemberFindService memberFindService;
+
+    @MockBean
     private MemberJoinService memberJoinService;
 
     @DisplayName("MemberRestController join 메서드 테스트")
@@ -68,33 +72,6 @@ class MemberControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @DisplayName("MemberRestController findByNickname 메서드 테스트")
-    @Test
-    public void findByNickname_test() throws Exception {
-        final MemberResponseDto memberResponseDto = new MemberResponseDto(MEMBER);
-        final String memberResponseDtoString = objectMapper.writeValueAsString(memberResponseDto);
-
-        given(memberService.findByNickName(any())).willReturn(memberResponseDto);
-
-        mvc.perform(get("/api/members/" + NICKNAME))
-                .andExpect(status().isOk())
-                .andExpect(content().json(memberResponseDtoString));
-    }
-
-
-    @DisplayName("MemberRestController findAll 메서드 테스트")
-    @Test
-    public void findAll_test() throws Exception {
-        final MemberResponseDto memberResponseDto = new MemberResponseDto(MEMBER);
-        final List<MemberResponseDto> memberResponseDtos = Collections.singletonList(memberResponseDto);
-        final String memberResponseString = objectMapper.writeValueAsString(memberResponseDtos);
-
-        given(memberService.findAll()).willReturn(memberResponseDtos);
-
-        mvc.perform(get("/api/members"))
-                .andExpect(status().isOk())
-                .andExpect(content().json(memberResponseString));
-    }
 
     @DisplayName("MemberRestController update 메서드 테스트")
     @Test

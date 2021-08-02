@@ -1,5 +1,6 @@
 package com.mabcci.domain.member.ui;
 
+import com.mabcci.domain.member.application.MemberFindService;
 import com.mabcci.domain.member.application.MemberJoinService;
 import com.mabcci.domain.member.application.MemberService;
 import com.mabcci.domain.member.dto.JoinRequest;
@@ -18,10 +19,13 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MemberJoinService memberJoinService;
+    private final MemberFindService memberFindService;
 
-    public MemberController(final MemberService memberService, final MemberJoinService memberJoinService) {
+    public MemberController(final MemberService memberService, final MemberJoinService memberJoinService,
+                            final MemberFindService memberFindService) {
         this.memberService = memberService;
         this.memberJoinService = memberJoinService;
+        this.memberFindService = memberFindService;
     }
 
     @PostMapping(value = "/api/members")
@@ -32,13 +36,13 @@ public class MemberController {
 
     @GetMapping("/api/members/{nickname}")
     public ResponseEntity<?> findByNickname(@Valid @PathVariable final Nickname nickname) {
-        final MemberResponseDto memberResponseDto = memberService.findByNickName(nickname);
+        final MemberResponseDto memberResponseDto = memberFindService.findByNickName(nickname);
         return ResponseEntity.ok().body(memberResponseDto);
     }
 
     @GetMapping("/api/members")
     public ResponseEntity<?> findAll() {
-        final List<MemberResponseDto> members = memberService.findAll();
+        final List<MemberResponseDto> members = memberFindService.findAll();
         return ResponseEntity.ok().body(members);
     }
 
