@@ -40,4 +40,8 @@ public class PictureUtil {
         }
         return JPG_FILE_EXTENSION;
     }
+
+    public String makeFileName(final String fileExtension) {
+        return System.nanoTime() + fileExtension;
+    }
 }

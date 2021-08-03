@@ -83,13 +83,12 @@ class PictureUtilTest {
     @DisplayName("PictureUtil 인스턴스 파일 이름 생성 테스트")
     @Test
     void make_file_name_test() {
-        final String pngFileExtension = ".png";
-        final String pngFileName = pictureUtil.makeFileName(pngFileExtension);
-        final String[] pngFileNameSplitByComma = pngFileName.split(".");
+        final String fileName = pictureUtil.makeFileName(".png");
+        final String[] fileNameSplitByComma = fileName.split("\\.");
 
         assertAll(
-                () -> assertThat(Long.valueOf(pngFileNameSplitByComma[0])).isGreaterThan(System.nanoTime()),
-                () -> assertThat(pngFileNameSplitByComma[1]).isEqualTo(pngFileExtension)
+                () -> assertThat(Long.valueOf(fileNameSplitByComma[0])).isLessThan(System.nanoTime()),
+                () -> assertThat(fileNameSplitByComma[1]).isEqualTo("png")
         );
     }
 
