@@ -1,5 +1,6 @@
-package com.mabcci.global.common;
+package com.mabcci.domain;
 
+import com.mabcci.domain.BaseTimeEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;

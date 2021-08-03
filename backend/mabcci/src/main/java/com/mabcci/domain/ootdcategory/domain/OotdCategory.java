@@ -25,12 +25,12 @@ public class OotdCategory {
 
     protected OotdCategory() {}
 
-    public OotdCategory(final Ootd ootd, final Category category) {
+    protected OotdCategory(final Ootd ootd, final Category category) {
         this.ootd = ootd;
         this.category = category;
     }
 
-    public void addOotd(final Ootd ootd) {
+    public void changeOotd(final Ootd ootd) {
         this.ootd = ootd;
     }
 

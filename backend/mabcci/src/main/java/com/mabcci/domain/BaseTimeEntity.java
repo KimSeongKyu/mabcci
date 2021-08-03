@@ -1,4 +1,4 @@
-package com.mabcci.global.common;
+package com.mabcci.domain;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;

@@ -1,7 +1,7 @@
 package com.mabcci.domain.member.dto;
 
-import com.mabcci.domain.model.Nickname;
-import com.mabcci.domain.model.Password;
+import com.mabcci.global.common.Nickname;
+import com.mabcci.global.common.Password;
 
 import javax.validation.Valid;
 

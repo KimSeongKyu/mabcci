@@ -3,8 +3,8 @@ package com.mabcci.domain.member.dto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.mabcci.domain.model.NicknameTest.NICKNAME;
-import static com.mabcci.domain.model.PasswordTest.PASSWORD;
+import static com.mabcci.global.common.NicknameTest.NICKNAME;
+import static com.mabcci.global.common.PasswordTest.PASSWORD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 

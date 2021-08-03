@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.ootdcategory.domain.OotdCategory;
-import com.mabcci.global.common.BaseTimeEntity;
+import com.mabcci.domain.BaseTimeEntity;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 

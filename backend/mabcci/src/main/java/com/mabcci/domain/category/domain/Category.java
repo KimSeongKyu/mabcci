@@ -1,6 +1,6 @@
 package com.mabcci.domain.category.domain;
 
-import com.mabcci.global.common.BaseTimeEntity;
+import com.mabcci.domain.BaseTimeEntity;
 
 import javax.persistence.*;
 

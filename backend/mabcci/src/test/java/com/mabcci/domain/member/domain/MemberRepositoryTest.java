@@ -1,6 +1,6 @@
 package com.mabcci.domain.member.domain;
 
-import com.mabcci.domain.model.Nickname;
+import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,11 +15,11 @@ import java.util.Optional;
 import static com.mabcci.domain.member.domain.Gender.MALE;
 import static com.mabcci.domain.member.domain.MemberRole.USER;
 import static com.mabcci.domain.member.domain.MemberSpecsTest.*;
-import static com.mabcci.domain.model.Email.of;
-import static com.mabcci.domain.model.EmailTest.EMAIL;
-import static com.mabcci.domain.model.NicknameTest.NICKNAME;
-import static com.mabcci.domain.model.PasswordTest.PASSWORD;
-import static com.mabcci.domain.model.PhoneTest.PHONE;
+import static com.mabcci.global.common.Email.of;
+import static com.mabcci.global.common.EmailTest.EMAIL;
+import static com.mabcci.global.common.NicknameTest.NICKNAME;
+import static com.mabcci.global.common.PasswordTest.PASSWORD;
+import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.apache.logging.log4j.util.Strings.EMPTY;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;

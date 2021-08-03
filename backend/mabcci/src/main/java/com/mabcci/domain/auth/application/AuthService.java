@@ -12,7 +12,7 @@ import com.mabcci.domain.auth.exception.NotLoginMemberException;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.exception.MemberNotFoundException;
-import com.mabcci.domain.model.Email;
+import com.mabcci.global.common.Email;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
