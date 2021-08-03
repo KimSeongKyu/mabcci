@@ -14,7 +14,7 @@ import static com.mabcci.domain.member.domain.MemberTest.MEMBER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class OotdTest {
+public class OotdTest {
 
     public static final Ootd OOTD = Ootd.builder()
             .member(MEMBER)

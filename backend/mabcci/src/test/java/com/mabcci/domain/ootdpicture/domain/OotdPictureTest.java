@@ -29,5 +29,4 @@ class OotdPictureTest {
                 () -> assertThat(ootdPicture).isExactlyInstanceOf(OotdPicture.class)
         );
     }
-
 }
