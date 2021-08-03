@@ -184,7 +184,6 @@ function OOTDWrite() {
       <button type="submit" className="OOTDWrite-btn btn-rounded-sm">
         Submit
       </button>
-
     </div>
   );
 }

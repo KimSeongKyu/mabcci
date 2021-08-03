@@ -15,6 +15,7 @@ import CommunityMain from './Components/Pages/ServicePage/Community/CommunityMai
 import MyPageMain from './Components/Pages/ServicePage/MyPage/MyPageMain/MyPageMain';
 import OOTDMain from './Components/Pages/ServicePage/OOTD/OOTDMain/OOTDMain';
 import OOTDDetail from './Components/Pages/ServicePage/OOTD/OOTDDetail/OOTDDetail';
+import OOTDWrite from './Components/Pages/ServicePage/OOTD/OOTDWrite/OOTDWrite';
 import StylingMain from './Components/Pages/ServicePage/Styling/StylingMain/StylingMain';
 
 // Pages - AuthPage
@@ -47,25 +48,16 @@ function App() {
 
       <Switch>
         <Route exact path="/intro" component={Intro} />
-
         <Route exact path="/login" component={Login} />
-
         <Route exact path="/signup" component={Signup} />
-
         <Route exact path="/desc" component={Description} />
-
         <Route exact path="/" component={Home} />
-
         <Route exact path="/home" component={Home} />
-
         <Route exact path="/community" component={CommunityMain} />
-
         <Route exact path="/mypage" component={MyPageMain} />
-
         <Route exact path="/OOTD" component={OOTDMain} />
-
+        <Route exact path="/OOTDWrite" component={OOTDWrite} />
         <Route exact path="/OOTDDetail/:id/:nickname" component={OOTDDetail} />
-
         <Route exact path="/styling" component={StylingMain} />
       </Switch>
     </div>
