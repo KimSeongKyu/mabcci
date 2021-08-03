@@ -31,14 +31,18 @@
   margin: 2px;
 }
 
-.detail-content {
-  position: relative;
-  left: 15%;
-}
-
 .detail-ootd-photo > img {
   max-width: 70%;
   height: auto;
+  position: relative;
+  left: 10%;
+  right: 10%;
+}
+
+.detail-ootd {
+  position: relative;
+  left: 10%;
+  right: 10%;
 }
 
 .detail-ootd-like {
@@ -63,6 +67,15 @@
 .detail-ootd-clothes1 {
   margin-right: 15px;
   font-weight: bold;
+}
+
+.detail-bottom {
+  position: relative;
+  margin-top: 5%;
+}
+
+.detail-bottom-title > h3 {
+  color: var(--main-color-1);
 }
 
 @media screen and (min-width: 576px) {
