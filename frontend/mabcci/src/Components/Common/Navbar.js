@@ -33,8 +33,6 @@ function Nav() {
 
   const selectMenu = e => {
     setNowMenu(e.target.name);
-    console.log(e.target);
-    console.log(nowMenu);
   };
 
   return (
@@ -103,7 +101,7 @@ function Nav() {
         </div>
       </div>
 
-      <div className="navbar-mobile">
+      <div id="navbar-mobile">
         <Link to="home">
           <div className="navbar-mobile-btn">
             <AiOutlineHome />

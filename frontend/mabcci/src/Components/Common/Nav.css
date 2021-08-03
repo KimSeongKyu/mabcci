@@ -82,7 +82,7 @@
   color: var(--main-color-1);
 }
 
-.navbar-mobile {
+#navbar-mobile {
   background-color: white;
   height: 70px;
   border-width: 1px 0px 0px 0px;
@@ -99,12 +99,12 @@
   z-index: 1;
 }
 
-.navbar-mobile a {
+#navbar-mobile a {
   text-decoration: none;
   color: #0f0e0e;
 }
 
-.navbar-mobile p {
+#navbar-mobile p {
   font-size: small;
 }
 
@@ -137,7 +137,7 @@
 }
 
 @media screen and (min-width: 576px) {
-  .navbar-mobile {
+  #navbar-mobile {
     display: none;
   }
 }

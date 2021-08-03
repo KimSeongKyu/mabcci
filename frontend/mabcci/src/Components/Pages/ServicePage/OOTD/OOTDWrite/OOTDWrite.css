@@ -30,6 +30,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 .swiper-zoom-container img {
@@ -83,12 +85,21 @@
   width: 60%;
   margin: 0 auto;
   margin-top: 30px;
+  position: relative;
 }
 
 .OOTDWrite-input-box p {
   text-align: start;
   font-size: small;
   font-weight: 800;
+}
+
+#OOTDWrite-warnning-tag {
+  text-align: center;
+  font-size: xx-small;
+  color: lightcoral;
+  position: absolute;
+  margin-left: 30%;
 }
 
 .OOTDWrite-hash-input {
@@ -105,10 +116,7 @@
 .OOTDWrite-input-brand {
   display: flex;
   justify-content: space-between;
-}
-
-.OOTDWrite-input-brand svg {
-  margin-top: 5px;
+  margin-top: 3px;
 }
 
 .OOTDWrite-input-brand p {
