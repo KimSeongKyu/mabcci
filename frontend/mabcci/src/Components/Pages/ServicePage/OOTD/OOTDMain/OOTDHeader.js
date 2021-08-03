@@ -1,6 +1,13 @@
 import React from 'react';
 
-const OOTDHeader = () => {
+const OOTDHeader = ({ filter, setFilter, setPage }) => {
+  const onFilter = e => {
+    if (filter === e.target.name) return;
+    const keyword = e.target.name;
+    setFilter(keyword);
+    setPage(1);
+  };
+
   return (
     <div>
       <div className="ootd-write">
@@ -11,8 +18,22 @@ const OOTDHeader = () => {
       <div className="ootd-util">
         <div>
           <p>
-            <span className="active">All</span>
-            <span>Following</span>
+            <button
+              className={`${filter === 'All' ? 'active' : ''}`}
+              name="All"
+              onClick={onFilter}
+              type="button"
+            >
+              All
+            </button>
+            <button
+              className={`${filter === 'Following' ? 'active' : ''}`}
+              onClick={onFilter}
+              name="Following"
+              type="button"
+            >
+              Following
+            </button>
           </p>
         </div>
         <div>
