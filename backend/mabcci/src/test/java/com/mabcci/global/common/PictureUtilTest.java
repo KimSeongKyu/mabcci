@@ -79,4 +79,18 @@ class PictureUtilTest {
                 () -> assertThat(pictureUtil.makeOriginalFileExtension(jpegPicture.getContentType())).isEqualTo(".jpg")
         );
     }
+
+    @DisplayName("PictureUtil 인스턴스 파일 이름 생성 테스트")
+    @Test
+    void make_file_name_test() {
+        final String pngFileExtension = ".png";
+        final String pngFileName = pictureUtil.makeFileName(pngFileExtension);
+        final String[] pngFileNameSplitByComma = pngFileName.split(".");
+
+        assertAll(
+                () -> assertThat(Long.valueOf(pngFileNameSplitByComma[0])).isGreaterThan(System.nanoTime()),
+                () -> assertThat(pngFileNameSplitByComma[1]).isEqualTo(pngFileExtension)
+        );
+    }
+
 }
