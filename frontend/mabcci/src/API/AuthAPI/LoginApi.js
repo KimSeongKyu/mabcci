@@ -1,4 +1,3 @@
-import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { LoginUrl } from '../ApiUrl';
 import instance from '../index';

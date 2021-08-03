@@ -1,6 +1,6 @@
 export const LoginUrl = '/auth/login';
 export const LogoutUrl = '/auth/logout';
-export const SignupUrl = '/auth/members';
+export const SignupUrl = '/api/members';
 
 export const OOTDWriteUrl = '/api/ootd';
 export const OOTDUpdateUrl = '/api/ootd/';
