@@ -1,5 +1,6 @@
 package com.mabcci.domain.member.application;
 
+import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.dto.MemberListResponseDto;
 import com.mabcci.domain.member.dto.MemberResponseDto;
@@ -23,14 +24,17 @@ class MemberFindServiceTest {
 
     private static final HashSet<String> CATEGORIES = new HashSet<>(Arrays.asList("categoryName"));
 
-    @Mock private MemberRepository memberRepository;
-    @InjectMocks private MemberFindService memberFindService;
+    @Mock
+    private MemberRepository memberRepository;
+    @InjectMocks
+    private MemberFindService memberFindService;
 
     @DisplayName("MemberFindService 인스턴스 findByNickname() 기능 테스트")
     @Test
     void findByNickname_test() {
         given(memberRepository.findByNickname(any())).willReturn(Optional.ofNullable(MEMBER));
-        final MemberResponseDto memberResponseDto = memberFindService.findByNickName(MEMBER.nickname());
+        Member byNickName = memberFindService.findByNickName(MEMBER.nickname());
+        final MemberResponseDto memberResponseDto = new MemberResponseDto(byNickName);
 
         assertAll(
                 () -> assertThat(memberResponseDto.getEmail()).isEqualTo(MEMBER.email()),

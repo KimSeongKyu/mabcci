@@ -1,6 +1,7 @@
 package com.mabcci.domain.member.application;
 
 import com.mabcci.domain.category.domain.CategoryRepository;
+import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.dto.MemberResponseDto;
 import com.mabcci.global.common.Password;
@@ -35,7 +36,9 @@ class MemberJoinServiceTest {
     void join_test() {
         given(memberRepository.save(any())).willReturn(MEMBER);
         given(categoryRepository.findByCategoryName(any())).willReturn(Optional.ofNullable(CATEGORY));
-        final MemberResponseDto memberResponseDto = memberJoinService.join(MEMBER, CATEGORIES);
+
+        final Member member = memberJoinService.join(MEMBER, CATEGORIES);
+        final MemberResponseDto memberResponseDto = new MemberResponseDto(member);
 
         assertAll(
                 () -> assertThat(memberResponseDto.getEmail()).isEqualTo(MEMBER.email()),
