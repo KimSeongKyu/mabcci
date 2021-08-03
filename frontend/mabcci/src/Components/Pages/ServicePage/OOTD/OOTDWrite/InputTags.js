@@ -27,7 +27,7 @@ export default function InputTags({ onTag, placeHolder, tagColor }) {
   }, [tags, setTags]);
 
   const addTag = e => {
-    if (e.keyCode === 32 && e.target.value.trim().length > 0) {
+    if (e.keyCode === 32 && e.target.value.trim().length > 0 && tags.length <=19) {
       const tag = e.target.value.trim();
       setTags([...tags, tag]);
       e.target.value = '';

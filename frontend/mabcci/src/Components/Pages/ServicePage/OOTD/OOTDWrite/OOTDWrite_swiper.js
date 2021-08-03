@@ -1,24 +1,26 @@
-import React, { useState } from 'react';
-
-import './OOTDWrite.css';
-
+import React, { useRef, useState } from 'react';
+// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-import 'swiper/swiper.min.css';
-import 'swiper/components/zoom/zoom.min.css';
-import 'swiper/components/navigation/navigation.min.css';
-import 'swiper/components/pagination/pagination.min.css';
-
-import SwiperCore, { Zoom, Navigation, Pagination } from 'swiper/core';
 
 import { GrGallery } from 'react-icons/gr';
 import { IoShirt } from 'react-icons/io5';
 import { GiArmoredPants, GiConverseShoe } from 'react-icons/gi';
 import { FaShoppingBag } from 'react-icons/fa';
 
+import SwiperCore, { EffectCoverflow, Pagination } from 'swiper/core';
 import InputTags from './InputTags';
 
-SwiperCore.use([Zoom, Navigation, Pagination]);
+// Import Swiper styles
+import 'swiper/swiper.min.css';
+import 'swiper/components/effect-coverflow/effect-coverflow.min.css';
+import 'swiper/components/pagination/pagination.min.css';
+
+import './OOTDWrite.css';
+
+// import Swiper core and required modules
+
+// install Swiper modules
+SwiperCore.use([EffectCoverflow, Pagination]);
 
 function OOTDWrite() {
   const [myImage, setMyImage] = useState([]);
@@ -63,23 +65,25 @@ function OOTDWrite() {
   return (
     <div className="OOTDWrite-container">
       <h5>OOTD Write</h5>
-<<<<<<< HEAD
-<<<<<<< HEAD
 
       <div>
         {myImage.length === 0 ? (
           <div className="OOTDWrite-initial-image">No images yet</div>
         ) : null}
+
         <Swiper
-          style={{
-            '--swiper-navigation-color': '#f9a77c',
-            '--swiper-pagination-color': '#f9a77c',
+          effect="coverflow"
+          grabCursor
+          centeredSlides
+          slidesPerView="auto"
+          coverflowEffect={{
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
           }}
-          zoom
-          navigation
-          pagination={{
-            clickable: true,
-          }}
+          pagination
           className="mySwiper"
         >
           {myImage.map(function imageList(image, i) {
@@ -186,10 +190,6 @@ function OOTDWrite() {
       <button type="submit" className="OOTDWrite-btn btn-rounded-sm">
         Submit
       </button>
-=======
->>>>>>> fc1fdf5 ([S05P13C107-37] [FE-seongaeee] feat: OOTD 상세 조회 사용자 및 글 정보 API 연결)
-=======
->>>>>>> 5aad1fd59b24df93c79fff9fa15731fc589275d7
     </div>
   );
 }

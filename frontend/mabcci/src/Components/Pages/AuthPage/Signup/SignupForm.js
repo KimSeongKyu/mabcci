@@ -21,7 +21,6 @@ function SignupForm() {
     passwordConfirmation: '',
     gender: '',
     categories: [],
-    btnCategories: [],
   });
 
   function changeUserInfo(e) {
@@ -40,30 +39,24 @@ function SignupForm() {
   }
 
   function styleBtnClick(e) {
-    const copy = [...userInfo.categories];
-    const btnCheck = [...userInfo.btnCategories];
+    const copyCategory = [...userInfo.categories];
 
-    const selectCategory = {
-      category: e.target.name,
-    };
+    const nowCategory = e.target.name;
 
     let index = -2;
-    for (let i = 0; i < copy.length; i += 1) {
-      if (copy[i].category === selectCategory.category) {
+    for (let i = 0; i < copyCategory.length; i += 1) {
+      if (copyCategory[i] === nowCategory) {
         index = i;
       }
     }
     if (index > -1) {
-      copy.splice(index, 1);
-      btnCheck.splice(index, 1);
+      copyCategory.splice(index, 1);
     } else {
-      copy.push(selectCategory);
-      btnCheck.push(e.target.name);
+      copyCategory.push(nowCategory);
     }
     setUserInfo({
       ...userInfo,
-      categories: copy,
-      btnCategories: btnCheck,
+      categories: copyCategory,
     });
   }
 
@@ -74,18 +67,18 @@ function SignupForm() {
       nickname: userInfo.nickname,
       password: userInfo.password,
       gender: userInfo.gender,
-      phoneNumber: `${userInfo.firstPhoneNumber}-${userInfo.secondPhoneNumber}-${userInfo.thirdPhoneNumber}`,
+      phone: `${userInfo.firstPhoneNumber}-${userInfo.secondPhoneNumber}-${userInfo.thirdPhoneNumber}`,
       categories: userInfo.categories,
     };
     const response = await SignupApi(data);
 
     if (response.status === 200) {
-      history.push('/login');
+      console.log('룰룰랄라');
+      // history.push('/desc');
     } else {
       console.log(response.status);
+      console.log('왜안되냐냐아아아');
     }
-
-    alert('회원가입 실패');
   };
 
   const isEmail = () => {
@@ -243,7 +236,7 @@ function SignupForm() {
           <div>
             <button
               className={
-                userInfo.btnCategories.includes('미니멀') === false
+                userInfo.categories.includes('미니멀') === false
                   ? 'signup-btn-select-style'
                   : 'signup-btn-select-style-active'
               }
@@ -258,7 +251,7 @@ function SignupForm() {
           <div>
             <button
               className={
-                userInfo.btnCategories.includes('스트릿') === false
+                userInfo.categories.includes('스트릿') === false
                   ? 'signup-btn-select-style'
                   : 'signup-btn-select-style-active'
               }
@@ -273,7 +266,7 @@ function SignupForm() {
           <div>
             <button
               className={
-                userInfo.btnCategories.includes('아메카지') === false
+                userInfo.categories.includes('아메카지') === false
                   ? 'signup-btn-select-style'
                   : 'signup-btn-select-style-active'
               }
@@ -290,7 +283,7 @@ function SignupForm() {
           <div>
             <button
               className={
-                userInfo.btnCategories.includes('오피스') === false
+                userInfo.categories.includes('오피스') === false
                   ? 'signup-btn-select-style'
                   : 'signup-btn-select-style-active'
               }
@@ -305,7 +298,7 @@ function SignupForm() {
           <div>
             <button
               className={
-                userInfo.btnCategories.includes('캐쥬얼') === false
+                userInfo.categories.includes('캐쥬얼') === false
                   ? 'signup-btn-select-style'
                   : 'signup-btn-select-style-active'
               }
@@ -320,7 +313,7 @@ function SignupForm() {
           <div>
             <button
               className={
-                userInfo.btnCategories.includes('포멀') === false
+                userInfo.categories.includes('포멀') === false
                   ? 'signup-btn-select-style'
                   : 'signup-btn-select-style-active'
               }
