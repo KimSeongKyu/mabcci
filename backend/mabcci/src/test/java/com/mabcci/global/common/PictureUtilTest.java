@@ -3,6 +3,8 @@ package com.mabcci.global.common;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -14,10 +16,26 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class PictureUtilTest {
 
     private PictureUtil pictureUtil;
+    private List<MockMultipartFile> mockPictures;
 
     @BeforeEach
     void setUp() {
         pictureUtil = new PictureUtil();
+        mockPictures = new ArrayList<>();
+
+        mockPictures.add(new MockMultipartFile(
+                "pngPicture",
+                "pngPicture.png",
+                MediaType.IMAGE_PNG_VALUE,
+                "testPngPicture".getBytes()
+        ));
+
+        mockPictures.add(new MockMultipartFile(
+                "jpegPicture",
+                "jpegPicture.jpeg",
+                MediaType.IMAGE_JPEG_VALUE,
+                "testJpegPicture".getBytes()
+        ));
     }
 
     @DisplayName("PictureUtil 인스턴스 생성 여부 테스트")
@@ -32,8 +50,8 @@ class PictureUtilTest {
     @DisplayName("PictureUtil 인스턴스 전달받은 사진이 없는 경우 빈 리스트를 반환하는 테스트")
     @Test
     void return_empty_list_when_no_picture() {
-        List<MultipartFile> pictures = new ArrayList<>();
-        List<Picture> pictureEntities = pictureUtil.toEntities(pictures);
+        final List<MultipartFile> pictures = new ArrayList<>();
+        final List<Picture> pictureEntities = pictureUtil.toEntities(pictures);
 
         assertThat(pictureEntities).isEmpty();
     }
@@ -41,11 +59,24 @@ class PictureUtilTest {
     @DisplayName("PictureUtil 인스턴스 디렉토리 이름 생성 테스트")
     @Test
     void make_directory_name_test() {
-        String directoryName = pictureUtil.makeDirectoryName();
+        final String directoryName = pictureUtil.makeDirectoryName();
+        final String regexOfyyyyMMdd = "(19|20)\\d{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])";
 
         assertAll(
                 () -> assertThat(directoryName).contains("images"),
-                () -> assertThat(directoryName).containsPattern("(19|20)\\d{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])")
+                () -> assertThat(directoryName).containsPattern(regexOfyyyyMMdd)
+        );
+    }
+
+    @DisplayName("PictureUtil 인스턴스 확장자명 생성 테스트")
+    @Test
+    void make_original_file_extension_test() {
+        final MockMultipartFile pngPicture = mockPictures.get(0);
+        final MockMultipartFile jpegPicture = mockPictures.get(1);
+
+        assertAll(
+                () -> assertThat(pictureUtil.makeOriginalFileExtension(pngPicture.getContentType())).isEqualTo(".png"),
+                () -> assertThat(pictureUtil.makeOriginalFileExtension(jpegPicture.getContentType())).isEqualTo(".jpg")
         );
     }
 }
