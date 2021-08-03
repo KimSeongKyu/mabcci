@@ -1,3 +1,7 @@
+.detail-container {
+  padding-left: 10%;
+}
+
 .detail-header {
   text-align: left;
   margin-left: 10px;
@@ -36,13 +40,13 @@
   height: auto;
   position: relative;
   left: 10%;
-  right: 10%;
+  width: 100%;
 }
 
 .detail-ootd {
   position: relative;
   left: 10%;
-  right: 10%;
+  width: 100%;
 }
 
 .detail-ootd-like {
@@ -74,8 +78,44 @@
   margin-top: 5%;
 }
 
-.detail-comments-title > h4 {
+.detail-comments-title > h5 {
   color: var(--main-color-1);
+  margin-bottom: 3%;
+}
+
+.detail-comments {
+  position: relative;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.detail-comment {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-comment-info {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2%;
+}
+
+.detail-comment-info-photo {
+  margin-right: 2%;
+  filter: drop-shadow(5px 5px 4px rgba(0, 0, 0, 0.25));
+}
+
+.detail-comment-info-content > button {
+  margin-right: 10px;
+  background-color: var(--main-color-4);
+  cursor: pointer;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.detail-comment-info-content > button:hover {
+  color: var(--main-color-1);
+  opacity: 1;
 }
 
 @media screen and (min-width: 576px) {

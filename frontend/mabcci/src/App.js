@@ -64,7 +64,7 @@ function App() {
 
         <Route exact path="/OOTD" component={OOTDMain} />
 
-        <Route exact path="/OOTDDetail/:id/:nickname" component={OOTDDetail} />
+        <Route exact path="/OOTD/:id/:nickname" component={OOTDDetail} />
 
         <Route exact path="/styling" component={StylingMain} />
       </Switch>
