@@ -2,14 +2,13 @@ package com.mabcci.domain.ootdpicture.domain;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.mabcci.domain.ootd.domain.Ootd;
-import com.mabcci.global.common.BaseTimeEntity;
+import com.mabcci.global.common.Picture;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class OotdPicture extends BaseTimeEntity {
+public class OotdPicture extends Picture {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,21 +20,16 @@ public class OotdPicture extends BaseTimeEntity {
     @JoinColumn(name = "ootd_picture_ootd_id", nullable = false)
     private Ootd ootd;
 
-    @NotBlank
-    @Column(name = "ootd_picture_url", nullable = false)
-    private String url;
-
-    @NotBlank
-    @Column(name = "ootd_picture_file_name", nullable = false)
-    private String fileName;
-
     protected OotdPicture() {
     }
 
     private OotdPicture(final OotdPictureBuilder ootdPictureBuilder) {
+        super(ootdPictureBuilder.url, ootdPictureBuilder.fileName);
         this.ootd = ootdPictureBuilder.ootd;
-        this.url = ootdPictureBuilder.url;
-        this.fileName = ootdPictureBuilder.fileName;
+    }
+
+    public static OotdPictureBuilder builder() {
+        return new OotdPictureBuilder();
     }
 
     @JsonValue
@@ -50,16 +44,12 @@ public class OotdPicture extends BaseTimeEntity {
 
     @JsonValue
     public String url() {
-        return url;
+        return super.url();
     }
 
     @JsonValue
     public String fileName() {
-        return fileName;
-    }
-
-    public static OotdPictureBuilder builder() {
-        return new OotdPictureBuilder();
+        return super.fileName();
     }
 
     public static class OotdPictureBuilder {
