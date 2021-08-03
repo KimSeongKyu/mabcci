@@ -5,7 +5,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
+import javax.validation.Validator;
+
+import java.util.Set;
+
 import static com.mabcci.domain.ootd.domain.OotdTest.OOTD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -13,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class OotdPictureTest {
 
     private OotdPicture ootdPicture;
+    private Validator validator;
 
     @BeforeEach
     void setUp() {
@@ -21,6 +27,7 @@ class OotdPictureTest {
                 .url("testUrl")
                 .fileName("testFileName")
                 .build();
+        validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
     @DisplayName("OotdPicture 인스턴스 생성 여부 테스트")
@@ -43,7 +50,7 @@ class OotdPictureTest {
         );
     }
 
-    @DisplayName("OotdPicture 인스턴스 getter 메서드들 테스트")
+    @DisplayName("OotdPicture 인스턴스의 getter 메서드들 테스트")
     @Test
     void getter_test() {
         ReflectionTestUtils.setField(ootdPicture, "id", 1L);
@@ -54,5 +61,23 @@ class OotdPictureTest {
                 () -> assertThat(ootdPicture.url()).isEqualTo("testUrl"),
                 () -> assertThat(ootdPicture.fileName()).isEqualTo("testFileName")
         );
+    }
+
+    @DisplayName("OotdPicture 인스턴스의 프로퍼티 유효성 검증 테스트")
+    @Test
+    void validate_test() {
+        final OotdPicture invalidOotdPicture = OotdPicture.builder()
+                .ootd(null)
+                .url("")
+                .fileName("")
+                .build();
+        final Set<ConstraintViolation<OotdPicture>> invalidPropertiesOfValidOotdPicture = validator.validate(ootdPicture);
+        final Set<ConstraintViolation<OotdPicture>> invalidPropertiesOfInvalidOotdPicture = validator.validate(invalidOotdPicture);
+
+        assertAll(
+                () -> assertThat(invalidPropertiesOfValidOotdPicture.size()).isEqualTo(0),
+                () -> assertThat(invalidPropertiesOfInvalidOotdPicture.size()).isEqualTo(3)
+        );
+
     }
 }
