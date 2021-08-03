@@ -1,5 +1,5 @@
 .detail-container {
-  padding-left: 10%;
+  padding-left: 80px;
 }
 
 .detail-header {
@@ -116,6 +116,23 @@
 .detail-comment-info-content > button:hover {
   color: var(--main-color-1);
   opacity: 1;
+}
+
+.detail-comment-write {
+  position: relative;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+.detail-comment-input {
+  width: 85%;
+  margin-right: 15px;
+}
+
+.detail-comment-send {
+  cursor: pointer;
 }
 
 @media screen and (min-width: 576px) {
