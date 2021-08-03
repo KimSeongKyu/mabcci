@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,8 +102,8 @@ class PictureUtilTest {
     @DisplayName("PictureUtil 인스턴스 디렉토리 생성 테스트")
     @Test
     void make_directory_test() {
-        final String directoryName = pictureUtil.makeDirectoryName();
-        final boolean isMadeDirectory = pictureUtil.makeDirectory(directoryName);
+        final boolean isMadeDirectory = pictureUtil.makeDirectory("testDirectory");
         assertThat(isMadeDirectory).isTrue();
+        new File("testDirectory").delete();
     }
 }

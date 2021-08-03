@@ -26,6 +26,11 @@ public class PictureUtil {
                 .collect(toList());
     }
 
+    public boolean makeDirectory(final String directoryName) {
+        File file = new File(directoryName);
+        return file.mkdirs();
+    }
+
     public String makeDirectoryName() {
         final String todayFormedToTimeFormat = LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern(TIME_FORMAT));
