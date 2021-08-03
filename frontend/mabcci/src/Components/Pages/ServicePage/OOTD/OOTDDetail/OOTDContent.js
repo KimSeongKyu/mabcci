@@ -1,10 +1,20 @@
 import React from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
+import userphoto from './Images/userphoto.png';
 import ootdphoto from './Images/ootdphoto.jpg';
 
 const OOTDContent = () => {
   return (
     <article className="detail-content">
+      <section className="detail-info">
+        <div className="detail-info-photo">
+          <img src={userphoto} alt="UserImage" width="70" />
+        </div>
+        <div className="detail-info-content">
+          <p>김고은</p>
+          <p>2021.07.29 views:50</p>
+        </div>
+      </section>
       <section className="detail-ootd-photo">
         <img src={ootdphoto} alt="OotdPhoto" />
       </section>

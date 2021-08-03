@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 // Router
-import { Switch } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 // Redux
 import { useSelector } from 'react-redux';
@@ -15,8 +15,8 @@ import CommunityMain from './Components/Pages/ServicePage/Community/CommunityMai
 import MyPageMain from './Components/Pages/ServicePage/MyPage/MyPageMain/MyPageMain';
 import OOTDMain from './Components/Pages/ServicePage/OOTD/OOTDMain/OOTDMain';
 import OOTDDetail from './Components/Pages/ServicePage/OOTD/OOTDDetail/OOTDDetail';
-import OOTDWrite from './Components/Pages/ServicePage/OOTD/OOTDWrite/OOTDWrite';
 import StylingMain from './Components/Pages/ServicePage/Styling/StylingMain/StylingMain';
+
 // Pages - AuthPage
 import Login from './Components/Pages/AuthPage/Login/Login';
 import Signup from './Components/Pages/AuthPage/Signup/Signup';
@@ -46,29 +46,27 @@ function App() {
       {isLoggedin ? <Nav /> : null}
 
       <Switch>
-        <PublicRoute exact path="/intro" component={Intro} />
+        <Route exact path="/intro" component={Intro} />
 
-        <PublicRoute exact path="/login" component={Login} />
+        <Route exact path="/login" component={Login} />
 
-        <PublicRoute exact path="/signup" component={Signup} />
+        <Route exact path="/signup" component={Signup} />
 
-        <PublicRoute exact path="/desc" component={Description} />
+        <Route exact path="/desc" component={Description} />
 
-        <PrivateRoute exact path="/" component={Home} />
+        <Route exact path="/" component={Home} />
 
-        <PrivateRoute exact path="/home" component={Home} />
+        <Route exact path="/home" component={Home} />
 
-        <PrivateRoute exact path="/community" component={CommunityMain} />
+        <Route exact path="/community" component={CommunityMain} />
 
-        <PrivateRoute exact path="/mypage" component={MyPageMain} />
+        <Route exact path="/mypage" component={MyPageMain} />
 
-        <PrivateRoute exact path="/OOTD" component={OOTDMain} />
+        <Route exact path="/OOTD" component={OOTDMain} />
 
-        <PrivateRoute exact path="/OOTDDetail" component={OOTDDetail} />
+        <Route exact path="/OOTDDetail" component={OOTDDetail} />
 
-        <PrivateRoute exact path="/OOTDWrite" component={OOTDWrite} />
-
-        <PrivateRoute exact path="/styling" component={StylingMain} />
+        <Route exact path="/styling" component={StylingMain} />
       </Switch>
     </div>
   );
