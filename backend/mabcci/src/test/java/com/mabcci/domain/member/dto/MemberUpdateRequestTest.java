@@ -8,16 +8,16 @@ import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class MemberUpdateRequestDtoTest {
+class MemberUpdateRequestTest {
 
     @DisplayName("MemberUpdateDto 인스턴스 생성 여부 테스트")
     @Test
     void initialize() {
-        final MemberUpdateRequestDto memberUpdateRequestDto = new MemberUpdateRequestDto(NICKNAME, MALE);
+        final MemberUpdateRequest memberUpdateRequest = new MemberUpdateRequest(NICKNAME, MALE);
 
         assertAll(
-                () -> assertThat(memberUpdateRequestDto).isNotNull(),
-                () -> assertThat(memberUpdateRequestDto).isExactlyInstanceOf(MemberUpdateRequestDto.class)
+                () -> assertThat(memberUpdateRequest).isNotNull(),
+                () -> assertThat(memberUpdateRequest).isExactlyInstanceOf(MemberUpdateRequest.class)
         );
     }
 }

@@ -5,17 +5,17 @@ import com.mabcci.global.common.Password;
 
 import javax.validation.Valid;
 
-public final class MemberDeleteRequestDto {
+public final class MemberDeleteRequest {
     @Valid
     private Nickname nickname;
 
     @Valid
     private Password password;
 
-    private MemberDeleteRequestDto() {
+    private MemberDeleteRequest() {
     }
 
-    public MemberDeleteRequestDto(@Valid final Nickname nickname, @Valid final Password password) {
+    public MemberDeleteRequest(@Valid final Nickname nickname, @Valid final Password password) {
         this.nickname = nickname;
         this.password = password;
     }

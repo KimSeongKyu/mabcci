@@ -5,7 +5,7 @@ import com.mabcci.global.common.Nickname;
 
 import javax.validation.Valid;
 
-public final class MemberUpdateRequestDto {
+public final class MemberUpdateRequest {
 
     @Valid
     private Nickname nickname;
@@ -13,10 +13,10 @@ public final class MemberUpdateRequestDto {
     @Valid
     private Gender gender;
 
-    private MemberUpdateRequestDto() {
+    private MemberUpdateRequest() {
     }
 
-    public MemberUpdateRequestDto(@Valid final Nickname nickname, @Valid final Gender gender) {
+    public MemberUpdateRequest(@Valid final Nickname nickname, @Valid final Gender gender) {
         this.nickname = nickname;
         this.gender = gender;
     }

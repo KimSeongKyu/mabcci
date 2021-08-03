@@ -1,10 +1,10 @@
 package com.mabcci.domain.member.application;
 
 import com.mabcci.domain.member.domain.Gender;
+import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.dto.MemberResponseDto;
-import com.mabcci.domain.member.dto.MemberUpdateRequestDto;
-import com.mabcci.global.common.Nickname;
+import com.mabcci.domain.member.dto.MemberUpdateRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,15 +26,17 @@ import static org.mockito.Mockito.times;
 @ExtendWith(MockitoExtension.class)
 class MemberUpdateServiceTest {
 
-    @Mock private MemberRepository memberRepository;
-    @InjectMocks private MemberUpdateService memberUpdateService;
+    @Mock
+    private MemberRepository memberRepository;
+    @InjectMocks
+    private MemberUpdateService memberUpdateService;
 
     @DisplayName("MemberUpdateService 인스턴스 update() 기능 테스트")
     @Test
     void update_test() {
         given(memberRepository.findByNickname(any())).willReturn(Optional.ofNullable(MEMBER));
-        final MemberUpdateRequestDto memberUpdateRequestDto = new MemberUpdateRequestDto(NICKNAME, Gender.MALE);
-        final MemberResponseDto memberResponseDto = memberUpdateService.update(memberUpdateRequestDto);
+        Member member = memberUpdateService.update(NICKNAME, Gender.MALE);
+        final MemberResponseDto memberResponseDto = new MemberResponseDto(member);
 
         then(memberRepository).should(times(1)).findByNickname(any());
         assertAll(
