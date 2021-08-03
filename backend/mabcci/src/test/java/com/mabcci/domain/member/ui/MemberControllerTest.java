@@ -6,9 +6,9 @@ import com.mabcci.domain.member.application.MemberFindService;
 import com.mabcci.domain.member.application.MemberJoinService;
 import com.mabcci.domain.member.application.MemberUpdateService;
 import com.mabcci.domain.member.dto.MemberJoinRequest;
-import com.mabcci.domain.member.dto.MemberDeleteRequestDto;
+import com.mabcci.domain.member.dto.MemberDeleteRequest;
 import com.mabcci.domain.member.dto.MemberResponseDto;
-import com.mabcci.domain.member.dto.MemberUpdateRequestDto;
+import com.mabcci.domain.member.dto.MemberUpdateRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -55,14 +55,27 @@ class MemberControllerTest {
     @DisplayName("MemberRestController join 메서드 테스트")
     @Test
     public void join_test() throws Exception {
-        final MemberResponseDto memberResponseDto = new MemberResponseDto(MEMBER);
+        given(memberJoinService.join(any(), any())).willReturn(MEMBER);
+
         final MemberJoinRequest memberJoinRequest = new MemberJoinRequest(EMAIL, PASSWORD, NICKNAME, PHONE, MALE, CATEGORIES);
         final String joinRequestDtoString = objectMapper.writeValueAsString(memberJoinRequest);
-        given(memberJoinService.join(any(), any())).willReturn(memberResponseDto);
 
         mvc.perform(post("/api/members")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(joinRequestDtoString))
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("MemberRestController findByNickName() 메서드 테스트")
+    @Test
+    public void findByNickName_test() throws Exception {
+        given(memberFindService.findByNickName(any())).willReturn(MEMBER);
+        final MemberDeleteRequest memberDeleteRequest = new MemberDeleteRequest(NICKNAME, PASSWORD);
+        final String memberDeleteRequestDtoString = objectMapper.writeValueAsString(memberDeleteRequest);
+
+        mvc.perform(get("/api/members/" + NICKNAME)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(memberDeleteRequestDtoString))
                 .andExpect(status().isOk());
     }
 
@@ -71,11 +84,11 @@ class MemberControllerTest {
     @Test
     public void update_test() throws Exception {
         final MemberResponseDto memberResponseDto = new MemberResponseDto(MEMBER);
-        final MemberUpdateRequestDto updateRequestDto = new MemberUpdateRequestDto(NICKNAME, MALE);
+        final MemberUpdateRequest updateRequestDto = new MemberUpdateRequest(NICKNAME, MALE);
         final String updateRequestDtoString = objectMapper.writeValueAsString(updateRequestDto);
         final String memberResponseDtoString = objectMapper.writeValueAsString(memberResponseDto);
 
-        given(memberUpdateService.update(any())).willReturn(memberResponseDto);
+        given(memberUpdateService.update(any(), any())).willReturn(MEMBER);
 
         mvc.perform(put("/api/members/" + NICKNAME)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -87,8 +100,8 @@ class MemberControllerTest {
     @DisplayName("MemberRestController delete 메서드 테스트")
     @Test
     public void delete_test() throws Exception {
-        final MemberDeleteRequestDto memberDeleteRequestDto = new MemberDeleteRequestDto(NICKNAME, PASSWORD);
-        final String memberDeleteRequestDtoString = objectMapper.writeValueAsString(memberDeleteRequestDto);
+        final MemberDeleteRequest memberDeleteRequest = new MemberDeleteRequest(NICKNAME, PASSWORD);
+        final String memberDeleteRequestDtoString = objectMapper.writeValueAsString(memberDeleteRequest);
 
         doNothing().when(memberDeleteService).delete(any(), any());
 

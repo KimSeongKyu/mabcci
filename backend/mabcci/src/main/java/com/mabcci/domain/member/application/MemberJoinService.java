@@ -24,7 +24,7 @@ public class MemberJoinService {
     }
 
     @Transactional
-    public MemberResponseDto join(final Member member, final Set<String> categories) {
+    public Member join(final Member member, final Set<String> categories) {
         final MemberSpecs memberSpecs = MemberSpecs.noContent();
         member.updateMemberSpecs(memberSpecs);
         for (String categoryName : categories) {
@@ -32,7 +32,7 @@ public class MemberJoinService {
             final MemberCategory memberCategory = MemberCategory.createMemberCategory(member, category);
             member.addMemberCategory(memberCategory);
         }
-        return new MemberResponseDto(memberRepository.save(member));
+        return memberRepository.save(member);
     }
 
     private Category getCategoryByCategoryName(final String categoryName) {

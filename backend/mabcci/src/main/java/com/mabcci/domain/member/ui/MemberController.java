@@ -4,6 +4,7 @@ import com.mabcci.domain.member.application.MemberDeleteService;
 import com.mabcci.domain.member.application.MemberFindService;
 import com.mabcci.domain.member.application.MemberJoinService;
 import com.mabcci.domain.member.application.MemberUpdateService;
+import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.dto.*;
 import com.mabcci.global.common.Nickname;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(originPatterns = "http://localhost:*")
 @RestController
 public class MemberController {
 
@@ -31,13 +33,15 @@ public class MemberController {
 
     @PostMapping(value = "/api/members")
     public ResponseEntity<MemberResponseDto> join(@Valid @RequestBody final MemberJoinRequest memberJoinRequest) {
-        final MemberResponseDto joinedResponseDto = memberJoinService.join(memberJoinRequest.member(), memberJoinRequest.getCategories());
-        return ResponseEntity.ok().body(joinedResponseDto);
+        final Member member = memberJoinService.join(memberJoinRequest.member(), memberJoinRequest.getCategories());
+        final MemberResponseDto memberResponseDto = new MemberResponseDto(member);
+        return ResponseEntity.ok().body(memberResponseDto);
     }
 
     @GetMapping("/api/members/{nickname}")
     public ResponseEntity<MemberResponseDto> findByNickname(@Valid @PathVariable final Nickname nickname) {
-        final MemberResponseDto memberResponseDto = memberFindService.findByNickName(nickname);
+        final Member member = memberFindService.findByNickName(nickname);
+        final MemberResponseDto memberResponseDto = new MemberResponseDto(member);
         return ResponseEntity.ok().body(memberResponseDto);
     }
 
@@ -48,14 +52,15 @@ public class MemberController {
     }
 
     @PutMapping("/api/members/{nickname}")
-    public ResponseEntity<?> update(@Valid @RequestBody final MemberUpdateRequestDto updateRequestDto) {
-        final MemberResponseDto memberResponseDto = memberUpdateService.update(updateRequestDto);
+    public ResponseEntity<?> update(@Valid @RequestBody final MemberUpdateRequest memberUpdateRequest) {
+        final Member updatedMember = memberUpdateService.update(memberUpdateRequest.getNickname(), memberUpdateRequest.getGender());
+        final MemberResponseDto memberResponseDto = new MemberResponseDto(updatedMember);
         return ResponseEntity.ok().body(memberResponseDto);
     }
 
     @DeleteMapping("/api/members/{nickname}")
-    public ResponseEntity<?> delete(@Valid @RequestBody final MemberDeleteRequestDto memberDeleteRequestDto) {
-        memberDeleteService.delete(memberDeleteRequestDto.getNickname(), memberDeleteRequestDto.getPassword());
+    public ResponseEntity<?> delete(@Valid @RequestBody final MemberDeleteRequest memberDeleteRequest) {
+        memberDeleteService.delete(memberDeleteRequest.getNickname(), memberDeleteRequest.getPassword());
         return ResponseEntity.ok().build();
     }
 

@@ -22,10 +22,8 @@ public class MemberFindService {
     }
 
     @Transactional(readOnly = true)
-    public MemberResponseDto findByNickName(final Nickname nickname) {
-        final Member findingEntity = memberRepository.findByNickname(nickname)
-                .orElseThrow(MemberNotFoundException::new);
-        return new MemberResponseDto(findingEntity);
+    public Member findByNickName(final Nickname nickname) {
+        return memberRepository.findByNickname(nickname).orElseThrow(MemberNotFoundException::new);
     }
 
     @Transactional(readOnly = true)
