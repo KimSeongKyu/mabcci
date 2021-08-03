@@ -97,4 +97,12 @@ class PictureUtilTest {
                 () -> assertThat(fileNameSplitByComma[1]).isEqualTo("png")
         );
     }
+
+    @DisplayName("PictureUtil 인스턴스 디렉토리 생성 테스트")
+    @Test
+    void make_directory_test() {
+        final String directoryName = pictureUtil.makeDirectoryName();
+        final boolean isMadeDirectory = pictureUtil.makeDirectory(directoryName);
+        assertThat(isMadeDirectory).isTrue();
+    }
 }
