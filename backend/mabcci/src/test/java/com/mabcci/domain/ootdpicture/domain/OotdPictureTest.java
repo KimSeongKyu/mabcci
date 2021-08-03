@@ -41,4 +41,15 @@ class OotdPictureTest {
                 () -> assertThat(ootdPicture).isExactlyInstanceOf(OotdPicture.class)
         );
     }
+
+    @DisplayName("OotdPicture 인스턴스 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        assertAll(
+                () -> assertThat(ootdPicture.id()).isEqualTo(1L),
+                () -> assertThat(ootdPicture.ootd()).isEqualTo(OOTD),
+                () -> assertThat(ootdPicture.url()).isEqualTo("testUrl"),
+                () -> assertThat(ootdPicture.fileName()).isEqualTo("testFileName")
+        );
+    }
 }
