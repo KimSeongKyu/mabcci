@@ -63,8 +63,6 @@ function OOTDWrite() {
   return (
     <div className="OOTDWrite-container">
       <h5>OOTD Write</h5>
-<<<<<<< HEAD
-<<<<<<< HEAD
 
       <div>
         {myImage.length === 0 ? (
@@ -186,10 +184,7 @@ function OOTDWrite() {
       <button type="submit" className="OOTDWrite-btn btn-rounded-sm">
         Submit
       </button>
-=======
->>>>>>> fc1fdf5 ([S05P13C107-37] [FE-seongaeee] feat: OOTD 상세 조회 사용자 및 글 정보 API 연결)
-=======
->>>>>>> 5aad1fd59b24df93c79fff9fa15731fc589275d7
+
     </div>
   );
 }
