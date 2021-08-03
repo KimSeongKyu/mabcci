@@ -16,6 +16,16 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class OotdTest {
 
+    public static final Ootd OOTD = Ootd.builder()
+            .member(MEMBER)
+            .content("content")
+            .top("top")
+            .bottom("bottom")
+            .shoes("shoes")
+            .accessory("accessory")
+            .views(0L)
+            .build();
+
     private Ootd ootd;
     private Validator validator;
 
