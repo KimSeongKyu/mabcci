@@ -6,6 +6,7 @@ import instance from '../index';
 const LoginApi = async userAuthInfo => {
   try {
     const response = await instance.post(LoginUrl, userAuthInfo);
+
     const { accessToken } = response.data;
     const { refreshToken } = response.data;
     const decoded = jwtDecode(accessToken);
