@@ -74,7 +74,7 @@ function SignupForm() {
 
     if (response.status === 200) {
       console.log('룰룰랄라');
-      // history.push('/desc');
+      history.push('/desc');
     } else {
       console.log(response.status);
       console.log('왜안되냐냐아아아');
