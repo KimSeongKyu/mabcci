@@ -2,11 +2,11 @@ package com.mabcci.domain.member.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mabcci.domain.membercategory.domain.MemberCategory;
-import com.mabcci.domain.model.Email;
-import com.mabcci.domain.model.Nickname;
-import com.mabcci.domain.model.Password;
-import com.mabcci.domain.model.Phone;
-import com.mabcci.global.common.BaseTimeEntity;
+import com.mabcci.global.common.Email;
+import com.mabcci.global.common.Nickname;
+import com.mabcci.global.common.Password;
+import com.mabcci.global.common.Phone;
+import com.mabcci.domain.BaseTimeEntity;
 
 import javax.persistence.*;
 import java.util.*;
@@ -70,7 +70,7 @@ public class Member extends BaseTimeEntity {
 
     public void addMemberCategory(final MemberCategory memberCategory) {
         memberCategories.add(memberCategory);
-        memberCategory.addMember(this);
+        memberCategory.changeMember(this);
     }
 
     public static MemberBuilder builder() {

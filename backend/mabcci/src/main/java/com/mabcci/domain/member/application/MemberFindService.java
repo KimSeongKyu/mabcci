@@ -2,9 +2,10 @@ package com.mabcci.domain.member.application;
 
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
+import com.mabcci.domain.member.dto.MemberListResponseDto;
 import com.mabcci.domain.member.dto.MemberResponseDto;
 import com.mabcci.domain.member.exception.MemberNotFoundException;
-import com.mabcci.domain.model.Nickname;
+import com.mabcci.global.common.Nickname;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,9 +29,9 @@ public class MemberFindService {
     }
 
     @Transactional(readOnly = true)
-    public List<MemberResponseDto> findAll() {
+    public List<MemberListResponseDto> findAll() {
         return memberRepository.findAll().stream()
-                .map(MemberResponseDto::new)
+                .map(MemberListResponseDto::new)
                 .collect(Collectors.toList());
     }
 }

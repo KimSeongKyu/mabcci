@@ -12,7 +12,7 @@ import com.mabcci.domain.auth.exception.NotLoginMemberException;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.exception.MemberNotFoundException;
-import com.mabcci.domain.model.Email;
+import com.mabcci.global.common.Email;
 import org.apache.logging.log4j.util.Strings;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,8 +23,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static com.mabcci.domain.model.EmailTest.EMAIL;
-import static com.mabcci.domain.model.PasswordTest.PASSWORD;
+import static com.mabcci.global.common.EmailTest.EMAIL;
+import static com.mabcci.global.common.PasswordTest.PASSWORD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertAll;

@@ -1,4 +1,4 @@
-package com.mabcci.domain.model;
+package com.mabcci.global.common;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

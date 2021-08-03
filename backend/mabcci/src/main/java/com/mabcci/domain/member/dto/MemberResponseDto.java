@@ -1,12 +1,11 @@
 package com.mabcci.domain.member.dto;
 
 import com.mabcci.domain.member.domain.*;
-import com.mabcci.domain.model.Email;
-import com.mabcci.domain.model.Nickname;
+import com.mabcci.global.common.Email;
+import com.mabcci.global.common.Nickname;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 public final class MemberResponseDto {
 
@@ -47,7 +46,7 @@ public final class MemberResponseDto {
                 memberSpecs.height(), memberSpecs.weight(), memberSpecs.footSize(), memberSpecs.form());
     }
 
-    public MemberResponseDto(final Long id, @Valid final Email email, @Valid final Nickname nickname,
+    private MemberResponseDto(final Long id, @Valid final Email email, @Valid final Nickname nickname,
                                    final Gender gender, final MemberRole role,
                                    final int height, final int weight, final int footSize, final BodyType bodyType) {
         this.id = id;

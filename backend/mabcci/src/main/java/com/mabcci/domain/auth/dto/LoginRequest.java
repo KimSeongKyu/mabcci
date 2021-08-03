@@ -1,7 +1,7 @@
 package com.mabcci.domain.auth.dto;
 
-import com.mabcci.domain.model.Email;
-import com.mabcci.domain.model.Password;
+import com.mabcci.global.common.Email;
+import com.mabcci.global.common.Password;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

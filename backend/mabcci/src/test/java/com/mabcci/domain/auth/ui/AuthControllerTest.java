@@ -6,8 +6,8 @@ import com.mabcci.domain.auth.domain.vo.JwtToken;
 import com.mabcci.domain.auth.dto.LoginRequest;
 import com.mabcci.domain.auth.dto.LoginResponse;
 import com.mabcci.domain.auth.dto.LogoutRequest;
-import com.mabcci.domain.model.Email;
-import com.mabcci.domain.model.Password;
+import com.mabcci.global.common.Email;
+import com.mabcci.global.common.Password;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -23,8 +23,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.stream.Stream;
 
-import static com.mabcci.domain.model.EmailTest.EMAIL;
-import static com.mabcci.domain.model.PasswordTest.PASSWORD;
+import static com.mabcci.global.common.EmailTest.EMAIL;
+import static com.mabcci.global.common.PasswordTest.PASSWORD;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;

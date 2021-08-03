@@ -26,12 +26,12 @@ public class MemberCategory {
     protected MemberCategory() {
     }
 
-    private MemberCategory(final Member member, final Category category) {
+    protected MemberCategory(final Member member, final Category category) {
         this.member = member;
         this.category = category;
     }
 
-    public void addMember(final Member member) {
+    public void changeMember(final Member member) {
         this.member = member;
     }
 }

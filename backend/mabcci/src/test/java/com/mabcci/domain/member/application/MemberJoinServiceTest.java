@@ -3,7 +3,7 @@ package com.mabcci.domain.member.application;
 import com.mabcci.domain.category.domain.CategoryRepository;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.dto.MemberResponseDto;
-import com.mabcci.domain.model.Password;
+import com.mabcci.global.common.Password;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,23 +22,15 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class MemberServiceTest {
+class MemberJoinServiceTest {
 
     private static final HashSet<String> CATEGORIES = new HashSet<>(Arrays.asList("categoryName"));
 
-    @Mock
-    private MemberRepository memberRepository;
+    @Mock private MemberRepository memberRepository;
+    @Mock private CategoryRepository categoryRepository;
+    @InjectMocks private MemberJoinService memberJoinService;
 
-    @Mock
-    private CategoryRepository categoryRepository;
-
-    @InjectMocks
-    private MemberService memberService;
-
-    @InjectMocks
-    private MemberJoinService memberJoinService;
-
-    @DisplayName("MemberService 인스턴스 join() 기능 테스트")
+    @DisplayName("MemberJoinService 인스턴스 join() 기능 테스트")
     @Test
     void join_test() {
         given(memberRepository.save(any())).willReturn(MEMBER);
@@ -51,17 +43,6 @@ class MemberServiceTest {
                 () -> assertThat(memberResponseDto.getGender()).isEqualTo(MEMBER.gender()),
                 () -> assertThat(memberResponseDto.getRole()).isEqualTo(MEMBER.role())
         );
-    }
-
-    @DisplayName("MemberService 인스턴스 delete() 기능 테스트")
-    @Test
-    void delete_test() {
-        doReturn(Optional.ofNullable(MEMBER)).when(memberRepository).findByNicknameAndPassword(any(), any());
-        doNothing().when(memberRepository).delete(any());
-
-        memberService.delete(MEMBER.nickname(), Password.of("password"));
-
-        verify(memberRepository, times(1)).delete(any());
     }
 
 

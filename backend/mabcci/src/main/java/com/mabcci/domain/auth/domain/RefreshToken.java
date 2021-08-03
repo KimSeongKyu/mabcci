@@ -1,7 +1,7 @@
 package com.mabcci.domain.auth.domain;
 
 import com.mabcci.domain.auth.domain.vo.JwtToken;
-import com.mabcci.domain.model.Email;
+import com.mabcci.global.common.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

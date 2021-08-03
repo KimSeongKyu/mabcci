@@ -1,5 +1,6 @@
-package com.mabcci.domain.model;
+package com.mabcci.global.common;
 
+import com.mabcci.global.common.Password;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

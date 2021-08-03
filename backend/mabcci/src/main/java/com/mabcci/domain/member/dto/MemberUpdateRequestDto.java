@@ -1,7 +1,7 @@
 package com.mabcci.domain.member.dto;
 
 import com.mabcci.domain.member.domain.Gender;
-import com.mabcci.domain.model.Nickname;
+import com.mabcci.global.common.Nickname;
 
 import javax.validation.Valid;
 
