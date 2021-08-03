@@ -37,4 +37,15 @@ class PictureUtilTest {
 
         assertThat(pictureEntities).isEmpty();
     }
+
+    @DisplayName("PictureUtil 인스턴스 디렉토리 이름 생성 테스트")
+    @Test
+    void make_directory_name_test() {
+        String directoryName = pictureUtil.makeDirectoryName();
+
+        assertAll(
+                () -> assertThat(directoryName).contains("images"),
+                () -> assertThat(directoryName).containsPattern("(19|20)\\d{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])")
+        );
+    }
 }
