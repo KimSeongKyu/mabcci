@@ -1,13 +1,13 @@
 export const LoginUrl = '/auth/login';
 export const LogoutUrl = '/auth/logout';
-export const SignupUrl = '/auth/members';
+export const SignupUrl = '/api/members';
 
-export const OOTDWriteUrl = '/api/ootd';
-export const OOTDUpdateUrl = '/api/ootd/';
-export const OOTDDeleteUrl = '/api/ootd/';
-export const OOTDDetailUrl = '/api/ootd/';
-export const OOTDSearchUrl = '/api/ootd?search=?&size=20&page=?';
-export const OOTDListUrl = '/api/ootd?size=20&page=?';
+export const OOTDWriteUrl = '/api/ootds';
+export const OOTDUpdateUrl = '/api/ootds/';
+export const OOTDDeleteUrl = '/api/ootds/';
+export const OOTDDetailUrl = '/api/ootds/';
+export const OOTDSearchUrl = '/api/ootds?search=?&size=20&page=?';
+export const OOTDListUrl = '/api/ootds?size=20&page=?';
 export const OOTDMyPageListUrl = '';
 export const OOTDCommentCreateUrl = '/api/ootd/comments';
 export const OOTDCommentUpdateUrl = '/api/ootd/comments/';
