@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class PictureUtilTest {
 
     private PictureUtil pictureUtil;
-    private List<MockMultipartFile> mockPictures;
+    private List<MultipartFile> mockPictures;
 
     @BeforeEach
     void setUp() {
@@ -47,13 +47,19 @@ class PictureUtilTest {
         );
     }
 
+    @DisplayName("PictureUtil 인스턴스 파일을 Picture 엔티티로 변환하는 테스트")
+    @Test
+    void to_entities_test() {
+        final List<Picture> entities = pictureUtil.toEntities(mockPictures);
+        assertThat(entities.size()).isEqualTo(2);
+    }
+
     @DisplayName("PictureUtil 인스턴스 전달받은 사진이 없는 경우 빈 리스트를 반환하는 테스트")
     @Test
     void return_empty_list_when_no_picture() {
         final List<MultipartFile> pictures = new ArrayList<>();
-        final List<Picture> pictureEntities = pictureUtil.toEntities(pictures);
-
-        assertThat(pictureEntities).isEmpty();
+        final List<Picture> entities = pictureUtil.toEntities(pictures);
+        assertThat(entities).isEmpty();
     }
 
     @DisplayName("PictureUtil 인스턴스 디렉토리 이름 생성 테스트")
@@ -71,8 +77,8 @@ class PictureUtilTest {
     @DisplayName("PictureUtil 인스턴스 확장자명 생성 테스트")
     @Test
     void make_original_file_extension_test() {
-        final MockMultipartFile pngPicture = mockPictures.get(0);
-        final MockMultipartFile jpegPicture = mockPictures.get(1);
+        final MultipartFile pngPicture = mockPictures.get(0);
+        final MultipartFile jpegPicture = mockPictures.get(1);
 
         assertAll(
                 () -> assertThat(pictureUtil.makeOriginalFileExtension(pngPicture.getContentType())).isEqualTo(".png"),
@@ -91,5 +97,4 @@ class PictureUtilTest {
                 () -> assertThat(fileNameSplitByComma[1]).isEqualTo("png")
         );
     }
-
 }
