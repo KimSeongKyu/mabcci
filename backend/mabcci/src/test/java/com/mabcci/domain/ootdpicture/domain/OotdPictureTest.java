@@ -3,6 +3,7 @@ package com.mabcci.domain.ootdpicture.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import javax.validation.Validation;
 import static com.mabcci.domain.ootd.domain.OotdTest.OOTD;
@@ -45,6 +46,8 @@ class OotdPictureTest {
     @DisplayName("OotdPicture 인스턴스 getter 메서드들 테스트")
     @Test
     void getter_test() {
+        ReflectionTestUtils.setField(ootdPicture, "id", 1L);
+
         assertAll(
                 () -> assertThat(ootdPicture.id()).isEqualTo(1L),
                 () -> assertThat(ootdPicture.ootd()).isEqualTo(OOTD),

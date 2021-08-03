@@ -1,5 +1,6 @@
 package com.mabcci.domain.ootdpicture.domain;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.mabcci.domain.ootd.domain.Ootd;
 import com.mabcci.global.common.BaseTimeEntity;
 
@@ -35,6 +36,26 @@ public class OotdPicture extends BaseTimeEntity {
         this.ootd = ootdPictureBuilder.ootd;
         this.url = ootdPictureBuilder.url;
         this.fileName = ootdPictureBuilder.fileName;
+    }
+
+    @JsonValue
+    public Long id() {
+        return id;
+    }
+
+    @JsonValue
+    public Ootd ootd() {
+        return ootd;
+    }
+
+    @JsonValue
+    public String url() {
+        return url;
+    }
+
+    @JsonValue
+    public String fileName() {
+        return fileName;
     }
 
     public static OotdPictureBuilder builder() {
