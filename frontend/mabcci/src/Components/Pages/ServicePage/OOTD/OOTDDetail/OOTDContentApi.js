@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { OOTDDetailApi } from '../../../../../API/OOTDAPI/OOTDDetailApi';
 
 const OOTDContentApi = () => {
+  const myInfo = JSON.parse(localStorage.getItem('userInfo'));
   const { id, nickname } = useParams();
 
   const [user, setUser] = useState({
@@ -24,10 +26,16 @@ const OOTDContentApi = () => {
     likeMembers: [],
   });
 
+  const [myLike, setMyLike] = useState(false);
+
   useEffect(async () => {
     const response = await OOTDDetailApi(id);
     setDetail({ ...detail, ...response.detail });
   }, []);
+
+  const likeHandler = () => {
+    setMyLike(!myLike);
+  };
 
   return (
     <article className="detail-content">
@@ -38,12 +46,30 @@ const OOTDContentApi = () => {
           <p>
             {detail.registeredTime} views:{detail.views}
           </p>
+          {myInfo.nickname === user.nickname ? (
+            <button type="button">수정</button>
+          ) : null}
+          {myInfo.nickname === user.nickname ? (
+            <button type="button">삭제</button>
+          ) : null}
         </div>
       </section>
       <section className="detail-ootd-photo">{detail.picture}</section>
       <section className="detail-ootd">
         <div className="detail-ootd-like">
-          <AiOutlineHeart className="detail-ootd-heart" />
+          {myLike ? (
+            <AiFillHeart
+              className="detail-ootd-heart"
+              size="20"
+              onClick={likeHandler}
+            />
+          ) : (
+            <AiOutlineHeart
+              className="detail-ootd-heart"
+              size="20"
+              onClick={likeHandler}
+            />
+          )}
           {detail.likeMembers.length}
         </div>
         <div className="detail-ootd-content">
