@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { OOTDDetailApi } from '../../../../../API/OOTDAPI/OOTDDetailApi';
 
 const OOTDContentApi = () => {
+  const history = useHistory();
   const myInfo = JSON.parse(localStorage.getItem('userInfo'));
   const { id, nickname } = useParams();
-
   const [user, setUser] = useState({
     nickname,
     userphoto: '사진',
   });
-
   const [detail, setDetail] = useState({
     id,
     content: '',
@@ -22,6 +20,7 @@ const OOTDContentApi = () => {
     accessory: '',
     picture: '',
     views: '',
+    hashtag: [],
     registeredTime: '',
     likeMembers: [],
   });
@@ -32,6 +31,13 @@ const OOTDContentApi = () => {
     const response = await OOTDDetailApi(id);
     setDetail({ ...detail, ...response.detail });
   }, []);
+
+  const ootdUpdateHandler = () => {
+    //  history.push({
+    //   pathname: /OOTDUpdate/${detail.id}/${user.nickname},
+    //   state: { detail },
+    // });
+  };
 
   const likeHandler = () => {
     setMyLike(!myLike);
@@ -47,7 +53,9 @@ const OOTDContentApi = () => {
             {detail.registeredTime} views:{detail.views}
           </p>
           {myInfo.nickname === user.nickname ? (
-            <button type="button">수정</button>
+            <button type="button" onClick={ootdUpdateHandler}>
+              수정
+            </button>
           ) : null}
           {myInfo.nickname === user.nickname ? (
             <button type="button">삭제</button>
