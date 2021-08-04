@@ -14,3 +14,6 @@ export const OOTDCommentUpdateUrl = '/api/ootd/comments/';
 export const OOTDCommentDeleteUrl = '/api/ootd/comments/';
 export const OOTDCommentReadUrl = '/api/ootd/comments';
 export const OOTDLikeUrl = '/api/ootd/';
+
+export const MabcciSearchUrl = '/api/members/mabcci';
+export const PopularMabcciSearchUrl = '/api/members/mabcci/popular';
