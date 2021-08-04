@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static com.mabcci.domain.ootd.domain.OotdTest.OOTD;
+import static com.mabcci.domain.ootd.dto.OotdRegisterRequestTest.OOTD_REGISTER_REQUEST;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -26,6 +27,9 @@ class OotdServiceTest {
     @Test
     void save_ootd_test() {
         doReturn(OOTD).when(ootdRepository).save(any());
+
+        ootdService.saveOotd(OOTD_REGISTER_REQUEST);
+
         verify(ootdRepository, times(1)).save(any());
     }
 }
