@@ -68,12 +68,7 @@ public class Member extends BaseTimeEntity {
         this.memberSpecs = memberBuilder.memberSpecs;
     }
 
-    public void addMemberCategory(final MemberCategory memberCategory) {
-        memberCategories.add(memberCategory);
-        memberCategory.changeMember(this);
-    }
-
-    public static MemberBuilder builder() {
+    public static MemberBuilder Builder() {
         return new MemberBuilder();
     }
 
@@ -101,6 +96,22 @@ public class Member extends BaseTimeEntity {
         return memberSpecs;
     }
 
+    public Gender gender() {
+        return gender;
+    }
+
+    public Set<MemberCategory> memberCategories() {
+        return memberCategories;
+    }
+
+
+    public void addMemberCategory(final MemberCategory memberCategory) {
+        memberCategory.changeMember(this);
+        if(!memberCategories.contains(memberCategory)) {
+            memberCategories.add(memberCategory);
+        }
+    }
+
     public void updateMemberSpecs(final MemberSpecs memberSpecs) {
         this.memberSpecs = memberSpecs;
     }
@@ -109,14 +120,6 @@ public class Member extends BaseTimeEntity {
         this.nickname = nickName;
         this.gender = gender;
         return this;
-    }
-
-    public Gender gender() {
-        return gender;
-    }
-
-    public Set<MemberCategory> memberCategories() {
-        return memberCategories;
     }
 
     public static class MemberBuilder {

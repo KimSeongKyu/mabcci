@@ -71,7 +71,7 @@ public final class MemberJoinRequest {
     }
 
     public final Member member() {
-        return Member.builder()
+        return Member.Builder()
                 .email(email)
                 .password(password)
                 .nickname(nickname)

@@ -24,7 +24,7 @@ class MemberResponseDtoTest {
 
     @BeforeEach
     public void setUp() {
-        member = Member.builder()
+        member = Member.Builder()
                 .email(EMAIL)
                 .password(PASSWORD)
                 .nickname(NICKNAME)

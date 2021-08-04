@@ -4,7 +4,6 @@ import com.mabcci.domain.BaseTimeEntity;
 import com.mabcci.domain.member.domain.Member;
 
 import javax.persistence.*;
-import java.text.BreakIterator;
 
 @Entity
 public class Follow extends BaseTimeEntity {

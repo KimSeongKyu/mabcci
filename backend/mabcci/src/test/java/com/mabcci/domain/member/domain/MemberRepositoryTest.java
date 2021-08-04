@@ -32,14 +32,14 @@ class MemberRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        member = Member.builder()
+        member = Member.Builder()
                 .email(EMAIL)
                 .password(PASSWORD)
                 .nickname(NICKNAME)
                 .phone(PHONE)
                 .gender(MALE)
                 .role(USER)
-                .memberSpecs(MemberSpecs.Build()
+                .memberSpecs(MemberSpecs.Builder()
                         .height(HEIGHT)
                         .weight(WEIGHT)
                         .footSize(FOOT_SIZE)
