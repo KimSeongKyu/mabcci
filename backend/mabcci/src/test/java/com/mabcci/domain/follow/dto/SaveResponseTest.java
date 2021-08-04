@@ -1,6 +1,5 @@
-package com.mabcci.domain.follow;
+package com.mabcci.domain.follow.dto;
 
-import com.mabcci.domain.follow.dto.SaveResponse;
 import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
