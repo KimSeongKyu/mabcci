@@ -3,6 +3,7 @@ package com.mabcci.domain.hashtag.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -35,6 +36,17 @@ class HashtagTest {
         assertAll(
                 () -> assertThat(hashtag).isNotNull(),
                 () -> assertThat(hashtag).isExactlyInstanceOf(Hashtag.class)
+        );
+    }
+
+    @DisplayName("Hastag 인스턴스 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        ReflectionTestUtils.setField(hashtag, "id", 1L);
+
+        assertAll(
+                () -> assertThat(hashtag.id()).isEqualTo(1L),
+                () -> assertThat(hashtag.name()).isEqualTo("해시태그")
         );
     }
 }
