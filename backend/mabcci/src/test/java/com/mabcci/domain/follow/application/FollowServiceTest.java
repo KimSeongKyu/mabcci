@@ -10,6 +10,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 class FollowServiceTest {
@@ -27,5 +29,12 @@ class FollowServiceTest {
                 () -> assertThat(followService).isExactlyInstanceOf(FollowService.class)
         );
     }
+
+//    @DisplayName("FollowService 인스턴스 save() 기능 테스트")
+//    @Test
+//    void save_test() {
+//
+//        given(followRepository.save(any(), any())).willReturn()
+//    }
 
 }
