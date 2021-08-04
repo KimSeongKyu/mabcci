@@ -1,5 +1,7 @@
 package com.mabcci.domain.hashtag.domain;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -24,6 +26,16 @@ public class Hashtag {
 
     public static HashtagBuilder builder() {
         return new HashtagBuilder();
+    }
+
+    @JsonValue
+    public Long id() {
+        return id;
+    }
+
+    @JsonValue
+    public String name() {
+        return name;
     }
 
     public static class HashtagBuilder {
