@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static com.mabcci.domain.ootd.domain.OotdTest.OOTD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -26,7 +27,7 @@ class OotdPictureRegisterRequestTest {
                 new Picture("testDirectory", "testFile"),
                 new Picture("testDirectory", "testFile")
         ));
-        ootdPictureRegisterRequest = new OotdPictureRegisterRequest(pictures);
+        ootdPictureRegisterRequest = new OotdPictureRegisterRequest(OOTD, pictures);
     }
 
     @DisplayName("OotdPictureRegisterRequest 인스턴스 생성 여부 테스트")
@@ -41,14 +42,18 @@ class OotdPictureRegisterRequestTest {
     @DisplayName("OOtdPictureRegisterRequest 인스턴스 getter 메서드 테스트")
     @Test
     void getter_test() {
-        assertThat(ootdPictureRegisterRequest.getPictures()).isEqualTo(pictures);
+        assertAll(
+                () -> assertThat(ootdPictureRegisterRequest.getPictures()).isEqualTo(pictures),
+                () -> assertThat(ootdPictureRegisterRequest.getOotd()).isEqualTo(OOTD)
+        );
+
     }
 
     @DisplayName("OOtdPictureRegisterRequest 인스턴스 프로퍼티 유효성 검사 테스트")
     @Test
     void validate_test() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        final OotdPictureRegisterRequest invalidRequest = new OotdPictureRegisterRequest(new ArrayList<>());
+        final OotdPictureRegisterRequest invalidRequest = new OotdPictureRegisterRequest(null, new ArrayList<>());
 
         final Set<ConstraintViolation<OotdPictureRegisterRequest>> constraintViolationsOfValidRequest =
                 validator.validate(ootdPictureRegisterRequest);
@@ -57,7 +62,7 @@ class OotdPictureRegisterRequestTest {
 
         assertAll(
                 () -> assertThat(constraintViolationsOfValidRequest.size()).isEqualTo(0),
-                () -> assertThat(constraintViolationsOfInvalidRequest.size()).isEqualTo(1)
+                () -> assertThat(constraintViolationsOfInvalidRequest.size()).isEqualTo(2)
         );
     }
 }
