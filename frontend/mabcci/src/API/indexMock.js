@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const createInstance = () => {
   return axios.create({
-    baseURL: 'https://1d4105a0-ceb8-4269-81ca-a1e4c7348a60.mock.pstmn.io',
+    baseURL: 'https://77c96212-0588-4a42-9cea-d4e96154fac4.mock.pstmn.io',
   });
 };
 

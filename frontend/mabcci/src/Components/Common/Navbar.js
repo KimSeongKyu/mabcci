@@ -9,6 +9,7 @@ import { MdAccountCircle, MdAccessAlarm } from 'react-icons/md';
 import { IoShirtOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import logo from '../../Asset/Images/logo.png';
+import LogoutApi from '../../API/AuthAPI/LogoutApi';
 
 function Nav() {
   const [isLoggedin, setisLoggedin] = useState(false);
