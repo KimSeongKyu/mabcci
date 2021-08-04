@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import './InputTags.css';
 import { MdCancel } from "react-icons/md"
+import { GiConsoleController } from 'react-icons/gi';
 
 const Tag = ({ txt, idx, send, tagColor }) => {
   const removeTag = () => {
@@ -19,13 +20,15 @@ const Tag = ({ txt, idx, send, tagColor }) => {
   );
 };
 
-export default function InputTags({ onTag, placeHolder, tagColor }, props) {
-  const [tags, setTags] = useState([]);
+export default function InputTags({ onTag, placeHolder, tagColor, hashTag }) {
+  const [tags, setTags] = useState(['asdf', 'asdf']);
+  console.log(hashTag);
 
-  useEffect(() => {
-    console.log(props.hashTag)
-  }, [])
-
+  // useEffect(() => {
+  //   setTags(hashTag);
+  //   onTag(tags);
+  // }, []);
+  
   useEffect(() => {
     onTag(tags);
   }, [tags, setTags]);

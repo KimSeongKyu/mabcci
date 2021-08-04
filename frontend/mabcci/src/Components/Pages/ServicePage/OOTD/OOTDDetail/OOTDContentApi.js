@@ -13,14 +13,14 @@ const OOTDContentApi = () => {
   });
   const [detail, setDetail] = useState({
     id,
-    content: '',
-    top: '',
-    bottom: '',
-    shoes: '',
-    accessory: '',
-    picture: '',
+    content: 'gdgd',
+    top: 'gdgd',
+    bottom: 'gdgd',
+    shoes: 'zz',
+    accessory: 'sdaf',
+    picture: [],
     views: '',
-    hashtag: [],
+    hashtag: ['해시', '태그'],
     registeredTime: '',
     likeMembers: [],
   });
@@ -33,10 +33,20 @@ const OOTDContentApi = () => {
   }, []);
 
   const ootdUpdateHandler = () => {
-    //  history.push({
-    //   pathname: /OOTDUpdate/${detail.id}/${user.nickname},
-    //   state: { detail },
-    // });
+    const info = {
+      id: detail.id,
+      top: detail.top,
+      bottom: detail.bottom,
+      shoes: detail.shoes,
+      accessory: detail.accessory,
+      content: detail.content,
+      picture: detail.picture,
+      hashTag: detail.hashtag,
+    };
+    history.push({
+      pathname: `/OOTDUpdate/${detail.id}/${user.nickname}`,
+      state: { info },
+    });
   };
 
   const likeHandler = () => {

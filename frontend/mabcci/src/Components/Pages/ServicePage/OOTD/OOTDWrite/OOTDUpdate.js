@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 import './OOTDWrite.css';
 
@@ -17,8 +17,6 @@ import { IoShirt } from 'react-icons/io5';
 import { GiArmoredPants, GiConverseShoe } from 'react-icons/gi';
 import { FaShoppingBag } from 'react-icons/fa';
 
-import OOTDWriteApi from '../../../../../API/OOTDAPI/OOTDWriteApi';
-
 import InputTags from './InputTags';
 
 SwiperCore.use([Zoom, Navigation, Pagination]);
@@ -27,6 +25,7 @@ function OOTDUpdate() {
   const location = useLocation();
 
   const [myOOTDInfo, setMyOOTDInfo] = useState({
+    id: '',
     top: '',
     bottom: '',
     shoes: '',
@@ -37,7 +36,7 @@ function OOTDUpdate() {
   });
 
   useEffect(() => {
-    setMyOOTDInfo({ ...myOOTDInfo, ...location.state.detail });
+    setMyOOTDInfo({ ...myOOTDInfo, ...location.state.info });
   }, []);
 
   const addImage = e => {
@@ -52,6 +51,7 @@ function OOTDUpdate() {
       ...myOOTDInfo,
       picture: nowImageURLList,
     });
+    e.target.value = '';
   };
 
   const removeImage = e => {
@@ -79,15 +79,8 @@ function OOTDUpdate() {
     });
   };
 
-  const submitOOTD = async () => {
+  const submitOOTD = () => {
     console.log(myOOTDInfo);
-    // const res = await OOTDWriteApi(myOOTDInfo);
-    // if (res.status === 200) {
-    //   console.log('mock연동 성공');
-    //   console.log(res.info);
-    // } else {
-    //   console.log('mock연동 실패');
-    // }
   };
 
   return (
@@ -200,7 +193,7 @@ function OOTDUpdate() {
           tagColor="#48c774"
           placeHolder="Press enter"
           className="OOTDWrite-hashtag-input"
-          value={myOOTDInfo.hashTag[0]}
+          hashTag={myOOTDInfo.hashTag}
         />
         {myOOTDInfo.hashTag.length >= 20 ? (
           <p id="OOTDWrite-warnning-tag">태그는 20개까지 작성가능합니다</p>

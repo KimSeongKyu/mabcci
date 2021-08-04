@@ -45,6 +45,7 @@ function OOTDWrite() {
       ...myOOTDInfo,
       picture: nowImageURLList,
     });
+    e.target.value = '';
   };
 
   const removeImage = e => {
@@ -84,7 +85,7 @@ function OOTDWrite() {
 
   return (
     <div className="OOTDWrite-container">
-      <OOTDWrite hashTag={myOOTDInfo.hashTag} />
+      {/* <OOTDWrite hashTag={myOOTDInfo.hashTag} /> */}
 
       <h5>OOTD Write</h5>
 
