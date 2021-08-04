@@ -57,7 +57,7 @@ function App() {
         <Route exact path="/mypage" component={MyPageMain} />
         <Route exact path="/OOTD" component={OOTDMain} />
         <Route exact path="/OOTDWrite" component={OOTDWrite} />
-        <Route exact path="/OOTDDetail/:id/:nickname" component={OOTDDetail} />
+        <Route exact path="/OOTD/:id/:nickname" component={OOTDDetail} />
         <Route exact path="/styling" component={StylingMain} />
       </Switch>
     </div>
