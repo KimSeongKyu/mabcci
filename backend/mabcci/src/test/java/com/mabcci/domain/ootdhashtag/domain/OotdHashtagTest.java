@@ -8,7 +8,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
-
 import java.util.Set;
 
 import static com.mabcci.domain.hashtag.domain.HashtagTest.HASHTAG;
@@ -16,7 +15,12 @@ import static com.mabcci.domain.ootd.domain.OotdTest.OOTD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class OotdHashtagTest {
+public class OotdHashtagTest {
+
+    public static final OotdHashtag OOTD_HASHTAG = OotdHashtag.builder()
+            .ootd(OOTD)
+            .hashtag(HASHTAG)
+            .build();
 
     private OotdHashtag ootdHashtag;
 

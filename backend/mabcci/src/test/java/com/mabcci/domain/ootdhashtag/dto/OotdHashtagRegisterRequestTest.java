@@ -17,7 +17,10 @@ import static com.mabcci.domain.ootd.domain.OotdTest.OOTD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class OotdHashtagRegisterRequestTest {
+public class OotdHashtagRegisterRequestTest {
+
+    public static final OotdHashtagRegisterRequest OOTD_HASHTAG_REGISTER_REQUEST =
+            new OotdHashtagRegisterRequest(OOTD, new ArrayList<>(List.of(HASHTAG, HASHTAG)));
 
     private OotdHashtagRegisterRequest ootdHashtagRegisterRequest;
     private List<Hashtag> hashtags;
