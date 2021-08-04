@@ -1,4 +1,6 @@
-package com.mabcci.global.common;
+package com.mabcci.domain.picture.domain;
+
+import com.mabcci.global.common.BaseTimeEntity;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -18,7 +20,7 @@ public class Picture extends BaseTimeEntity {
     protected Picture() {
     }
 
-    protected Picture(final String url, final String fileName) {
+    public Picture(final String url, final String fileName) {
         this.url = url;
         this.fileName = fileName;
     }

@@ -2,7 +2,7 @@ package com.mabcci.domain.ootdpicture.domain;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.mabcci.domain.ootd.domain.Ootd;
-import com.mabcci.global.common.Picture;
+import com.mabcci.domain.picture.domain.Picture;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

@@ -1,5 +1,6 @@
-package com.mabcci.global.common;
+package com.mabcci.domain.picture.common;
 
+import com.mabcci.domain.picture.domain.Picture;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
