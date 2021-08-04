@@ -46,7 +46,7 @@ class HashtagRegisterRequestTest {
     @Test
     void validate_test() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        final HashtagRegisterRequest invalidRequest = new HashtagRegisterRequest(null);
+        final HashtagRegisterRequest invalidRequest = new HashtagRegisterRequest(new ArrayList<>());
 
         final Set<ConstraintViolation<HashtagRegisterRequest>> invalidPropertiesOfValidRequest =
                 validator.validate(hashtagRegisterRequest);

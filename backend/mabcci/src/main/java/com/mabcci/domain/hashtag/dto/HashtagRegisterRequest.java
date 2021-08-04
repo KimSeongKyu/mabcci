@@ -1,11 +1,12 @@
 package com.mabcci.domain.hashtag.dto;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public final class HashtagRegisterRequest {
 
-    @NotNull
+    @NotEmpty
     private List<String> names;
 
     private HashtagRegisterRequest() {
