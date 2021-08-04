@@ -109,13 +109,23 @@ class PictureUtilTest {
 
     @DisplayName("PictureUtil 인스턴스 파일 저장 테스트")
     @Test
-    void save_file_test() {
+    void save_file_test() throws Exception {
+        final String testDirectory = "testDirectory";
+        pictureUtil.makeDirectory(testDirectory);
+
         final MultipartFile picture = mockPictures.get(0);
-        final Picture savedPicture = pictureUtil.saveFile(picture);
+        final Picture savedPicture = pictureUtil.saveFile(picture, testDirectory);
 
         assertAll(
                 () -> assertThat(savedPicture).isNotNull(),
                 () -> assertThat(savedPicture).isExactlyInstanceOf(Picture.class)
         );
+
+        final File testFolder = new File(testDirectory);
+        final File[] filesInTestFolder = testFolder.listFiles();
+        for (File file : filesInTestFolder) {
+            file.delete();
+        }
+        testFolder.delete();
     }
 }

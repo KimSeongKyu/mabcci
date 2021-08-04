@@ -26,8 +26,21 @@ public class PictureUtil {
                 .collect(toList());
     }
 
+    public Picture saveFile(final MultipartFile picture, final String directoryName) throws Exception {
+        final String absolutePath = new File("").getAbsolutePath() + File.separator + File.separator;
+        final String fileName = makeFileName(makeOriginalFileExtension(picture.getContentType()));
+        final File file = new File(absolutePath + directoryName + File.separator + fileName);
+
+        file.setWritable(false);
+        file.setReadable(true);
+
+        picture.transferTo(file);
+
+        return new Picture(directoryName, fileName);
+    }
+
     public boolean makeDirectory(final String directoryName) {
-        File file = new File(directoryName);
+        final File file = new File(directoryName);
         return file.mkdirs();
     }
 
