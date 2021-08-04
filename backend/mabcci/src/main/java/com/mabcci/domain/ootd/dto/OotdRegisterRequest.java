@@ -1,11 +1,13 @@
 package com.mabcci.domain.ootd.dto;
 
-import javax.validation.constraints.NotBlank;
+import com.mabcci.domain.member.domain.Member;
+
+import javax.validation.constraints.NotNull;
 
 public final class OotdRegisterRequest {
 
-    @NotBlank
-    private String nickname;
+    @NotNull
+    private Member member;
 
     private String content;
     private String top;
@@ -16,9 +18,9 @@ public final class OotdRegisterRequest {
     private OotdRegisterRequest() {
     }
 
-    public OotdRegisterRequest(final String nickname, final String content, final String top,
+    public OotdRegisterRequest(final Member member, final String content, final String top,
                                final String bottom, final String shoes, final String accessory) {
-        this.nickname = nickname;
+        this.member = member;
         this.content = content;
         this.top = top;
         this.bottom = bottom;
@@ -26,8 +28,8 @@ public final class OotdRegisterRequest {
         this.accessory = accessory;
     }
 
-    public final String getNickname() {
-        return nickname;
+    public final Member getMember() {
+        return member;
     }
 
     public final String getContent() {
