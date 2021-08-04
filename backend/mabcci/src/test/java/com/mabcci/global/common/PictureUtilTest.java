@@ -48,21 +48,6 @@ class PictureUtilTest {
         );
     }
 
-    @DisplayName("PictureUtil 인스턴스 파일을 Picture 엔티티로 변환하는 테스트")
-    @Test
-    void to_entities_test() {
-        final List<Picture> entities = pictureUtil.toEntities(mockPictures);
-        assertThat(entities.size()).isEqualTo(2);
-    }
-
-    @DisplayName("PictureUtil 인스턴스 전달받은 사진이 없는 경우 빈 리스트를 반환하는 테스트")
-    @Test
-    void return_empty_list_when_no_picture() {
-        final List<MultipartFile> pictures = new ArrayList<>();
-        final List<Picture> entities = pictureUtil.toEntities(pictures);
-        assertThat(entities).isEmpty();
-    }
-
     @DisplayName("PictureUtil 인스턴스 디렉토리 이름 생성 테스트")
     @Test
     void make_directory_name_test() {
@@ -82,9 +67,16 @@ class PictureUtilTest {
         final MultipartFile jpegPicture = mockPictures.get(1);
 
         assertAll(
-                () -> assertThat(pictureUtil.makeOriginalFileExtension(pngPicture.getContentType())).isEqualTo(".png"),
-                () -> assertThat(pictureUtil.makeOriginalFileExtension(jpegPicture.getContentType())).isEqualTo(".jpg")
+                () -> assertThat(pictureUtil.makeFileExtension(pngPicture.getContentType())).isEqualTo(".png"),
+                () -> assertThat(pictureUtil.makeFileExtension(jpegPicture.getContentType())).isEqualTo(".jpg")
         );
+    }
+
+    @DisplayName("PictureUtil 인스턴스 절대경로 생성 테스트")
+    @Test
+    void make_absolute_path_test() {
+        final String absolutePath = pictureUtil.makeAbsolutePath();
+        assertThat(absolutePath).isEqualTo(new File("").getAbsolutePath() + File.separator + File.separator);
     }
 
     @DisplayName("PictureUtil 인스턴스 파일 이름 생성 테스트")
@@ -102,26 +94,30 @@ class PictureUtilTest {
     @DisplayName("PictureUtil 인스턴스 디렉토리 생성 테스트")
     @Test
     void make_directory_test() {
-        final boolean isMadeDirectory = pictureUtil.makeDirectory("testDirectory");
-        assertThat(isMadeDirectory).isTrue();
-        new File("testDirectory").delete();
+        final String directoryName = "testDirectory";
+        pictureUtil.makeDirectory(directoryName);
+
+        final File directory = new File(directoryName);
+        assertThat(directory.exists()).isTrue();
+
+        directory.delete();
     }
 
-    @DisplayName("PictureUtil 인스턴스 파일 저장 테스트")
+    @DisplayName("PictureUtil 인스턴스 사진 저장 테스트")
     @Test
-    void save_file_test() throws Exception {
-        final String testDirectory = "testDirectory";
-        pictureUtil.makeDirectory(testDirectory);
+    void save_picture_test() throws Exception {
+        final String directoryName = "testDirectory";
+        pictureUtil.makeDirectory(directoryName);
 
         final MultipartFile picture = mockPictures.get(0);
-        final Picture savedPicture = pictureUtil.saveFile(picture, testDirectory);
+        final Picture savedPicture = pictureUtil.savePicture(picture, directoryName);
 
         assertAll(
                 () -> assertThat(savedPicture).isNotNull(),
                 () -> assertThat(savedPicture).isExactlyInstanceOf(Picture.class)
         );
 
-        final File testFolder = new File(testDirectory);
+        final File testFolder = new File(directoryName);
         final File[] filesInTestFolder = testFolder.listFiles();
         for (File file : filesInTestFolder) {
             file.delete();
