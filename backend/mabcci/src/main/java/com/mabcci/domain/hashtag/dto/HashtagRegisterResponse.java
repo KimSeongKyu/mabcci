@@ -17,4 +17,8 @@ public final class HashtagRegisterResponse {
     public HashtagRegisterResponse(final List<Hashtag> hashtags) {
         this.hashtags = hashtags;
     }
+
+    public final List<Hashtag> getHashtags() {
+        return hashtags;
+    }
 }
