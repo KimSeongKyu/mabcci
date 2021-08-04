@@ -44,6 +44,6 @@ class OotdRegisterRequestTest {
                 () -> assertThat(ootdRegisterRequest.getAccessory()).isEqualTo("악세사리"),
                 () -> assertThat(ootdRegisterRequest.getPictures()).isEqualTo(PICTURE_FILES),
                 () -> assertThat(ootdRegisterRequest.getHashtags()).isEqualTo(new ArrayList<>(List.of("해시태그1", "해시태그2"))
-        );
+        ));
     }
 }

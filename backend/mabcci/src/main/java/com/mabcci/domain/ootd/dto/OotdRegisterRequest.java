@@ -20,11 +20,11 @@ public final class OotdRegisterRequest {
     @NotEmpty
     private List<MultipartFile> pictures;
 
-    private List<String> hashtagNames;
+    private List<String> hashtags;
 
 
     public OotdRegisterRequest(final String nickname, final String content, final String top, final String bottom, final String shoes,
-                               final String accessory, final List<MultipartFile> pictures, final List<String> hashtagNames) {
+                               final String accessory, final List<MultipartFile> pictures, final List<String> hashtags) {
         this.nickname = nickname;
         this.content = content;
         this.top = top;
@@ -32,6 +32,38 @@ public final class OotdRegisterRequest {
         this.shoes = shoes;
         this.accessory = accessory;
         this.pictures = pictures;
-        this.hashtagNames = hashtagNames;
+        this.hashtags = hashtags;
+    }
+
+    public final String getNickname() {
+        return nickname;
+    }
+
+    public final String getContent() {
+        return content;
+    }
+
+    public final String getTop() {
+        return top;
+    }
+
+    public final String getBottom() {
+        return bottom;
+    }
+
+    public final String getShoes() {
+        return shoes;
+    }
+
+    public final String getAccessory() {
+        return accessory;
+    }
+
+    public final List<MultipartFile> getPictures() {
+        return pictures;
+    }
+
+    public final List<String> getHashtags() {
+        return hashtags;
     }
 }
