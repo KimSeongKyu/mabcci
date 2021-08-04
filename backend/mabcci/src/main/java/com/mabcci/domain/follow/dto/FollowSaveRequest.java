@@ -5,7 +5,7 @@ import com.mabcci.global.common.Nickname;
 
 import javax.validation.Valid;
 
-public class SaveResponse {
+public class FollowSaveRequest {
 
     @Valid
     @JsonProperty("following")
@@ -15,10 +15,10 @@ public class SaveResponse {
     @JsonProperty("follower")
     private Nickname follower;
 
-    SaveResponse() {
+    FollowSaveRequest() {
     }
 
-    public SaveResponse(@Valid final Nickname following, @Valid final Nickname follower) {
+    public FollowSaveRequest(@Valid final Nickname following, @Valid final Nickname follower) {
         this.following = following;
         this.follower = follower;
     }
