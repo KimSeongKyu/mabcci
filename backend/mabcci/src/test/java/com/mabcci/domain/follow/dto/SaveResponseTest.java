@@ -33,4 +33,17 @@ class SaveResponseTest {
         );
     }
 
+    @DisplayName("SaveResponse 인스턴스 getter 기능 테스트")
+    @Test
+    void getter_test() {
+        final Nickname following = Nickname.of("following");
+        final Nickname follower = Nickname.of("follower");
+        final SaveResponse saveResponse = new SaveResponse(following, follower);
+
+        assertAll(
+                () -> assertThat(saveResponse.following()).isEqualTo(following),
+                () -> assertThat(saveResponse.follower()).isEqualTo(follower)
+        );
+    }
+
 }
