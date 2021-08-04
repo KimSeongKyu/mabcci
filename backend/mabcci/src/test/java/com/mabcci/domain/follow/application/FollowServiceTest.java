@@ -33,9 +33,12 @@ import static org.mockito.Mockito.times;
 @ExtendWith(MockitoExtension.class)
 class FollowServiceTest {
 
-    @Mock private FollowRepository followRepository;
-    @Mock private MemberRepository memberRepository;
-    @InjectMocks private FollowService followService;
+    @Mock
+    private FollowRepository followRepository;
+    @Mock
+    private MemberRepository memberRepository;
+    @InjectMocks
+    private FollowService followService;
 
     private Member following;
     private Member follower;
@@ -81,13 +84,12 @@ class FollowServiceTest {
         ReflectionTestUtils.setField(follow, "id", 1L);
 
         doNothing().when(followRepository).delete(any());
-        given(memberRepository.findByNickname(following.nickname())).willReturn(Optional.ofNullable(following));
-        given(memberRepository.findByNickname(follower.nickname())).willReturn(Optional.ofNullable(follower));
+        given(followRepository.findById(any())).willReturn(Optional.ofNullable(follow));
 
-        followService.delete(following.nickname(), follower.nickname());
+        followService.delete(1L);
 
         then(followRepository).should(times(1)).delete(any());
-        then(memberRepository).should(times(2)).findByNickname(any());
+        then(followRepository).should(times(1)).findById(any());
     }
 
     private static Member member(Email email, Password password, Nickname nickname, Phone phone) {

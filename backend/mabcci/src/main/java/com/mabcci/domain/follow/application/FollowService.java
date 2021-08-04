@@ -6,6 +6,7 @@ import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.global.common.Nickname;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
 
@@ -21,6 +22,7 @@ public class FollowService {
         this.memberRepository = memberRepository;
     }
 
+    @Transactional
     public Long save(final Nickname followingNickname, final Nickname followerNickname) {
         final Member following = findMemberByNickName(followingNickname);
         final Member follower = findMemberByNickName(followerNickname);
@@ -39,4 +41,15 @@ public class FollowService {
         return memberRepository.findByNickname(nickname)
                 .orElseThrow(IllegalArgumentException::new);
     }
+
+    @Transactional
+    public void delete(final Long followId) {
+        final Follow follow = findFollowById(followId);
+        followRepository.delete(follow);
+    }
+
+    private Follow findFollowById(Long followId) {
+        return followRepository.findById(followId).orElseThrow(IllegalArgumentException::new);
+    }
+
 }
