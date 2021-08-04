@@ -60,6 +60,12 @@ public class OotdPicture extends Picture {
         private OotdPictureBuilder() {
         }
 
+        public OotdPictureBuilder picture(final Picture picture) {
+            this.url = picture.url();
+            this.fileName = picture.fileName();
+            return this;
+        }
+
         public OotdPictureBuilder ootd(final Ootd ootd) {
             this.ootd = ootd;
             return this;
