@@ -7,10 +7,6 @@ import com.mabcci.domain.ootdpicture.dto.OotdPictureRegisterRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
-
 @Service
 public class OotdPictureService {
 
@@ -23,15 +19,12 @@ public class OotdPictureService {
     @Transactional
     public void registerOotdPictures(final OotdPictureRegisterRequest ootdPictureRegisterRequest) {
         final Ootd ootd = ootdPictureRegisterRequest.getOotd();
-        final List<OotdPicture> ootdPictures = ootdPictureRegisterRequest.getPictures()
+        ootdPictureRegisterRequest.getPictures()
                 .stream()
                 .map(picture -> OotdPicture.builder()
                         .picture(picture)
                         .ootd(ootd)
                         .build())
-                .collect(toList());
-
-        ootdPictures.stream()
                 .forEachOrdered(ootdPictureRepository::save);
     }
 }
