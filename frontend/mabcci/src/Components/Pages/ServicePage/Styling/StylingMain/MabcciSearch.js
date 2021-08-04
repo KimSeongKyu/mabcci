@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { BiSearchAlt2 } from 'react-icons/bi';
-import MabcciSearch from '../../../../../API/MabcciAPI/MabcciSearch';
+import MabcciSearchApi from '../../../../../API/MabcciAPI/MabcciSearchApi';
 import 미니멀 from '../../../../../Asset/Images/미니멀옷.png';
 import 스트릿 from '../../../../../Asset/Images/스트릿옷.png';
 import 아메카지 from '../../../../../Asset/Images/아메카지옷.png';
 import 오피스 from '../../../../../Asset/Images/오피스옷.png';
 import 캐쥬얼 from '../../../../../Asset/Images/캐쥬얼옷.png';
 import 포멀 from '../../../../../Asset/Images/포멀옷.png';
+import userphoto from './Images/userphoto.png';
 
-const StylingHeader = () => {
+const MabcciSearch = () => {
   const [searchContent, setSearchContent] = useState('');
-  const [mabcciList, setMabcciList] = useState([]);
+  const [mabcciList, setMabcciList] = useState([
+    {
+      username: '젠킨스1',
+      pictuer: userphoto,
+      category: ['스트릿', '캐쥬얼'],
+    },
+    {
+      username: '젠킨스2',
+      pictuer: userphoto,
+      category: ['오피스룩', '캐쥬얼'],
+    },
+  ]);
   const categories = [
     '미니멀',
     '스트릿',
@@ -54,7 +66,7 @@ const StylingHeader = () => {
       </header>
       <article className="styling-categories">
         {categories.map((category, index) => (
-          <div className="styling-category">
+          <div className="styling-category" key={category}>
             <button
               className="btn-style-clothes"
               type="button"
@@ -66,8 +78,11 @@ const StylingHeader = () => {
           </div>
         ))}
       </article>
+      <article className="styling-mabccilist">
+        {mabcciList.map((mabcci, index) => console.log('맵시'))}
+      </article>
     </>
   );
 };
 
-export default StylingHeader;
+export default MabcciSearch;

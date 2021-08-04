@@ -31,3 +31,19 @@
 .styling-search-send:hover {
   filter: drop-shadow(5px 5px 5px var(--main-color-4));
 }
+
+.styling-categories {
+  margin-top: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.styling-category {
+  margin-right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
