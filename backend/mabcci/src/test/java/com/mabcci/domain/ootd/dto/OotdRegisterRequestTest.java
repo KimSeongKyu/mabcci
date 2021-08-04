@@ -13,8 +13,10 @@ import static com.mabcci.domain.member.domain.MemberTest.MEMBER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class OotdRegisterRequestTest {
+public class OotdRegisterRequestTest {
 
+    public static final OotdRegisterRequest OOTD_REGISTER_REQUEST =
+            new OotdRegisterRequest(MEMBER, "내용", "상의", "하의", "신발", "악세사리");
     private OotdRegisterRequest ootdRegisterRequest;
 
     @BeforeEach
