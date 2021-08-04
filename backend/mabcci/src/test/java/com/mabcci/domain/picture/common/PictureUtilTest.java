@@ -16,7 +16,20 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class PictureUtilTest {
+public class PictureUtilTest {
+
+    public static final List<MultipartFile> PICTURE_FILES = new ArrayList<>(List.of(
+            new MockMultipartFile(
+                    "pngPicture",
+                    "pngPicture.png",
+                    MediaType.IMAGE_PNG_VALUE,
+                    "testPngPicture".getBytes()),
+            new MockMultipartFile(
+                    "jpegPicture",
+                    "jpegPicture.jpeg",
+                    MediaType.IMAGE_JPEG_VALUE,
+                    "testJpegPicture".getBytes())
+    ));
 
     private PictureUtil pictureUtil;
     private List<MultipartFile> mockPictures;
