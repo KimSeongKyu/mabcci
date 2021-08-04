@@ -32,4 +32,13 @@ class OotdHashtagRegisterRequestTest {
                 () -> assertThat(ootdHashtagRegisterRequest).isExactlyInstanceOf(OotdHashtagRegisterRequest.class)
         );
     }
+
+    @DisplayName("OotdHashtagRegisterRequest 인스턴스 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        assertAll(
+                () -> assertThat(ootdHashtagRegisterRequest.getOotd()).isEqualTo(OOTD),
+                () -> assertThat(ootdHashtagRegisterRequest.getHashtags()).isEqualTo(hashtags)
+        );
+    }
 }
