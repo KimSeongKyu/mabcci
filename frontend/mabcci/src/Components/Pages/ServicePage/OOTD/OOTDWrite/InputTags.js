@@ -30,6 +30,10 @@ export default function InputTags({ onTag, placeHolder, tagColor, hashTag }) {
   // }, []);
   
   useEffect(() => {
+    console.log(props.hashTag)
+  }, [])
+
+  useEffect(() => {
     onTag(tags);
   }, [tags, setTags]);
 
