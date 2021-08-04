@@ -14,6 +14,7 @@ import java.util.List;
 
 import static com.mabcci.domain.picture.common.PictureUtilTest.PICTURE_FILES;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -28,15 +29,27 @@ class PictureServiceTest {
 
     @DisplayName("PictureService 인스턴스 사진 저장 테스트")
     @Test
-    void save_pictures_test() throws Exception {
+    void save_pictures_test() {
         final PictureRegisterRequest pictureRegisterRequest = new PictureRegisterRequest(PICTURE_FILES);
+        final String directoryName = "testDirectory";
+        final String fileName = "testFile";
 
+        doReturn(directoryName).when(pictureUtil).makeDirectoryName();
         doNothing().when(pictureUtil).makeDirectory(any());
-        doNothing().when(pictureUtil).savePicture(any(), any());
+        doReturn(new Picture(directoryName, fileName)).when(pictureUtil).savePicture(any(), any());
 
-        pictureService.savePictures(pictureRegisterRequest);
+        final List<Picture> pictures = pictureService.savePictures(pictureRegisterRequest);
 
         verify(pictureUtil, times(1)).makeDirectory(any());
         verify(pictureUtil, times(PICTURE_FILES.size())).savePicture(any(), any());
+
+        assertAll(
+                () -> assertThat(pictures.size()).isEqualTo(PICTURE_FILES.size()),
+                () -> pictures.stream()
+                        .forEach(picture -> {
+                            assertThat(picture.url()).isEqualTo(directoryName);
+                            assertThat(picture.fileName()).isEqualTo(fileName);
+                        })
+        );
     }
 }

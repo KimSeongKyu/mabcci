@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -18,14 +19,18 @@ public class PictureUtil {
     private final static String JPG_FILE_EXTENSION = ".jpg";
     private final static String BASE_PATH = "";
 
-    public Picture savePicture(final MultipartFile picture, final String directoryName) throws Exception {
+    public Picture savePicture(final MultipartFile picture, final String directoryName) {
         final String fileName = makeFileName(makeFileExtension(picture.getContentType()));
         final File file = new File(makeAbsolutePath() + directoryName + File.separator + fileName);
 
         file.setWritable(false);
         file.setReadable(true);
 
-        picture.transferTo(file);
+        try {
+            picture.transferTo(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return new Picture(directoryName, fileName);
     }
