@@ -22,4 +22,12 @@ public final class OotdHashtagRegisterRequest {
         this.ootd = ootd;
         this.hashtags = hashtags;
     }
+
+    public final Ootd getOotd() {
+        return ootd;
+    }
+
+    public final List<Hashtag> getHashtags() {
+        return hashtags;
+    }
 }
