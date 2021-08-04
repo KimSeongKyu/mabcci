@@ -25,4 +25,28 @@ public final class OotdRegisterRequest {
         this.shoes = shoes;
         this.accessory = accessory;
     }
+
+    public final String getNickname() {
+        return nickname;
+    }
+
+    public final String getContent() {
+        return content;
+    }
+
+    public final String getTop() {
+        return top;
+    }
+
+    public final String getBottom() {
+        return bottom;
+    }
+
+    public final String getShoes() {
+        return shoes;
+    }
+
+    public final String getAccessory() {
+        return accessory;
+    }
 }
