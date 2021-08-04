@@ -14,7 +14,11 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class HashtagTest {
+public class HashtagTest {
+
+    public static final Hashtag HASHTAG = Hashtag.builder()
+            .name("해시태그")
+            .build();
 
     private Hashtag hashtag;
 

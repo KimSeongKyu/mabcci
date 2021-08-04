@@ -14,7 +14,12 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class HashtagRegisterRequestTest {
+public class HashtagRegisterRequestTest {
+
+    public static final HashtagRegisterRequest HASHTAG_REGISTER_REQUEST =
+            new HashtagRegisterRequest(new ArrayList<>(List.of(
+                    "해시태그1", "해시태그2"
+            )));
 
     private List<String> names;
     private HashtagRegisterRequest hashtagRegisterRequest;
