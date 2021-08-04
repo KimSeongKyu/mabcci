@@ -8,7 +8,6 @@ import com.mabcci.global.common.Nickname;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @Service
 public class FollowService {

@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
@@ -71,6 +72,22 @@ class FollowServiceTest {
         then(followRepository).should(times(1)).save(any());
         then(memberRepository).should(times(2)).findByNickname(any());
         assertThat(actual).isEqualTo(1L);
+    }
+
+    @DisplayName("FollowService 인스턴스 delete() 기능 테스트")
+    @Test
+    void delete_test() {
+        final Follow follow = Follow.Builder().following(following).follower(follower).build();
+        ReflectionTestUtils.setField(follow, "id", 1L);
+
+        doNothing().when(followRepository).delete(any());
+        given(memberRepository.findByNickname(following.nickname())).willReturn(Optional.ofNullable(following));
+        given(memberRepository.findByNickname(follower.nickname())).willReturn(Optional.ofNullable(follower));
+
+        followService.delete(following.nickname(), follower.nickname());
+
+        then(followRepository).should(times(1)).delete(any());
+        then(memberRepository).should(times(2)).findByNickname(any());
     }
 
     private static Member member(Email email, Password password, Nickname nickname, Phone phone) {

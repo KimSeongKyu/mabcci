@@ -121,24 +121,6 @@ public class Member extends BaseTimeEntity {
         }
     }
 
-    public void addFollowing(final Follow following) {
-        if(!followings.contains(following)) {
-            followings.add(following);
-        }
-        if(!following.following().equals(this)) {
-            following.changeFollowing(this);
-        }
-    }
-
-    public void addFollower(final Follow follower) {
-        if(!followers.contains(follower)) {
-            followers.add(follower);
-        }
-        if(!follower.follower().equals(this)) {
-            follower.changeFollower(this);
-        }
-    }
-
     public void updateMemberSpecs(final MemberSpecs memberSpecs) {
         this.memberSpecs = memberSpecs;
     }
