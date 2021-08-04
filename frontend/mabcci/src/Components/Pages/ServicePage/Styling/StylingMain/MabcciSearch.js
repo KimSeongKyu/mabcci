@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
+<<<<<<< HEAD
 import { BiSearchAlt2, BiEdit } from 'react-icons/bi';
+=======
+import { BiSearchAlt2 } from 'react-icons/bi';
+>>>>>>> aeca2e31a88dd26379f784f2f21d32cdadea3762
 import MabcciSearchApi from '../../../../../API/MabcciAPI/MabcciSearchApi';
 import 미니멀 from '../../../../../Asset/Images/미니멀옷.png';
 import 스트릿 from '../../../../../Asset/Images/스트릿옷.png';
@@ -13,6 +17,7 @@ const MabcciSearch = () => {
   const [searchContent, setSearchContent] = useState('');
   const [mabcciList, setMabcciList] = useState([
     {
+<<<<<<< HEAD
       nickname: '젠킨스1',
       picture: userphoto,
       categories: ['스트릿', '캐쥬얼'],
@@ -36,6 +41,16 @@ const MabcciSearch = () => {
       nickname: '젠킨스5',
       picture: userphoto,
       categories: ['오피스룩', '캐쥬얼'],
+=======
+      username: '젠킨스1',
+      pictuer: userphoto,
+      category: ['스트릿', '캐쥬얼'],
+    },
+    {
+      username: '젠킨스2',
+      pictuer: userphoto,
+      category: ['오피스룩', '캐쥬얼'],
+>>>>>>> aeca2e31a88dd26379f784f2f21d32cdadea3762
     },
   ]);
   const categories = [
@@ -94,6 +109,7 @@ const MabcciSearch = () => {
         ))}
       </article>
       <article className="styling-mabccilist">
+<<<<<<< HEAD
         {mabcciList.map(mabcci => (
           <div className="styling-mabcci" key={mabcci.nickname}>
             <img
@@ -111,6 +127,9 @@ const MabcciSearch = () => {
             <BiEdit className="styling-mabcci-apply" size="40" />
           </div>
         ))}
+=======
+        {mabcciList.map((mabcci, index) => console.log('맵시'))}
+>>>>>>> aeca2e31a88dd26379f784f2f21d32cdadea3762
       </article>
     </>
   );
