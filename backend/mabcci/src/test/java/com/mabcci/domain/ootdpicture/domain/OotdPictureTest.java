@@ -15,7 +15,13 @@ import static com.mabcci.domain.ootd.domain.OotdTest.OOTD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class OotdPictureTest {
+public class OotdPictureTest {
+
+    public static final OotdPicture OOTD_PICTURE = OotdPicture.builder()
+            .ootd(OOTD)
+            .url("testUrl")
+            .fileName("testFileName")
+            .build();
 
     private OotdPicture ootdPicture;
     private Validator validator;
