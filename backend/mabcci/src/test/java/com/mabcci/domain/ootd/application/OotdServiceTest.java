@@ -1,7 +1,6 @@
 package com.mabcci.domain.ootd.application;
 
 import com.mabcci.domain.ootd.domain.OotdRepository;
-import com.mabcci.domain.ootd.dto.OotdRegisterRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,7 +9,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static com.mabcci.domain.ootd.domain.OotdTest.OOTD;
-import static com.mabcci.domain.ootd.dto.OotdRegisterRequestTest.OOTD_REGISTER_REQUEST;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -28,7 +26,7 @@ class OotdServiceTest {
     void save_ootd_test() {
         doReturn(OOTD).when(ootdRepository).save(any());
 
-        ootdService.saveOotd(OOTD_REGISTER_REQUEST);
+        ootdService.saveOotd(OOTD);
 
         verify(ootdRepository, times(1)).save(any());
     }

@@ -1,6 +1,7 @@
 package com.mabcci.domain.ootd.dto;
 
 import com.mabcci.domain.member.domain.Member;
+import com.mabcci.domain.ootd.domain.Ootd;
 
 import javax.validation.constraints.NotNull;
 
@@ -50,5 +51,16 @@ public final class OotdRegisterRequest {
 
     public final String getAccessory() {
         return accessory;
+    }
+
+    public final Ootd ootd() {
+        return Ootd.builder()
+                .member(member)
+                .content(content)
+                .top(top)
+                .bottom(bottom)
+                .shoes(shoes)
+                .accessory(accessory)
+                .build();
     }
 }
