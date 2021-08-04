@@ -37,4 +37,10 @@ class HashtagRegisterResponseTest {
                 () -> assertThat(hashtagRegisterResponse).isExactlyInstanceOf(HashtagRegisterResponse.class)
         );
     }
+
+    @DisplayName("HashtagRegisterResponse 인스턴스 getter 메서드 테스트")
+    @Test
+    void getter_test() {
+        assertThat(hashtagRegisterResponse.getHashtags()).isEqualTo(hashtags);
+    }
 }
