@@ -12,11 +12,12 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class HashtagRegisterRequestTest {
 
+    private List<String> names;
     private HashtagRegisterRequest hashtagRegisterRequest;
 
     @BeforeEach
     void setUp() {
-        List<String> names = new ArrayList<>(List.of(
+        names = new ArrayList<>(List.of(
                 "해시태그1", "해시태그2"
         ));
         hashtagRegisterRequest = new HashtagRegisterRequest(names);
@@ -29,5 +30,11 @@ class HashtagRegisterRequestTest {
                 () -> assertThat(hashtagRegisterRequest).isNotNull(),
                 () -> assertThat(hashtagRegisterRequest).isExactlyInstanceOf(HashtagRegisterRequest.class)
         );
+    }
+
+    @DisplayName("HashtagRegisterRequest 인스턴스 getter 메서드 테스트")
+    @Test
+    void getter_test() {
+        assertThat(hashtagRegisterRequest.getNames()).isEqualTo(names);
     }
 }
