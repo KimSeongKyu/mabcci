@@ -1,6 +1,7 @@
 package com.mabcci.domain.ootdhashtag.domain;
 
 import com.mabcci.domain.hashtag.domain.Hashtag;
+import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.ootd.domain.Ootd;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,7 +11,13 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import static com.mabcci.domain.member.domain.Gender.MALE;
+import static com.mabcci.domain.member.domain.MemberRole.USER;
 import static com.mabcci.domain.member.domain.MemberTest.MEMBER;
+import static com.mabcci.domain.model.EmailTest.EMAIL;
+import static com.mabcci.domain.model.NicknameTest.NICKNAME;
+import static com.mabcci.domain.model.PasswordTest.PASSWORD;
+import static com.mabcci.domain.model.PhoneTest.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -24,14 +31,24 @@ public class OotdHashtagRepositoryTest {
     @Autowired
     private TestEntityManager testEntityManager;
 
-    private OotdHashtag ootdHashtag;
+    private Member member;
     private Ootd ootd;
     private Hashtag hashtag;
+    private OotdHashtag ootdHashtag;
 
     @BeforeEach
     void setUp() {
+        member = Member.builder()
+                .email(EMAIL)
+                .password(PASSWORD)
+                .nickname(NICKNAME)
+                .phone(PHONE)
+                .gender(MALE)
+                .role(USER)
+                .build();
+
         ootd = Ootd.builder()
-                .member(MEMBER)
+                .member(member)
                 .content("content")
                 .top("top")
                 .bottom("bottom")
@@ -62,6 +79,7 @@ public class OotdHashtagRepositoryTest {
     @DisplayName("OotdHashtagRepository save 기능 테스트")
     @Test
     void save_test() {
+        testEntityManager.persist(member);
         testEntityManager.persist(ootd);
         testEntityManager.persist(hashtag);
 
