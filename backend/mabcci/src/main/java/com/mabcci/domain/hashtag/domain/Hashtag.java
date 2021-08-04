@@ -1,12 +1,13 @@
 package com.mabcci.domain.hashtag.domain;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.mabcci.global.common.BaseTimeEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Hashtag {
+public class Hashtag extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

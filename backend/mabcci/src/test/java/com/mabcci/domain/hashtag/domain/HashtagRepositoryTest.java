@@ -24,4 +24,15 @@ class HashtagRepositoryTest {
                 () -> assertThat(hashtagRepository).isInstanceOf(HashtagRepository.class)
         );
     }
+
+    @DisplayName("HashtagRepository save 기능 테스트")
+    @Test
+    void save_test() {
+        final Hashtag hashtag = Hashtag.builder()
+                .name("해시태그")
+                .build();
+        final Hashtag savedHashtag = hashtagRepository.save(hashtag);
+
+        assertThat(savedHashtag.id()).isEqualTo(hashtag.id());
+    }
 }
