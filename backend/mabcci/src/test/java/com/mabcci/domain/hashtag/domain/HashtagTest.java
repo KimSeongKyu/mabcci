@@ -5,6 +5,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+
+import java.util.Set;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -47,6 +53,23 @@ class HashtagTest {
         assertAll(
                 () -> assertThat(hashtag.id()).isEqualTo(1L),
                 () -> assertThat(hashtag.name()).isEqualTo("해시태그")
+        );
+    }
+
+    @DisplayName("Hashtag 인스턴스 프로퍼티 유효성 검증 테스트")
+    @Test
+    void validate_test() {
+        final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        final Hashtag invalidHashtag = new Hashtag();
+
+        final Set<ConstraintViolation<Hashtag>> invalidPropertiesOfValidHashtag
+                 = validator.validate(hashtag);
+        final Set<ConstraintViolation<Hashtag>> invalidPropertiesOfInvalidHashtag
+                = validator.validate(invalidHashtag);
+
+        assertAll(
+                () -> assertThat(invalidPropertiesOfValidHashtag.size()).isEqualTo(0),
+                () -> assertThat(invalidPropertiesOfInvalidHashtag.size()).isEqualTo(1)
         );
     }
 }
