@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BiSearchAlt2 } from 'react-icons/bi';
+import { BiSearchAlt2, BiEdit } from 'react-icons/bi';
 import MabcciSearchApi from '../../../../../API/MabcciAPI/MabcciSearchApi';
 import 미니멀 from '../../../../../Asset/Images/미니멀옷.png';
 import 스트릿 from '../../../../../Asset/Images/스트릿옷.png';
@@ -13,14 +13,29 @@ const MabcciSearch = () => {
   const [searchContent, setSearchContent] = useState('');
   const [mabcciList, setMabcciList] = useState([
     {
-      username: '젠킨스1',
-      pictuer: userphoto,
-      category: ['스트릿', '캐쥬얼'],
+      nickname: '젠킨스1',
+      picture: userphoto,
+      categories: ['스트릿', '캐쥬얼'],
     },
     {
-      username: '젠킨스2',
-      pictuer: userphoto,
-      category: ['오피스룩', '캐쥬얼'],
+      nickname: '젠킨스2',
+      picture: userphoto,
+      categories: ['오피스룩', '캐쥬얼'],
+    },
+    {
+      nickname: '젠킨스3',
+      picture: userphoto,
+      categories: ['오피스룩', '캐쥬얼'],
+    },
+    {
+      nickname: '젠킨스4',
+      picture: userphoto,
+      categories: ['오피스룩', '캐쥬얼'],
+    },
+    {
+      nickname: '젠킨스5',
+      picture: userphoto,
+      categories: ['오피스룩', '캐쥬얼'],
     },
   ]);
   const categories = [
@@ -79,7 +94,23 @@ const MabcciSearch = () => {
         ))}
       </article>
       <article className="styling-mabccilist">
-        {mabcciList.map((mabcci, index) => console.log('맵시'))}
+        {mabcciList.map(mabcci => (
+          <div className="styling-mabcci" key={mabcci.nickname}>
+            <img
+              className="styling-mabcci-photo"
+              src={mabcci.picture}
+              alt="mabcciPhoto"
+              width="100"
+            />
+            <div className="styling-mabcci-info">
+              <h3>{mabcci.nickname}</h3>
+              {mabcci.categories.map(category => (
+                <h6># {category} </h6>
+              ))}
+            </div>
+            <BiEdit className="styling-mabcci-apply" size="40" />
+          </div>
+        ))}
       </article>
     </>
   );

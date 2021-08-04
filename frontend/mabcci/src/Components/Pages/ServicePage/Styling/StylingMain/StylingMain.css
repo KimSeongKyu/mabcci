@@ -26,10 +26,13 @@
 .styling-search-send {
   margin-bottom: 5px;
   cursor: pointer;
+  opacity: 0.6;
+  transition: 0.3s;
 }
 
 .styling-search-send:hover {
-  filter: drop-shadow(5px 5px 5px var(--main-color-4));
+  color: var(--main-color-1);
+  opacity: 1;
 }
 
 .styling-categories {
@@ -46,4 +49,49 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.styling-mabcci {
+  margin-top: 70px;
+  margin-left: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.styling-mabccilist {
+  margin-bottom: 100px;
+}
+
+.styling-mabcci {
+  position: relative;
+}
+
+.styling-mabcci-photo {
+  filter: drop-shadow(5px 5px 4px rgba(0, 0, 0, 0.25));
+}
+
+.styling-mabcci-info {
+  margin-left: 30px;
+}
+
+.styling-mabcci-info > h3 {
+  margin-bottom: 10px;
+}
+
+.styling-mabcci-info > h6 {
+  display: inline;
+}
+
+.styling-mabcci-apply {
+  position: absolute;
+  right: 45px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.styling-mabcci-apply:hover {
+  color: var(--main-color-1);
+  opacity: 1;
 }
