@@ -17,7 +17,7 @@ const LoginApi = async userAuthInfo => {
 
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
-    localStorage.setItem('userInfo', userInfo);
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
 
     return {
       status: response.status,

@@ -6,7 +6,7 @@ import OOTDBottom from './OOTDBottom';
 
 const OOTDDetail = () => {
   return (
-    <div className="container">
+    <div className="container detail-container">
       <OOTDHeader />
       <OOTDContentApi />
       <OOTDBottom />
