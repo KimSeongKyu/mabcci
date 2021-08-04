@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class HashtagService {
@@ -27,6 +27,6 @@ public class HashtagService {
                         .orElse(hashtagRepository.save(Hashtag.builder()
                                 .name(name)
                                 .build())))
-                .collect(Collectors.toList()));
+                .collect(toList()));
     }
 }

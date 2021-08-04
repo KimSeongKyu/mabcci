@@ -2,6 +2,7 @@ package com.mabcci.domain.hashtag.application;
 
 import com.mabcci.domain.hashtag.domain.Hashtag;
 import com.mabcci.domain.hashtag.domain.HashtagRepository;
+import com.mabcci.domain.hashtag.dto.HashtagRegisterResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,16 +34,15 @@ public class HashtagServiceTest {
     void save_hashtags_test() {
         doReturn(Optional.of(HASHTAG)).when(hashtagRepository).findByName(any());
         doReturn(HASHTAG).when(hashtagRepository).save(any());
-        final List<Hashtag> hashtags = hashtagService.saveHashtags(HASHTAG_REGISTER_REQUEST);
+        final HashtagRegisterResponse hashtagRegisterResponse = hashtagService.saveHashtags(HASHTAG_REGISTER_REQUEST);
         final int numberOfRequestNames = HASHTAG_REGISTER_REQUEST.getNames().size();
 
         verify(hashtagRepository, times(numberOfRequestNames)).findByName(any());
         verify(hashtagRepository, times(numberOfRequestNames)).save(any());
 
         assertAll(
-                () -> assertThat(hashtags.size()).isEqualTo(numberOfRequestNames),
-                () -> hashtags.stream()
-                        .forEach(hashtag -> assertThat(hashtag).isEqualTo(HASHTAG))
+                () -> assertThat(hashtagRegisterResponse).isNotNull(),
+                () -> assertThat(hashtagRegisterResponse.getHashtags().size()).isEqualTo(numberOfRequestNames)
         );
     }
 }
