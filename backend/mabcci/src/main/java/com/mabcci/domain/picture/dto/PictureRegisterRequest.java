@@ -13,4 +13,8 @@ public final class PictureRegisterRequest {
     public PictureRegisterRequest(final List<MultipartFile> pictures) {
         this.pictures = pictures;
     }
+
+    public final List<MultipartFile> getPictures() {
+        return pictures;
+    }
 }
