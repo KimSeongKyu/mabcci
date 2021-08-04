@@ -35,4 +35,13 @@ class PictureTest {
                 () -> assertThat(picture).isExactlyInstanceOf(Picture.class)
         );
     }
+
+    @DisplayName("Picture 인스턴스 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        assertAll(
+                () -> assertThat(picture.url()).isEqualTo("testDirectoryName"),
+                () -> assertThat(picture.fileName()).isEqualTo("testFileName")
+        );
+    }
 }
