@@ -13,7 +13,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import static com.mabcci.domain.member.domain.MemberSpecsTest.*;
+import java.util.List;
+import java.util.Optional;
+
 import static com.mabcci.global.common.PasswordTest.PASSWORD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,6 +37,48 @@ class FollowRepositoryTest {
          follower = member(Email.of("follower@email.com"), PASSWORD, Nickname.of("follower"), Phone.of("010-5678-1234"));
     }
 
+    @DisplayName("FollowRepository 인스턴스 save() 기능 테스트")
+    @Test
+    void save_test() {
+        final Follow follow = follow(following, follower);
+        final Follow savedFollow = followRepository.save(follow);
+
+        assertThat(follow).isEqualTo(savedFollow);
+    }
+
+    @DisplayName("FollowRepository 인스턴스 save() 기능 테스트")
+    @Test
+    void find_test() {
+        final Follow follow = testEntityManager.persist(follow(following, follower));
+        final Follow findFollow = followRepository.findById(1L).get();
+
+        assertThat(follow).isEqualTo(findFollow);
+    }
+
+    @DisplayName("FollowRepository 인스턴스 save() 기능 테스트")
+    @Test
+    void findAll_test() {
+        memberRepository.save(following);
+        memberRepository.save(follower);
+        final Follow follow = testEntityManager.persist(follow(following, follower));
+        final List<Follow> follows = followRepository.findAll();
+
+        assertAll(
+                () -> assertThat(follows.size()).isEqualTo(1),
+                () -> assertThat(follows.get(0)).isEqualTo(follow)
+        );
+    }
+
+    @DisplayName("FollowRepository 인스턴스 save() 기능 테스트")
+    @Test
+    void delete_test() {
+        final Follow follow = testEntityManager.persist(follow(following, follower));
+        followRepository.delete(follow);
+
+        final Optional<Follow> findFollow = followRepository.findById(1L);
+        assertThat(findFollow.isPresent()).isFalse();
+    }
+
     private static Member member(Email email, Password password, Nickname nickname, Phone phone) {
         return Member.Builder()
                 .email(email)
@@ -46,27 +90,11 @@ class FollowRepositoryTest {
                 .build();
     }
 
-
-    @DisplayName("FollowRepository 인스턴스 save() 기능 테스트")
-    @Test
-    void save_test() {
-//        memberRepository.save(following);
-//        memberRepository.save(follower);
-
-        final Follow follow = follow(following, follower);
-        final Follow savedFollow = followRepository.save(follow);
-        assertAll(
-                () -> assertThat(follow).isEqualTo(savedFollow),
-                () -> assertThat(follow).isEqualTo(savedFollow)
-        );
-    }
-
     private static Follow follow(Member following, Member follower) {
         return Follow.Builder()
                 .following(following)
                 .follower(follower)
                 .build();
     }
-
 
 }
