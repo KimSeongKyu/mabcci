@@ -106,4 +106,16 @@ class PictureUtilTest {
         assertThat(isMadeDirectory).isTrue();
         new File("testDirectory").delete();
     }
+
+    @DisplayName("PictureUtil 인스턴스 파일 저장 테스트")
+    @Test
+    void save_file_test() {
+        final MultipartFile picture = mockPictures.get(0);
+        final Picture savedPicture = pictureUtil.saveFile(picture);
+
+        assertAll(
+                () -> assertThat(savedPicture).isNotNull(),
+                () -> assertThat(savedPicture).isExactlyInstanceOf(Picture.class)
+        );
+    }
 }
