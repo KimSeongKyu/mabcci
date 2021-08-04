@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { LogoutUrl } from '../ApiUrl';
 import instance from '../index';
 
