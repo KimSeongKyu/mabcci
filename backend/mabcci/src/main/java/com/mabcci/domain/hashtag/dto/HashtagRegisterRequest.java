@@ -12,4 +12,8 @@ public final class HashtagRegisterRequest {
     public HashtagRegisterRequest(final List<String> names) {
         this.names = names;
     }
+
+    public final List<String> getNames() {
+        return names;
+    }
 }
