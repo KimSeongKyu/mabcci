@@ -45,6 +45,38 @@ class FollowTest {
         );
     }
 
+    @DisplayName("Follow 인스턴스 getter 기능 테스트")
+    @Test
+    void getter_test() {
+        final Member following = member();
+        final Member follower = member();
+        ReflectionTestUtils.setField(follower, "id", 1L);
+        ReflectionTestUtils.setField(following, "id", 2L);
+
+        final Follow follow = follow(following, follower);
+        assertAll(
+                () -> assertThat(follow.following()).isEqualTo(following),
+                () -> assertThat(follow.follower()).isEqualTo(follower)
+        );
+    }
+
+    @DisplayName("Follow 인스턴스 change 기능 테스트")
+    @Test
+    void change_test() {
+        final Member following = member();
+        final Member follower = member();
+        ReflectionTestUtils.setField(follower, "id", 1L);
+        ReflectionTestUtils.setField(following, "id", 2L);
+
+        final Follow follow = follow(following, follower);
+        follow.changeFollower(following);
+        follow.changeFollowing(follower);
+        assertAll(
+                () -> assertThat(follow.following()).isEqualTo(follower),
+                () -> assertThat(follow.follower()).isEqualTo(following)
+        );
+    }
+
     private Follow follow(Member following, Member follower) {
         return Follow.Builder()
                 .following(following)

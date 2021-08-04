@@ -1,12 +1,14 @@
 package com.mabcci.domain.member.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mabcci.domain.follow.domain.Follow;
 import com.mabcci.domain.membercategory.domain.MemberCategory;
 import com.mabcci.global.common.Email;
 import com.mabcci.global.common.Nickname;
 import com.mabcci.global.common.Password;
 import com.mabcci.global.common.Phone;
 import com.mabcci.domain.BaseTimeEntity;
+import org.apache.catalina.User;
 
 import javax.persistence.*;
 import java.util.*;
@@ -54,6 +56,14 @@ public class Member extends BaseTimeEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private Set<MemberCategory> memberCategories = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "following", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Follow> followings = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Follow> followers = new HashSet<>();
 
     protected Member() {
     }
@@ -104,11 +114,28 @@ public class Member extends BaseTimeEntity {
         return memberCategories;
     }
 
-
     public void addMemberCategory(final MemberCategory memberCategory) {
         memberCategory.changeMember(this);
         if(!memberCategories.contains(memberCategory)) {
             memberCategories.add(memberCategory);
+        }
+    }
+
+    public void addFollowing(final Follow following) {
+        if(!followings.contains(following)) {
+            followings.add(following);
+        }
+        if(!following.following().equals(this)) {
+            following.changeFollowing(this);
+        }
+    }
+
+    public void addFollower(final Follow follower) {
+        if(!followers.contains(follower)) {
+            followers.add(follower);
+        }
+        if(!follower.follower().equals(this)) {
+            follower.changeFollower(this);
         }
     }
 

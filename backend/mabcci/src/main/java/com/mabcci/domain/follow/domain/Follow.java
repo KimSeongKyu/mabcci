@@ -27,6 +27,22 @@ public class Follow extends BaseTimeEntity {
         this.follower = followBuilder.follower;
     }
 
+    public Member following() {
+        return following;
+    }
+
+    public Member follower() {
+        return follower;
+    }
+
+    public void changeFollowing(final Member following) {
+        this.following = following;
+    }
+
+    public void changeFollower(final Member follower) {
+        this.follower = follower;
+    }
+
     public static FollowBuilder Builder() {
         return new FollowBuilder();
     }
@@ -36,7 +52,6 @@ public class Follow extends BaseTimeEntity {
         private Member follower;
 
         private FollowBuilder(){
-
         }
 
         public FollowBuilder following(final Member following) {
