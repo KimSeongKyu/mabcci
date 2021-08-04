@@ -31,4 +31,19 @@ class OotdRegisterRequestTest {
                 () -> assertThat(ootdRegisterRequest).isExactlyInstanceOf(OotdRegisterRequest.class)
         );
     }
+
+    @DisplayName("OotdRegisterRequest 인스턴스 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        assertAll(
+                () -> assertThat(ootdRegisterRequest.getNickname()).isEqualTo("닉네임"),
+                () -> assertThat(ootdRegisterRequest.getContent()).isEqualTo("내용"),
+                () -> assertThat(ootdRegisterRequest.getTop()).isEqualTo("상의"),
+                () -> assertThat(ootdRegisterRequest.getBottom()).isEqualTo("하의"),
+                () -> assertThat(ootdRegisterRequest.getShoes()).isEqualTo("신발"),
+                () -> assertThat(ootdRegisterRequest.getAccessory()).isEqualTo("악세사리"),
+                () -> assertThat(ootdRegisterRequest.getPictures()).isEqualTo(PICTURE_FILES),
+                () -> assertThat(ootdRegisterRequest.getHashtags()).isEqualTo(new ArrayList<>(List.of("해시태그1", "해시태그2"))
+        );
+    }
 }
