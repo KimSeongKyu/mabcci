@@ -25,4 +25,10 @@ class PictureRegisterRequestTest {
                 () -> assertThat(pictureRegisterRequest).isExactlyInstanceOf(PictureRegisterRequest.class)
         );
     }
+
+    @DisplayName("PictureRegisterRequest 인스턴스 getter 메서드 테스트")
+    @Test
+    void getter_test() {
+        assertThat(pictureRegisterRequest.getPictures()).isEqualTo(PICTURE_FILES);
+    }
 }
