@@ -27,6 +27,10 @@ public class Follow extends BaseTimeEntity {
         this.follower = followBuilder.follower;
     }
 
+    public Long id() {
+        return id;
+    }
+
     public Member following() {
         return following;
     }

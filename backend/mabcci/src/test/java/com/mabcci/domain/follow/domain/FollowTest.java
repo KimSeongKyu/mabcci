@@ -54,7 +54,10 @@ class FollowTest {
         ReflectionTestUtils.setField(following, "id", 2L);
 
         final Follow follow = follow(following, follower);
+        ReflectionTestUtils.setField(follow, "id", 1L);
+
         assertAll(
+                () -> assertThat(follow.id()).isEqualTo(1L),
                 () -> assertThat(follow.following()).isEqualTo(following),
                 () -> assertThat(follow.follower()).isEqualTo(follower)
         );
