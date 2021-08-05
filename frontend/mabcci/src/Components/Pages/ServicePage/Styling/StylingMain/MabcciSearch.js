@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from 'react';
-<<<<<<< HEAD
 import { BiSearchAlt2, BiEdit } from 'react-icons/bi';
-=======
-<<<<<<< HEAD
-import { BiSearchAlt2, BiEdit } from 'react-icons/bi';
-=======
-import { BiSearchAlt2 } from 'react-icons/bi';
->>>>>>> aeca2e31a88dd26379f784f2f21d32cdadea3762
->>>>>>> b3b8600ec40507b55c2f53eaec2f0016e1bf94d7
 import MabcciSearchApi from '../../../../../API/MabcciAPI/MabcciSearchApi';
 import 미니멀 from '../../../../../Asset/Images/미니멀옷.png';
 import 스트릿 from '../../../../../Asset/Images/스트릿옷.png';
@@ -21,10 +13,6 @@ const MabcciSearch = () => {
   const [searchContent, setSearchContent] = useState('');
   const [mabcciList, setMabcciList] = useState([
     {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> b3b8600ec40507b55c2f53eaec2f0016e1bf94d7
       nickname: '젠킨스1',
       picture: userphoto,
       categories: ['스트릿', '캐쥬얼'],
@@ -32,53 +20,25 @@ const MabcciSearch = () => {
     {
       nickname: '젠킨스2',
       picture: userphoto,
-<<<<<<< HEAD
       categories: ['오피스', '캐쥬얼'],
-=======
-      categories: ['오피스룩', '캐쥬얼'],
->>>>>>> b3b8600ec40507b55c2f53eaec2f0016e1bf94d7
     },
     {
       nickname: '젠킨스3',
       picture: userphoto,
-<<<<<<< HEAD
       categories: ['오피스', '포멀'],
-=======
-      categories: ['오피스룩', '캐쥬얼'],
->>>>>>> b3b8600ec40507b55c2f53eaec2f0016e1bf94d7
     },
     {
       nickname: '젠킨스4',
       picture: userphoto,
-<<<<<<< HEAD
       categories: ['오피스', '미니멀'],
-=======
-      categories: ['오피스룩', '캐쥬얼'],
->>>>>>> b3b8600ec40507b55c2f53eaec2f0016e1bf94d7
     },
     {
       nickname: '젠킨스5',
       picture: userphoto,
-<<<<<<< HEAD
       categories: ['아메카지', '캐쥬얼'],
     },
   ]);
   const [filterMabcciList, setFilterMabcciList] = useState(mabcciList);
-=======
-      categories: ['오피스룩', '캐쥬얼'],
-=======
-      username: '젠킨스1',
-      pictuer: userphoto,
-      category: ['스트릿', '캐쥬얼'],
-    },
-    {
-      username: '젠킨스2',
-      pictuer: userphoto,
-      category: ['오피스룩', '캐쥬얼'],
->>>>>>> aeca2e31a88dd26379f784f2f21d32cdadea3762
-    },
-  ]);
->>>>>>> b3b8600ec40507b55c2f53eaec2f0016e1bf94d7
   const categories = [
     '미니멀',
     '스트릿',
@@ -167,7 +127,6 @@ const MabcciSearch = () => {
         ))}
       </article>
       <article className="styling-mabccilist">
-<<<<<<< HEAD
         {filterMabcciList.map(mabcci => (
           <div className="styling-mabcci" key={mabcci.nickname}>
             <button
@@ -196,29 +155,6 @@ const MabcciSearch = () => {
             />
           </div>
         ))}
-=======
-<<<<<<< HEAD
-        {mabcciList.map(mabcci => (
-          <div className="styling-mabcci" key={mabcci.nickname}>
-            <img
-              className="styling-mabcci-photo"
-              src={mabcci.picture}
-              alt="mabcciPhoto"
-              width="100"
-            />
-            <div className="styling-mabcci-info">
-              <h3>{mabcci.nickname}</h3>
-              {mabcci.categories.map(category => (
-                <h6># {category} </h6>
-              ))}
-            </div>
-            <BiEdit className="styling-mabcci-apply" size="40" />
-          </div>
-        ))}
-=======
-        {mabcciList.map((mabcci, index) => console.log('맵시'))}
->>>>>>> aeca2e31a88dd26379f784f2f21d32cdadea3762
->>>>>>> b3b8600ec40507b55c2f53eaec2f0016e1bf94d7
       </article>
     </>
   );
