@@ -15,7 +15,7 @@
 
 .styling-search > input {
   align-items: center;
-  width: 80%;
+  width: 75%;
   margin-left: 30px;
   margin-top: 20px;
   margin-bottom: 30px;
@@ -32,6 +32,19 @@
 
 .styling-search-send:hover {
   color: var(--main-color-1);
+  opacity: 1;
+}
+
+.styling-search > button {
+  font-size: 20px;
+  background-color: transparent;
+  opacity: 0.6;
+  transition: 0.3s;
+  margin-left: 10px;
+}
+
+.styling-search > button:hover {
+  color: var(--main-color-2);
   opacity: 1;
 }
 
@@ -65,6 +78,10 @@
 
 .styling-mabcci {
   position: relative;
+}
+
+.styling-mabcci > button {
+  background-color: transparent;
 }
 
 .styling-mabcci-photo {

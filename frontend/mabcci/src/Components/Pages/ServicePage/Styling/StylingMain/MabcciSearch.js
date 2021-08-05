@@ -20,24 +20,25 @@ const MabcciSearch = () => {
     {
       nickname: '젠킨스2',
       picture: userphoto,
-      categories: ['오피스룩', '캐쥬얼'],
+      categories: ['오피스', '캐쥬얼'],
     },
     {
       nickname: '젠킨스3',
       picture: userphoto,
-      categories: ['오피스룩', '캐쥬얼'],
+      categories: ['오피스', '포멀'],
     },
     {
       nickname: '젠킨스4',
       picture: userphoto,
-      categories: ['오피스룩', '캐쥬얼'],
+      categories: ['오피스', '미니멀'],
     },
     {
       nickname: '젠킨스5',
       picture: userphoto,
-      categories: ['오피스룩', '캐쥬얼'],
+      categories: ['아메카지', '캐쥬얼'],
     },
   ]);
+  const [filterMabcciList, setFilterMabcciList] = useState(mabcciList);
   const categories = [
     '미니멀',
     '스트릿',
@@ -48,20 +49,49 @@ const MabcciSearch = () => {
   ];
   const categoriesImage = [미니멀, 스트릿, 아메카지, 오피스, 캐쥬얼, 포멀];
 
-  useEffect(async () => {
+  useEffect(() => {
     // const response = await MabcciSearch();
     // setMabcciList(response.mabcci);
   }, []);
 
+  /* 검색 이벤트 */
   const searchContentHandler = e => {
     setSearchContent(e.target.value);
-    console.log(searchContent);
   };
 
-  const searchHandler = () => {};
+  const searchHandler = () => {
+    setFilterMabcciList(
+      mabcciList.filter(mabcci => {
+        return mabcci.nickname === searchContent;
+      }),
+    );
+  };
 
+  const searchAllHandler = () => {
+    setFilterMabcciList(mabcciList);
+  };
+
+  /* 카테고리 이벤트 */
   const categoryHandler = category => {
-    console.log(category);
+    setFilterMabcciList(
+      mabcciList.filter(mabcci => {
+        let flag = false;
+        mabcci.categories.forEach(mabcciCategory => {
+          if (mabcciCategory === category) flag = true;
+        });
+        return flag === true;
+      }),
+    );
+  };
+
+  /* 스타일링 신청 이벤트 */
+  const stylingApplyHandler = nickname => {
+    console.log(nickname, '스타일링 신청 페이지');
+  };
+
+  /* Mabcci 마이페이지 이벤트 */
+  const mabcciPageHandler = nickname => {
+    console.log(nickname, 'Mabcci 마이페이지');
   };
 
   return (
@@ -77,6 +107,9 @@ const MabcciSearch = () => {
             className="styling-search-send"
             onClick={searchHandler}
           />
+          <button type="button" onClick={searchAllHandler}>
+            ALL
+          </button>
         </div>
       </header>
       <article className="styling-categories">
@@ -94,21 +127,32 @@ const MabcciSearch = () => {
         ))}
       </article>
       <article className="styling-mabccilist">
-        {mabcciList.map(mabcci => (
+        {filterMabcciList.map(mabcci => (
           <div className="styling-mabcci" key={mabcci.nickname}>
-            <img
-              className="styling-mabcci-photo"
-              src={mabcci.picture}
-              alt="mabcciPhoto"
-              width="100"
-            />
+            <button
+              type="button"
+              onClick={() => mabcciPageHandler(mabcci.nickname)}
+              onKeyDown={() => mabcciPageHandler(mabcci.nickname)}
+            >
+              <img
+                className="styling-mabcci-photo"
+                src={mabcci.picture}
+                alt="mabcciPhoto"
+                width="100"
+              />
+            </button>
             <div className="styling-mabcci-info">
               <h3>{mabcci.nickname}</h3>
               {mabcci.categories.map(category => (
-                <h6># {category} </h6>
+                <h6 key={category}># {category} </h6>
               ))}
             </div>
-            <BiEdit className="styling-mabcci-apply" size="40" />
+            <BiEdit
+              className="styling-mabcci-apply"
+              size="40"
+              onClick={() => stylingApplyHandler(mabcci.nickname)}
+              onKeyDown={() => stylingApplyHandler(mabcci.nickname)}
+            />
           </div>
         ))}
       </article>
