@@ -1,5 +1,6 @@
 package com.mabcci.domain.member.domain;
 
+import com.mabcci.domain.membercategory.domain.MemberCategory;
 import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,7 +13,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import java.util.List;
 import java.util.Optional;
 
-import static com.mabcci.domain.member.domain.Gender.MALE;
+import static com.mabcci.domain.category.domain.CategoryTest.CATEGORY;
+import static com.mabcci.domain.member.domain.Gender.MAN;
 import static com.mabcci.domain.member.domain.MemberRole.USER;
 import static com.mabcci.domain.member.domain.MemberSpecsTest.*;
 import static com.mabcci.global.common.Email.of;
@@ -37,8 +39,8 @@ class MemberRepositoryTest {
                 .password(PASSWORD)
                 .nickname(NICKNAME)
                 .phone(PHONE)
-                .gender(MALE)
-                .role(USER)
+                .gender(MAN)
+                .memberRole(USER)
                 .memberSpecs(MemberSpecs.Builder()
                         .height(HEIGHT)
                         .weight(WEIGHT)
@@ -74,10 +76,23 @@ class MemberRepositoryTest {
     @Test
     void findByNickname_test() {
         testEntityManager.persist(member);
-        final Member findMember = memberRepository.findByNickname(member.nickname()).get();
+        final Member findMember = memberRepository.findByNicknameWithMemberSpecs(member.nickname()).get();
 
         assertThat(findMember.id()).isEqualTo(member.id());
 
+    }
+
+
+    @DisplayName("MemberRepository findByMemberRole 기능 테스트")
+    @Test
+    void findByMemberRole_test() {
+        testEntityManager.persist(member);
+        testEntityManager.persist(CATEGORY);
+        testEntityManager.persist(MemberCategory.createMemberCategory(member, CATEGORY));
+
+        final Member findMember = memberRepository.findByMemberRoleWithMemberCategory(member.MemberRole()).get();
+
+        assertThat(findMember.id()).isEqualTo(member.id());
     }
 
     @DisplayName("MemberRepository findByNickname 기능 실패 테스트")
@@ -86,7 +101,7 @@ class MemberRepositoryTest {
         final Nickname nickname = Nickname.of("invalidNickName");
 
         testEntityManager.persist(member);
-        final Optional<Member> findMember = memberRepository.findByNickname(nickname);
+        final Optional<Member> findMember = memberRepository.findByNicknameWithMemberSpecs(nickname);
 
         assertThat(findMember.isPresent()).isFalse();
     }

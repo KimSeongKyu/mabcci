@@ -7,7 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import static com.mabcci.domain.member.domain.Gender.MALE;
+import static com.mabcci.domain.member.domain.Gender.MAN;
 import static com.mabcci.domain.member.domain.MemberRole.USER;
 import static com.mabcci.domain.member.domain.MemberSpecsTest.*;
 import static com.mabcci.global.common.EmailTest.EMAIL;
@@ -93,8 +93,8 @@ class FollowTest {
                 .password(PASSWORD)
                 .nickname(NICKNAME)
                 .phone(PHONE)
-                .gender(MALE)
-                .role(USER)
+                .gender(MAN)
+                .memberRole(USER)
                 .memberSpecs(MemberSpecs.Builder()
                         .height(HEIGHT)
                         .weight(WEIGHT)

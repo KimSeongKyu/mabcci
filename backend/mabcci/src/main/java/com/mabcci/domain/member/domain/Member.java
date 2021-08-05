@@ -8,7 +8,6 @@ import com.mabcci.global.common.Nickname;
 import com.mabcci.global.common.Password;
 import com.mabcci.global.common.Phone;
 import com.mabcci.domain.BaseTimeEntity;
-import org.apache.catalina.User;
 
 import javax.persistence.*;
 import java.util.*;
@@ -45,9 +44,12 @@ public class Member extends BaseTimeEntity {
     @Column(name = "member_gender", nullable = false)
     private Gender gender;
 
+    @Column(name = "member_image")
+    private String picture;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "member_role", nullable = false)
-    private MemberRole role;
+    private MemberRole memberRole;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "member_specs_id")
@@ -74,7 +76,8 @@ public class Member extends BaseTimeEntity {
         this.password = memberBuilder.password;
         this.phone = memberBuilder.phone;
         this.gender = memberBuilder.gender;
-        this.role = memberBuilder.role;
+        this.picture = memberBuilder.picture;
+        this.memberRole = memberBuilder.memberRole;
         this.memberSpecs = memberBuilder.memberSpecs;
     }
 
@@ -94,8 +97,8 @@ public class Member extends BaseTimeEntity {
         return nickname;
     }
 
-    public MemberRole role() {
-        return role;
+    public MemberRole MemberRole() {
+        return memberRole;
     }
 
     public Email email() {
@@ -138,7 +141,8 @@ public class Member extends BaseTimeEntity {
         private Nickname nickname;
         private Phone phone;
         private Gender gender;
-        private MemberRole role;
+        private String picture;
+        private MemberRole memberRole;
         private MemberSpecs memberSpecs;
 
         private MemberBuilder() {
@@ -169,8 +173,13 @@ public class Member extends BaseTimeEntity {
             return this;
         }
 
-        public MemberBuilder role(final MemberRole role) {
-            this.role = role;
+        public MemberBuilder picture(final String picture) {
+            this.picture = picture;
+            return this;
+        }
+
+        public MemberBuilder memberRole(final MemberRole memberRole) {
+            this.memberRole = memberRole;
             return this;
         }
 

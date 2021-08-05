@@ -67,13 +67,13 @@ class FollowServiceTest {
         ReflectionTestUtils.setField(follow, "id", 1L);
 
         given(followRepository.save(any())).willReturn(follow);
-        given(memberRepository.findByNickname(following.nickname())).willReturn(Optional.ofNullable(following));
-        given(memberRepository.findByNickname(follower.nickname())).willReturn(Optional.ofNullable(follower));
+        given(memberRepository.findByNicknameWithMemberSpecs(following.nickname())).willReturn(Optional.ofNullable(following));
+        given(memberRepository.findByNicknameWithMemberSpecs(follower.nickname())).willReturn(Optional.ofNullable(follower));
 
         final Long actual = followService.save(following.nickname(), follower.nickname());
 
         then(followRepository).should(times(1)).save(any());
-        then(memberRepository).should(times(2)).findByNickname(any());
+        then(memberRepository).should(times(2)).findByNicknameWithMemberSpecs(any());
         assertThat(actual).isEqualTo(1L);
     }
 
@@ -98,8 +98,8 @@ class FollowServiceTest {
                 .password(password)
                 .nickname(nickname)
                 .phone(phone)
-                .gender(Gender.MALE)
-                .role(MemberRole.USER)
+                .gender(Gender.MAN)
+                .memberRole(MemberRole.USER)
                 .build();
     }
 

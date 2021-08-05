@@ -5,10 +5,10 @@ import com.mabcci.domain.member.application.MemberDeleteService;
 import com.mabcci.domain.member.application.MemberFindService;
 import com.mabcci.domain.member.application.MemberJoinService;
 import com.mabcci.domain.member.application.MemberUpdateService;
-import com.mabcci.domain.member.dto.MemberJoinRequest;
-import com.mabcci.domain.member.dto.MemberDeleteRequest;
-import com.mabcci.domain.member.dto.MemberResponseDto;
-import com.mabcci.domain.member.dto.MemberUpdateRequest;
+import com.mabcci.domain.member.dto.request.MemberJoinRequest;
+import com.mabcci.domain.member.dto.request.MemberDeleteRequest;
+import com.mabcci.domain.member.dto.response.MemberResponse;
+import com.mabcci.domain.member.dto.request.MemberUpdateRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import static com.mabcci.domain.member.domain.Gender.MALE;
+import static com.mabcci.domain.member.domain.Gender.MAN;
 import static com.mabcci.domain.member.domain.MemberTest.MEMBER;
 import static com.mabcci.global.common.EmailTest.EMAIL;
 import static com.mabcci.global.common.NicknameTest.NICKNAME;
@@ -57,7 +57,7 @@ class MemberControllerTest {
     public void join_test() throws Exception {
         given(memberJoinService.join(any(), any())).willReturn(MEMBER);
 
-        final MemberJoinRequest memberJoinRequest = new MemberJoinRequest(EMAIL, PASSWORD, NICKNAME, PHONE, MALE, CATEGORIES);
+        final MemberJoinRequest memberJoinRequest = new MemberJoinRequest(EMAIL, PASSWORD, NICKNAME, PHONE, MAN, CATEGORIES);
         final String joinRequestDtoString = objectMapper.writeValueAsString(memberJoinRequest);
 
         mvc.perform(post("/api/members")
@@ -83,10 +83,10 @@ class MemberControllerTest {
     @DisplayName("MemberRestController update 메서드 테스트")
     @Test
     public void update_test() throws Exception {
-        final MemberResponseDto memberResponseDto = new MemberResponseDto(MEMBER);
-        final MemberUpdateRequest updateRequestDto = new MemberUpdateRequest(NICKNAME, MALE);
+        final MemberResponse memberResponse = new MemberResponse(MEMBER);
+        final MemberUpdateRequest updateRequestDto = new MemberUpdateRequest(NICKNAME, MAN);
         final String updateRequestDtoString = objectMapper.writeValueAsString(updateRequestDto);
-        final String memberResponseDtoString = objectMapper.writeValueAsString(memberResponseDto);
+        final String memberResponseDtoString = objectMapper.writeValueAsString(memberResponse);
 
         given(memberUpdateService.update(any(), any())).willReturn(MEMBER);
 

@@ -3,8 +3,7 @@ package com.mabcci.domain.member.application;
 import com.mabcci.domain.category.domain.CategoryRepository;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
-import com.mabcci.domain.member.dto.MemberResponseDto;
-import com.mabcci.global.common.Password;
+import com.mabcci.domain.member.dto.response.MemberResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +19,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class MemberJoinServiceTest {
@@ -38,13 +36,13 @@ class MemberJoinServiceTest {
         given(categoryRepository.findByCategoryName(any())).willReturn(Optional.ofNullable(CATEGORY));
 
         final Member member = memberJoinService.join(MEMBER, CATEGORIES);
-        final MemberResponseDto memberResponseDto = new MemberResponseDto(member);
+        final MemberResponse memberResponse = new MemberResponse(member);
 
         assertAll(
-                () -> assertThat(memberResponseDto.getEmail()).isEqualTo(MEMBER.email()),
-                () -> assertThat(memberResponseDto.getNickname()).isEqualTo(MEMBER.nickname()),
-                () -> assertThat(memberResponseDto.getGender()).isEqualTo(MEMBER.gender()),
-                () -> assertThat(memberResponseDto.getRole()).isEqualTo(MEMBER.role())
+                () -> assertThat(memberResponse.getEmail()).isEqualTo(MEMBER.email()),
+                () -> assertThat(memberResponse.getNickname()).isEqualTo(MEMBER.nickname()),
+                () -> assertThat(memberResponse.getGender()).isEqualTo(MEMBER.gender()),
+                () -> assertThat(memberResponse.getRole()).isEqualTo(MEMBER.MemberRole())
         );
     }
 

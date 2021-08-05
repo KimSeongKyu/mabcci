@@ -1,4 +1,4 @@
-package com.mabcci.domain.member.dto;
+package com.mabcci.domain.member.dto.request;
 
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.global.common.Nickname;

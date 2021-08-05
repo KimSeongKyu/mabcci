@@ -1,8 +1,9 @@
-package com.mabcci.domain.member.dto;
+package com.mabcci.domain.member.dto.response;
 
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
+import com.mabcci.domain.member.dto.response.MemberResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class MemberResponseDtoTest {
+class MemberResponseTest {
 
     private static final Long ID = 1L;
 
@@ -29,34 +30,46 @@ class MemberResponseDtoTest {
                 .password(PASSWORD)
                 .nickname(NICKNAME)
                 .phone(PHONE)
-                .gender(Gender.MALE)
-                .role(MemberRole.USER)
+                .gender(Gender.MAN)
+                .memberRole(MemberRole.USER)
                 .build();
         member.updateMemberSpecs(MEMBER_SPECS);
         ReflectionTestUtils.setField(member, "id", ID);
     }
 
-    @DisplayName("MemberResponse 인스턴스 생성 여부 테스트")
+    @DisplayName("MemberResponse 인스턴스 기본 생성자를 이용한 생성 테스트")
     @Test
-    void initialize() {
+    void default_constructor_test() {
 
-        final MemberResponseDto memberResponseDto = new MemberResponseDto(member);
+        final MemberResponse memberResponse = new MemberResponse();
 
         assertAll(
-                () -> assertThat(memberResponseDto).isNotNull(),
-                () -> assertThat(memberResponseDto).isExactlyInstanceOf(MemberResponseDto.class)
+                () -> assertThat(memberResponse).isNotNull(),
+                () -> assertThat(memberResponse).isExactlyInstanceOf(MemberResponse.class)
+        );
+    }
+
+    @DisplayName("MemberResponse 인스턴스 생성 여부 테스트")
+    @Test
+    void constructor_test() {
+
+        final MemberResponse memberResponse = new MemberResponse(member);
+
+        assertAll(
+                () -> assertThat(memberResponse).isNotNull(),
+                () -> assertThat(memberResponse).isExactlyInstanceOf(MemberResponse.class)
         );
     }
 
     @DisplayName("MemberResponse 인스턴스 getter 메서드들 테스트")
     @Test
     void getter_test() {
-        final MemberResponseDto memberResponseDto = new MemberResponseDto(member);
+        final MemberResponse memberResponse = new MemberResponse(member);
         assertAll(
-                () -> assertThat(memberResponseDto.getId()).isEqualTo(ID),
-                () -> assertThat(memberResponseDto.getEmail()).isEqualTo(EMAIL),
-                () -> assertThat(memberResponseDto.getNickname()).isEqualTo(NICKNAME),
-                () -> assertThat(memberResponseDto.getRole()).isEqualTo(MemberRole.USER)
+                () -> assertThat(memberResponse.getId()).isEqualTo(ID),
+                () -> assertThat(memberResponse.getEmail()).isEqualTo(EMAIL),
+                () -> assertThat(memberResponse.getNickname()).isEqualTo(NICKNAME),
+                () -> assertThat(memberResponse.getRole()).isEqualTo(MemberRole.USER)
         );
     }
 }

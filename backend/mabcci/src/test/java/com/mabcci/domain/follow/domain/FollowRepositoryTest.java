@@ -85,8 +85,8 @@ class FollowRepositoryTest {
                 .password(password)
                 .nickname(nickname)
                 .phone(phone)
-                .gender(Gender.MALE)
-                .role(MemberRole.USER)
+                .gender(Gender.MAN)
+                .memberRole(MemberRole.USER)
                 .build();
     }
 

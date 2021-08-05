@@ -2,8 +2,8 @@ package com.mabcci.domain.member.application;
 
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
-import com.mabcci.domain.member.dto.MemberListResponseDto;
-import com.mabcci.domain.member.dto.MemberResponseDto;
+import com.mabcci.domain.member.dto.response.MemberListResponse;
+import com.mabcci.domain.member.dto.response.MemberResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,15 +32,15 @@ class MemberFindServiceTest {
     @DisplayName("MemberFindService 인스턴스 findByNickname() 기능 테스트")
     @Test
     void findByNickname_test() {
-        given(memberRepository.findByNickname(any())).willReturn(Optional.ofNullable(MEMBER));
+        given(memberRepository.findByNicknameWithMemberSpecs(any())).willReturn(Optional.ofNullable(MEMBER));
         Member byNickName = memberFindService.findByNickName(MEMBER.nickname());
-        final MemberResponseDto memberResponseDto = new MemberResponseDto(byNickName);
+        final MemberResponse memberResponse = new MemberResponse(byNickName);
 
         assertAll(
-                () -> assertThat(memberResponseDto.getEmail()).isEqualTo(MEMBER.email()),
-                () -> assertThat(memberResponseDto.getNickname()).isEqualTo(MEMBER.nickname()),
-                () -> assertThat(memberResponseDto.getGender()).isEqualTo(MEMBER.gender()),
-                () -> assertThat(memberResponseDto.getRole()).isEqualTo(MEMBER.role())
+                () -> assertThat(memberResponse.getEmail()).isEqualTo(MEMBER.email()),
+                () -> assertThat(memberResponse.getNickname()).isEqualTo(MEMBER.nickname()),
+                () -> assertThat(memberResponse.getGender()).isEqualTo(MEMBER.gender()),
+                () -> assertThat(memberResponse.getRole()).isEqualTo(MEMBER.MemberRole())
         );
     }
 
@@ -49,15 +49,15 @@ class MemberFindServiceTest {
     void findAll_test() {
         final List list = new ArrayList(Arrays.asList(MEMBER));
         given(memberRepository.findAll()).willReturn((list));
-        final List<MemberListResponseDto> memberListResponseDtos = memberFindService.findAll();
-        final MemberListResponseDto memberListResponseDto = memberListResponseDtos.get(0);
+        final List<MemberListResponse> memberListResponses = memberFindService.findAll();
+        final MemberListResponse memberListResponse = memberListResponses.get(0);
 
         assertAll(
-                () -> assertThat(memberListResponseDtos.size()).isEqualTo(1),
-                () -> assertThat(memberListResponseDto.getEmail()).isEqualTo(MEMBER.email()),
-                () -> assertThat(memberListResponseDto.getNickname()).isEqualTo(MEMBER.nickname()),
-                () -> assertThat(memberListResponseDto.getGender()).isEqualTo(MEMBER.gender()),
-                () -> assertThat(memberListResponseDto.getRole()).isEqualTo(MEMBER.role())
+                () -> assertThat(memberListResponses.size()).isEqualTo(1),
+                () -> assertThat(memberListResponse.getEmail()).isEqualTo(MEMBER.email()),
+                () -> assertThat(memberListResponse.getNickname()).isEqualTo(MEMBER.nickname()),
+                () -> assertThat(memberListResponse.getGender()).isEqualTo(MEMBER.gender()),
+                () -> assertThat(memberListResponse.getRole()).isEqualTo(MEMBER.MemberRole())
         );
     }
 

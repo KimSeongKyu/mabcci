@@ -3,8 +3,7 @@ package com.mabcci.domain.member.application;
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
-import com.mabcci.domain.member.dto.MemberResponseDto;
-import com.mabcci.domain.member.dto.MemberUpdateRequest;
+import com.mabcci.domain.member.dto.response.MemberResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,14 +33,14 @@ class MemberUpdateServiceTest {
     @DisplayName("MemberUpdateService 인스턴스 update() 기능 테스트")
     @Test
     void update_test() {
-        given(memberRepository.findByNickname(any())).willReturn(Optional.ofNullable(MEMBER));
-        Member member = memberUpdateService.update(NICKNAME, Gender.MALE);
-        final MemberResponseDto memberResponseDto = new MemberResponseDto(member);
+        given(memberRepository.findByNicknameWithMemberSpecs(any())).willReturn(Optional.ofNullable(MEMBER));
+        Member member = memberUpdateService.update(NICKNAME, Gender.MAN);
+        final MemberResponse memberResponse = new MemberResponse(member);
 
-        then(memberRepository).should(times(1)).findByNickname(any());
+        then(memberRepository).should(times(1)).findByNicknameWithMemberSpecs(any());
         assertAll(
-                () -> assertThat(memberResponseDto.getNickname()).isEqualTo(NICKNAME),
-                () -> assertThat(memberResponseDto.getGender()).isEqualTo(Gender.MALE)
+                () -> assertThat(memberResponse.getNickname()).isEqualTo(NICKNAME),
+                () -> assertThat(memberResponse.getGender()).isEqualTo(Gender.MAN)
         );
     }
 }

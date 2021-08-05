@@ -1,4 +1,4 @@
-package com.mabcci.domain.member.dto;
+package com.mabcci.domain.member.dto.response;
 
 import com.mabcci.domain.member.domain.*;
 import com.mabcci.global.common.Email;
@@ -7,7 +7,7 @@ import com.mabcci.global.common.Nickname;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
-public final class MemberResponseDto {
+public final class MemberResponse {
 
     @Valid
     @NotBlank
@@ -33,22 +33,22 @@ public final class MemberResponseDto {
 
     private BodyType bodyType;
 
-    private MemberResponseDto() {
+    MemberResponse() {
     }
 
-    public MemberResponseDto(final Member entity) {
+    public MemberResponse(final Member entity) {
         this(entity, entity.memberSpecs());
     }
 
-    private MemberResponseDto(final Member entity, final MemberSpecs memberSpecs) {
+    private MemberResponse(final Member entity, final MemberSpecs memberSpecs) {
         this(entity.id(), entity.email(), entity.nickname(),
-                entity.gender(), entity.role(),
+                entity.gender(), entity.MemberRole(),
                 memberSpecs.height(), memberSpecs.weight(), memberSpecs.footSize(), memberSpecs.form());
     }
 
-    private MemberResponseDto(final Long id, @Valid final Email email, @Valid final Nickname nickname,
-                                   final Gender gender, final MemberRole role,
-                                   final int height, final int weight, final int footSize, final BodyType bodyType) {
+    private MemberResponse(final Long id, @Valid final Email email, @Valid final Nickname nickname,
+                           final Gender gender, final MemberRole role,
+                           final int height, final int weight, final int footSize, final BodyType bodyType) {
         this.id = id;
         this.email = email;
         this.nickname = nickname;

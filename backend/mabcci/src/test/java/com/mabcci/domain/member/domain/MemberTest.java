@@ -23,8 +23,8 @@ public class MemberTest {
             .password(PASSWORD)
             .nickname(NICKNAME)
             .phone(PHONE)
-            .gender(Gender.MALE)
-            .role(MemberRole.USER)
+            .gender(Gender.MAN)
+            .memberRole(MemberRole.USER)
             .memberSpecs(MEMBER_SPECS)
             .build();
 
@@ -37,8 +37,8 @@ public class MemberTest {
                 .password(PASSWORD)
                 .nickname(NICKNAME)
                 .phone(PHONE)
-                .gender(Gender.MALE)
-                .role(MemberRole.USER)
+                .gender(Gender.MAN)
+                .memberRole(MemberRole.USER)
                 .build();
     }
 
@@ -71,7 +71,7 @@ public class MemberTest {
         assertAll(
                 () -> assertThat(member.id()).isEqualTo(1L),
                 () -> assertThat(member.nickname()).isEqualTo(NICKNAME),
-                () -> assertThat(member.role()).isEqualTo(MemberRole.USER)
+                () -> assertThat(member.MemberRole()).isEqualTo(MemberRole.USER)
         );
     }
 
