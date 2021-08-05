@@ -1,5 +1,6 @@
 package com.mabcci.domain.member.dto.response;
 
+import com.mabcci.domain.category.domain.Category;
 import com.mabcci.global.common.Nickname;
 
 import javax.validation.Valid;
@@ -14,18 +15,30 @@ public final class MemberByMemberRoleResponse {
     private String picture;
 
     @Size(min = 1)
-    private Set<String> categories;
+    private Set<Category> categories;
 
-    public static final MemberByMemberRoleResponse createMemberByMemberRoleResponse(@Valid final Nickname nickname, final String picture, final Set<String> categories) {
+    public static final MemberByMemberRoleResponse createMemberByMemberRoleResponse(@Valid final Nickname nickname, final String picture, final Set<Category> categories) {
         return new MemberByMemberRoleResponse(nickname, picture, categories);
     }
 
     MemberByMemberRoleResponse() {
     }
 
-    private MemberByMemberRoleResponse(@Valid final Nickname nickname, final String picture, final Set<String> categories) {
+    private MemberByMemberRoleResponse(@Valid final Nickname nickname, final String picture, final Set<Category> categories) {
         this.nickname = nickname;
         this.picture = picture;
         this.categories = categories;
+    }
+
+    public Nickname getNickName() {
+        return nickname;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
     }
 }
