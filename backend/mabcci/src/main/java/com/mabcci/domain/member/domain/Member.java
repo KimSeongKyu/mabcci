@@ -44,6 +44,9 @@ public class Member extends BaseTimeEntity {
     @Column(name = "member_gender", nullable = false)
     private Gender gender;
 
+    @Column(name = "member_description")
+    private String description;
+
     @Column(name = "member_image")
     private String picture;
 
@@ -76,6 +79,7 @@ public class Member extends BaseTimeEntity {
         this.password = memberBuilder.password;
         this.phone = memberBuilder.phone;
         this.gender = memberBuilder.gender;
+        this.description = memberBuilder.description;
         this.picture = memberBuilder.picture;
         this.memberRole = memberBuilder.memberRole;
         this.memberSpecs = memberBuilder.memberSpecs;
@@ -141,6 +145,7 @@ public class Member extends BaseTimeEntity {
         private Nickname nickname;
         private Phone phone;
         private Gender gender;
+        private String description;
         private String picture;
         private MemberRole memberRole;
         private MemberSpecs memberSpecs;
@@ -170,6 +175,11 @@ public class Member extends BaseTimeEntity {
 
         public MemberBuilder gender(final Gender gender) {
             this.gender = gender;
+            return this;
+        }
+
+        public MemberBuilder description(final String description) {
+            this.description = description;
             return this;
         }
 

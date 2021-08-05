@@ -3,7 +3,7 @@ package com.mabcci.domain.member.application;
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
-import com.mabcci.domain.member.dto.response.MemberResponse;
+import com.mabcci.domain.member.dto.response.MemberByNickNameResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,12 +35,12 @@ class MemberUpdateServiceTest {
     void update_test() {
         given(memberRepository.findByNicknameWithMemberSpecs(any())).willReturn(Optional.ofNullable(MEMBER));
         Member member = memberUpdateService.update(NICKNAME, Gender.MAN);
-        final MemberResponse memberResponse = new MemberResponse(member);
+        final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse(member);
 
         then(memberRepository).should(times(1)).findByNicknameWithMemberSpecs(any());
         assertAll(
-                () -> assertThat(memberResponse.getNickname()).isEqualTo(NICKNAME),
-                () -> assertThat(memberResponse.getGender()).isEqualTo(Gender.MAN)
+                () -> assertThat(memberByNickNameResponse.getNickname()).isEqualTo(NICKNAME),
+                () -> assertThat(memberByNickNameResponse.getGender()).isEqualTo(Gender.MAN)
         );
     }
 }

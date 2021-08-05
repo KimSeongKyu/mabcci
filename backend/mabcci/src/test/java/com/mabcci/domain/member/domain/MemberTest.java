@@ -18,12 +18,17 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class MemberTest {
 
+    private static final String DESCRIPTION = "description";
+    private static final String PICTURE = "picture";
+
     public static final Member MEMBER = Member.Builder()
             .email(EMAIL)
             .password(PASSWORD)
             .nickname(NICKNAME)
             .phone(PHONE)
             .gender(Gender.MAN)
+            .description(DESCRIPTION)
+            .picture(PICTURE)
             .memberRole(MemberRole.USER)
             .memberSpecs(MEMBER_SPECS)
             .build();

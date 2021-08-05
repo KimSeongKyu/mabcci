@@ -25,7 +25,7 @@ public final class MemberListResponse {
     @Valid
     private MemberRole role;
 
-    private MemberListResponse() {
+    MemberListResponse() {
     }
 
     public MemberListResponse(final Member entity) {

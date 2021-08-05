@@ -1,4 +1,4 @@
-package com.mabcci.domain.member.dto;
+package com.mabcci.domain.member.dto.request;
 
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.dto.request.MemberJoinRequest;
@@ -16,9 +16,9 @@ import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class MemberJoinRequestTest {
+public class MemberJoinRequestTest {
 
-    private static final HashSet<String> CATEGORIES = new HashSet<>(Arrays.asList("categoryName"));
+    public static final HashSet<String> CATEGORIES = new HashSet<>(Arrays.asList("categoryName"));
 
     @DisplayName("JoinRequestDto 인스턴스 생성 여부 테스트")
     @Test

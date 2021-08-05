@@ -7,7 +7,7 @@ import com.mabcci.global.common.Nickname;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
-public final class MemberResponse {
+public final class MemberByNickNameResponse {
 
     @Valid
     @NotBlank
@@ -33,22 +33,22 @@ public final class MemberResponse {
 
     private BodyType bodyType;
 
-    MemberResponse() {
+    MemberByNickNameResponse() {
     }
 
-    public MemberResponse(final Member entity) {
+    public MemberByNickNameResponse(final Member entity) {
         this(entity, entity.memberSpecs());
     }
 
-    private MemberResponse(final Member entity, final MemberSpecs memberSpecs) {
+    private MemberByNickNameResponse(final Member entity, final MemberSpecs memberSpecs) {
         this(entity.id(), entity.email(), entity.nickname(),
                 entity.gender(), entity.MemberRole(),
                 memberSpecs.height(), memberSpecs.weight(), memberSpecs.footSize(), memberSpecs.form());
     }
 
-    private MemberResponse(final Long id, @Valid final Email email, @Valid final Nickname nickname,
-                           final Gender gender, final MemberRole role,
-                           final int height, final int weight, final int footSize, final BodyType bodyType) {
+    private MemberByNickNameResponse(final Long id, @Valid final Email email, @Valid final Nickname nickname,
+                                     final Gender gender, final MemberRole role,
+                                     final int height, final int weight, final int footSize, final BodyType bodyType) {
         this.id = id;
         this.email = email;
         this.nickname = nickname;

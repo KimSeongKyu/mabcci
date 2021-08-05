@@ -3,7 +3,7 @@ package com.mabcci.domain.member.application;
 import com.mabcci.domain.category.domain.CategoryRepository;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
-import com.mabcci.domain.member.dto.response.MemberResponse;
+import com.mabcci.domain.member.dto.response.MemberByNickNameResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,13 +36,13 @@ class MemberJoinServiceTest {
         given(categoryRepository.findByCategoryName(any())).willReturn(Optional.ofNullable(CATEGORY));
 
         final Member member = memberJoinService.join(MEMBER, CATEGORIES);
-        final MemberResponse memberResponse = new MemberResponse(member);
+        final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse(member);
 
         assertAll(
-                () -> assertThat(memberResponse.getEmail()).isEqualTo(MEMBER.email()),
-                () -> assertThat(memberResponse.getNickname()).isEqualTo(MEMBER.nickname()),
-                () -> assertThat(memberResponse.getGender()).isEqualTo(MEMBER.gender()),
-                () -> assertThat(memberResponse.getRole()).isEqualTo(MEMBER.MemberRole())
+                () -> assertThat(memberByNickNameResponse.getEmail()).isEqualTo(MEMBER.email()),
+                () -> assertThat(memberByNickNameResponse.getNickname()).isEqualTo(MEMBER.nickname()),
+                () -> assertThat(memberByNickNameResponse.getGender()).isEqualTo(MEMBER.gender()),
+                () -> assertThat(memberByNickNameResponse.getRole()).isEqualTo(MEMBER.MemberRole())
         );
     }
 

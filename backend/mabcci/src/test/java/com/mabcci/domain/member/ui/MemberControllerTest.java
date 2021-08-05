@@ -7,7 +7,7 @@ import com.mabcci.domain.member.application.MemberJoinService;
 import com.mabcci.domain.member.application.MemberUpdateService;
 import com.mabcci.domain.member.dto.request.MemberJoinRequest;
 import com.mabcci.domain.member.dto.request.MemberDeleteRequest;
-import com.mabcci.domain.member.dto.response.MemberResponse;
+import com.mabcci.domain.member.dto.response.MemberByNickNameResponse;
 import com.mabcci.domain.member.dto.request.MemberUpdateRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -83,10 +83,10 @@ class MemberControllerTest {
     @DisplayName("MemberRestController update 메서드 테스트")
     @Test
     public void update_test() throws Exception {
-        final MemberResponse memberResponse = new MemberResponse(MEMBER);
+        final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse(MEMBER);
         final MemberUpdateRequest updateRequestDto = new MemberUpdateRequest(NICKNAME, MAN);
         final String updateRequestDtoString = objectMapper.writeValueAsString(updateRequestDto);
-        final String memberResponseDtoString = objectMapper.writeValueAsString(memberResponse);
+        final String memberResponseDtoString = objectMapper.writeValueAsString(memberByNickNameResponse);
 
         given(memberUpdateService.update(any(), any())).willReturn(MEMBER);
 

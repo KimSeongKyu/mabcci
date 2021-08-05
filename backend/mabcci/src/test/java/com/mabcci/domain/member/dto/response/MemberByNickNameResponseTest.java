@@ -3,7 +3,6 @@ package com.mabcci.domain.member.dto.response;
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
-import com.mabcci.domain.member.dto.response.MemberResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +16,7 @@ import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class MemberResponseTest {
+class MemberByNickNameResponseTest {
 
     private static final Long ID = 1L;
 
@@ -41,11 +40,11 @@ class MemberResponseTest {
     @Test
     void default_constructor_test() {
 
-        final MemberResponse memberResponse = new MemberResponse();
+        final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse();
 
         assertAll(
-                () -> assertThat(memberResponse).isNotNull(),
-                () -> assertThat(memberResponse).isExactlyInstanceOf(MemberResponse.class)
+                () -> assertThat(memberByNickNameResponse).isNotNull(),
+                () -> assertThat(memberByNickNameResponse).isExactlyInstanceOf(MemberByNickNameResponse.class)
         );
     }
 
@@ -53,23 +52,23 @@ class MemberResponseTest {
     @Test
     void constructor_test() {
 
-        final MemberResponse memberResponse = new MemberResponse(member);
+        final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse(member);
 
         assertAll(
-                () -> assertThat(memberResponse).isNotNull(),
-                () -> assertThat(memberResponse).isExactlyInstanceOf(MemberResponse.class)
+                () -> assertThat(memberByNickNameResponse).isNotNull(),
+                () -> assertThat(memberByNickNameResponse).isExactlyInstanceOf(MemberByNickNameResponse.class)
         );
     }
 
     @DisplayName("MemberResponse 인스턴스 getter 메서드들 테스트")
     @Test
     void getter_test() {
-        final MemberResponse memberResponse = new MemberResponse(member);
+        final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse(member);
         assertAll(
-                () -> assertThat(memberResponse.getId()).isEqualTo(ID),
-                () -> assertThat(memberResponse.getEmail()).isEqualTo(EMAIL),
-                () -> assertThat(memberResponse.getNickname()).isEqualTo(NICKNAME),
-                () -> assertThat(memberResponse.getRole()).isEqualTo(MemberRole.USER)
+                () -> assertThat(memberByNickNameResponse.getId()).isEqualTo(ID),
+                () -> assertThat(memberByNickNameResponse.getEmail()).isEqualTo(EMAIL),
+                () -> assertThat(memberByNickNameResponse.getNickname()).isEqualTo(NICKNAME),
+                () -> assertThat(memberByNickNameResponse.getRole()).isEqualTo(MemberRole.USER)
         );
     }
 }

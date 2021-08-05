@@ -9,7 +9,7 @@ import com.mabcci.domain.member.dto.request.MemberDeleteRequest;
 import com.mabcci.domain.member.dto.request.MemberJoinRequest;
 import com.mabcci.domain.member.dto.request.MemberUpdateRequest;
 import com.mabcci.domain.member.dto.response.MemberListResponse;
-import com.mabcci.domain.member.dto.response.MemberResponse;
+import com.mabcci.domain.member.dto.response.MemberByNickNameResponse;
 import com.mabcci.global.common.Nickname;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,17 +36,17 @@ public class MemberController {
     }
 
     @PostMapping(value = "/api/members")
-    public ResponseEntity<MemberResponse> join(@Valid @RequestBody final MemberJoinRequest memberJoinRequest) {
+    public ResponseEntity<MemberByNickNameResponse> join(@Valid @RequestBody final MemberJoinRequest memberJoinRequest) {
         final Member member = memberJoinService.join(memberJoinRequest.member(), memberJoinRequest.getCategories());
-        final MemberResponse memberResponse = new MemberResponse(member);
-        return ResponseEntity.ok().body(memberResponse);
+        final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse(member);
+        return ResponseEntity.ok().body(memberByNickNameResponse);
     }
 
     @GetMapping("/api/members/{nickname}")
-    public ResponseEntity<MemberResponse> findByNickname(@Valid @PathVariable final Nickname nickname) {
+    public ResponseEntity<MemberByNickNameResponse> findByNickname(@Valid @PathVariable final Nickname nickname) {
         final Member member = memberFindService.findByNickName(nickname);
-        final MemberResponse memberResponse = new MemberResponse(member);
-        return ResponseEntity.ok().body(memberResponse);
+        final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse(member);
+        return ResponseEntity.ok().body(memberByNickNameResponse);
     }
 
     @GetMapping("/api/members")
@@ -58,8 +58,8 @@ public class MemberController {
     @PutMapping("/api/members/{nickname}")
     public ResponseEntity<?> update(@Valid @RequestBody final MemberUpdateRequest memberUpdateRequest) {
         final Member updatedMember = memberUpdateService.update(memberUpdateRequest.getNickname(), memberUpdateRequest.getGender());
-        final MemberResponse memberResponse = new MemberResponse(updatedMember);
-        return ResponseEntity.ok().body(memberResponse);
+        final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse(updatedMember);
+        return ResponseEntity.ok().body(memberByNickNameResponse);
     }
 
     @DeleteMapping("/api/members/{nickname}")

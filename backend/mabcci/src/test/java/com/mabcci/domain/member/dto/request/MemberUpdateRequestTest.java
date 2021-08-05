@@ -1,4 +1,4 @@
-package com.mabcci.domain.member.dto;
+package com.mabcci.domain.member.dto.request;
 
 import com.mabcci.domain.member.dto.request.MemberUpdateRequest;
 import org.junit.jupiter.api.DisplayName;
