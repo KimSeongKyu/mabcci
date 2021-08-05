@@ -17,6 +17,8 @@ import { IoShirt } from 'react-icons/io5';
 import { GiArmoredPants, GiConverseShoe } from 'react-icons/gi';
 import { FaShoppingBag } from 'react-icons/fa';
 
+import OOTDUpdateApi from '../../../../../API/OOTDAPI/OOTDUpdateApi';
+
 import InputTags from './InputTags';
 
 SwiperCore.use([Zoom, Navigation, Pagination]);
@@ -35,8 +37,9 @@ function OOTDUpdate() {
     hashTag: [],
   });
 
-  useEffect(() => {
-    setMyOOTDInfo({ ...myOOTDInfo, ...location.state.info });
+  useEffect(async () => {
+    await setMyOOTDInfo({ ...myOOTDInfo, ...location.state.info });
+    console.log(myOOTDInfo);
   }, []);
 
   const addImage = e => {
@@ -79,8 +82,14 @@ function OOTDUpdate() {
     });
   };
 
-  const submitOOTD = () => {
-    console.log(myOOTDInfo);
+  const submitOOTD = async () => {
+    const res = await OOTDUpdateApi(myOOTDInfo);
+    if (res.status === 200) {
+      console.log('mock연동 성공');
+      console.log(res.info);
+    } else {
+      console.log('mock연동 실패');
+    }
   };
 
   return (
@@ -193,7 +202,7 @@ function OOTDUpdate() {
           tagColor="#48c774"
           placeHolder="Press enter"
           className="OOTDWrite-hashtag-input"
-          hashTag={myOOTDInfo.hashTag}
+          hashTag={myOOTDInfo}
         />
         {myOOTDInfo.hashTag.length >= 20 ? (
           <p id="OOTDWrite-warnning-tag">태그는 20개까지 작성가능합니다</p>

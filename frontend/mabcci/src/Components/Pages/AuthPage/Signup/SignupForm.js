@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import SignupApi from '../../../../API/AuthAPI/SignupApi';
+import { LoginAuto } from '../../../../Redux/Actions/LoginAction';
 import 미니멀 from '../../../../Asset/Images/미니멀.png';
 import 스트릿 from '../../../../Asset/Images/스트릿.png';
 import 아메카지 from '../../../../Asset/Images/아메카지.png';
@@ -10,6 +12,7 @@ import 포멀 from '../../../../Asset/Images/포멀.png';
 
 function SignupForm() {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const [userInfo, setUserInfo] = useState({
     email: '',
@@ -73,11 +76,14 @@ function SignupForm() {
     const response = await SignupApi(data);
 
     if (response.status === 200) {
-      console.log('룰룰랄라');
+      const authUserInfo = {
+        email: userInfo.email,
+        password: userInfo.password,
+      };
+      dispatch(LoginAuto(authUserInfo));
       history.push('/desc');
     } else {
       console.log(response.status);
-      console.log('왜안되냐냐아아아');
     }
   };
 
@@ -192,7 +198,7 @@ function SignupForm() {
         {userInfo.gender === 'MALE' ? (
           <button
             className="signup-btn-sex-select"
-            name="MALE"
+            name="MAN"
             type="submit"
             onClick={mwBtnClick}
           >
@@ -201,7 +207,7 @@ function SignupForm() {
         ) : (
           <button
             className="btn-rounded-sm"
-            name="MALE"
+            name="MAN"
             type="submit"
             onClick={mwBtnClick}
           >
@@ -212,7 +218,7 @@ function SignupForm() {
         {userInfo.gender === 'FEMALE' ? (
           <button
             className="signup-btn-sex-select"
-            name="FEMALE"
+            name="WOMAN"
             type="submit"
             onClick={mwBtnClick}
           >
@@ -221,7 +227,7 @@ function SignupForm() {
         ) : (
           <button
             className="btn-rounded-sm"
-            name="FEMALE"
+            name="WOMAN"
             type="submit"
             onClick={mwBtnClick}
           >
