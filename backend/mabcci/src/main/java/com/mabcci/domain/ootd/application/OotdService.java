@@ -2,10 +2,10 @@ package com.mabcci.domain.ootd.application;
 
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
-import com.mabcci.domain.model.Nickname;
 import com.mabcci.domain.ootd.domain.Ootd;
 import com.mabcci.domain.ootd.domain.OotdRepository;
 import com.mabcci.domain.ootd.dto.OotdSaveRequest;
+import com.mabcci.global.common.Nickname;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

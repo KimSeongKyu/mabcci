@@ -12,10 +12,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import static com.mabcci.domain.member.domain.Gender.MALE;
 import static com.mabcci.domain.member.domain.MemberRole.USER;
-import static com.mabcci.domain.model.EmailTest.EMAIL;
-import static com.mabcci.domain.model.NicknameTest.NICKNAME;
-import static com.mabcci.domain.model.PasswordTest.PASSWORD;
-import static com.mabcci.domain.model.PhoneTest.PHONE;
+import static com.mabcci.global.common.EmailTest.EMAIL;
+import static com.mabcci.global.common.NicknameTest.NICKNAME;
+import static com.mabcci.global.common.PasswordTest.PASSWORD;
+import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -35,7 +35,7 @@ class OotdPictureRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        member = Member.builder()
+        member = Member.Builder()
                 .email(EMAIL)
                 .password(PASSWORD)
                 .nickname(NICKNAME)

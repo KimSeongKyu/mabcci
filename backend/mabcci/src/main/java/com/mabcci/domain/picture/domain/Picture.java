@@ -1,6 +1,7 @@
 package com.mabcci.domain.picture.domain;
 
-import com.mabcci.global.common.BaseTimeEntity;
+
+import com.mabcci.domain.BaseTimeEntity;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;

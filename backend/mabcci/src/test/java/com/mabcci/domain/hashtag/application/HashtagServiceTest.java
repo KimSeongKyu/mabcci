@@ -30,7 +30,7 @@ public class HashtagServiceTest {
     @DisplayName("HashtagService 인스턴스 Hashtag 저장 테스트")
     @Test
     void save_hashtags_test() {
-        doReturn(Optional.of(HASHTAG)).when(hashtagRepository).findByName(any());
+        doReturn(Optional.empty()).when(hashtagRepository).findByName(any());
         doReturn(HASHTAG).when(hashtagRepository).save(any());
         final HashtagSaveResponse hashtagSaveResponse = hashtagService.saveHashtags(HASHTAG_SAVE_REQUEST);
         final int numberOfRequestNames = HASHTAG_SAVE_REQUEST.getNames().size();

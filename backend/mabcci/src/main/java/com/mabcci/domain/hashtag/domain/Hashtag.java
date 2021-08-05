@@ -1,7 +1,7 @@
 package com.mabcci.domain.hashtag.domain;
 
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.mabcci.global.common.BaseTimeEntity;
+import com.mabcci.domain.BaseTimeEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

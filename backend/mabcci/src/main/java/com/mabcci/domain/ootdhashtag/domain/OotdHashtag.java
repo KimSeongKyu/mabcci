@@ -1,9 +1,9 @@
 package com.mabcci.domain.ootdhashtag.domain;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.mabcci.domain.BaseTimeEntity;
 import com.mabcci.domain.hashtag.domain.Hashtag;
 import com.mabcci.domain.ootd.domain.Ootd;
-import com.mabcci.global.common.BaseTimeEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
