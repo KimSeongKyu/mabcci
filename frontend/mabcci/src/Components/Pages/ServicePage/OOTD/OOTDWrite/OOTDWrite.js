@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './OOTDWrite.css';
 
@@ -24,6 +24,7 @@ SwiperCore.use([Zoom, Navigation, Pagination]);
 
 function OOTDWrite() {
   const [myOOTDInfo, setMyOOTDInfo] = useState({
+    nickname: '',
     top: '',
     bottom: '',
     shoes: '',
@@ -32,6 +33,14 @@ function OOTDWrite() {
     picture: [],
     hashTag: [],
   });
+
+  useEffect(() => {
+    const myInfo = JSON.parse(localStorage.getItem('userInfo'));
+    setMyOOTDInfo({
+      ...myOOTDInfo,
+      nickname: myInfo.nickname,
+    });
+  }, []);
 
   const addImage = e => {
     const nowSelectImageList = e.target.files;
@@ -74,6 +83,7 @@ function OOTDWrite() {
   };
 
   const submitOOTD = async () => {
+    console.log(myOOTDInfo);
     const res = await OOTDWriteApi(myOOTDInfo);
     if (res.status === 200) {
       console.log('mock연동 성공');

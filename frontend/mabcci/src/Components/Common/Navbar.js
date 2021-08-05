@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import './Nav.css';
 import { AiOutlineLogin, AiOutlineHome } from 'react-icons/ai';
+
 import { FiUser } from 'react-icons/fi';
 import { FaRegComments } from 'react-icons/fa';
 import { BsImages } from 'react-icons/bs';
 import { MdAccountCircle, MdAccessAlarm } from 'react-icons/md';
 import { IoShirtOutline } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
-import logo from '../../Asset/Images/logo.png';
 import LogoutApi from '../../API/AuthAPI/LogoutApi';
+import { Logout } from '../../Redux/Actions/LoginAction';
+import logo from '../../Asset/Images/logo.png';
 
 function Nav() {
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   const [isLoggedin, setisLoggedin] = useState(false);
   useEffect(() => {
     const localLoinToken = localStorage.getItem('accessToken');
@@ -36,12 +41,18 @@ function Nav() {
     setNowMenu(e.target.name);
   };
 
+  const LogOut = () => {
+    localStorage.clear();
+    dispatch(Logout());
+    history.push('/intro');
+  };
+
   return (
     <div>
       <div className="navbar-web">
         {loginRedux.isLoggedin}
         <div className="navbar-logo-bar">
-          <Link to="home">
+          <Link to="/home">
             <img className="navbar-logo-image" src={logo} alt="로고" />
           </Link>
           {isLoggedin ? (
@@ -50,15 +61,17 @@ function Nav() {
               <MdAccountCircle className="mypage" onClick={openPopover} />
             </div>
           ) : (
-            <Link to="login">
+            <Link to="/login">
               <AiOutlineLogin /> Login
             </Link>
           )}
 
           {popover ? (
             <div className="navbar-popover-box">
-              <p>로그아웃</p>
-              <Link to="mypage">
+              <button type="submit" onClick={LogOut}>
+                <p>로그아웃</p>
+              </button>
+              <Link to="/mypage" onClick={openPopover}>
                 <p>마이페이지</p>
               </Link>
             </div>
@@ -75,7 +88,7 @@ function Nav() {
               Home
             </Link>
             <Link
-              to="OOTD"
+              to="/OOTD"
               onClick={selectMenu}
               name="OOTD"
               id={nowMenu === 'OOTD' ? 'navbar-menu-link-selected' : null}
@@ -83,7 +96,7 @@ function Nav() {
               OOTD
             </Link>
             <Link
-              to="styling"
+              to="/styling"
               onClick={selectMenu}
               name="Styling"
               id={nowMenu === 'Styling' ? 'navbar-menu-link-selected' : null}
@@ -91,7 +104,7 @@ function Nav() {
               Styling
             </Link>
             <Link
-              to="Community"
+              to="/Community"
               onClick={selectMenu}
               name="Community"
               id={nowMenu === 'Community' ? 'navbar-menu-link-selected' : null}
@@ -103,31 +116,31 @@ function Nav() {
       </div>
 
       <div id="navbar-mobile">
-        <Link to="home">
+        <Link to="/home">
           <div className="navbar-mobile-btn">
             <AiOutlineHome />
             <p name="home">HOME</p>
           </div>
         </Link>
-        <Link to="OOTD">
+        <Link to="/OOTD">
           <div className="navbar-mobile-btn">
             <BsImages />
             <p>OOTD</p>
           </div>
         </Link>
-        <Link to="styling">
+        <Link to="/styling">
           <div className="navbar-mobile-btn">
             <IoShirtOutline />
             <p>스타일링</p>
           </div>
         </Link>
-        <Link to="community">
+        <Link to="/community">
           <div className="navbar-mobile-btn">
             <FaRegComments />
             <p>커뮤니티</p>
           </div>
         </Link>
-        <Link to="mypage">
+        <Link to="/mypage">
           <div className="navbar-mobile-btn">
             <FiUser />
             <p>내 정보</p>

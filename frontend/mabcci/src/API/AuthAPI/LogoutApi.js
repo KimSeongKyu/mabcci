@@ -3,7 +3,7 @@ import instance from '../index';
 
 const LogoutApi = async () => {
   try {
-    const response = await instance.get(LogoutUrl);
+    const response = await instance.post(LogoutUrl);
     return {
       status: response.status,
     };

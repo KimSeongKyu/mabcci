@@ -21,17 +21,12 @@ const Tag = ({ txt, idx, send, tagColor }) => {
 };
 
 export default function InputTags({ onTag, placeHolder, tagColor, hashTag }) {
-  const [tags, setTags] = useState(['asdf', 'asdf']);
-  console.log(hashTag);
+  const [tags, setTags] = useState([]);
 
-  // useEffect(() => {
-  //   setTags(hashTag);
-  //   onTag(tags);
-  // }, []);
-  
-  useEffect(() => {
-    console.log(props.hashTag)
-  }, [])
+  // useEffect(async ()=>{
+  //   console.log(hashTag.hashTag, typeof hashTag.hashTag)
+  //   await setTags([...tags, ...hashTag.hashTag])
+  // },[])
 
   useEffect(() => {
     onTag(tags);

@@ -43,6 +43,7 @@ const OOTDContentApi = () => {
       picture: detail.picture,
       hashTag: detail.hashtag,
     };
+
     history.push({
       pathname: `/OOTDUpdate/${detail.id}/${user.nickname}`,
       state: { info },

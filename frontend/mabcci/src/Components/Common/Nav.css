@@ -42,11 +42,16 @@
   margin: auto;
   cursor: pointer;
   box-shadow: 3px 3px 3px grey;
+  text-align: start;
+}
+
+.navbar-popover-box button {
+  background-color: white;
+  font-weight: 600;
 }
 
 .navbar-popover-box p {
   margin: 5px;
-  text-align: start;
   padding-left: 4px;
 }
 

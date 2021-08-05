@@ -11,6 +11,7 @@
 }
 
 .container-login {
+  margin-top: 40px;
   min-height: 70vh;
   background-color: #ffffff;
   display: flex;
@@ -25,6 +26,7 @@
 .container-item h3 {
   color: var(--main-color-1);
   margin-top: 20px;
+  margin-bottom: 30px;
 }
 
 .container-item > p {
