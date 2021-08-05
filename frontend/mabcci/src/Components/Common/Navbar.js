@@ -47,6 +47,12 @@ function Nav() {
     history.push('/intro');
   };
 
+  const goMypage = () => {
+    const myInfo = JSON.parse(localStorage.getItem('userInfo'));
+    setpopover(!popover);
+    history.push(`/mypage/${myInfo.nickname}`);
+  };
+
   return (
     <div>
       <div className="navbar-web">
@@ -71,9 +77,9 @@ function Nav() {
               <button type="submit" onClick={LogOut}>
                 <p>로그아웃</p>
               </button>
-              <Link to="/mypage" onClick={openPopover}>
+              <button type="submit" onClick={goMypage}>
                 <p>마이페이지</p>
-              </Link>
+              </button>
             </div>
           ) : null}
         </div>

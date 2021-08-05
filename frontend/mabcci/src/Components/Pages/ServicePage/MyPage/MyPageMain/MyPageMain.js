@@ -17,8 +17,8 @@ function MyPageMain() {
   return (
     <div className="container">
       <MyPageProfile />
-      <MabcciReview />
       <MyPageFeed />
+      <MabcciReview />
     </div>
   );
 }

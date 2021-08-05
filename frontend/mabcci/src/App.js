@@ -17,7 +17,6 @@ import OOTDMain from './Components/Pages/ServicePage/OOTD/OOTDMain/OOTDMain';
 import OOTDDetail from './Components/Pages/ServicePage/OOTD/OOTDDetail/OOTDDetail';
 import OOTDWrite from './Components/Pages/ServicePage/OOTD/OOTDWrite/OOTDWrite';
 import StylingMain from './Components/Pages/ServicePage/Styling/StylingMain/StylingMain';
-import OOTDTest from './Components/Pages/ServicePage/OOTD/OOTDWrite/OOTDTest';
 import OOTDUpdate from './Components/Pages/ServicePage/OOTD/OOTDWrite/OOTDUpdate';
 
 // Pages - AuthPage
@@ -61,7 +60,6 @@ function App() {
         <Route exact path="/OOTDWrite" component={OOTDWrite} />
         <Route exact path="/OOTD/:id/:nickname" component={OOTDDetail} />
         <Route exact path="/styling" component={StylingMain} />
-        <Route exact path="/OOTDTest" component={OOTDTest} />
         <Route exact path="/OOTDUpdate/:id/:nickname" component={OOTDUpdate} />
       </Switch>
     </div>
