@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class MemberTest {
 
-    public static final Member MEMBER = Member.builder()
+    public static final Member MEMBER = Member.Builder()
             .email(EMAIL)
             .password(PASSWORD)
             .nickname(NICKNAME)
@@ -32,7 +32,7 @@ public class MemberTest {
 
     @BeforeEach
     void setUp() {
-        member = Member.builder()
+        member = Member.Builder()
                 .email(EMAIL)
                 .password(PASSWORD)
                 .nickname(NICKNAME)

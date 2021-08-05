@@ -1,12 +1,14 @@
 package com.mabcci.domain.member.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mabcci.domain.follow.domain.Follow;
 import com.mabcci.domain.membercategory.domain.MemberCategory;
 import com.mabcci.global.common.Email;
 import com.mabcci.global.common.Nickname;
 import com.mabcci.global.common.Password;
 import com.mabcci.global.common.Phone;
 import com.mabcci.domain.BaseTimeEntity;
+import org.apache.catalina.User;
 
 import javax.persistence.*;
 import java.util.*;
@@ -55,6 +57,14 @@ public class Member extends BaseTimeEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private Set<MemberCategory> memberCategories = new HashSet<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "following", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Follow> followings = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Follow> followers = new HashSet<>();
+
     protected Member() {
     }
 
@@ -68,12 +78,7 @@ public class Member extends BaseTimeEntity {
         this.memberSpecs = memberBuilder.memberSpecs;
     }
 
-    public void addMemberCategory(final MemberCategory memberCategory) {
-        memberCategories.add(memberCategory);
-        memberCategory.changeMember(this);
-    }
-
-    public static MemberBuilder builder() {
+    public static MemberBuilder Builder() {
         return new MemberBuilder();
     }
 
@@ -101,6 +106,21 @@ public class Member extends BaseTimeEntity {
         return memberSpecs;
     }
 
+    public Gender gender() {
+        return gender;
+    }
+
+    public Set<MemberCategory> memberCategories() {
+        return memberCategories;
+    }
+
+    public void addMemberCategory(final MemberCategory memberCategory) {
+        memberCategory.changeMember(this);
+        if(!memberCategories.contains(memberCategory)) {
+            memberCategories.add(memberCategory);
+        }
+    }
+
     public void updateMemberSpecs(final MemberSpecs memberSpecs) {
         this.memberSpecs = memberSpecs;
     }
@@ -109,14 +129,6 @@ public class Member extends BaseTimeEntity {
         this.nickname = nickName;
         this.gender = gender;
         return this;
-    }
-
-    public Gender gender() {
-        return gender;
-    }
-
-    public Set<MemberCategory> memberCategories() {
-        return memberCategories;
     }
 
     public static class MemberBuilder {

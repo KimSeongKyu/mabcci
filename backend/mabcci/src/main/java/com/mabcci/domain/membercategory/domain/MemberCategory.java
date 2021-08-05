@@ -31,7 +31,11 @@ public class MemberCategory {
         this.category = category;
     }
 
-    public void changeMember(final Member member) {
+    public Member member() {
+        return member;
+    }
+
+    public void changeMember(Member member) {
         this.member = member;
     }
 }
