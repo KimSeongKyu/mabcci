@@ -86,7 +86,7 @@ class FollowServiceTest {
         doNothing().when(followRepository).delete(any());
         given(followRepository.findById(any())).willReturn(Optional.ofNullable(follow));
 
-        followService.delete(1L);
+        followService.cancel(1L);
 
         then(followRepository).should(times(1)).delete(any());
         then(followRepository).should(times(1)).findById(any());

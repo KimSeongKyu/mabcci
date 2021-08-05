@@ -1,6 +1,5 @@
 package com.mabcci.domain.follow.ui;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mabcci.domain.follow.application.FollowService;
 import com.mabcci.domain.follow.dto.FollowSaveRequest;
@@ -20,6 +19,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -66,6 +67,16 @@ class FollowControllerTest {
 
     }
 
+    @DisplayName("FollowController 인스턴스 팔로우 취소 기능 테스트")
+    @Test
+    void cancel_test() throws Exception {
+        doNothing().when(followService).cancel(any());
 
+        mockMvc.perform(delete("/api/follow")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
 
 }

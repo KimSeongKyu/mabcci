@@ -43,7 +43,7 @@ public class FollowService {
     }
 
     @Transactional
-    public void delete(final Long followId) {
+    public void cancel(final Long followId) {
         final Follow follow = findFollowById(followId);
         followRepository.delete(follow);
     }
