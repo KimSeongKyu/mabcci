@@ -1,10 +1,7 @@
 package com.mabcci.domain.member.dto.response;
 
-import com.mabcci.domain.category.domain.Category;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.Set;
 
 import static com.mabcci.domain.member.dto.request.MemberJoinRequestTest.CATEGORIES;
 import static com.mabcci.global.common.NicknameTest.NICKNAME;
@@ -34,6 +31,20 @@ class MemberByMemberRoleResponseTest {
         assertAll(
                 () -> assertThat(response).isNotNull(),
                 () -> assertThat(response).isExactlyInstanceOf(MemberByMemberRoleResponse.class)
+        );
+    }
+
+    @DisplayName("MemberByMemberRoleResponse 인스턴스 getter 기능 테스트")
+    @Test
+    void getter_test() {
+        final String PICTURE = "picture 경로";
+        final MemberByMemberRoleResponse response = MemberByMemberRoleResponse
+                .createMemberByMemberRoleResponse(NICKNAME, PICTURE, CATEGORIES);
+
+        assertAll(
+                () -> assertThat(response.getNickName()).isEqualTo(NICKNAME),
+                () -> assertThat(response.getPicture()).isEqualTo(PICTURE),
+                () -> assertThat(response.getCategories()).isEqualTo(CATEGORIES)
         );
     }
 }

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
 
 import static com.mabcci.domain.member.domain.Gender.MAN;
 import static com.mabcci.global.common.EmailTest.EMAIL;
@@ -18,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class MemberJoinRequestTest {
 
-    public static final HashSet<String> CATEGORIES = new HashSet<>(Arrays.asList("categoryName"));
+    public static final Set<String> CATEGORIES = new HashSet<>(Arrays.asList("categoryName"));
 
     @DisplayName("JoinRequestDto 인스턴스 생성 여부 테스트")
     @Test
