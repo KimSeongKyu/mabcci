@@ -56,7 +56,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/community" component={CommunityMain} />
-        <Route exact path="/mypage" component={MyPageMain} />
+        <Route exact path="/mypage/:nickname" component={MyPageMain} />
         <Route exact path="/OOTD" component={OOTDMain} />
         <Route exact path="/OOTDWrite" component={OOTDWrite} />
         <Route exact path="/OOTD/:id/:nickname" component={OOTDDetail} />

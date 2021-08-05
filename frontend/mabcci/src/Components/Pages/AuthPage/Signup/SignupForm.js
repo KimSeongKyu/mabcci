@@ -198,7 +198,7 @@ function SignupForm() {
         {userInfo.gender === 'MALE' ? (
           <button
             className="signup-btn-sex-select"
-            name="MAN"
+            name="MALE"
             type="submit"
             onClick={mwBtnClick}
           >
@@ -207,7 +207,7 @@ function SignupForm() {
         ) : (
           <button
             className="btn-rounded-sm"
-            name="MAN"
+            name="MALE"
             type="submit"
             onClick={mwBtnClick}
           >
@@ -218,7 +218,7 @@ function SignupForm() {
         {userInfo.gender === 'FEMALE' ? (
           <button
             className="signup-btn-sex-select"
-            name="WOMAN"
+            name="FEMALE"
             type="submit"
             onClick={mwBtnClick}
           >
@@ -227,7 +227,7 @@ function SignupForm() {
         ) : (
           <button
             className="btn-rounded-sm"
-            name="WOMAN"
+            name="FEMALE"
             type="submit"
             onClick={mwBtnClick}
           >
