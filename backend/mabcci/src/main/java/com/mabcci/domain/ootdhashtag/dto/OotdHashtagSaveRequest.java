@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public final class OotdHashtagRegisterRequest {
+public final class OotdHashtagSaveRequest {
 
     @NotNull
     private Ootd ootd;
@@ -15,10 +15,10 @@ public final class OotdHashtagRegisterRequest {
     @NotEmpty
     private List<Hashtag> hashtags;
 
-    private OotdHashtagRegisterRequest() {
+    private OotdHashtagSaveRequest() {
     }
 
-    public OotdHashtagRegisterRequest(final Ootd ootd, final List<Hashtag> hashtags) {
+    public OotdHashtagSaveRequest(final Ootd ootd, final List<Hashtag> hashtags) {
         this.ootd = ootd;
         this.hashtags = hashtags;
     }

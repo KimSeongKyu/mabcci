@@ -4,15 +4,15 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public final class HashtagRegisterRequest {
+public final class HashtagSaveRequest {
 
     @NotEmpty
     private List<String> names;
 
-    private HashtagRegisterRequest() {
+    private HashtagSaveRequest() {
     }
 
-    public HashtagRegisterRequest(final List<String> names) {
+    public HashtagSaveRequest(final List<String> names) {
         this.names = names;
     }
 

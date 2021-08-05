@@ -15,28 +15,28 @@ import static com.mabcci.domain.picture.common.PictureUtilTest.PICTURE_FILES;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class OotdRegisterWithPicturesAndHashtagsRequestTest {
+class OotdWithPicturesAndHashtagsRegisterRequestTest {
 
-    private OotdRegisterWithPicturesAndHashtagsRequest request;
+    private OotdWithPicturesAndHashtagsRegisterRequest request;
 
     @BeforeEach
     void setUp() {
-        request = new OotdRegisterWithPicturesAndHashtagsRequest(
+        request = new OotdWithPicturesAndHashtagsRegisterRequest(
                 "닉네임", "내용", "상의", "하의", "신발", "악세사리",
                 PICTURE_FILES, new ArrayList<>(List.of("해시태그1", "해시태그2"))
         );
     }
 
-    @DisplayName("OotdRegisterWithPicturesAndHashtagsRequest 인스턴스 생성 여부 테스트")
+    @DisplayName("OotdWithPicturesAndHashtagsRegisterRequest 인스턴스 생성 여부 테스트")
     @Test
     void initialize() {
         assertAll(
                 () -> assertThat(request).isNotNull(),
-                () -> assertThat(request).isExactlyInstanceOf(OotdRegisterWithPicturesAndHashtagsRequest.class)
+                () -> assertThat(request).isExactlyInstanceOf(OotdWithPicturesAndHashtagsRegisterRequest.class)
         );
     }
 
-    @DisplayName("OotdRegisterWithPicturesAndHashtagsRequest 인스턴스 getter 메서드들 테스트")
+    @DisplayName("OotdWithPicturesAndHashtagsRegisterRequest 인스턴스 getter 메서드들 테스트")
     @Test
     void getter_test() {
         assertAll(
@@ -51,17 +51,17 @@ class OotdRegisterWithPicturesAndHashtagsRequestTest {
         ));
     }
 
-    @DisplayName("OotdRegisterWithPicturesAndHashtagsRequest 인스턴스 프토퍼티 유효성 검증 테스트")
+    @DisplayName("OotdWithPicturesAndHashtagsRegisterRequest 인스턴스 프토퍼티 유효성 검증 테스트")
     @Test
     void validate_test() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        final OotdRegisterWithPicturesAndHashtagsRequest invalidRequest = new OotdRegisterWithPicturesAndHashtagsRequest(
+        final OotdWithPicturesAndHashtagsRegisterRequest invalidRequest = new OotdWithPicturesAndHashtagsRegisterRequest(
                 null, null, null, null, null, null,
                 new ArrayList<>(), null);
 
-        final Set<ConstraintViolation<OotdRegisterWithPicturesAndHashtagsRequest>> invalidPropertiesOfValidRequest =
+        final Set<ConstraintViolation<OotdWithPicturesAndHashtagsRegisterRequest>> invalidPropertiesOfValidRequest =
                 validator.validate(request);
-        final Set<ConstraintViolation<OotdRegisterWithPicturesAndHashtagsRequest>> invalidPropertiesOfInvalidRequest =
+        final Set<ConstraintViolation<OotdWithPicturesAndHashtagsRegisterRequest>> invalidPropertiesOfInvalidRequest =
                 validator.validate(invalidRequest);
 
         assertAll(

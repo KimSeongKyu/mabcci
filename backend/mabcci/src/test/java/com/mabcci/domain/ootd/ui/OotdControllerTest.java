@@ -3,10 +3,10 @@ package com.mabcci.domain.ootd.ui;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mabcci.domain.hashtag.application.HashtagService;
 import com.mabcci.domain.hashtag.domain.Hashtag;
-import com.mabcci.domain.hashtag.dto.HashtagRegisterResponse;
+import com.mabcci.domain.hashtag.dto.HashtagSaveResponse;
 import com.mabcci.domain.member.application.MemberService;
 import com.mabcci.domain.ootd.application.OotdService;
-import com.mabcci.domain.ootd.dto.OotdRegisterWithPicturesAndHashtagsRequest;
+import com.mabcci.domain.ootd.dto.OotdWithPicturesAndHashtagsRegisterRequest;
 import com.mabcci.domain.ootdhashtag.application.OotdHashtagService;
 import com.mabcci.domain.ootdpicture.application.OotdPictureService;
 import com.mabcci.domain.picture.application.PictureService;
@@ -72,17 +72,17 @@ class OotdControllerTest {
                         .name("해시태그2")
                         .build()
         ));
-        final HashtagRegisterResponse hashtagRegisterResponse = new HashtagRegisterResponse(hashtags);
+        final HashtagSaveResponse hashtagSaveResponse = new HashtagSaveResponse(hashtags);
 
         doReturn(MEMBER).when(memberService).findByNickName(any());
         doNothing().when(ootdService).saveOotd(any());
         doReturn(pictures).when(pictureService).savePictures(any());
-        doNothing().when(ootdPictureService).registerOotdPictures(any());
-        doReturn(hashtagRegisterResponse).when(hashtagService).saveHashtags(any());
+        doNothing().when(ootdPictureService).saveOotdPictures(any());
+        doReturn(hashtagSaveResponse).when(hashtagService).saveHashtags(any());
         doNothing().when(ootdHashtagService).saveOotdHashtags(any());
 
-        final OotdRegisterWithPicturesAndHashtagsRequest request =
-                new OotdRegisterWithPicturesAndHashtagsRequest(
+        final OotdWithPicturesAndHashtagsRegisterRequest request =
+                new OotdWithPicturesAndHashtagsRegisterRequest(
                         "닉네임", "내용", "상의", "하의", "신발", "악세사리",
                         PICTURE_FILES, new ArrayList<>(List.of("해시태그1", "해시태그2"))
                 );

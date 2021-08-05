@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static com.mabcci.domain.ootdhashtag.domain.OotdHashtagTest.OOTD_HASHTAG;
-import static com.mabcci.domain.ootdhashtag.dto.OotdHashtagRegisterRequestTest.OOTD_HASHTAG_REGISTER_REQUEST;
+import static com.mabcci.domain.ootdhashtag.dto.OotdHashtagSaveRequestTest.OOTD_HASHTAG_SAVE_REQUEST;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -27,8 +27,8 @@ class OotdHashtagServiceTest {
     void save_ootd_hashtags_test() {
         doReturn(OOTD_HASHTAG).when(ootdHashtagRepository).save(any());
 
-        ootdHashtagService.saveOotdHashtags(OOTD_HASHTAG_REGISTER_REQUEST);
+        ootdHashtagService.saveOotdHashtags(OOTD_HASHTAG_SAVE_REQUEST);
 
-        verify(ootdHashtagRepository, times(OOTD_HASHTAG_REGISTER_REQUEST.getHashtags().size())).save(any());
+        verify(ootdHashtagRepository, times(OOTD_HASHTAG_SAVE_REQUEST.getHashtags().size())).save(any());
     }
 }

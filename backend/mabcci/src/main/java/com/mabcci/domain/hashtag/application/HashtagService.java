@@ -2,8 +2,8 @@ package com.mabcci.domain.hashtag.application;
 
 import com.mabcci.domain.hashtag.domain.Hashtag;
 import com.mabcci.domain.hashtag.domain.HashtagRepository;
-import com.mabcci.domain.hashtag.dto.HashtagRegisterRequest;
-import com.mabcci.domain.hashtag.dto.HashtagRegisterResponse;
+import com.mabcci.domain.hashtag.dto.HashtagSaveRequest;
+import com.mabcci.domain.hashtag.dto.HashtagSaveResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,9 +20,9 @@ public class HashtagService {
     }
 
     @Transactional
-    public HashtagRegisterResponse saveHashtags(final HashtagRegisterRequest hashtagRegisterRequest) {
-        final List<String> hashtagNames = hashtagRegisterRequest.getNames();
-        return new HashtagRegisterResponse(hashtagNames.stream()
+    public HashtagSaveResponse saveHashtags(final HashtagSaveRequest hashtagSaveRequest) {
+        final List<String> hashtagNames = hashtagSaveRequest.getNames();
+        return new HashtagSaveResponse(hashtagNames.stream()
                 .map(name -> hashtagRepository.findByName(name)
                         .orElse(hashtagRepository.save(Hashtag.builder()
                                 .name(name)

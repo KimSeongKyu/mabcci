@@ -6,15 +6,15 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public final class HashtagRegisterResponse {
+public final class HashtagSaveResponse {
 
     @NotEmpty
     private List<Hashtag> hashtags;
 
-    private HashtagRegisterResponse() {
+    private HashtagSaveResponse() {
     }
 
-    public HashtagRegisterResponse(final List<Hashtag> hashtags) {
+    public HashtagSaveResponse(final List<Hashtag> hashtags) {
         this.hashtags = hashtags;
     }
 

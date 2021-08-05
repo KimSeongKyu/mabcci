@@ -5,12 +5,12 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-public final class PictureRegisterRequest {
+public final class PictureSaveRequest {
 
     @NotEmpty
     private List<MultipartFile> pictures;
 
-    public PictureRegisterRequest(final List<MultipartFile> pictures) {
+    public PictureSaveRequest(final List<MultipartFile> pictures) {
         this.pictures = pictures;
     }
 

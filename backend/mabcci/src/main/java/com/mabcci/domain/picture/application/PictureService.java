@@ -2,7 +2,7 @@ package com.mabcci.domain.picture.application;
 
 import com.mabcci.domain.picture.common.PictureUtil;
 import com.mabcci.domain.picture.domain.Picture;
-import com.mabcci.domain.picture.dto.PictureRegisterRequest;
+import com.mabcci.domain.picture.dto.PictureSaveRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,11 +18,11 @@ public class PictureService {
         this.pictureUtil = pictureUtil;
     }
 
-    public List<Picture> savePictures(final PictureRegisterRequest pictureRegisterRequest) {
+    public List<Picture> savePictures(final PictureSaveRequest pictureSaveRequest) {
         final String directoryName = pictureUtil.makeDirectoryName();
         pictureUtil.makeDirectory(directoryName);
 
-        return pictureRegisterRequest.getPictures()
+        return pictureSaveRequest.getPictures()
                 .stream()
                 .map(picture -> pictureUtil.savePicture(picture, directoryName))
                 .collect(toList());

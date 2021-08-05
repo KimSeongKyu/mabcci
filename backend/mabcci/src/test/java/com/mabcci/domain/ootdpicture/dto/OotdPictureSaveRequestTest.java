@@ -16,9 +16,9 @@ import static com.mabcci.domain.ootd.domain.OotdTest.OOTD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class OotdPictureRegisterRequestTest {
+class OotdPictureSaveRequestTest {
 
-    private OotdPictureRegisterRequest ootdPictureRegisterRequest;
+    private OotdPictureSaveRequest ootdPictureSaveRequest;
     private List<Picture> pictures;
 
     @BeforeEach
@@ -27,37 +27,37 @@ class OotdPictureRegisterRequestTest {
                 new Picture("testDirectory", "testFile"),
                 new Picture("testDirectory", "testFile")
         ));
-        ootdPictureRegisterRequest = new OotdPictureRegisterRequest(OOTD, pictures);
+        ootdPictureSaveRequest = new OotdPictureSaveRequest(OOTD, pictures);
     }
 
-    @DisplayName("OotdPictureRegisterRequest 인스턴스 생성 여부 테스트")
+    @DisplayName("OotdPictureSaveRequest 인스턴스 생성 여부 테스트")
     @Test
     void initialize() {
         assertAll(
-                () -> assertThat(ootdPictureRegisterRequest).isNotNull(),
-                () -> assertThat(ootdPictureRegisterRequest).isExactlyInstanceOf(OotdPictureRegisterRequest.class)
+                () -> assertThat(ootdPictureSaveRequest).isNotNull(),
+                () -> assertThat(ootdPictureSaveRequest).isExactlyInstanceOf(OotdPictureSaveRequest.class)
         );
     }
 
-    @DisplayName("OOtdPictureRegisterRequest 인스턴스 getter 메서드 테스트")
+    @DisplayName("OotdPictureSaveRequest 인스턴스 getter 메서드 테스트")
     @Test
     void getter_test() {
         assertAll(
-                () -> assertThat(ootdPictureRegisterRequest.getPictures()).isEqualTo(pictures),
-                () -> assertThat(ootdPictureRegisterRequest.getOotd()).isEqualTo(OOTD)
+                () -> assertThat(ootdPictureSaveRequest.getPictures()).isEqualTo(pictures),
+                () -> assertThat(ootdPictureSaveRequest.getOotd()).isEqualTo(OOTD)
         );
 
     }
 
-    @DisplayName("OOtdPictureRegisterRequest 인스턴스 프로퍼티 유효성 검사 테스트")
+    @DisplayName("OotdPictureSaveRequest 인스턴스 프로퍼티 유효성 검사 테스트")
     @Test
     void validate_test() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        final OotdPictureRegisterRequest invalidRequest = new OotdPictureRegisterRequest(null, new ArrayList<>());
+        final OotdPictureSaveRequest invalidRequest = new OotdPictureSaveRequest(null, new ArrayList<>());
 
-        final Set<ConstraintViolation<OotdPictureRegisterRequest>> constraintViolationsOfValidRequest =
-                validator.validate(ootdPictureRegisterRequest);
-        final Set<ConstraintViolation<OotdPictureRegisterRequest>> constraintViolationsOfInvalidRequest =
+        final Set<ConstraintViolation<OotdPictureSaveRequest>> constraintViolationsOfValidRequest =
+                validator.validate(ootdPictureSaveRequest);
+        final Set<ConstraintViolation<OotdPictureSaveRequest>> constraintViolationsOfInvalidRequest =
                 validator.validate(invalidRequest);
 
         assertAll(

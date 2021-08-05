@@ -1,7 +1,7 @@
 package com.mabcci.domain.ootdpicture.application;
 
 import com.mabcci.domain.ootdpicture.domain.OotdPictureRepository;
-import com.mabcci.domain.ootdpicture.dto.OotdPictureRegisterRequest;
+import com.mabcci.domain.ootdpicture.dto.OotdPictureSaveRequest;
 import com.mabcci.domain.picture.domain.Picture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,18 +27,18 @@ class OotdPictureServiceTest {
     @Mock
     private OotdPictureRepository ootdPictureRepository;
 
-    @DisplayName("OotdPictureService 인스턴스 ootd 사진 등록 테스트")
+    @DisplayName("OotdPictureService 인스턴스 ootd 사진 저장 테스트")
     @Test
     void register_ootd_picture_test() {
         final List<Picture> pictures = new ArrayList<>(List.of(
                 new Picture("testDirectory", "testFileName"),
                 new Picture("testDirectory", "testFileName")
         ));
-        final OotdPictureRegisterRequest ootdPictureRegisterRequest =
-                new OotdPictureRegisterRequest(OOTD, pictures);
+        final OotdPictureSaveRequest ootdPictureSaveRequest =
+                new OotdPictureSaveRequest(OOTD, pictures);
         doReturn(OOTD_PICTURE).when(ootdPictureRepository).save(any());
 
-        ootdPictureService.registerOotdPictures(ootdPictureRegisterRequest);
+        ootdPictureService.saveOotdPictures(ootdPictureSaveRequest);
 
         verify(ootdPictureRepository, times(pictures.size())).save(any());
     }

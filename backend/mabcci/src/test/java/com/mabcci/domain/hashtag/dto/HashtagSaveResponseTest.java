@@ -15,9 +15,9 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class HashtagRegisterResponseTest {
+class HashtagSaveResponseTest {
 
-    private HashtagRegisterResponse hashtagRegisterResponse;
+    private HashtagSaveResponse hashtagSaveResponse;
     private List<Hashtag> hashtags;
 
     @BeforeEach
@@ -30,33 +30,33 @@ class HashtagRegisterResponseTest {
                         .name("해시태그2")
                         .build()
         ));
-        hashtagRegisterResponse = new HashtagRegisterResponse(hashtags);
+        hashtagSaveResponse = new HashtagSaveResponse(hashtags);
     }
 
-    @DisplayName("HashtagRegisterResponse 인스턴스 생성 여부 테스트")
+    @DisplayName("HashtagSaveResponse 인스턴스 생성 여부 테스트")
     @Test
     void initialize() {
         assertAll(
-                () -> assertThat(hashtagRegisterResponse).isNotNull(),
-                () -> assertThat(hashtagRegisterResponse).isExactlyInstanceOf(HashtagRegisterResponse.class)
+                () -> assertThat(hashtagSaveResponse).isNotNull(),
+                () -> assertThat(hashtagSaveResponse).isExactlyInstanceOf(HashtagSaveResponse.class)
         );
     }
 
-    @DisplayName("HashtagRegisterResponse 인스턴스 getter 메서드 테스트")
+    @DisplayName("HashtagSaveResponse 인스턴스 getter 메서드 테스트")
     @Test
     void getter_test() {
-        assertThat(hashtagRegisterResponse.getHashtags()).isEqualTo(hashtags);
+        assertThat(hashtagSaveResponse.getHashtags()).isEqualTo(hashtags);
     }
 
-    @DisplayName("HashtagRegisterResponse 인스턴스 프로퍼티 유효성 검증 테스트")
+    @DisplayName("HashtagSaveResponse 인스턴스 프로퍼티 유효성 검증 테스트")
     @Test
     void validate_test() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        final HashtagRegisterResponse invalidResponse = new HashtagRegisterResponse(new ArrayList<>());
+        final HashtagSaveResponse invalidResponse = new HashtagSaveResponse(new ArrayList<>());
 
-        final Set<ConstraintViolation<HashtagRegisterResponse>> invalidPropertiesOfValidResponse =
-                validator.validate(hashtagRegisterResponse);
-        final Set<ConstraintViolation<HashtagRegisterResponse>> invalidPropertiesOfInvalidResponse =
+        final Set<ConstraintViolation<HashtagSaveResponse>> invalidPropertiesOfValidResponse =
+                validator.validate(hashtagSaveResponse);
+        final Set<ConstraintViolation<HashtagSaveResponse>> invalidPropertiesOfInvalidResponse =
                 validator.validate(invalidResponse);
 
         assertAll(

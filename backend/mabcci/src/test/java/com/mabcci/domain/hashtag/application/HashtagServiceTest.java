@@ -1,8 +1,7 @@
 package com.mabcci.domain.hashtag.application;
 
-import com.mabcci.domain.hashtag.domain.Hashtag;
 import com.mabcci.domain.hashtag.domain.HashtagRepository;
-import com.mabcci.domain.hashtag.dto.HashtagRegisterResponse;
+import com.mabcci.domain.hashtag.dto.HashtagSaveResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,11 +9,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
 import java.util.Optional;
 
 import static com.mabcci.domain.hashtag.domain.HashtagTest.HASHTAG;
-import static com.mabcci.domain.hashtag.dto.HashtagRegisterRequestTest.HASHTAG_REGISTER_REQUEST;
+import static com.mabcci.domain.hashtag.dto.HashtagSaveRequestTest.HASHTAG_SAVE_REQUEST;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.ArgumentMatchers.any;
@@ -34,15 +32,15 @@ public class HashtagServiceTest {
     void save_hashtags_test() {
         doReturn(Optional.of(HASHTAG)).when(hashtagRepository).findByName(any());
         doReturn(HASHTAG).when(hashtagRepository).save(any());
-        final HashtagRegisterResponse hashtagRegisterResponse = hashtagService.saveHashtags(HASHTAG_REGISTER_REQUEST);
-        final int numberOfRequestNames = HASHTAG_REGISTER_REQUEST.getNames().size();
+        final HashtagSaveResponse hashtagSaveResponse = hashtagService.saveHashtags(HASHTAG_SAVE_REQUEST);
+        final int numberOfRequestNames = HASHTAG_SAVE_REQUEST.getNames().size();
 
         verify(hashtagRepository, times(numberOfRequestNames)).findByName(any());
         verify(hashtagRepository, times(numberOfRequestNames)).save(any());
 
         assertAll(
-                () -> assertThat(hashtagRegisterResponse).isNotNull(),
-                () -> assertThat(hashtagRegisterResponse.getHashtags().size()).isEqualTo(numberOfRequestNames)
+                () -> assertThat(hashtagSaveResponse).isNotNull(),
+                () -> assertThat(hashtagSaveResponse.getHashtags().size()).isEqualTo(numberOfRequestNames)
         );
     }
 }

@@ -3,7 +3,7 @@ package com.mabcci.domain.ootdhashtag.application;
 import com.mabcci.domain.ootd.domain.Ootd;
 import com.mabcci.domain.ootdhashtag.domain.OotdHashtag;
 import com.mabcci.domain.ootdhashtag.domain.OotdHashtagRepository;
-import com.mabcci.domain.ootdhashtag.dto.OotdHashtagRegisterRequest;
+import com.mabcci.domain.ootdhashtag.dto.OotdHashtagSaveRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +17,9 @@ public class OotdHashtagService {
     }
 
     @Transactional
-    public void saveOotdHashtags(final OotdHashtagRegisterRequest ootdHashtagRegisterRequest) {
-        final Ootd ootd = ootdHashtagRegisterRequest.getOotd();
-        ootdHashtagRegisterRequest.getHashtags()
+    public void saveOotdHashtags(final OotdHashtagSaveRequest ootdHashtagSaveRequest) {
+        final Ootd ootd = ootdHashtagSaveRequest.getOotd();
+        ootdHashtagSaveRequest.getHashtags()
                 .stream()
                 .map(hashtag -> OotdHashtag.builder()
                         .ootd(ootd)

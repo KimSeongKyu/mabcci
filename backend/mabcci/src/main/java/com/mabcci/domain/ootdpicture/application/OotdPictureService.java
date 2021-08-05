@@ -3,7 +3,7 @@ package com.mabcci.domain.ootdpicture.application;
 import com.mabcci.domain.ootd.domain.Ootd;
 import com.mabcci.domain.ootdpicture.domain.OotdPicture;
 import com.mabcci.domain.ootdpicture.domain.OotdPictureRepository;
-import com.mabcci.domain.ootdpicture.dto.OotdPictureRegisterRequest;
+import com.mabcci.domain.ootdpicture.dto.OotdPictureSaveRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +17,9 @@ public class OotdPictureService {
     }
 
     @Transactional
-    public void registerOotdPictures(final OotdPictureRegisterRequest ootdPictureRegisterRequest) {
-        final Ootd ootd = ootdPictureRegisterRequest.getOotd();
-        ootdPictureRegisterRequest.getPictures()
+    public void saveOotdPictures(final OotdPictureSaveRequest ootdPictureSaveRequest) {
+        final Ootd ootd = ootdPictureSaveRequest.getOotd();
+        ootdPictureSaveRequest.getPictures()
                 .stream()
                 .map(picture -> OotdPicture.builder()
                         .picture(picture)

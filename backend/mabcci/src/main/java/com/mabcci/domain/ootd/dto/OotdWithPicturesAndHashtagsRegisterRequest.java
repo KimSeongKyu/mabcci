@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-public final class OotdRegisterWithPicturesAndHashtagsRequest {
+public final class OotdWithPicturesAndHashtagsRegisterRequest {
 
     @NotBlank
     private String nickname;
@@ -23,7 +23,7 @@ public final class OotdRegisterWithPicturesAndHashtagsRequest {
     private List<String> hashtags;
 
 
-    public OotdRegisterWithPicturesAndHashtagsRequest(final String nickname, final String content, final String top, final String bottom, final String shoes,
+    public OotdWithPicturesAndHashtagsRegisterRequest(final String nickname, final String content, final String top, final String bottom, final String shoes,
                                                       final String accessory, final List<MultipartFile> pictures, final List<String> hashtags) {
         this.nickname = nickname;
         this.content = content;

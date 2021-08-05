@@ -5,7 +5,7 @@ import com.mabcci.domain.ootd.domain.Ootd;
 
 import javax.validation.constraints.NotNull;
 
-public final class OotdRegisterRequest {
+public final class OotdSaveRequest {
 
     @NotNull
     private Member member;
@@ -16,11 +16,11 @@ public final class OotdRegisterRequest {
     private String shoes;
     private String accessory;
 
-    private OotdRegisterRequest() {
+    private OotdSaveRequest() {
     }
 
-    public OotdRegisterRequest(final Member member, final String content, final String top,
-                               final String bottom, final String shoes, final String accessory) {
+    public OotdSaveRequest(final Member member, final String content, final String top,
+                           final String bottom, final String shoes, final String accessory) {
         this.member = member;
         this.content = content;
         this.top = top;

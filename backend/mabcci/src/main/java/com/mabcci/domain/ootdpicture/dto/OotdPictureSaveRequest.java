@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public final class OotdPictureRegisterRequest {
+public final class OotdPictureSaveRequest {
 
     @Valid
     @NotNull
@@ -17,7 +17,7 @@ public final class OotdPictureRegisterRequest {
     @NotEmpty
     private List<Picture> pictures;
 
-    public OotdPictureRegisterRequest(@Valid final Ootd ootd, final List<Picture> pictures) {
+    public OotdPictureSaveRequest(@Valid final Ootd ootd, final List<Picture> pictures) {
         this.ootd = ootd;
         this.pictures = pictures;
     }

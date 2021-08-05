@@ -2,7 +2,7 @@ package com.mabcci.domain.picture.application;
 
 import com.mabcci.domain.picture.common.PictureUtil;
 import com.mabcci.domain.picture.domain.Picture;
-import com.mabcci.domain.picture.dto.PictureRegisterRequest;
+import com.mabcci.domain.picture.dto.PictureSaveRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +30,7 @@ class PictureServiceTest {
     @DisplayName("PictureService 인스턴스 사진 저장 테스트")
     @Test
     void save_pictures_test() {
-        final PictureRegisterRequest pictureRegisterRequest = new PictureRegisterRequest(PICTURE_FILES);
+        final PictureSaveRequest pictureSaveRequest = new PictureSaveRequest(PICTURE_FILES);
         final String directoryName = "testDirectory";
         final String fileName = "testFile";
 
@@ -38,7 +38,7 @@ class PictureServiceTest {
         doNothing().when(pictureUtil).makeDirectory(any());
         doReturn(new Picture(directoryName, fileName)).when(pictureUtil).savePicture(any(), any());
 
-        final List<Picture> pictures = pictureService.savePictures(pictureRegisterRequest);
+        final List<Picture> pictures = pictureService.savePictures(pictureSaveRequest);
 
         verify(pictureUtil, times(1)).makeDirectory(any());
         verify(pictureUtil, times(PICTURE_FILES.size())).savePicture(any(), any());
