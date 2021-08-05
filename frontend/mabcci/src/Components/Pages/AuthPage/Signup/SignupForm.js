@@ -198,7 +198,7 @@ function SignupForm() {
         {userInfo.gender === 'MALE' ? (
           <button
             className="signup-btn-sex-select"
-            name="MAN"
+            name="MALE"
             type="submit"
             onClick={mwBtnClick}
           >
