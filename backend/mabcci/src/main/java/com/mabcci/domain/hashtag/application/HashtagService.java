@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -23,10 +25,13 @@ public class HashtagService {
     public HashtagSaveResponse saveHashtags(final HashtagSaveRequest hashtagSaveRequest) {
         final List<String> hashtagNames = hashtagSaveRequest.getNames();
         return new HashtagSaveResponse(hashtagNames.stream()
-                .map(name -> hashtagRepository.findByName(name)
-                        .orElse(hashtagRepository.save(Hashtag.builder()
-                                .name(name)
-                                .build())))
+                .map(name -> {
+                    final Optional<Hashtag> hashtag = hashtagRepository.findByName(name);
+                    if(hashtag.isPresent()) {
+                        return hashtag.get();
+                    }
+                    return hashtagRepository.save(Hashtag.builder().name(name).build());
+                })
                 .collect(toList()));
     }
 }

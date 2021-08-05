@@ -15,16 +15,14 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class OotdSaveRequestTest {
 
-    public static final OotdSaveRequest OOTD_REGISTER_REQUEST =
-            new OotdSaveRequest(MEMBER, "내용", "상의", "하의", "신발", "악세사리");
     private OotdSaveRequest ootdSaveRequest;
 
     @BeforeEach
     void setUp() {
-        ootdSaveRequest = new OotdSaveRequest(MEMBER, "내용", "상의", "하의", "신발", "악세사리");
+        ootdSaveRequest = new OotdSaveRequest("닉네임", "내용", "상의", "하의", "신발", "악세사리");
     }
 
-    @DisplayName("OotdRegisterRequest 인스턴스 생성 여부 테스트")
+    @DisplayName("OotdSaveRequest 인스턴스 생성 여부 테스트")
     @Test
     void initialize() {
         assertAll(
@@ -33,11 +31,11 @@ public class OotdSaveRequestTest {
         );
     }
 
-    @DisplayName("OotdRegisterRequest 인스턴스 getter 메서드들 테스트")
+    @DisplayName("OotdSaveRequest 인스턴스 getter 메서드들 테스트")
     @Test
     void getter_test() {
         assertAll(
-                () -> assertThat(ootdSaveRequest.getMember()).isEqualTo(MEMBER),
+                () -> assertThat(ootdSaveRequest.getNickname()).isEqualTo("닉네임"),
                 () -> assertThat(ootdSaveRequest.getContent()).isEqualTo("내용"),
                 () -> assertThat(ootdSaveRequest.getTop()).isEqualTo("상의"),
                 () -> assertThat(ootdSaveRequest.getBottom()).isEqualTo("하의"),
@@ -47,7 +45,7 @@ public class OotdSaveRequestTest {
     }
 
 
-    @DisplayName("OotdRegisterRequest 인스턴스 프토퍼티 유효성 검증 테스트")
+    @DisplayName("OotdSaveRequest 인스턴스 프토퍼티 유효성 검증 테스트")
     @Test
     void validate_test() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();

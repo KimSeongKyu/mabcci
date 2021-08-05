@@ -4,9 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mabcci.domain.hashtag.application.HashtagService;
 import com.mabcci.domain.hashtag.domain.Hashtag;
 import com.mabcci.domain.hashtag.dto.HashtagSaveResponse;
-import com.mabcci.domain.member.application.MemberService;
 import com.mabcci.domain.ootd.application.OotdService;
-import com.mabcci.domain.ootd.dto.OotdWithPicturesAndHashtagsRegisterRequest;
 import com.mabcci.domain.ootdhashtag.application.OotdHashtagService;
 import com.mabcci.domain.ootdpicture.application.OotdPictureService;
 import com.mabcci.domain.picture.application.PictureService;
@@ -17,17 +15,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mabcci.domain.member.domain.MemberTest.MEMBER;
-import static com.mabcci.domain.picture.common.PictureUtilTest.PICTURE_FILES;
+import static com.mabcci.domain.ootd.domain.OotdTest.OOTD;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(OotdController.class)
@@ -38,9 +36,6 @@ class OotdControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
-
-    @MockBean
-    private MemberService memberService;
 
     @MockBean
     private OotdService ootdService;
@@ -74,23 +69,39 @@ class OotdControllerTest {
         ));
         final HashtagSaveResponse hashtagSaveResponse = new HashtagSaveResponse(hashtags);
 
-        doReturn(MEMBER).when(memberService).findByNickName(any());
-        doNothing().when(ootdService).saveOotd(any());
+        doReturn(OOTD).when(ootdService).saveOotd(any());
         doReturn(pictures).when(pictureService).savePictures(any());
         doNothing().when(ootdPictureService).saveOotdPictures(any());
         doReturn(hashtagSaveResponse).when(hashtagService).saveHashtags(any());
         doNothing().when(ootdHashtagService).saveOotdHashtags(any());
 
-        final OotdWithPicturesAndHashtagsRegisterRequest request =
-                new OotdWithPicturesAndHashtagsRegisterRequest(
-                        "닉네임", "내용", "상의", "하의", "신발", "악세사리",
-                        PICTURE_FILES, new ArrayList<>(List.of("해시태그1", "해시태그2"))
-                );
+        final MockMultipartFile picture1 = new MockMultipartFile(
+                "picture1", "pngPicture.png",
+                MediaType.MULTIPART_FORM_DATA_VALUE, "testPngPicture".getBytes());
 
-        mockMvc.perform(post("/api/ootds")
-                .content(objectMapper.writeValueAsString(request))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+        final MockMultipartFile picture2 = new MockMultipartFile(
+                "picture2", "pngPicture.png",
+                MediaType.MULTIPART_FORM_DATA_VALUE, "testPngPicture".getBytes());
+
+        final MockMultipartFile jsonRequest = new MockMultipartFile(
+                "request", "", MediaType.APPLICATION_JSON_VALUE,
+                ("{" +
+                        "\"nickname\": \"닉네임\"" +
+                        "\"content\": \"내용\"" +
+                        "\"top\": \"상의\"" +
+                        "\"bottom\": \"하의\"" +
+                        "\"shoes\": \"신발\"" +
+                        "\"accessory\": \"악세사리\"" +
+                        "\"hashtags\": [\"해시태그1\", \"해시태그2\"]" +
+                        "}").getBytes());
+
+        mockMvc.perform(multipart("/api/ootds")
+                .file("pictures", picture1.getBytes())
+                .file("pictures", picture2.getBytes())
+                .file("request", jsonRequest.getBytes())
+                .contentType(MediaType.MULTIPART_FORM_DATA)
+                .accept(MediaType.MULTIPART_FORM_DATA)
+                .characterEncoding("UTF-8"))
                 .andExpect(status().isNoContent());
     }
 }

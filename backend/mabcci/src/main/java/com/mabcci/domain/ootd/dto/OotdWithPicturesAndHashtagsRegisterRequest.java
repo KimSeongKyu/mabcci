@@ -23,8 +23,9 @@ public final class OotdWithPicturesAndHashtagsRegisterRequest {
     private List<String> hashtags;
 
 
-    public OotdWithPicturesAndHashtagsRegisterRequest(final String nickname, final String content, final String top, final String bottom, final String shoes,
-                                                      final String accessory, final List<MultipartFile> pictures, final List<String> hashtags) {
+    public OotdWithPicturesAndHashtagsRegisterRequest(final String nickname, final String content, final String top,
+                                                      final String bottom, final String shoes, final String accessory,
+                                                      final List<MultipartFile> pictures, final List<String> hashtags) {
         this.nickname = nickname;
         this.content = content;
         this.top = top;
