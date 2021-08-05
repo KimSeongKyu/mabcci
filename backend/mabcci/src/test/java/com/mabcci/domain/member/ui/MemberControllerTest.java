@@ -69,7 +69,7 @@ class MemberControllerTest {
     @DisplayName("MemberRestController findByNickName() 메서드 테스트")
     @Test
     public void findByNickName_test() throws Exception {
-        given(memberFindService.findByNickName(any())).willReturn(MEMBER);
+        given(memberFindService.findByNickname(any())).willReturn(MEMBER);
         final MemberDeleteRequest memberDeleteRequest = new MemberDeleteRequest(NICKNAME, PASSWORD);
         final String memberDeleteRequestDtoString = objectMapper.writeValueAsString(memberDeleteRequest);
 

@@ -50,7 +50,7 @@ public class JwtUtil {
         payload.put(Claim.ISSUED_AT_KEY, currentTime);
         payload.put(Claim.EMAIL_KEY, member.email());
         payload.put(Claim.NICKNAME_KEY, member.nickname());
-        payload.put(Claim.ROLE_KEY, member.MemberRole());
+        payload.put(Claim.ROLE_KEY, member.memberRole());
 
         return payload;
     }

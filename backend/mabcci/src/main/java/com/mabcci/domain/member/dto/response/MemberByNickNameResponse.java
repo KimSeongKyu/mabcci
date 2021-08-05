@@ -42,7 +42,7 @@ public final class MemberByNickNameResponse {
 
     private MemberByNickNameResponse(final Member entity, final MemberSpecs memberSpecs) {
         this(entity.id(), entity.email(), entity.nickname(),
-                entity.gender(), entity.MemberRole(),
+                entity.gender(), entity.memberRole(),
                 memberSpecs.height(), memberSpecs.weight(), memberSpecs.footSize(), memberSpecs.form());
     }
 

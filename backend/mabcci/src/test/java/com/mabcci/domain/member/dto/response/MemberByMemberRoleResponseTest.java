@@ -8,15 +8,14 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.mabcci.domain.category.domain.CategoryTest.CATEGORIES;
 import static com.mabcci.domain.category.domain.CategoryTest.CATEGORY;
+import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
 import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MemberByMemberRoleResponseTest {
-
-    private static final String PICTURE = "picture 경로";
-    private static final Set<Category> CATEGORIES = new HashSet<>(Arrays.asList(CATEGORY));
 
     @DisplayName("MemberByMemberRoleResponse 인스턴스 기본 생성자를 이용한 생성 테스트")
     @Test

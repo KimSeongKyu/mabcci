@@ -35,6 +35,10 @@ public class MemberCategory {
         return member;
     }
 
+    public Category category() {
+        return category;
+    }
+
     public void changeMember(Member member) {
         this.member = member;
     }

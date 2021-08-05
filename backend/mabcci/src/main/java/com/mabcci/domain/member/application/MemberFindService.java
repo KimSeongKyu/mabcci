@@ -2,6 +2,7 @@ package com.mabcci.domain.member.application;
 
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
+import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.domain.member.dto.response.MemberListResponse;
 import com.mabcci.domain.member.exception.MemberNotFoundException;
 import com.mabcci.global.common.Nickname;
@@ -21,8 +22,15 @@ public class MemberFindService {
     }
 
     @Transactional(readOnly = true)
-    public Member findByNickName(final Nickname nickname) {
-        return memberRepository.findByNicknameWithMemberSpecs(nickname).orElseThrow(MemberNotFoundException::new);
+    public Member findByNickname(final Nickname nickname) {
+        return memberRepository.findByNickName(nickname)
+                .orElseThrow(MemberNotFoundException::new);
+    }
+
+    @Transactional(readOnly = true)
+    public Member findByMemberRole(final MemberRole memberRole) {
+        return memberRepository.findByMemberRole(memberRole)
+                .orElseThrow(MemberNotFoundException::new);
     }
 
     @Transactional(readOnly = true)

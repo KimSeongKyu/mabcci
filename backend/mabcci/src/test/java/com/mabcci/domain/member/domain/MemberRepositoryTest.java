@@ -76,7 +76,7 @@ class MemberRepositoryTest {
     @Test
     void findByNickname_test() {
         testEntityManager.persist(member);
-        final Member findMember = memberRepository.findByNicknameWithMemberSpecs(member.nickname()).get();
+        final Member findMember = memberRepository.findByNickName(member.nickname()).get();
 
         assertThat(findMember.id()).isEqualTo(member.id());
 
@@ -90,7 +90,7 @@ class MemberRepositoryTest {
         testEntityManager.persist(CATEGORY);
         testEntityManager.persist(MemberCategory.createMemberCategory(member, CATEGORY));
 
-        final Member findMember = memberRepository.findByMemberRoleWithMemberCategory(member.MemberRole()).get();
+        final Member findMember = memberRepository.findByMemberRole(member.memberRole()).get();
 
         assertThat(findMember.id()).isEqualTo(member.id());
     }
@@ -101,7 +101,7 @@ class MemberRepositoryTest {
         final Nickname nickname = Nickname.of("invalidNickName");
 
         testEntityManager.persist(member);
-        final Optional<Member> findMember = memberRepository.findByNicknameWithMemberSpecs(nickname);
+        final Optional<Member> findMember = memberRepository.findByNickName(nickname);
 
         assertThat(findMember.isPresent()).isFalse();
     }

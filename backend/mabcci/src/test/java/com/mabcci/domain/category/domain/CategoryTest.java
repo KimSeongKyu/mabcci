@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CategoryTest {
 
     public static final Category CATEGORY = new Category("categoryName");
+    public static final Set<Category> CATEGORIES = new HashSet<>(Arrays.asList(CATEGORY));
 
     @DisplayName("Category 인스턴스 기본 생성자를 이용한 생성 테스트")
     @Test

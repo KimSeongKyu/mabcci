@@ -44,7 +44,7 @@ public class MemberController {
 
     @GetMapping("/api/members/{nickname}")
     public ResponseEntity<MemberByNickNameResponse> findByNickname(@Valid @PathVariable final Nickname nickname) {
-        final Member member = memberFindService.findByNickName(nickname);
+        final Member member = memberFindService.findByNickname(nickname);
         final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse(member);
         return ResponseEntity.ok().body(memberByNickNameResponse);
     }

@@ -18,8 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class MemberTest {
 
-    private static final String DESCRIPTION = "description";
-    private static final String PICTURE = "picture";
+    public static final String DESCRIPTION = "description";
+    public static final String PICTURE = "picture";
 
     public static final Member MEMBER = Member.Builder()
             .email(EMAIL)
@@ -76,7 +76,7 @@ public class MemberTest {
         assertAll(
                 () -> assertThat(member.id()).isEqualTo(1L),
                 () -> assertThat(member.nickname()).isEqualTo(NICKNAME),
-                () -> assertThat(member.MemberRole()).isEqualTo(MemberRole.USER)
+                () -> assertThat(member.memberRole()).isEqualTo(MemberRole.USER)
         );
     }
 
@@ -86,7 +86,7 @@ public class MemberTest {
         final MemberCategory memberCategory = MemberCategory.createMemberCategory(MEMBER, CATEGORY);
         member.addMemberCategory(memberCategory);
 
-        assertThat(member.memberCategories().size()).isEqualTo(1);
+        assertThat(member.categories().size()).isEqualTo(1);
     }
 
 }

@@ -30,7 +30,7 @@ public final class MemberListResponse {
 
     public MemberListResponse(final Member entity) {
         this(entity.id(), entity.email(), entity.nickname(),
-                entity.gender(), entity.MemberRole());
+                entity.gender(), entity.memberRole());
     }
 
     private MemberListResponse(final Long id, @Valid final Email email, @Valid final Nickname nickname,

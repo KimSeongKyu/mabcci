@@ -42,7 +42,7 @@ class MemberJoinServiceTest {
                 () -> assertThat(memberByNickNameResponse.getEmail()).isEqualTo(MEMBER.email()),
                 () -> assertThat(memberByNickNameResponse.getNickname()).isEqualTo(MEMBER.nickname()),
                 () -> assertThat(memberByNickNameResponse.getGender()).isEqualTo(MEMBER.gender()),
-                () -> assertThat(memberByNickNameResponse.getRole()).isEqualTo(MEMBER.MemberRole())
+                () -> assertThat(memberByNickNameResponse.getRole()).isEqualTo(MEMBER.memberRole())
         );
     }
 

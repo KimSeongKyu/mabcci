@@ -33,11 +33,11 @@ class MemberUpdateServiceTest {
     @DisplayName("MemberUpdateService 인스턴스 update() 기능 테스트")
     @Test
     void update_test() {
-        given(memberRepository.findByNicknameWithMemberSpecs(any())).willReturn(Optional.ofNullable(MEMBER));
-        Member member = memberUpdateService.update(NICKNAME, Gender.MAN);
+        given(memberRepository.findByNickName(any())).willReturn(Optional.ofNullable(MEMBER));
+        final Member member = memberUpdateService.update(NICKNAME, Gender.MAN);
         final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse(member);
 
-        then(memberRepository).should(times(1)).findByNicknameWithMemberSpecs(any());
+        then(memberRepository).should(times(1)).findByNickName(any());
         assertAll(
                 () -> assertThat(memberByNickNameResponse.getNickname()).isEqualTo(NICKNAME),
                 () -> assertThat(memberByNickNameResponse.getGender()).isEqualTo(Gender.MAN)

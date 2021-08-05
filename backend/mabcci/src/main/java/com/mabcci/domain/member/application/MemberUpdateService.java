@@ -19,7 +19,7 @@ public class MemberUpdateService {
 
     @Transactional
     public Member update(final Nickname nickname, final Gender gender) {
-        final Member entity = memberRepository.findByNicknameWithMemberSpecs(nickname)
+        final Member entity = memberRepository.findByNickName(nickname)
                 .orElseThrow(MemberNotFoundException::new);
         return entity.update(nickname, gender);
     }

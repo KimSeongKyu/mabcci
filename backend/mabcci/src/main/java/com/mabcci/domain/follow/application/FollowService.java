@@ -38,7 +38,7 @@ public class FollowService {
     }
 
     private Member findMemberByNickName(@Valid final Nickname nickname) {
-        return memberRepository.findByNicknameWithMemberSpecs(nickname)
+        return memberRepository.findByNickName(nickname)
                 .orElseThrow(IllegalArgumentException::new);
     }
 
