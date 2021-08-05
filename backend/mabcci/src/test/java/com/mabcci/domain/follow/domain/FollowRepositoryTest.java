@@ -50,7 +50,7 @@ class FollowRepositoryTest {
     @Test
     void find_test() {
         final Follow follow = testEntityManager.persist(follow(following, follower));
-        final Follow findFollow = followRepository.findById(1L).get();
+        final Follow findFollow = followRepository.findById(follow.id()).get();
 
         assertThat(follow).isEqualTo(findFollow);
     }

@@ -75,8 +75,7 @@ class FollowControllerTest {
         mockMvc.perform(delete("/api/follow")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("1"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+                .andExpect(status().isOk());
     }
 
 }
