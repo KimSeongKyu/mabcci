@@ -1,5 +1,5 @@
 import { OOTDWriteUrl } from '../ApiUrl';
-import instance from '../indexMock';
+import instance from '../index';
 
 const OOTDWriteApi = async myOOTDInfo => {
   try {

@@ -198,11 +198,11 @@ function SignupForm() {
         {userInfo.gender === 'MALE' ? (
           <button
             className="signup-btn-sex-select"
-            name="MALE"
+            name="MAN"
             type="submit"
             onClick={mwBtnClick}
           >
-            <p className="signup-choice-gender">Man</p>
+            <p className="signup-choice-gender">MALE</p>
           </button>
         ) : (
           <button
@@ -211,7 +211,7 @@ function SignupForm() {
             type="submit"
             onClick={mwBtnClick}
           >
-            <p className="signup-choice-gender">Man</p>
+            <p className="signup-choice-gender">MALE</p>
           </button>
         )}
 
@@ -222,7 +222,7 @@ function SignupForm() {
             type="submit"
             onClick={mwBtnClick}
           >
-            <p className="signup-choice-gender">Woman</p>
+            <p className="signup-choice-gender">FEMALE</p>
           </button>
         ) : (
           <button
@@ -231,7 +231,7 @@ function SignupForm() {
             type="submit"
             onClick={mwBtnClick}
           >
-            <p className="signup-choice-gender">Woman</p>
+            <p className="signup-choice-gender">FEMALE</p>
           </button>
         )}
       </div>
