@@ -46,14 +46,14 @@ public class MemberSpecs {
     protected MemberSpecs() {
     }
 
-    private MemberSpecs(final MemberSpecsBuilder memberSpecsBuilder) {
+    protected MemberSpecs(final MemberSpecsBuilder memberSpecsBuilder) {
         this.height = memberSpecsBuilder.height;
         this.weight = memberSpecsBuilder.weight;
         this.footSize = memberSpecsBuilder.footSize;
         this.bodyType = memberSpecsBuilder.bodyType;
     }
 
-    public static MemberSpecsBuilder Build() {
+    public static MemberSpecsBuilder Builder() {
         return new MemberSpecsBuilder();
     }
 
