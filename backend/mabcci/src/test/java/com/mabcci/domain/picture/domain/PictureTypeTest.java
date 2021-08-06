@@ -19,4 +19,14 @@ class PictureTypeTest {
                         () -> assertThat(pictureType).isExactlyInstanceOf(PictureType.class))
                 );
     }
+
+    @DisplayName("PictureType 인스턴스 getter 메서드 테스트")
+    @Test
+    void getter_test() {
+        assertAll(
+                () -> assertThat(PictureType.OOTD.type()).isEqualTo("ootd"),
+                () -> assertThat(PictureType.PROFILE.type()).isEqualTo("profile"),
+                () -> assertThat(PictureType.BOARD.type()).isEqualTo("board")
+        );
+    }
 }
