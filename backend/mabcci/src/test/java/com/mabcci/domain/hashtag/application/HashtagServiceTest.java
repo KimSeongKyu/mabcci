@@ -34,15 +34,6 @@ public class HashtagServiceTest {
                 .build();
     }
 
-    private Hashtag hashtag;
-
-    @BeforeEach
-    void setUp() {
-        hashtag = Hashtag.builder()
-                .name("해시태그")
-                .build();
-    }
-
     @DisplayName("HashtagService 인스턴스 Hashtag 저장 테스트")
     @Test
     void save_hashtags_test() {

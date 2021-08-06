@@ -60,33 +60,6 @@ class OotdServiceTest {
                 .build();
     }
 
-
-    private Member member;
-    private Ootd ootd;
-
-    @BeforeEach
-    void setUp() {
-        member = Member.Builder()
-                .email(EMAIL)
-                .password(PASSWORD)
-                .nickname(NICKNAME)
-                .phone(PHONE)
-                .gender(Gender.MAN)
-                .description(DESCRIPTION)
-                .picture(PICTURE)
-                .memberRole(MemberRole.USER)
-                .build();
-        ootd = Ootd.builder()
-                .member(member)
-                .content("content")
-                .top("top")
-                .bottom("bottom")
-                .shoes("shoes")
-                .accessory("accessory")
-                .views(0L)
-                .build();
-    }
-
     @DisplayName("OotdService 인스턴스 ootd 저장 테스트")
     @Test
     void save_ootd_test() {
