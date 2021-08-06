@@ -5,6 +5,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import java.util.Set;
+
 import static com.mabcci.domain.member.domain.MemberTest.MEMBER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -41,11 +46,26 @@ class LikeTest {
     @DisplayName("Like 인스턴스 getter 메서드들 테스트")
     @Test
     void getter_test() {
-        ReflectionTestUtils.setField(like, "status", "true");
+        ReflectionTestUtils.setField(like, "status", true);
 
         assertAll(
                 () -> assertThat(like.status()).isTrue(),
                 () -> assertThat(like.member()).isEqualTo(MEMBER)
+        );
+    }
+
+    @DisplayName("Like 인스턴스 프로퍼티 유효성 검증 테스트")
+    @Test
+    void validate_test() {
+        final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        final Like invalidLike = new Like();
+
+        final Set<ConstraintViolation<Like>> invalidPropertiesOfValidLike = validator.validate(like);
+        final Set<ConstraintViolation<Like>> invalidPropertiesOfInvalidLike = validator.validate(invalidLike);
+
+        assertAll(
+                () -> assertThat(invalidPropertiesOfValidLike.size()).isEqualTo(0),
+                () -> assertThat(invalidPropertiesOfInvalidLike.size()).isEqualTo(1)
         );
     }
 }
