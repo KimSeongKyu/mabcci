@@ -1,6 +1,6 @@
 package com.mabcci.domain.auth.dto;
 
-import com.mabcci.domain.model.Email;
+import com.mabcci.global.common.Email;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

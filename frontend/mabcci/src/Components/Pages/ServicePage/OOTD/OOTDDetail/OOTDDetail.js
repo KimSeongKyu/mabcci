@@ -1,13 +1,15 @@
 import React from 'react';
 import './OOTDDetail.css';
 import OOTDHeader from './OOTDHeader';
-import OOTDContent from './OOTDContent';
+import OOTDContentApi from './OOTDContentApi';
+import OOTDBottom from './OOTDBottom';
 
 const OOTDDetail = () => {
   return (
-    <div className="container">
+    <div className="container detail-container">
       <OOTDHeader />
-      <OOTDContent />
+      <OOTDContentApi />
+      <OOTDBottom />
     </div>
   );
 };

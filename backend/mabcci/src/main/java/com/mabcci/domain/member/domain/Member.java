@@ -1,12 +1,16 @@
 package com.mabcci.domain.member.domain;
 
-import com.mabcci.domain.model.Email;
-import com.mabcci.domain.model.Nickname;
-import com.mabcci.domain.model.Password;
-import com.mabcci.domain.model.Phone;
-import com.mabcci.global.common.BaseTimeEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mabcci.domain.follow.domain.Follow;
+import com.mabcci.domain.membercategory.domain.MemberCategory;
+import com.mabcci.global.common.Email;
+import com.mabcci.global.common.Nickname;
+import com.mabcci.global.common.Password;
+import com.mabcci.global.common.Phone;
+import com.mabcci.domain.BaseTimeEntity;
 
 import javax.persistence.*;
+import java.util.*;
 
 @Entity
 public class Member extends BaseTimeEntity {
@@ -40,25 +44,49 @@ public class Member extends BaseTimeEntity {
     @Column(name = "member_gender", nullable = false)
     private Gender gender;
 
+    @Column(name = "member_description")
+    private String description;
+
+    @Column(name = "member_image")
+    private String picture;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "member_role", nullable = false)
-    private MemberRole role;
+    private MemberRole memberRole;
 
-    public static MemberBuilder builder() {
-        return new MemberBuilder();
-    }
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "member_specs_id")
+    private MemberSpecs memberSpecs;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private Set<MemberCategory> memberCategories = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "following", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Follow> followings = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Follow> followers = new HashSet<>();
 
     protected Member() {
     }
 
     protected Member(final MemberBuilder memberBuilder) {
-        this.id = memberBuilder.id;
         this.email = memberBuilder.email;
         this.nickname = memberBuilder.nickname;
         this.password = memberBuilder.password;
         this.phone = memberBuilder.phone;
         this.gender = memberBuilder.gender;
-        this.role = memberBuilder.role;
+        this.description = memberBuilder.description;
+        this.picture = memberBuilder.picture;
+        this.memberRole = memberBuilder.memberRole;
+        this.memberSpecs = memberBuilder.memberSpecs;
+    }
+
+    public static MemberBuilder Builder() {
+        return new MemberBuilder();
     }
 
     public boolean checkPassword(final Password otherPassword) {
@@ -73,12 +101,39 @@ public class Member extends BaseTimeEntity {
         return nickname;
     }
 
-    public MemberRole role() {
-        return role;
+    public MemberRole memberRole() {
+        return memberRole;
     }
 
     public Email email() {
         return email;
+    }
+
+    public MemberSpecs memberSpecs() {
+        return memberSpecs;
+    }
+
+    public Gender gender() {
+        return gender;
+    }
+
+    public String picture() {
+        return picture;
+    }
+
+    public Set<MemberCategory> memberCategories() {
+        return memberCategories;
+    }
+
+    public void addMemberCategory(final MemberCategory memberCategory) {
+        memberCategory.changeMember(this);
+        if(!memberCategories.contains(memberCategory)) {
+            memberCategories.add(memberCategory);
+        }
+    }
+
+    public void updateMemberSpecs(final MemberSpecs memberSpecs) {
+        this.memberSpecs = memberSpecs;
     }
 
     public Member update(final Nickname nickName, final Gender gender) {
@@ -87,29 +142,19 @@ public class Member extends BaseTimeEntity {
         return this;
     }
 
-    public Gender gender() {
-        return gender;
-    }
-
     public static class MemberBuilder {
-        private Long id;
+
         private Email email;
         private Password password;
         private Nickname nickname;
         private Phone phone;
         private Gender gender;
-        private MemberRole role;
+        private String description;
+        private String picture;
+        private MemberRole memberRole;
+        private MemberSpecs memberSpecs;
 
         private MemberBuilder() {
-        }
-
-        public MemberBuilder id(final Long id) {
-            this.id = id;
-            return this;
-        }
-
-        public MemberBuilder email(final String email) {
-            return email(Email.of(email));
         }
 
         public MemberBuilder email(final Email email) {
@@ -117,26 +162,14 @@ public class Member extends BaseTimeEntity {
             return this;
         }
 
-        public MemberBuilder password(final String password) {
-            return password(Password.of(password));
-        }
-
         public MemberBuilder password(final Password password) {
             this.password = password;
             return this;
         }
 
-        public MemberBuilder nickname(final String nickname) {
-            return nickname(Nickname.of(nickname));
-        }
-
         public MemberBuilder nickname(final Nickname nickname) {
             this.nickname = nickname;
             return this;
-        }
-
-        public MemberBuilder phone(final String phone) {
-            return phone(Phone.of(phone));
         }
 
         public MemberBuilder phone(final Phone phone) {
@@ -149,14 +182,30 @@ public class Member extends BaseTimeEntity {
             return this;
         }
 
-        public MemberBuilder role(final MemberRole role) {
-            this.role = role;
+        public MemberBuilder description(final String description) {
+            this.description = description;
+            return this;
+        }
+
+        public MemberBuilder picture(final String picture) {
+            this.picture = picture;
+            return this;
+        }
+
+        public MemberBuilder memberRole(final MemberRole memberRole) {
+            this.memberRole = memberRole;
+            return this;
+        }
+
+        public MemberBuilder memberSpecs(final MemberSpecs memberSpecs) {
+            this.memberSpecs = memberSpecs;
             return this;
         }
 
         public Member build() {
             return new Member(this);
         }
+
     }
 
 }

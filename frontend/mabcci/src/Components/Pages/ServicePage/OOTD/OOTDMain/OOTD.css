@@ -14,14 +14,20 @@
   margin-right: 20px;
 }
 
-.ootd-util span {
+.ootd-util button {
   font-size: 1.2rem;
   color: rgb(158, 158, 158);
   cursor: pointer;
+  background-color: white;
+  margin: 15px;
 }
 
-.ootd-util span.active {
+.ootd-util button.active {
   color: black;
+}
+
+.ootd-feed {
+  margin-top: 20px;
 }
 
 .ootd-feed img {
@@ -31,4 +37,32 @@
 
 .card {
   border: none !important;
+  margin-bottom: 50px !important;
+  transition: all 0.5s;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.card .nickname {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.card i {
+  color: var(--main-color-1);
+  margin: 10px 10px 10px 0;
+}
+
+.my-masonry-grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: -30px;
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 20px;
+  background-clip: padding-box;
 }

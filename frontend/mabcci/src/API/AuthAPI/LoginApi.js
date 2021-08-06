@@ -1,14 +1,10 @@
-import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { LoginUrl } from '../ApiUrl';
+import instance from '../index';
 
 const LoginApi = async userAuthInfo => {
   try {
-    const response = await axios.post(LoginUrl, userAuthInfo, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await instance.post(LoginUrl, userAuthInfo);
 
     const { accessToken } = response.data;
     const { refreshToken } = response.data;
@@ -21,7 +17,7 @@ const LoginApi = async userAuthInfo => {
 
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
-    localStorage.setItem('userInfo', userInfo);
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
 
     return {
       status: response.status,

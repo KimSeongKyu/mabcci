@@ -1,22 +1,16 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
 import OOTDFeed from './OOTDFeed';
 import OOTDHeader from './OOTDHeader';
 import './OOTD.css';
 
 function OOTDMain() {
-  const history = useHistory();
-  const localLoinToken = localStorage.getItem('accessToken');
-
-  // 로그인이 안되어 있는 경우 intro 화면으로
-  if (!localLoinToken) {
-    history.push('/intro');
-  }
-
+  const [filter, setFilter] = useState('All');
+  const [page, setPage] = useState(1);
   return (
     <div className="container">
-      <OOTDHeader />
-      <OOTDFeed />
+      {page}
+      <OOTDHeader filter={filter} setFilter={setFilter} setPage={setPage} />
+      <OOTDFeed filter={filter} page={page} setPage={setPage} />
     </div>
   );
 }

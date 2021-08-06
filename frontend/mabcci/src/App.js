@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 // Router
-import { Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 // Redux
 import { useSelector } from 'react-redux';
@@ -17,12 +17,16 @@ import OOTDMain from './Components/Pages/ServicePage/OOTD/OOTDMain/OOTDMain';
 import OOTDDetail from './Components/Pages/ServicePage/OOTD/OOTDDetail/OOTDDetail';
 import OOTDWrite from './Components/Pages/ServicePage/OOTD/OOTDWrite/OOTDWrite';
 import StylingMain from './Components/Pages/ServicePage/Styling/StylingMain/StylingMain';
+import OOTDUpdate from './Components/Pages/ServicePage/OOTD/OOTDWrite/OOTDUpdate';
+
 // Pages - AuthPage
 import Login from './Components/Pages/AuthPage/Login/Login';
 import Signup from './Components/Pages/AuthPage/Signup/Signup';
 // Pages - InitialPage
 import Description from './Components/Pages/InitialPage/Description/Description';
 import Intro from './Components/Pages/InitialPage/Intro/Intro';
+
+import { PrivateRoute, PublicRoute } from './CustomRouter';
 
 function App() {
   // 로그인 여부 redux까지 연결 되어야함
@@ -43,49 +47,21 @@ function App() {
     <div className="App">
       {isLoggedin ? <Nav /> : null}
 
-      <Route exact path="/intro">
-        <Intro />
-      </Route>
-
-      <Route exact path="/home">
-        <Home />
-      </Route>
-
-      <Route exact path="/community">
-        <CommunityMain />
-      </Route>
-
-      <Route exact path="/mypage">
-        <MyPageMain />
-      </Route>
-
-      <Route exact path="/OOTD">
-        <OOTDMain />
-      </Route>
-
-      <Route exact path="/OOTDDetail">
-        <OOTDDetail />
-      </Route>
-
-      <Route exact path="/OOTDWrite">
-        <OOTDWrite />
-      </Route>
-
-      <Route exact path="/styling">
-        <StylingMain />
-      </Route>
-
-      <Route exact path="/login">
-        <Login />
-      </Route>
-
-      <Route exact path="/signup">
-        <Signup />
-      </Route>
-
-      <Route exact path="/desc">
-        <Description />
-      </Route>
+      <Switch>
+        <Route exact path="/intro" component={Intro} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
+        <Route exact path="/desc" component={Description} />
+        <Route exact path="/" component={Home} />
+        <Route exact path="/home" component={Home} />
+        <Route exact path="/community" component={CommunityMain} />
+        <Route exact path="/mypage/:nickname" component={MyPageMain} />
+        <Route exact path="/OOTD" component={OOTDMain} />
+        <Route exact path="/OOTDWrite" component={OOTDWrite} />
+        <Route exact path="/OOTD/:id/:nickname" component={OOTDDetail} />
+        <Route exact path="/styling" component={StylingMain} />
+        <Route exact path="/OOTDUpdate/:id/:nickname" component={OOTDUpdate} />
+      </Switch>
     </div>
   );
 }
