@@ -5,7 +5,6 @@ import './MyPage.css';
 import 아라찌 from './images/다운로드.jfif';
 
 const MyPageProfile = props => {
-  // console.log(props.myData.myInfo.nickname)
   return (
     <>
       <div className="mypage-profile-box">
@@ -14,11 +13,11 @@ const MyPageProfile = props => {
         </div>
         <div className="mypage-info-box">
           <div id="mypage-web-nickname">
-            {/* <h3>{props.myData.myInfo.nickname}</h3> */}
+            <h3>{props.myInfo.nickname}</h3>
             <button type="submit">프로필편집</button>
           </div>
           <div id="mypage-mobile-nickname">
-            {/* <h5>{props.myData.myInfo.nickname}</h5> */}
+            <h5>{props.myInfo.nickname}</h5>
           </div>
           <div>
             <button type="submit">팔로워 {}명</button>
@@ -34,7 +33,7 @@ const MyPageProfile = props => {
       </div>
       <div className="mypage-introduce-box">
         <p>Introduce</p>
-        {/* <div>{props.myData.myInfo.introduce}</div> */}
+        <div>{props.myInfo.introduce}</div>
       </div>
     </>
   );

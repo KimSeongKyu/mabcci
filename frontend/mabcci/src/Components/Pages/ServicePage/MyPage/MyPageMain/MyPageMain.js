@@ -11,14 +11,15 @@ function MyPageMain() {
   const [myInfo, setMyInfo] = useState({});
 
   useEffect(async () => {
-    const data = await MypageReadApi(userInfo.nickname);
-    await setMyInfo(data);
-    console.log(myInfo);
+    const res = await MypageReadApi(userInfo.nickname);
+    // await setMyInfo(...myInfo, ...res.myInfo);
+    await setMyInfo(res.myInfo);
+    console.log(myInfo, 'ㅇㅇ?');
   }, []);
 
   return (
     <div className="container">
-      <MyPageProfile myData={myInfo} />
+      <MyPageProfile myInfo={myInfo} />
       <MyPageFeed />
       <MabcciReview />
     </div>
