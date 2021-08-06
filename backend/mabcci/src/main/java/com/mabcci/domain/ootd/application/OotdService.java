@@ -22,7 +22,7 @@ public class OotdService {
 
     @Transactional
     public Ootd saveOotd(final OotdSaveRequest ootdSaveRequest) {
-        final Member member = memberRepository.findByNickname(Nickname.of(ootdSaveRequest.getNickname()))
+        final Member member = memberRepository.findByNickName(Nickname.of(ootdSaveRequest.getNickname()))
                 .orElseThrow(IllegalArgumentException::new);
         final Ootd ootd = Ootd.builder()
                 .member(member)

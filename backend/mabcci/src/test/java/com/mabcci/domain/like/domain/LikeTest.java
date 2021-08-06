@@ -1,5 +1,8 @@
 package com.mabcci.domain.like.domain;
 
+import com.mabcci.domain.member.domain.Gender;
+import com.mabcci.domain.member.domain.Member;
+import com.mabcci.domain.member.domain.MemberRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,17 +13,29 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.Set;
 
-import static com.mabcci.domain.member.domain.MemberTest.MEMBER;
+import static com.mabcci.global.common.EmailTest.EMAIL;
+import static com.mabcci.global.common.NicknameTest.NICKNAME;
+import static com.mabcci.global.common.PasswordTest.PASSWORD;
+import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class LikeTest {
 
+    private Member member;
     private Like like;
 
     @BeforeEach
     void setUp() {
-        like = new Like(MEMBER);
+        member = Member.Builder()
+                .email(EMAIL)
+                .password(PASSWORD)
+                .nickname(NICKNAME)
+                .phone(PHONE)
+                .gender(Gender.MAN)
+                .memberRole(MemberRole.USER)
+                .build();
+        like = new Like(member);
     }
 
     @DisplayName("Like 인스턴스 생성 여부 테스트")
@@ -50,7 +65,7 @@ class LikeTest {
 
         assertAll(
                 () -> assertThat(like.status()).isTrue(),
-                () -> assertThat(like.member()).isEqualTo(MEMBER)
+                () -> assertThat(like.member()).isEqualTo(member)
         );
     }
 
