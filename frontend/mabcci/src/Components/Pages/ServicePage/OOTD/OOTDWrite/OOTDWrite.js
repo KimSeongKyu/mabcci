@@ -30,8 +30,9 @@ function OOTDWrite() {
     shoes: '',
     accessory: '',
     content: '',
-    picture: [],
-    hashTag: [],
+    originPictures: [],
+    pictures: [],
+    hashTags: [],
   });
 
   useEffect(() => {
@@ -44,33 +45,36 @@ function OOTDWrite() {
 
   const addImage = e => {
     const nowSelectImageList = e.target.files;
-    const nowImageURLList = [...myOOTDInfo.picture];
+    const nowImageURLList = [...myOOTDInfo.pictures];
+    const nowOriginImage = [...myOOTDInfo.originPictures];
 
     for (let i = 0; i < nowSelectImageList.length; i += 1) {
       const nowImageUrl = URL.createObjectURL(nowSelectImageList[i]);
       nowImageURLList.push(nowImageUrl);
+      nowOriginImage.push(nowSelectImageList[i]);
     }
     setMyOOTDInfo({
       ...myOOTDInfo,
-      picture: nowImageURLList,
+      pictures: nowImageURLList,
+      originPictures: nowOriginImage,
     });
     e.target.value = '';
   };
 
   const removeImage = e => {
     const nowIdx = e.target.value;
-    const copyMyImage = [...myOOTDInfo.picture];
+    const copyMyImage = [...myOOTDInfo.pictures];
     copyMyImage.splice(nowIdx, 1);
     setMyOOTDInfo({
       ...myOOTDInfo,
-      picture: copyMyImage,
+      pictures: copyMyImage,
     });
   };
 
   const getTags = tag => {
     setMyOOTDInfo({
       ...myOOTDInfo,
-      hashTag: tag,
+      hashTags: tag,
     });
   };
 
@@ -83,11 +87,24 @@ function OOTDWrite() {
   };
 
   const submitOOTD = async () => {
-    console.log(myOOTDInfo);
-    const res = await OOTDWriteApi(myOOTDInfo);
-    if (res.status === 200) {
+    const data = new FormData();
+    for (let i = 0; i < myOOTDInfo.originPictures.length; i += 1) {
+      const images = myOOTDInfo.originPictures[i];
+      data.append('pictures', images);
+    }
+    data.append('top', myOOTDInfo.top);
+    data.append('nickname', myOOTDInfo.nickname);
+    data.append('bottom', myOOTDInfo.bottom);
+    data.append('hashtags', myOOTDInfo.hashTags);
+    data.append('content', myOOTDInfo.content);
+    data.append('shoes', myOOTDInfo.shoes);
+    data.append('accessory', myOOTDInfo.accessory);
+
+    const res = await OOTDWriteApi(data);
+    console.log(res);
+    if (res.status === 204) {
       console.log('mock연동 성공');
-      console.log(res.info);
+      console.log(res);
     } else {
       console.log('mock연동 실패');
     }
@@ -100,7 +117,7 @@ function OOTDWrite() {
       <h5>OOTD Write</h5>
 
       <div>
-        {myOOTDInfo.picture.length === 0 ? (
+        {myOOTDInfo.pictures.length === 0 ? (
           <div className="OOTDWrite-initial-image">No image yet</div>
         ) : null}
         <Swiper
@@ -115,7 +132,7 @@ function OOTDWrite() {
           }}
           className="mySwiper"
         >
-          {myOOTDInfo.picture.map(function imageList(image, i) {
+          {myOOTDInfo.pictures.map(function imageList(image, i) {
             return (
               <SwiperSlide key={image}>
                 <div className="swiper-zoom-container">
@@ -202,7 +219,7 @@ function OOTDWrite() {
           placeHolder="Press enter"
           className="OOTDWrite-hashtag-input"
         />
-        {myOOTDInfo.hashTag.length >= 20 ? (
+        {myOOTDInfo.hashTags.length >= 20 ? (
           <p id="OOTDWrite-warnning-tag">태그는 20개까지 작성가능합니다</p>
         ) : null}
       </div>
