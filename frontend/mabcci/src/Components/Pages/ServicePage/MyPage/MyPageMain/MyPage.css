@@ -1,0 +1,90 @@
+.mypage-profile-box {
+  width: 80%;
+  margin: auto;
+  margin-top: 50px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mypage-profile-box img {
+  background-size: cover;
+  border-radius: 50%;
+  width: 70%;
+  margin-bottom: 30px;
+}
+
+.mypage-info-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  min-width: 200px;
+}
+
+.mypage-info-box div {
+  display: flex;
+  justify-content: space-around;
+}
+
+.mypage-info-box h5 {
+  margin-right: 10px;
+}
+
+.mypage-introduce-box {
+  width: 80%;
+  margin: auto;
+  margin-left: 15%;
+  text-align: start;
+}
+
+.mypage-introduce-box p {
+  font-weight: 900;
+  color: var(--main-color-1);
+}
+
+.mypage-introduce-box div {
+  background-color: var(--main-color-2);
+  padding: 4px;
+  border-radius: 5px;
+}
+
+.mypage-feed-box {
+  border-top: solid 1px lightgray;
+  margin-top: 30px;
+}
+
+@media screen and (min-width: 576px) {
+  #mypage-mobile-nickname {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .mypage-profile-box {
+    flex-direction: column;
+    margin-bottom: 0;
+  }
+
+  .mypage-profile-box div {
+    margin-bottom: 20px;
+    justify-content: space-evenly;
+  }
+
+  .mypage-profile-box img {
+    width: 40%;
+    margin-bottom: 0;
+  }
+
+  .mypage-blank {
+    display: none;
+  }
+
+  #mypage-mobile-category {
+    margin-bottom: 0px;
+  }
+
+  #mypage-web-nickname {
+    display: none;
+  }
+}

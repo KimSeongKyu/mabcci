@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './OOTDWrite.css';
 
@@ -16,40 +16,66 @@ import { IoShirt } from 'react-icons/io5';
 import { GiArmoredPants, GiConverseShoe } from 'react-icons/gi';
 import { FaShoppingBag } from 'react-icons/fa';
 
+import OOTDWriteApi from '../../../../../API/OOTDAPI/OOTDWriteApi';
+
 import InputTags from './InputTags';
 
 SwiperCore.use([Zoom, Navigation, Pagination]);
 
 function OOTDWrite() {
-  const [myImage, setMyImage] = useState([]);
-  const [myTag, setMyTag] = useState([]);
   const [myOOTDInfo, setMyOOTDInfo] = useState({
+    nickname: '',
     top: '',
     bottom: '',
     shoes: '',
     accessory: '',
     content: '',
+    originPictures: [],
+    pictures: [],
+    hashTags: [],
   });
+
+  useEffect(() => {
+    const myInfo = JSON.parse(localStorage.getItem('userInfo'));
+    setMyOOTDInfo({
+      ...myOOTDInfo,
+      nickname: myInfo.nickname,
+    });
+  }, []);
 
   const addImage = e => {
     const nowSelectImageList = e.target.files;
-    const nowImageURLList = [...myImage];
+    const nowImageURLList = [...myOOTDInfo.pictures];
+    const nowOriginImage = [...myOOTDInfo.originPictures];
+
     for (let i = 0; i < nowSelectImageList.length; i += 1) {
       const nowImageUrl = URL.createObjectURL(nowSelectImageList[i]);
       nowImageURLList.push(nowImageUrl);
+      nowOriginImage.push(nowSelectImageList[i]);
     }
-    setMyImage(nowImageURLList);
+    setMyOOTDInfo({
+      ...myOOTDInfo,
+      pictures: nowImageURLList,
+      originPictures: nowOriginImage,
+    });
+    e.target.value = '';
   };
 
   const removeImage = e => {
     const nowIdx = e.target.value;
-    const copyMyImage = [...myImage];
+    const copyMyImage = [...myOOTDInfo.pictures];
     copyMyImage.splice(nowIdx, 1);
-    setMyImage(copyMyImage);
+    setMyOOTDInfo({
+      ...myOOTDInfo,
+      pictures: copyMyImage,
+    });
   };
 
   const getTags = tag => {
-    setMyTag(tag);
+    setMyOOTDInfo({
+      ...myOOTDInfo,
+      hashTags: tag,
+    });
   };
 
   const addOOTDInfo = e => {
@@ -60,15 +86,39 @@ function OOTDWrite() {
     });
   };
 
+  const submitOOTD = async () => {
+    const data = new FormData();
+    for (let i = 0; i < myOOTDInfo.originPictures.length; i += 1) {
+      const images = myOOTDInfo.originPictures[i];
+      data.append('pictures', images);
+    }
+    data.append('top', myOOTDInfo.top);
+    data.append('nickname', myOOTDInfo.nickname);
+    data.append('bottom', myOOTDInfo.bottom);
+    data.append('hashtags', myOOTDInfo.hashTags);
+    data.append('content', myOOTDInfo.content);
+    data.append('shoes', myOOTDInfo.shoes);
+    data.append('accessory', myOOTDInfo.accessory);
+
+    const res = await OOTDWriteApi(data);
+    console.log(res);
+    if (res.status === 204) {
+      console.log('mock연동 성공');
+      console.log(res);
+    } else {
+      console.log('mock연동 실패');
+    }
+  };
+
   return (
     <div className="OOTDWrite-container">
+      {/* <OOTDWrite hashTag={myOOTDInfo.hashTag} /> */}
+
       <h5>OOTD Write</h5>
-<<<<<<< HEAD
-<<<<<<< HEAD
 
       <div>
-        {myImage.length === 0 ? (
-          <div className="OOTDWrite-initial-image">No images yet</div>
+        {myOOTDInfo.pictures.length === 0 ? (
+          <div className="OOTDWrite-initial-image">No image yet</div>
         ) : null}
         <Swiper
           style={{
@@ -82,10 +132,10 @@ function OOTDWrite() {
           }}
           className="mySwiper"
         >
-          {myImage.map(function imageList(image, i) {
+          {myOOTDInfo.pictures.map(function imageList(image, i) {
             return (
-              <SwiperSlide>
-                <div className="swiper-zoom-container" key={image}>
+              <SwiperSlide key={image}>
+                <div className="swiper-zoom-container">
                   <img src={image} alt="사진을 추가해주세요" />
                   <button
                     type="submit"
@@ -169,7 +219,7 @@ function OOTDWrite() {
           placeHolder="Press enter"
           className="OOTDWrite-hashtag-input"
         />
-        {myTag.length >= 20 ? (
+        {myOOTDInfo.hashTags.length >= 20 ? (
           <p id="OOTDWrite-warnning-tag">태그는 20개까지 작성가능합니다</p>
         ) : null}
       </div>
@@ -183,13 +233,13 @@ function OOTDWrite() {
           onChange={addOOTDInfo}
         />
       </div>
-      <button type="submit" className="OOTDWrite-btn btn-rounded-sm">
+      <button
+        type="submit"
+        className="OOTDWrite-btn btn-rounded-sm"
+        onClick={submitOOTD}
+      >
         Submit
       </button>
-=======
->>>>>>> fc1fdf5 ([S05P13C107-37] [FE-seongaeee] feat: OOTD 상세 조회 사용자 및 글 정보 API 연결)
-=======
->>>>>>> 5aad1fd59b24df93c79fff9fa15731fc589275d7
     </div>
   );
 }

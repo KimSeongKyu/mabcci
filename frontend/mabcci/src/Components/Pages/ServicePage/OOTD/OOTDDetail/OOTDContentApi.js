@@ -1,33 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { useParams, useHistory } from 'react-router-dom';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { OOTDDetailApi } from '../../../../../API/OOTDAPI/OOTDDetailApi';
 
 const OOTDContentApi = () => {
+  const history = useHistory();
+  const myInfo = JSON.parse(localStorage.getItem('userInfo'));
   const { id, nickname } = useParams();
-
   const [user, setUser] = useState({
     nickname,
     userphoto: '사진',
   });
-
   const [detail, setDetail] = useState({
     id,
-    content: '',
-    top: '',
-    bottom: '',
-    shoes: '',
-    accessory: '',
-    picture: '',
+    content: 'gdgd',
+    top: 'gdgd',
+    bottom: 'gdgd',
+    shoes: 'zz',
+    accessory: 'sdaf',
+    picture: [],
     views: '',
+    hashtag: ['해시', '태그'],
     registeredTime: '',
     likeMembers: [],
   });
+
+  const [myLike, setMyLike] = useState(false);
 
   useEffect(async () => {
     const response = await OOTDDetailApi(id);
     setDetail({ ...detail, ...response.detail });
   }, []);
+
+  const ootdUpdateHandler = () => {
+    const info = {
+      id: detail.id,
+      top: detail.top,
+      bottom: detail.bottom,
+      shoes: detail.shoes,
+      accessory: detail.accessory,
+      content: detail.content,
+      picture: detail.picture,
+      hashTag: detail.hashtag,
+    };
+
+    history.push({
+      pathname: `/OOTDUpdate/${detail.id}/${user.nickname}`,
+      state: { info },
+    });
+  };
+
+  const likeHandler = () => {
+    setMyLike(!myLike);
+  };
 
   return (
     <article className="detail-content">
@@ -38,12 +63,32 @@ const OOTDContentApi = () => {
           <p>
             {detail.registeredTime} views:{detail.views}
           </p>
+          {myInfo.nickname === user.nickname ? (
+            <button type="button" onClick={ootdUpdateHandler}>
+              수정
+            </button>
+          ) : null}
+          {myInfo.nickname === user.nickname ? (
+            <button type="button">삭제</button>
+          ) : null}
         </div>
       </section>
       <section className="detail-ootd-photo">{detail.picture}</section>
       <section className="detail-ootd">
         <div className="detail-ootd-like">
-          <AiOutlineHeart className="detail-ootd-heart" />
+          {myLike ? (
+            <AiFillHeart
+              className="detail-ootd-heart"
+              size="20"
+              onClick={likeHandler}
+            />
+          ) : (
+            <AiOutlineHeart
+              className="detail-ootd-heart"
+              size="20"
+              onClick={likeHandler}
+            />
+          )}
           {detail.likeMembers.length}
         </div>
         <div className="detail-ootd-content">

@@ -1,11 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import './Home.css';
+import HomeHeader from './HomeHeader';
+import { PopularMabcci, PopularPost } from './HomeContent';
 
-function Home() {
+const Home = () => {
   return (
-    <div>
-      <h3>홈페이지입니다.</h3>
+    <div className="container home-container">
+      <HomeHeader />
+      <div className="home-content">
+        <PopularMabcci />
+        <PopularPost />
+      </div>
     </div>
   );
-}
+};
 
 export default Home;

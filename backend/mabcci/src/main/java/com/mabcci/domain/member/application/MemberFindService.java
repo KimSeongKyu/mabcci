@@ -2,8 +2,8 @@ package com.mabcci.domain.member.application;
 
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
-import com.mabcci.domain.member.dto.MemberListResponseDto;
-import com.mabcci.domain.member.dto.MemberResponseDto;
+import com.mabcci.domain.member.domain.MemberRole;
+import com.mabcci.domain.member.dto.response.MemberListResponse;
 import com.mabcci.domain.member.exception.MemberNotFoundException;
 import com.mabcci.global.common.Nickname;
 import org.springframework.stereotype.Service;
@@ -22,16 +22,21 @@ public class MemberFindService {
     }
 
     @Transactional(readOnly = true)
-    public MemberResponseDto findByNickName(final Nickname nickname) {
-        final Member findingEntity = memberRepository.findByNickname(nickname)
+    public Member findByNickname(final Nickname nickname) {
+        return memberRepository.findByNickName(nickname)
                 .orElseThrow(MemberNotFoundException::new);
-        return new MemberResponseDto(findingEntity);
     }
 
     @Transactional(readOnly = true)
-    public List<MemberListResponseDto> findAll() {
+    public Member findByMemberRole(final MemberRole memberRole) {
+        return memberRepository.findByMemberRole(memberRole)
+                .orElseThrow(MemberNotFoundException::new);
+    }
+
+    @Transactional(readOnly = true)
+    public List<MemberListResponse> findAll() {
         return memberRepository.findAll().stream()
-                .map(MemberListResponseDto::new)
+                .map(MemberListResponse::new)
                 .collect(Collectors.toList());
     }
 }

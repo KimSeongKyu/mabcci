@@ -37,7 +37,7 @@
 .swiper-zoom-container img {
   background-size: hover;
   width: 60%;
-  height: 70vh;
+  height: 40vh;
   position: relative;
 }
 
@@ -49,8 +49,8 @@
   font-size: xx-small;
   background-color: var(--main-color-2);
   font-weight: 800;
-  margin-bottom: 50%;
-  margin-left: 50%;
+  margin-bottom: 28%;
+  margin-left: 47%;
 }
 
 .swiper-slide {
@@ -140,5 +140,9 @@
 @media screen and (max-width: 576px) {
   .OOTDWrite-input-box {
     width: 60vh;
+  }
+  .OOTDWrite-btn-remove {
+    margin-bottom: 27%;
+    margin-left: 50%;
   }
 }

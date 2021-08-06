@@ -5,7 +5,6 @@ import com.mabcci.domain.category.domain.CategoryRepository;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.domain.MemberSpecs;
-import com.mabcci.domain.member.dto.MemberResponseDto;
 import com.mabcci.domain.membercategory.domain.MemberCategory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,15 +23,15 @@ public class MemberJoinService {
     }
 
     @Transactional
-    public MemberResponseDto join(final Member member, final Set<String> categories) {
+    public Member join(final Member member, final Set<String> categoryNames) {
         final MemberSpecs memberSpecs = MemberSpecs.noContent();
         member.updateMemberSpecs(memberSpecs);
-        for (String categoryName : categories) {
+        for (String categoryName : categoryNames) {
             final Category category = getCategoryByCategoryName(categoryName);
             final MemberCategory memberCategory = MemberCategory.createMemberCategory(member, category);
             member.addMemberCategory(memberCategory);
         }
-        return new MemberResponseDto(memberRepository.save(member));
+        return memberRepository.save(member);
     }
 
     private Category getCategoryByCategoryName(final String categoryName) {

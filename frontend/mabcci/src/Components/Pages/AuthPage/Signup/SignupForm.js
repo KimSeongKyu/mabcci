@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import SignupApi from '../../../../API/AuthAPI/SignupApi';
+import { LoginAuto } from '../../../../Redux/Actions/LoginAction';
 import 미니멀 from '../../../../Asset/Images/미니멀.png';
 import 스트릿 from '../../../../Asset/Images/스트릿.png';
 import 아메카지 from '../../../../Asset/Images/아메카지.png';
@@ -10,6 +12,7 @@ import 포멀 from '../../../../Asset/Images/포멀.png';
 
 function SignupForm() {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const [userInfo, setUserInfo] = useState({
     email: '',
@@ -73,11 +76,14 @@ function SignupForm() {
     const response = await SignupApi(data);
 
     if (response.status === 200) {
-      console.log('룰룰랄라');
-      // history.push('/desc');
+      const authUserInfo = {
+        email: userInfo.email,
+        password: userInfo.password,
+      };
+      dispatch(LoginAuto(authUserInfo));
+      history.push('/desc');
     } else {
       console.log(response.status);
-      console.log('왜안되냐냐아아아');
     }
   };
 
@@ -196,7 +202,7 @@ function SignupForm() {
             type="submit"
             onClick={mwBtnClick}
           >
-            <p className="signup-choice-gender">Man</p>
+            <p className="signup-choice-gender">MALE</p>
           </button>
         ) : (
           <button
@@ -205,7 +211,7 @@ function SignupForm() {
             type="submit"
             onClick={mwBtnClick}
           >
-            <p className="signup-choice-gender">Man</p>
+            <p className="signup-choice-gender">MALE</p>
           </button>
         )}
 
@@ -216,7 +222,7 @@ function SignupForm() {
             type="submit"
             onClick={mwBtnClick}
           >
-            <p className="signup-choice-gender">Woman</p>
+            <p className="signup-choice-gender">FEMALE</p>
           </button>
         ) : (
           <button
@@ -225,7 +231,7 @@ function SignupForm() {
             type="submit"
             onClick={mwBtnClick}
           >
-            <p className="signup-choice-gender">Woman</p>
+            <p className="signup-choice-gender">FEMALE</p>
           </button>
         )}
       </div>

@@ -37,3 +37,7 @@
 .intro-section button {
   margin: 10px;
 }
+
+.intro-section a {
+  text-decoration: none;
+}

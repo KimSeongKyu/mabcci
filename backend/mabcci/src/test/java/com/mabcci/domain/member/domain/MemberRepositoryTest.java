@@ -1,5 +1,8 @@
 package com.mabcci.domain.member.domain;
 
+import com.mabcci.domain.category.domain.Category;
+import com.mabcci.domain.member.application.MemberFindServiceTest;
+import com.mabcci.domain.membercategory.domain.MemberCategory;
 import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,7 +15,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import java.util.List;
 import java.util.Optional;
 
-import static com.mabcci.domain.member.domain.Gender.MALE;
+import static com.mabcci.domain.member.domain.Gender.MAN;
 import static com.mabcci.domain.member.domain.MemberRole.USER;
 import static com.mabcci.domain.member.domain.MemberSpecsTest.*;
 import static com.mabcci.global.common.Email.of;
@@ -29,23 +32,28 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class MemberRepositoryTest {
 
     private Member member;
+    private MemberSpecs memberSpecs;
+    private Category category;
 
     @BeforeEach
     void setUp() {
-        member = Member.builder()
+        memberSpecs = memberSpecs.Builder()
+                .height(HEIGHT)
+                .weight(WEIGHT)
+                .footSize(FOOT_SIZE)
+                .form(BODY_TYPE)
+                .build();
+
+        member = Member.Builder()
                 .email(EMAIL)
                 .password(PASSWORD)
                 .nickname(NICKNAME)
                 .phone(PHONE)
-                .gender(MALE)
-                .role(USER)
-                .memberSpecs(MemberSpecs.Build()
-                        .height(HEIGHT)
-                        .weight(WEIGHT)
-                        .footSize(FOOT_SIZE)
-                        .form(BodyType.TRIANGLE)
-                        .build())
+                .gender(MAN)
+                .memberRole(USER)
+                .memberSpecs(memberSpecs)
                 .build();
+        category = new Category(MemberFindServiceTest.CATEGORY_NAME);
     }
 
     @Autowired
@@ -74,10 +82,23 @@ class MemberRepositoryTest {
     @Test
     void findByNickname_test() {
         testEntityManager.persist(member);
-        final Member findMember = memberRepository.findByNickname(member.nickname()).get();
+        final Member findMember = memberRepository.findByNickName(member.nickname()).get();
 
         assertThat(findMember.id()).isEqualTo(member.id());
 
+    }
+
+
+    @DisplayName("MemberRepository findByMemberRole 기능 테스트")
+    @Test
+    void findByMemberRole_test() {
+        testEntityManager.persist(member);
+        testEntityManager.persist(category);
+        testEntityManager.persist(MemberCategory.createMemberCategory(member, category));
+
+        final Member findMember = memberRepository.findByMemberRole(member.memberRole()).get();
+
+        assertThat(findMember.id()).isEqualTo(member.id());
     }
 
     @DisplayName("MemberRepository findByNickname 기능 실패 테스트")
@@ -86,7 +107,7 @@ class MemberRepositoryTest {
         final Nickname nickname = Nickname.of("invalidNickName");
 
         testEntityManager.persist(member);
-        final Optional<Member> findMember = memberRepository.findByNickname(nickname);
+        final Optional<Member> findMember = memberRepository.findByNickName(nickname);
 
         assertThat(findMember.isPresent()).isFalse();
     }

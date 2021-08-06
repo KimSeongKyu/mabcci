@@ -9,7 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import static com.mabcci.domain.member.domain.Gender.MALE;
+import static com.mabcci.domain.member.domain.Gender.MAN;
 import static com.mabcci.domain.member.domain.MemberRole.USER;
 import static com.mabcci.global.common.EmailTest.EMAIL;
 import static com.mabcci.global.common.NicknameTest.NICKNAME;
@@ -33,13 +33,13 @@ class OotdRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        member = Member.builder()
+        member = Member.Builder()
                 .email(EMAIL)
                 .password(PASSWORD)
                 .nickname(NICKNAME)
                 .phone(PHONE)
-                .gender(MALE)
-                .role(USER)
+                .gender(MAN)
+                .memberRole(USER)
                 .build();
 
         ootd = Ootd.builder()

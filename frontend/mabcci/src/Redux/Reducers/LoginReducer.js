@@ -1,4 +1,9 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from '../Type/LoginType';
+import {
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT,
+  LOGIN_AUTO,
+} from '../Type/LoginType';
 
 const initialState = {
   isLoggedin: false,
@@ -15,6 +20,7 @@ const LoginReducer = (state = initialState, { type, payload }) => {
           email: payload.email,
           nickname: payload.nickname,
           role: payload.role,
+          password: '',
         },
       };
     case LOGIN_FAIL:
@@ -28,6 +34,14 @@ const LoginReducer = (state = initialState, { type, payload }) => {
         ...state,
         isLoggedIn: false,
         userInfo: null,
+      };
+    case LOGIN_AUTO:
+      return {
+        ...state,
+        userInfo: {
+          email: payload.email,
+          password: payload.password,
+        },
       };
     default:
       return state;

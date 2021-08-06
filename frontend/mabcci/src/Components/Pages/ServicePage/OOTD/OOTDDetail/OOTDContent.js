@@ -13,6 +13,8 @@ const OOTDContent = () => {
         <div className="detail-info-content">
           <p>김고은</p>
           <p>2021.07.29 views:50</p>
+          <button type="button">수정</button>
+          <button type="button">삭제</button>
         </div>
       </section>
       <section className="detail-ootd-photo">

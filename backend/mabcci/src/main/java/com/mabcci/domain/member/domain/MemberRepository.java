@@ -14,7 +14,10 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("select m from Member m join fetch m.memberSpecs where m.nickname = :nickname")
-    Optional<Member> findByNickname(@Param("nickname") Nickname nickname);
+    Optional<Member> findByNickName(@Param("nickname") Nickname nickname);
+
+    @Query("select m from Member m join fetch m.memberCategories where m.memberRole = :memberRole")
+    Optional<Member> findByMemberRole(@Param("memberRole")MemberRole memberRole);
 
     Optional<Member> findByNicknameAndPassword(Nickname nickname, Password password);
 

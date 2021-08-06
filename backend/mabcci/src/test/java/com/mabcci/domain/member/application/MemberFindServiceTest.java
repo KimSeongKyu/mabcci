@@ -1,8 +1,12 @@
 package com.mabcci.domain.member.application;
 
-import com.mabcci.domain.member.domain.MemberRepository;
-import com.mabcci.domain.member.dto.MemberListResponseDto;
-import com.mabcci.domain.member.dto.MemberResponseDto;
+import com.mabcci.domain.category.domain.Category;
+import com.mabcci.domain.member.domain.*;
+import com.mabcci.domain.member.dto.response.MemberByMemberRoleResponse;
+import com.mabcci.domain.member.dto.response.MemberListResponse;
+import com.mabcci.domain.member.dto.response.MemberByNickNameResponse;
+import com.mabcci.domain.membercategory.domain.MemberCategory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,48 +16,99 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
 
-import static com.mabcci.domain.member.domain.MemberTest.MEMBER;
+import static com.mabcci.domain.member.domain.Gender.MAN;
+import static com.mabcci.domain.member.domain.MemberRole.USER;
+import static com.mabcci.domain.member.domain.MemberSpecsTest.*;
+import static com.mabcci.domain.member.domain.MemberSpecsTest.BODY_TYPE;
+import static com.mabcci.domain.member.domain.MemberTest.*;
+import static com.mabcci.global.common.EmailTest.EMAIL;
+import static com.mabcci.global.common.NicknameTest.NICKNAME;
+import static com.mabcci.global.common.PasswordTest.PASSWORD;
+import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class MemberFindServiceTest {
+public class MemberFindServiceTest {
 
-    private static final HashSet<String> CATEGORIES = new HashSet<>(Arrays.asList("categoryName"));
+    public static final String CATEGORY_NAME = "category";
 
     @Mock private MemberRepository memberRepository;
     @InjectMocks private MemberFindService memberFindService;
+    private Member member;
+    private MemberSpecs memberSpecs;
+    private Category category;
+
+    @BeforeEach
+    void setUp() {
+        memberSpecs = memberSpecs.Builder()
+                .height(HEIGHT)
+                .weight(WEIGHT)
+                .footSize(FOOT_SIZE)
+                .form(BODY_TYPE)
+                .build();
+
+        member = Member.Builder()
+                .email(EMAIL)
+                .password(PASSWORD)
+                .nickname(NICKNAME)
+                .phone(PHONE)
+                .gender(MAN)
+                .memberRole(USER)
+                .memberSpecs(memberSpecs)
+                .build();
+        category = new Category(MemberFindServiceTest.CATEGORY_NAME);
+    }
 
     @DisplayName("MemberFindService 인스턴스 findByNickname() 기능 테스트")
     @Test
     void findByNickname_test() {
-        given(memberRepository.findByNickname(any())).willReturn(Optional.ofNullable(MEMBER));
-        final MemberResponseDto memberResponseDto = memberFindService.findByNickName(MEMBER.nickname());
+        given(memberRepository.findByNickName(any())).willReturn(Optional.ofNullable(member));
+        final Member findMember = memberFindService.findByNickname(member.nickname());
+        final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse(findMember);
 
         assertAll(
-                () -> assertThat(memberResponseDto.getEmail()).isEqualTo(MEMBER.email()),
-                () -> assertThat(memberResponseDto.getNickname()).isEqualTo(MEMBER.nickname()),
-                () -> assertThat(memberResponseDto.getGender()).isEqualTo(MEMBER.gender()),
-                () -> assertThat(memberResponseDto.getRole()).isEqualTo(MEMBER.role())
+                () -> assertThat(memberByNickNameResponse.getEmail()).isEqualTo(member.email()),
+                () -> assertThat(memberByNickNameResponse.getNickname()).isEqualTo(member.nickname()),
+                () -> assertThat(memberByNickNameResponse.getGender()).isEqualTo(member.gender()),
+                () -> assertThat(memberByNickNameResponse.getRole()).isEqualTo(member.memberRole())
         );
     }
+
+    @DisplayName("MemberFindService 인스턴스 findByMemberRole() 기능 테스트")
+    @Test
+    void findByMemberRole_test() {
+        given(memberRepository.findByMemberRole(any())).willReturn(Optional.ofNullable(member));
+        final Member findMember = memberFindService.findByMemberRole(member.memberRole());
+        final MemberCategory memberCategory = new MemberCategory(findMember, category);
+        findMember.addMemberCategory(memberCategory);
+        final MemberByMemberRoleResponse response =
+                MemberByMemberRoleResponse.createMemberByMemberRoleResponse(findMember);
+
+        assertAll(
+                () -> assertThat(response.getNickName()).isEqualTo(member.nickname()),
+                () -> assertThat(response.getPicture()).isEqualTo(member.picture()),
+                () -> assertThat(response.getCategories()).isEqualTo(member.memberCategories())
+        );
+    }
+
 
     @DisplayName("MemberService 인스턴스 findAll() 기능 테스트")
     @Test
     void findAll_test() {
-        final List list = new ArrayList(Arrays.asList(MEMBER));
+        final List list = new ArrayList(Arrays.asList(member));
         given(memberRepository.findAll()).willReturn((list));
-        final List<MemberListResponseDto> memberListResponseDtos = memberFindService.findAll();
-        final MemberListResponseDto memberListResponseDto = memberListResponseDtos.get(0);
+        final List<MemberListResponse> memberListResponses = memberFindService.findAll();
+        final MemberListResponse memberListResponse = memberListResponses.get(0);
 
         assertAll(
-                () -> assertThat(memberListResponseDtos.size()).isEqualTo(1),
-                () -> assertThat(memberListResponseDto.getEmail()).isEqualTo(MEMBER.email()),
-                () -> assertThat(memberListResponseDto.getNickname()).isEqualTo(MEMBER.nickname()),
-                () -> assertThat(memberListResponseDto.getGender()).isEqualTo(MEMBER.gender()),
-                () -> assertThat(memberListResponseDto.getRole()).isEqualTo(MEMBER.role())
+                () -> assertThat(memberListResponses.size()).isEqualTo(1),
+                () -> assertThat(memberListResponse.getEmail()).isEqualTo(member.email()),
+                () -> assertThat(memberListResponse.getNickname()).isEqualTo(member.nickname()),
+                () -> assertThat(memberListResponse.getGender()).isEqualTo(member.gender()),
+                () -> assertThat(memberListResponse.getRole()).isEqualTo(member.memberRole())
         );
     }
 

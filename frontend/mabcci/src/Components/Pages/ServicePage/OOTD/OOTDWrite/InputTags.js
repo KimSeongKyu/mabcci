@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import './InputTags.css';
 import { MdCancel } from "react-icons/md"
+import { GiConsoleController } from 'react-icons/gi';
 
 const Tag = ({ txt, idx, send, tagColor }) => {
   const removeTag = () => {
@@ -19,15 +20,24 @@ const Tag = ({ txt, idx, send, tagColor }) => {
   );
 };
 
-export default function InputTags({ onTag, placeHolder, tagColor }) {
+export default function InputTags({ onTag, placeHolder, tagColor, hashTag }) {
   const [tags, setTags] = useState([]);
+
+  // useEffect(async ()=>{
+  //   console.log(hashTag.hashTag, typeof hashTag.hashTag)
+  //   await setTags([...tags, ...hashTag.hashTag])
+  // },[])
 
   useEffect(() => {
     onTag(tags);
   }, [tags, setTags]);
 
   const addTag = e => {
-    if (e.keyCode === 32 && e.target.value.trim().length > 0 && tags.length <=19) {
+    if (
+      e.keyCode === 32 &&
+      e.target.value.trim().length > 0 &&
+      tags.length <= 19
+    ) {
       const tag = e.target.value.trim();
       setTags([...tags, tag]);
       e.target.value = '';
@@ -46,14 +56,14 @@ export default function InputTags({ onTag, placeHolder, tagColor }) {
           send={getChildVal}
           key={t + i}
           idx={i}
-          tagColor='{tagColor}'
+          tagColor="{tagColor}"
         />
       ))}
       <input
         className="input-tags"
         type="text"
         onKeyUp={addTag}
-        placeholder='Press spacebar to add tag'
+        placeholder="Press spacebar to add tag"
         required
       />
     </div>

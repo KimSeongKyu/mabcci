@@ -1,6 +1,7 @@
 package com.mabcci.domain.member.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mabcci.domain.follow.domain.Follow;
 import com.mabcci.domain.membercategory.domain.MemberCategory;
 import com.mabcci.global.common.Email;
 import com.mabcci.global.common.Nickname;
@@ -43,9 +44,15 @@ public class Member extends BaseTimeEntity {
     @Column(name = "member_gender", nullable = false)
     private Gender gender;
 
+    @Column(name = "member_description")
+    private String description;
+
+    @Column(name = "member_image")
+    private String picture;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "member_role", nullable = false)
-    private MemberRole role;
+    private MemberRole memberRole;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "member_specs_id")
@@ -54,6 +61,14 @@ public class Member extends BaseTimeEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private Set<MemberCategory> memberCategories = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "following", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Follow> followings = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Follow> followers = new HashSet<>();
 
     protected Member() {
     }
@@ -64,16 +79,13 @@ public class Member extends BaseTimeEntity {
         this.password = memberBuilder.password;
         this.phone = memberBuilder.phone;
         this.gender = memberBuilder.gender;
-        this.role = memberBuilder.role;
+        this.description = memberBuilder.description;
+        this.picture = memberBuilder.picture;
+        this.memberRole = memberBuilder.memberRole;
         this.memberSpecs = memberBuilder.memberSpecs;
     }
 
-    public void addMemberCategory(final MemberCategory memberCategory) {
-        memberCategories.add(memberCategory);
-        memberCategory.changeMember(this);
-    }
-
-    public static MemberBuilder builder() {
+    public static MemberBuilder Builder() {
         return new MemberBuilder();
     }
 
@@ -89,8 +101,8 @@ public class Member extends BaseTimeEntity {
         return nickname;
     }
 
-    public MemberRole role() {
-        return role;
+    public MemberRole memberRole() {
+        return memberRole;
     }
 
     public Email email() {
@@ -99,6 +111,25 @@ public class Member extends BaseTimeEntity {
 
     public MemberSpecs memberSpecs() {
         return memberSpecs;
+    }
+
+    public Gender gender() {
+        return gender;
+    }
+
+    public String picture() {
+        return picture;
+    }
+
+    public Set<MemberCategory> memberCategories() {
+        return memberCategories;
+    }
+
+    public void addMemberCategory(final MemberCategory memberCategory) {
+        memberCategory.changeMember(this);
+        if(!memberCategories.contains(memberCategory)) {
+            memberCategories.add(memberCategory);
+        }
     }
 
     public void updateMemberSpecs(final MemberSpecs memberSpecs) {
@@ -111,14 +142,6 @@ public class Member extends BaseTimeEntity {
         return this;
     }
 
-    public Gender gender() {
-        return gender;
-    }
-
-    public Set<MemberCategory> memberCategories() {
-        return memberCategories;
-    }
-
     public static class MemberBuilder {
 
         private Email email;
@@ -126,7 +149,9 @@ public class Member extends BaseTimeEntity {
         private Nickname nickname;
         private Phone phone;
         private Gender gender;
-        private MemberRole role;
+        private String description;
+        private String picture;
+        private MemberRole memberRole;
         private MemberSpecs memberSpecs;
 
         private MemberBuilder() {
@@ -157,8 +182,18 @@ public class Member extends BaseTimeEntity {
             return this;
         }
 
-        public MemberBuilder role(final MemberRole role) {
-            this.role = role;
+        public MemberBuilder description(final String description) {
+            this.description = description;
+            return this;
+        }
+
+        public MemberBuilder picture(final String picture) {
+            this.picture = picture;
+            return this;
+        }
+
+        public MemberBuilder memberRole(final MemberRole memberRole) {
+            this.memberRole = memberRole;
             return this;
         }
 
