@@ -25,7 +25,7 @@ h6,
 a {
   font-family: 'Gowun Dodum', sans-serif;
   margin: 0;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 button {

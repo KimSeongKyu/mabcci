@@ -86,7 +86,7 @@ function Nav() {
         <div className="navbar-menu-bar">
           <div className="navbar-menu-link">
             <Link
-              to="home"
+              to="/home"
               onClick={selectMenu}
               name="home"
               id={nowMenu === 'home' ? 'navbar-menu-link-selected' : null}

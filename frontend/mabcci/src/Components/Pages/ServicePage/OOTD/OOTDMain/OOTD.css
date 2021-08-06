@@ -38,7 +38,7 @@
 .card {
   border: none !important;
   margin-bottom: 50px !important;
-  transition: all .5s;
+  transition: all 0.5s;
 }
 
 .card:hover {
@@ -53,4 +53,16 @@
 .card i {
   color: var(--main-color-1);
   margin: 10px 10px 10px 0;
+}
+
+.my-masonry-grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: -30px;
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 20px;
+  background-clip: padding-box;
 }
