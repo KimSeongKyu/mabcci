@@ -17,11 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @DataJpaTest
 class HashtagRepositoryTest {
 
-    @Autowired
-    private HashtagRepository hashtagRepository;
-
-    @Autowired
-    private TestEntityManager testEntityManager;
+    @Autowired private HashtagRepository hashtagRepository;
+    @Autowired private TestEntityManager testEntityManager;
 
     private Hashtag hashtag;
 

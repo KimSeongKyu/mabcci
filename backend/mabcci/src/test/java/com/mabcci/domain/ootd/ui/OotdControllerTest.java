@@ -41,26 +41,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(OotdController.class)
 class OotdControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @Autowired private MockMvc mockMvc;
+    @Autowired private ObjectMapper objectMapper;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @MockBean
-    private OotdService ootdService;
-
-    @MockBean
-    private PictureService pictureService;
-
-    @MockBean
-    private OotdPictureService ootdPictureService;
-
-    @MockBean
-    private HashtagService hashtagService;
-
-    @MockBean
-    private OotdHashtagService ootdHashtagService;
+    @MockBean private OotdService ootdService;
+    @MockBean private PictureService pictureService;
+    @MockBean private OotdPictureService ootdPictureService;
+    @MockBean private HashtagService hashtagService;
+    @MockBean private OotdHashtagService ootdHashtagService;
 
     private Member member;
     private Ootd ootd;
@@ -77,6 +65,7 @@ class OotdControllerTest {
                 .picture(PICTURE)
                 .memberRole(MemberRole.USER)
                 .build();
+
         ootd = Ootd.builder()
                 .member(member)
                 .content("content")

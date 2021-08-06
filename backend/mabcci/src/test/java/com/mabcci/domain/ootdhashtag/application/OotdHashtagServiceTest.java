@@ -31,19 +31,14 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class OotdHashtagServiceTest {
 
-    @InjectMocks
-    private OotdHashtagService ootdHashtagService;
+    @Mock private OotdHashtagRepository ootdHashtagRepository;
+    @InjectMocks private OotdHashtagService ootdHashtagService;
 
-    @Mock
-    private OotdHashtagRepository ootdHashtagRepository;
-
-    private OotdHashtagSaveRequest ootdHashtagSaveRequest;
-    private OotdHashtag ootdHashtag;
-    private List<Hashtag> hashtags;
-    private Hashtag firstHashtag;
-    private Hashtag secondHashtag;
     private Member member;
     private Ootd ootd;
+    private OotdHashtag ootdHashtag;
+    private List<Hashtag> hashtags;
+    private OotdHashtagSaveRequest ootdHashtagSaveRequest;
 
     @BeforeEach
     void setUp() {
@@ -57,6 +52,7 @@ class OotdHashtagServiceTest {
                 .picture(PICTURE)
                 .memberRole(MemberRole.USER)
                 .build();
+
         ootd = Ootd.builder()
                 .member(member)
                 .content("content")
@@ -66,13 +62,22 @@ class OotdHashtagServiceTest {
                 .accessory("accessory")
                 .views(0L)
                 .build();
-        firstHashtag = Hashtag.builder()
+
+
+        Hashtag hashtag1 = Hashtag.builder()
                 .name("해시태그1")
                 .build();
-        secondHashtag = Hashtag.builder()
+
+        Hashtag hashtag2 = Hashtag.builder()
                 .name("해시태그2")
                 .build();
-        hashtags = new ArrayList<>(List.of(firstHashtag, secondHashtag));
+
+        ootdHashtag = OotdHashtag.builder()
+                .ootd(ootd)
+                .hashtag(hashtag1)
+                .build();
+
+        hashtags = new ArrayList<>(List.of(hashtag1, hashtag2));
         ootdHashtagSaveRequest = new OotdHashtagSaveRequest(ootd, hashtags);
     }
 
@@ -81,9 +86,7 @@ class OotdHashtagServiceTest {
     @Test
     void save_ootd_hashtags_test() {
         doReturn(ootdHashtag).when(ootdHashtagRepository).save(any());
-
         ootdHashtagService.saveOotdHashtags(ootdHashtagSaveRequest);
-
         verify(ootdHashtagRepository, times(ootdHashtagSaveRequest.getHashtags().size())).save(any());
     }
 }

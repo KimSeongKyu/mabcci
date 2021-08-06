@@ -29,14 +29,9 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class OotdServiceTest {
 
-    @InjectMocks
-    private OotdService ootdService;
-
-    @Mock
-    private MemberRepository memberRepository;
-
-    @Mock
-    private OotdRepository ootdRepository;
+    @Mock private MemberRepository memberRepository;
+    @Mock private OotdRepository ootdRepository;
+    @InjectMocks private OotdService ootdService;
 
     private Member member;
     private Ootd ootd;
@@ -53,6 +48,7 @@ class OotdServiceTest {
                 .picture(PICTURE)
                 .memberRole(MemberRole.USER)
                 .build();
+
         ootd = Ootd.builder()
                 .member(member)
                 .content("content")

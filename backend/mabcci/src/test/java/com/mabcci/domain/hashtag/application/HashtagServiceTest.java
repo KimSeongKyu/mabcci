@@ -22,11 +22,8 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class HashtagServiceTest {
 
-    @InjectMocks
-    private HashtagService hashtagService;
-
-    @Mock
-    private HashtagRepository hashtagRepository;
+    @Mock private HashtagRepository hashtagRepository;
+    @InjectMocks private HashtagService hashtagService;
 
     private Hashtag hashtag;
 

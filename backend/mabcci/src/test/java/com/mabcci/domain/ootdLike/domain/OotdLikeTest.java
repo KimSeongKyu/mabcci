@@ -35,6 +35,7 @@ class OotdLikeTest {
                 .picture(PICTURE)
                 .memberRole(MemberRole.USER)
                 .build();
+
         ootd = Ootd.builder()
                 .member(member)
                 .content("content")
