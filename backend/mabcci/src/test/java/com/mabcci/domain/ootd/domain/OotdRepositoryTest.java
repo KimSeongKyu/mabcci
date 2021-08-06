@@ -7,7 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+
+import java.util.List;
 
 import static com.mabcci.domain.member.domain.Gender.MAN;
 import static com.mabcci.domain.member.domain.MemberRole.USER;
@@ -76,10 +80,37 @@ class OotdRepositoryTest {
     @Test
     void find_by_id_test() {
         testEntityManager.persist(member);
-        ootdRepository.save(ootd);
+        testEntityManager.persist(ootd);
 
         final Ootd foundOotd = ootdRepository.findById(ootd.id()).get();
 
         assertThat(foundOotd.id()).isEqualTo(ootd.id());
     }
+
+    @DisplayName("OotdRepository 페이징 처리된 findAll 기능 테스트")
+    @Test
+    void find_all_test() {
+        testEntityManager.persist(member);
+        for(int i = 0; i < 21; i++) {
+            testEntityManager.persist(Ootd.builder()
+                    .member(member)
+                    .content("content")
+                    .top("top")
+                    .bottom("bottom")
+                    .shoes("shoes")
+                    .accessory("accessory")
+                    .build());
+        }
+
+        Page<Ootd> firstPageOotds = ootdRepository.findAll(PageRequest.of(0, 20));
+        Page<Ootd> secondPageOotds = ootdRepository.findAll(PageRequest.of(1, 20));
+
+        assertAll(
+                () -> assertThat(firstPageOotds.getSize()).isEqualTo(20),
+                () -> assertThat(firstPageOotds.toList().size()).isEqualTo(20),
+                () -> assertThat(secondPageOotds.toList().size()).isEqualTo(1),
+                () -> assertThat(firstPageOotds.getTotalPages()).isEqualTo(2)
+        );
+    }
+
 }
