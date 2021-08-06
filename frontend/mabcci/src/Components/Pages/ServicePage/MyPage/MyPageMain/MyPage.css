@@ -19,6 +19,7 @@
   flex-direction: column;
   justify-content: space-around;
   margin-bottom: 30px;
+  min-width: 200px;
 }
 
 .mypage-info-box div {
@@ -26,8 +27,8 @@
   justify-content: space-around;
 }
 
-.mypage-info-box h3 {
-  margin-right: 30px;
+.mypage-info-box h5 {
+  margin-right: 10px;
 }
 
 .mypage-introduce-box {
