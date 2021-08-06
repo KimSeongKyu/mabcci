@@ -33,18 +33,16 @@ import static org.mockito.Mockito.times;
 @ExtendWith(MockitoExtension.class)
 class FollowServiceTest {
 
-    @Mock
-    private FollowRepository followRepository;
-    @Mock
-    private MemberRepository memberRepository;
-    @InjectMocks
-    private FollowService followService;
+    @Mock private FollowRepository followRepository;
+    @Mock private MemberRepository memberRepository;
+    @InjectMocks private FollowService followService;
 
     private Member following;
     private Member follower;
 
     @BeforeEach
     void setUp() {
+        // 유니크 제약 조건으로 인한 새로 값 생성
         following = member(Email.of("following@email.com"), PASSWORD, Nickname.of("following"), Phone.of("010-1234-5678"));
         follower = member(Email.of("follower@email.com"), PASSWORD, Nickname.of("follower"), Phone.of("010-5678-1234"));
     }

@@ -1,14 +1,22 @@
 package com.mabcci.domain.member.dto.response;
 
+import com.mabcci.domain.category.domain.Category;
+import com.mabcci.domain.member.application.MemberFindServiceTest;
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
+import com.mabcci.domain.member.domain.MemberSpecs;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import static com.mabcci.domain.member.domain.MemberSpecsTest.MEMBER_SPECS;
+import static com.mabcci.domain.member.domain.Gender.MAN;
+import static com.mabcci.domain.member.domain.MemberRole.USER;
+import static com.mabcci.domain.member.domain.MemberSpecsTest.*;
+import static com.mabcci.domain.member.domain.MemberSpecsTest.BODY_TYPE;
+import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
+import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
 import static com.mabcci.global.common.EmailTest.EMAIL;
 import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static com.mabcci.global.common.PasswordTest.PASSWORD;
@@ -19,20 +27,29 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class MemberByNickNameResponseTest {
 
     private static final Long ID = 1L;
-
     private Member member;
+    private MemberSpecs memberSpecs;
+    private Category category;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
+        memberSpecs = memberSpecs.Builder()
+                .height(HEIGHT)
+                .weight(WEIGHT)
+                .footSize(FOOT_SIZE)
+                .form(BODY_TYPE)
+                .build();
+
         member = Member.Builder()
                 .email(EMAIL)
                 .password(PASSWORD)
                 .nickname(NICKNAME)
                 .phone(PHONE)
-                .gender(Gender.MAN)
-                .memberRole(MemberRole.USER)
+                .gender(MAN)
+                .memberRole(USER)
+                .memberSpecs(memberSpecs)
                 .build();
-        member.updateMemberSpecs(MEMBER_SPECS);
+        category = new Category(MemberFindServiceTest.CATEGORY_NAME);
         ReflectionTestUtils.setField(member, "id", ID);
     }
 

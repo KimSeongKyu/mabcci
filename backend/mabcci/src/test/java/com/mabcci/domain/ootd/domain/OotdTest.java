@@ -1,5 +1,9 @@
 package com.mabcci.domain.ootd.domain;
 
+import com.mabcci.domain.category.domain.Category;
+import com.mabcci.domain.member.domain.Gender;
+import com.mabcci.domain.member.domain.Member;
+import com.mabcci.domain.member.domain.MemberRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,9 +12,15 @@ import org.springframework.test.util.ReflectionTestUtils;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import java.util.HashSet;
 import java.util.Set;
 
-import static com.mabcci.domain.member.domain.MemberTest.MEMBER;
+import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
+import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
+import static com.mabcci.global.common.EmailTest.EMAIL;
+import static com.mabcci.global.common.NicknameTest.NICKNAME;
+import static com.mabcci.global.common.PasswordTest.PASSWORD;
+import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -26,13 +36,25 @@ public class OotdTest {
             .views(0L)
             .build();
 
+    private Member member;
     private Ootd ootd;
     private Validator validator;
 
     @BeforeEach
     void setUp() {
+        member = Member.Builder()
+                .email(EMAIL)
+                .password(PASSWORD)
+                .nickname(NICKNAME)
+                .phone(PHONE)
+                .gender(Gender.MAN)
+                .description(DESCRIPTION)
+                .picture(PICTURE)
+                .memberRole(MemberRole.USER)
+                .build();
+
         ootd = Ootd.builder()
-                .member(MEMBER)
+                .member(member)
                 .content("content")
                 .top("top")
                 .bottom("bottom")
@@ -70,7 +92,7 @@ public class OotdTest {
 
         assertAll(
                 () -> assertThat(ootd.id()).isEqualTo(1L),
-                () -> assertThat(ootd.member()).isEqualTo(MEMBER),
+                () -> assertThat(ootd.member()).isEqualTo(member),
                 () -> assertThat(ootd.content()).isEqualTo("content"),
                 () -> assertThat(ootd.top()).isEqualTo("top"),
                 () -> assertThat(ootd.bottom()).isEqualTo("bottom"),

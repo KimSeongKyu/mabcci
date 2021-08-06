@@ -1,7 +1,6 @@
 package com.mabcci.domain.member.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mabcci.domain.category.domain.Category;
 import com.mabcci.domain.follow.domain.Follow;
 import com.mabcci.domain.membercategory.domain.MemberCategory;
 import com.mabcci.global.common.Email;
@@ -12,7 +11,6 @@ import com.mabcci.domain.BaseTimeEntity;
 
 import javax.persistence.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Entity
 public class Member extends BaseTimeEntity {
@@ -123,10 +121,8 @@ public class Member extends BaseTimeEntity {
         return picture;
     }
 
-    public Set<Category> categories() {
-        return memberCategories.stream()
-                .map(MemberCategory::category)
-                .collect(Collectors.toSet());
+    public Set<MemberCategory> memberCategories() {
+        return memberCategories;
     }
 
     public void addMemberCategory(final MemberCategory memberCategory) {

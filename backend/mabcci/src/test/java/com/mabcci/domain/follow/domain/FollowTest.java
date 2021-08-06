@@ -17,7 +17,7 @@ import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-class FollowTest {
+public class FollowTest {
 
     @DisplayName("Follow 인스턴스 기본 생성자를 이용한 생성 테스트")
     @Test

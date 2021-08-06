@@ -1,5 +1,7 @@
 package com.mabcci.domain.member.domain;
 
+import com.mabcci.domain.category.domain.Category;
+import com.mabcci.domain.member.application.MemberFindServiceTest;
 import com.mabcci.domain.membercategory.domain.MemberCategory;
 import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +15,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import java.util.List;
 import java.util.Optional;
 
-import static com.mabcci.domain.category.domain.CategoryTest.CATEGORY;
 import static com.mabcci.domain.member.domain.Gender.MAN;
 import static com.mabcci.domain.member.domain.MemberRole.USER;
 import static com.mabcci.domain.member.domain.MemberSpecsTest.*;
@@ -31,9 +32,18 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class MemberRepositoryTest {
 
     private Member member;
+    private MemberSpecs memberSpecs;
+    private Category category;
 
     @BeforeEach
     void setUp() {
+        memberSpecs = memberSpecs.Builder()
+                .height(HEIGHT)
+                .weight(WEIGHT)
+                .footSize(FOOT_SIZE)
+                .form(BODY_TYPE)
+                .build();
+
         member = Member.Builder()
                 .email(EMAIL)
                 .password(PASSWORD)
@@ -41,13 +51,9 @@ class MemberRepositoryTest {
                 .phone(PHONE)
                 .gender(MAN)
                 .memberRole(USER)
-                .memberSpecs(MemberSpecs.Builder()
-                        .height(HEIGHT)
-                        .weight(WEIGHT)
-                        .footSize(FOOT_SIZE)
-                        .form(BodyType.TRIANGLE)
-                        .build())
+                .memberSpecs(memberSpecs)
                 .build();
+        category = new Category(MemberFindServiceTest.CATEGORY_NAME);
     }
 
     @Autowired
@@ -87,8 +93,8 @@ class MemberRepositoryTest {
     @Test
     void findByMemberRole_test() {
         testEntityManager.persist(member);
-        testEntityManager.persist(CATEGORY);
-        testEntityManager.persist(MemberCategory.createMemberCategory(member, CATEGORY));
+        testEntityManager.persist(category);
+        testEntityManager.persist(MemberCategory.createMemberCategory(member, category));
 
         final Member findMember = memberRepository.findByMemberRole(member.memberRole()).get();
 

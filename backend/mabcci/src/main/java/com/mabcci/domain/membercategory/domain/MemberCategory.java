@@ -26,7 +26,7 @@ public class MemberCategory {
     protected MemberCategory() {
     }
 
-    protected MemberCategory(final Member member, final Category category) {
+    public MemberCategory(final Member member, final Category category) {
         this.member = member;
         this.category = category;
     }

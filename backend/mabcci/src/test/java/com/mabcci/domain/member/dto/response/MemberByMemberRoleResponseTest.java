@@ -1,21 +1,43 @@
 package com.mabcci.domain.member.dto.response;
 
 import com.mabcci.domain.category.domain.Category;
+import com.mabcci.domain.member.domain.Gender;
+import com.mabcci.domain.member.domain.Member;
+import com.mabcci.domain.member.domain.MemberRole;
+import com.mabcci.domain.membercategory.domain.MemberCategory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
-import static com.mabcci.domain.category.domain.CategoryTest.CATEGORIES;
-import static com.mabcci.domain.category.domain.CategoryTest.CATEGORY;
-import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
+import static com.mabcci.domain.member.application.MemberFindServiceTest.CATEGORY_NAME;
+import static com.mabcci.domain.member.domain.MemberTest.*;
+import static com.mabcci.global.common.EmailTest.EMAIL;
 import static com.mabcci.global.common.NicknameTest.NICKNAME;
+import static com.mabcci.global.common.PasswordTest.PASSWORD;
+import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class MemberByMemberRoleResponseTest {
+
+    private Category category;
+    private Member member;
+
+    @BeforeEach
+    void setUp() {
+        category = new Category(CATEGORY_NAME);
+        member = Member.Builder()
+                .email(EMAIL)
+                .password(PASSWORD)
+                .nickname(NICKNAME)
+                .phone(PHONE)
+                .gender(Gender.MAN)
+                .description(DESCRIPTION)
+                .picture(PICTURE)
+                .memberRole(MemberRole.USER)
+                .build();
+    }
+
 
     @DisplayName("MemberByMemberRoleResponse 인스턴스 기본 생성자를 이용한 생성 테스트")
     @Test
@@ -31,9 +53,8 @@ class MemberByMemberRoleResponseTest {
     @DisplayName("MemberByMemberRoleResponse 인스턴스 정적 팩토리 메서드를 이용한 생성 테스트")
     @Test
     void static_factory_method_test() {
-
         final MemberByMemberRoleResponse response = MemberByMemberRoleResponse
-                .createMemberByMemberRoleResponse(NICKNAME, PICTURE, CATEGORIES);
+                .createMemberByMemberRoleResponse(member);
 
         assertAll(
                 () -> assertThat(response).isNotNull(),
@@ -44,14 +65,15 @@ class MemberByMemberRoleResponseTest {
     @DisplayName("MemberByMemberRoleResponse 인스턴스 getter 기능 테스트")
     @Test
     void getter_test() {
-        final String PICTURE = "picture 경로";
+        final MemberCategory memberCategory = new MemberCategory(member, category);
+        member.addMemberCategory(memberCategory);
         final MemberByMemberRoleResponse response = MemberByMemberRoleResponse
-                .createMemberByMemberRoleResponse(NICKNAME, PICTURE, CATEGORIES);
+                .createMemberByMemberRoleResponse(member);
 
         assertAll(
-                () -> assertThat(response.getNickName()).isEqualTo(NICKNAME),
-                () -> assertThat(response.getPicture()).isEqualTo(PICTURE),
-                () -> assertThat(response.getCategories()).isEqualTo(CATEGORIES)
+                () -> assertThat(response.getNickName()).isEqualTo(member.nickname()),
+                () -> assertThat(response.getPicture()).isEqualTo(member.picture()),
+                () -> assertThat(response.getCategories()).isEqualTo(member.memberCategories())
         );
     }
 }

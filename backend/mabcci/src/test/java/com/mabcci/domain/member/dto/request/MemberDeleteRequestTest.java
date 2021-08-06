@@ -1,6 +1,5 @@
 package com.mabcci.domain.member.dto.request;
 
-import com.mabcci.domain.member.dto.request.MemberDeleteRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
