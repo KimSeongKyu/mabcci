@@ -1,0 +1,93 @@
+.home-container {
+  padding: 0;
+}
+
+.home-mobile-header {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.home-mobile-header > img {
+  width: 250px;
+  height: auto;
+  display: block;
+  margin: auto;
+}
+
+.home-mobile-header-alarm {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+}
+
+.home-content {
+  margin-top: 60px;
+  position: relative;
+}
+
+.home-popularMabcci-title {
+  margin-left: 20px;
+  margin-bottom: 50px;
+}
+
+.home-popularMabcci-background {
+  max-width: 100vw;
+  height: 150px;
+  background: var(--main-color-1);
+}
+
+.home-popularMabcci-list {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.home-popularMabcci-list > div {
+  margin-right: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.home-popularMabcci-list > div > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.home-mabcci {
+  margin-right: 50%;
+  margin-bottom: 10px;
+}
+
+.home-mabcci {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-popularMabcci-right {
+  position: absolute;
+}
+
+/* 웹 */
+@media screen and (min-width: 576px) {
+  .home-mobile-header {
+    display: none;
+  }
+}
+
+/* 모바일 */
+@media screen and (max-width: 576px) {
+  .home-popularMabcci-list1 {
+    margin-left: 15vw;
+  }
+
+  .home-popularMabcci-list2 > div > div {
+    display: none;
+  }
+}
