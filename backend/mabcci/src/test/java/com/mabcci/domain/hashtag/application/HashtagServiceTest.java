@@ -22,11 +22,17 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class HashtagServiceTest {
 
-    @InjectMocks
-    private HashtagService hashtagService;
+    @Mock private HashtagRepository hashtagRepository;
+    @InjectMocks private HashtagService hashtagService;
 
-    @Mock
-    private HashtagRepository hashtagRepository;
+    private Hashtag hashtag;
+
+    @BeforeEach
+    void setUp() {
+        hashtag = Hashtag.builder()
+                .name("해시태그")
+                .build();
+    }
 
     private Hashtag hashtag;
 

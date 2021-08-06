@@ -31,11 +31,55 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class OotdHashtagServiceTest {
 
-    @InjectMocks
-    private OotdHashtagService ootdHashtagService;
+    @Mock private OotdHashtagRepository ootdHashtagRepository;
+    @InjectMocks private OotdHashtagService ootdHashtagService;
 
-    @Mock
-    private OotdHashtagRepository ootdHashtagRepository;
+    private Member member;
+    private Ootd ootd;
+    private OotdHashtag ootdHashtag;
+    private List<Hashtag> hashtags;
+    private OotdHashtagSaveRequest ootdHashtagSaveRequest;
+
+    @BeforeEach
+    void setUp() {
+        member = Member.Builder()
+                .email(EMAIL)
+                .password(PASSWORD)
+                .nickname(NICKNAME)
+                .phone(PHONE)
+                .gender(Gender.MAN)
+                .description(DESCRIPTION)
+                .picture(PICTURE)
+                .memberRole(MemberRole.USER)
+                .build();
+
+        ootd = Ootd.builder()
+                .member(member)
+                .content("content")
+                .top("top")
+                .bottom("bottom")
+                .shoes("shoes")
+                .accessory("accessory")
+                .views(0L)
+                .build();
+
+
+        Hashtag hashtag1 = Hashtag.builder()
+                .name("해시태그1")
+                .build();
+
+        Hashtag hashtag2 = Hashtag.builder()
+                .name("해시태그2")
+                .build();
+
+        ootdHashtag = OotdHashtag.builder()
+                .ootd(ootd)
+                .hashtag(hashtag1)
+                .build();
+
+        hashtags = new ArrayList<>(List.of(hashtag1, hashtag2));
+        ootdHashtagSaveRequest = new OotdHashtagSaveRequest(ootd, hashtags);
+    }
 
     private OotdHashtagSaveRequest ootdHashtagSaveRequest;
     private OotdHashtag ootdHashtag;

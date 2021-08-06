@@ -1,8 +1,14 @@
 package com.mabcci.domain.like.domain;
 
+<<<<<<< HEAD
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
+=======
+import com.mabcci.domain.category.domain.Category;
+import com.mabcci.domain.member.domain.Member;
+import com.mabcci.domain.member.domain.MemberSpecs;
+>>>>>>> 026f3b2 ([S05P13C107-53] [BE-kwj1270] refactor: test 코드 static 의존성 제거)
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,6 +19,11 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.Set;
 
+<<<<<<< HEAD
+=======
+import static com.mabcci.domain.member.domain.Gender.MAN;
+import static com.mabcci.domain.member.domain.MemberRole.USER;
+>>>>>>> 026f3b2 ([S05P13C107-53] [BE-kwj1270] refactor: test 코드 static 의존성 제거)
 import static com.mabcci.global.common.EmailTest.EMAIL;
 import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static com.mabcci.global.common.PasswordTest.PASSWORD;
@@ -24,16 +35,26 @@ class LikeTest {
 
     private Member member;
     private Like like;
+    private Member member;
 
     @BeforeEach
     void setUp() {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 026f3b2 ([S05P13C107-53] [BE-kwj1270] refactor: test 코드 static 의존성 제거)
         member = Member.Builder()
                 .email(EMAIL)
                 .password(PASSWORD)
                 .nickname(NICKNAME)
                 .phone(PHONE)
+<<<<<<< HEAD
                 .gender(Gender.MAN)
                 .memberRole(MemberRole.USER)
+=======
+                .gender(MAN)
+                .memberRole(USER)
+>>>>>>> 026f3b2 ([S05P13C107-53] [BE-kwj1270] refactor: test 코드 static 의존성 제거)
                 .build();
         like = new Like(member);
     }

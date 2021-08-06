@@ -41,26 +41,41 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(OotdController.class)
 class OotdControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @Autowired private MockMvc mockMvc;
+    @Autowired private ObjectMapper objectMapper;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    @MockBean private OotdService ootdService;
+    @MockBean private PictureService pictureService;
+    @MockBean private OotdPictureService ootdPictureService;
+    @MockBean private HashtagService hashtagService;
+    @MockBean private OotdHashtagService ootdHashtagService;
 
-    @MockBean
-    private OotdService ootdService;
+    private Member member;
+    private Ootd ootd;
 
-    @MockBean
-    private PictureService pictureService;
+    @BeforeEach
+    void setUp() {
+        member = Member.Builder()
+                .email(EMAIL)
+                .password(PASSWORD)
+                .nickname(NICKNAME)
+                .phone(PHONE)
+                .gender(Gender.MAN)
+                .description(DESCRIPTION)
+                .picture(PICTURE)
+                .memberRole(MemberRole.USER)
+                .build();
 
-    @MockBean
-    private OotdPictureService ootdPictureService;
-
-    @MockBean
-    private HashtagService hashtagService;
-
-    @MockBean
-    private OotdHashtagService ootdHashtagService;
+        ootd = Ootd.builder()
+                .member(member)
+                .content("content")
+                .top("top")
+                .bottom("bottom")
+                .shoes("shoes")
+                .accessory("accessory")
+                .views(0L)
+                .build();
+    }
 
     private Member member;
     private Ootd ootd;

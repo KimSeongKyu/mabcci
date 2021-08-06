@@ -29,14 +29,37 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class OotdServiceTest {
 
-    @InjectMocks
-    private OotdService ootdService;
+    @Mock private MemberRepository memberRepository;
+    @Mock private OotdRepository ootdRepository;
+    @InjectMocks private OotdService ootdService;
 
-    @Mock
-    private MemberRepository memberRepository;
+    private Member member;
+    private Ootd ootd;
 
-    @Mock
-    private OotdRepository ootdRepository;
+    @BeforeEach
+    void setUp() {
+        member = Member.Builder()
+                .email(EMAIL)
+                .password(PASSWORD)
+                .nickname(NICKNAME)
+                .phone(PHONE)
+                .gender(Gender.MAN)
+                .description(DESCRIPTION)
+                .picture(PICTURE)
+                .memberRole(MemberRole.USER)
+                .build();
+
+        ootd = Ootd.builder()
+                .member(member)
+                .content("content")
+                .top("top")
+                .bottom("bottom")
+                .shoes("shoes")
+                .accessory("accessory")
+                .views(0L)
+                .build();
+    }
+
 
     private Member member;
     private Ootd ootd;

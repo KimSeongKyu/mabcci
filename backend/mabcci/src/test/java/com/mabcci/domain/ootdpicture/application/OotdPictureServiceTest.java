@@ -31,11 +31,8 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class OotdPictureServiceTest {
 
-    @InjectMocks
-    private OotdPictureService ootdPictureService;
-
-    @Mock
-    private OotdPictureRepository ootdPictureRepository;
+    @Mock private OotdPictureRepository ootdPictureRepository;
+    @InjectMocks private OotdPictureService ootdPictureService;
 
     private OotdPicture ootdPicture;
     private Member member;

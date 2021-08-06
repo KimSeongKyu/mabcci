@@ -25,11 +25,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @DataJpaTest
 class OotdPictureRepositoryTest {
 
-    @Autowired
-    private TestEntityManager testEntityManager;
-
-    @Autowired
-    private OotdPictureRepository ootdPictureRepository;
+    @Autowired private TestEntityManager testEntityManager;
+    @Autowired private OotdPictureRepository ootdPictureRepository;
 
     private Member member;
     private Ootd ootd;
