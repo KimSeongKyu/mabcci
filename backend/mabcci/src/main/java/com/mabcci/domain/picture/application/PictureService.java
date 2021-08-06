@@ -2,6 +2,7 @@ package com.mabcci.domain.picture.application;
 
 import com.mabcci.domain.picture.common.PictureUtil;
 import com.mabcci.domain.picture.domain.Picture;
+import com.mabcci.domain.picture.domain.PictureType;
 import com.mabcci.domain.picture.dto.PictureSaveRequest;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +20,8 @@ public class PictureService {
     }
 
     public List<Picture> savePictures(final PictureSaveRequest pictureSaveRequest) {
-        final String directoryName = pictureUtil.makeDirectoryName();
-        pictureUtil.makeDirectory(directoryName);
+        final PictureType pictureType = pictureSaveRequest.getPictureType();
+        final String directoryName = pictureUtil.makeDirectory(pictureType);
 
         return pictureSaveRequest.getPictures()
                 .stream()

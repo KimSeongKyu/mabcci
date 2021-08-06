@@ -2,6 +2,7 @@ package com.mabcci.domain.picture.application;
 
 import com.mabcci.domain.picture.common.PictureUtil;
 import com.mabcci.domain.picture.domain.Picture;
+import com.mabcci.domain.picture.domain.PictureType;
 import com.mabcci.domain.picture.dto.PictureSaveRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,13 +31,13 @@ class PictureServiceTest {
     @DisplayName("PictureService 인스턴스 사진 저장 테스트")
     @Test
     void save_pictures_test() {
-        final PictureSaveRequest pictureSaveRequest = new PictureSaveRequest(PICTURE_FILES);
+        final PictureSaveRequest pictureSaveRequest = new PictureSaveRequest(PICTURE_FILES, PictureType.OOTD);
         final String directoryName = "testDirectory";
         final String fileName = "testFile";
+        final String url = "testUrl";
 
-        doReturn(directoryName).when(pictureUtil).makeDirectoryName();
-        doNothing().when(pictureUtil).makeDirectory(any());
-        doReturn(new Picture(directoryName, fileName)).when(pictureUtil).savePicture(any(), any());
+        doReturn(directoryName).when(pictureUtil).makeDirectory(any());
+        doReturn(new Picture(url, fileName)).when(pictureUtil).savePicture(any(), any());
 
         final List<Picture> pictures = pictureService.savePictures(pictureSaveRequest);
 
@@ -47,7 +48,7 @@ class PictureServiceTest {
                 () -> assertThat(pictures.size()).isEqualTo(PICTURE_FILES.size()),
                 () -> pictures.stream()
                         .forEach(picture -> {
-                            assertThat(picture.url()).isEqualTo(directoryName);
+                            assertThat(picture.url()).isEqualTo(url);
                             assertThat(picture.fileName()).isEqualTo(fileName);
                         })
         );

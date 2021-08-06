@@ -1,12 +1,13 @@
 package com.mabcci.domain.picture.common;
 
-import com.mabcci.domain.picture.common.PictureUtil;
 import com.mabcci.domain.picture.domain.Picture;
+import com.mabcci.domain.picture.domain.PictureType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -66,11 +67,12 @@ public class PictureUtilTest {
     @DisplayName("PictureUtil 인스턴스 디렉토리 이름 생성 테스트")
     @Test
     void make_directory_name_test() {
-        final String directoryName = pictureUtil.makeDirectoryName();
+        ReflectionTestUtils.setField(pictureUtil, "baseDirectory", "C:/mabcci/images/local");
+        final String directoryName = pictureUtil.makeDirectoryName(PictureType.OOTD);
         final String regexOfyyyyMMdd = "(19|20)\\d{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])";
 
         assertAll(
-                () -> assertThat(directoryName).contains("images"),
+                () -> assertThat(directoryName).contains("C:/mabcci/images/local"),
                 () -> assertThat(directoryName).containsPattern(regexOfyyyyMMdd)
         );
     }
@@ -85,13 +87,6 @@ public class PictureUtilTest {
                 () -> assertThat(pictureUtil.makeFileExtension(pngPicture.getContentType())).isEqualTo(".png"),
                 () -> assertThat(pictureUtil.makeFileExtension(jpegPicture.getContentType())).isEqualTo(".jpg")
         );
-    }
-
-    @DisplayName("PictureUtil 인스턴스 절대경로 생성 테스트")
-    @Test
-    void make_absolute_path_test() {
-        final String absolutePath = pictureUtil.makeAbsolutePath();
-        assertThat(absolutePath).isEqualTo(new File("").getAbsolutePath() + File.separator + File.separator);
     }
 
     @DisplayName("PictureUtil 인스턴스 파일 이름 생성 테스트")
@@ -109,8 +104,8 @@ public class PictureUtilTest {
     @DisplayName("PictureUtil 인스턴스 디렉토리 생성 테스트")
     @Test
     void make_directory_test() {
-        final String directoryName = "testDirectory";
-        pictureUtil.makeDirectory(directoryName);
+        ReflectionTestUtils.setField(pictureUtil, "baseDirectory", "C:/mabcci/images/local");
+        final String directoryName = pictureUtil.makeDirectory(PictureType.OOTD);
 
         final File directory = new File(directoryName);
         assertThat(directory.exists()).isTrue();
@@ -121,8 +116,9 @@ public class PictureUtilTest {
     @DisplayName("PictureUtil 인스턴스 사진 저장 테스트")
     @Test
     void save_picture_test() throws Exception {
-        final String directoryName = "testDirectory";
-        pictureUtil.makeDirectory(directoryName);
+        ReflectionTestUtils.setField(pictureUtil, "baseUrl", "/images");
+        ReflectionTestUtils.setField(pictureUtil, "baseDirectory", "C:/mabcci/images/local");
+        final String directoryName = pictureUtil.makeDirectory(PictureType.OOTD);
 
         final MultipartFile picture = mockPictures.get(0);
         final Picture savedPicture = pictureUtil.savePicture(picture, directoryName);
