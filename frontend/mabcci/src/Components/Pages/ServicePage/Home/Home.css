@@ -62,12 +62,13 @@
 .home-mabcci {
   margin-right: 50%;
   margin-bottom: 10px;
-}
-
-.home-mabcci {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.home-mabcci-photo {
+  filter: drop-shadow(5px 5px 4px rgba(0, 0, 0, 0.25));
 }
 
 .home-popularMabcci-right {
