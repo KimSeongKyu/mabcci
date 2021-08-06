@@ -17,6 +17,7 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
-
-
-
+path:
+  upload: "/images"
+  resource: "file:///C:/mabcci/images/local"
+  real: "C:/mabcci/images/local"

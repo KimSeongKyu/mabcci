@@ -1,6 +1,8 @@
 package com.mabcci.domain.picture.common;
 
 import com.mabcci.domain.picture.domain.Picture;
+import com.mabcci.domain.picture.domain.PictureType;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,14 +16,19 @@ import java.time.format.DateTimeFormatter;
 public class PictureUtil {
 
     private final static String TIME_FORMAT = "yyyyMMdd";
-    private final static String IMAGES_DIRECTORY_NAME = "images";
     private final static String PNG_FILE_EXTENSION = ".png";
     private final static String JPG_FILE_EXTENSION = ".jpg";
-    private final static String BASE_PATH = "";
+    private final static String URL_SEPARATOR = "/";
+
+    @Value("${path.upload}")
+    private String baseUrl;
+
+    @Value("${path.real}")
+    private String baseDirectory;
 
     public Picture savePicture(final MultipartFile picture, final String directoryName) {
         final String fileName = makeFileName(makeFileExtension(picture.getContentType()));
-        final File file = new File(makeAbsolutePath() + directoryName + File.separator + fileName);
+        final File file = new File(directoryName + File.separator + fileName);
 
         file.setWritable(false);
         file.setReadable(true);
@@ -32,22 +39,25 @@ public class PictureUtil {
             e.printStackTrace();
         }
 
-        return new Picture(directoryName, fileName);
+        return new Picture(mapDirectoryNameToUrl(directoryName), fileName);
     }
 
-    public void makeDirectory(final String directoryName) {
+    public String makeDirectory(final PictureType pictureType) {
+        final String directoryName = makeDirectoryName(pictureType);
         final File file = new File(directoryName);
         file.mkdirs();
+        return directoryName;
     }
 
-    public String makeAbsolutePath() {
-        return new File(BASE_PATH).getAbsolutePath() + File.separator + File.separator;
-    }
-
-    public String makeDirectoryName() {
+    public String makeDirectoryName(final PictureType pictureType) {
         final String todayFormedToTimeFormat = LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern(TIME_FORMAT));
-        return IMAGES_DIRECTORY_NAME + File.separator + todayFormedToTimeFormat;
+        return baseDirectory + File.separator + pictureType.type() + File.separator + todayFormedToTimeFormat;
+    }
+
+    public String mapDirectoryNameToUrl(final String directoryName) {
+        return directoryName.replace(baseDirectory, baseUrl)
+                .replace(File.separator, URL_SEPARATOR);
     }
 
     public String makeFileName(final String fileExtension) {

@@ -13,6 +13,7 @@ import com.mabcci.domain.ootdpicture.application.OotdPictureService;
 import com.mabcci.domain.ootdpicture.dto.OotdPictureSaveRequest;
 import com.mabcci.domain.picture.application.PictureService;
 import com.mabcci.domain.picture.domain.Picture;
+import com.mabcci.domain.picture.domain.PictureType;
 import com.mabcci.domain.picture.dto.PictureSaveRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +49,7 @@ public class OotdController {
         final Ootd ootd = ootdService.saveOotd(new OotdSaveRequest(request.getNickname(), request.getContent(), request.getTop(),
                 request.getBottom(), request.getShoes(), request.getAccessory()));
 
-        final List<Picture> pictures = pictureService.savePictures(new PictureSaveRequest(request.getPictures()));
+        final List<Picture> pictures = pictureService.savePictures(new PictureSaveRequest(request.getPictures(), PictureType.OOTD));
         ootdPictureService.saveOotdPictures(new OotdPictureSaveRequest(ootd, pictures));
 
         final HashtagSaveResponse hashtagSaveResponse = hashtagService.saveHashtags(new HashtagSaveRequest(request.getHashtags()));

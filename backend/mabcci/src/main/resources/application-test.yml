@@ -14,3 +14,7 @@ spring:
     properties:
       hibernate.enable_lazy_load_no_trans: true
       hibernate.format_sql: true
+path:
+  upload: "/images"
+  resource: "file:///C:/mabcci/images/test"
+  real: "C:/mabcci/images/test"

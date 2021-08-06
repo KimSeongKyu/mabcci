@@ -1,5 +1,6 @@
 package com.mabcci.domain.picture.dto;
 
+import com.mabcci.domain.picture.domain.PictureType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ class PictureSaveRequestTest {
 
     @BeforeEach
     void setUp() {
-        pictureSaveRequest = new PictureSaveRequest(PICTURE_FILES);
+        pictureSaveRequest = new PictureSaveRequest(PICTURE_FILES, PictureType.OOTD);
     }
 
     @DisplayName("PictureSaveRequest 인스턴스 생성 여부 테스트")
@@ -42,7 +43,7 @@ class PictureSaveRequestTest {
     @Test
     void validate_test() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        final PictureSaveRequest invalidPictureSaveRequest = new PictureSaveRequest(new ArrayList<>());
+        final PictureSaveRequest invalidPictureSaveRequest = new PictureSaveRequest(new ArrayList<>(), null);
 
         final Set<ConstraintViolation<PictureSaveRequest>> invalidPropertiesOfValidPictureRegisterRequest
                 = validator.validate(pictureSaveRequest);
@@ -51,7 +52,7 @@ class PictureSaveRequestTest {
 
         assertAll(
                 () -> assertThat(invalidPropertiesOfValidPictureRegisterRequest.size()).isEqualTo(0),
-                () -> assertThat(invalidPropertiesOfInvalidPictureRegisterRequest.size()).isEqualTo(1)
+                () -> assertThat(invalidPropertiesOfInvalidPictureRegisterRequest.size()).isEqualTo(2)
         );
     }
 }
