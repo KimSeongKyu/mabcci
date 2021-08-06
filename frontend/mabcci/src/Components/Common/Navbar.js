@@ -40,7 +40,7 @@ function Nav() {
       <div className="navbar-web">
         {loginRedux.isLoggedin}
         <div className="navbar-logo-bar">
-          <Link to="home">
+          <Link to="/home">
             <img className="navbar-logo-image" src={logo} alt="로고" />
           </Link>
           {isLoggedin ? (
@@ -49,7 +49,7 @@ function Nav() {
               <MdAccountCircle className="mypage" onClick={openPopover} />
             </div>
           ) : (
-            <Link to="login">
+            <Link to="/login">
               <AiOutlineLogin /> Login
             </Link>
           )}
@@ -57,7 +57,7 @@ function Nav() {
           {popover ? (
             <div className="navbar-popover-box">
               <p>로그아웃</p>
-              <Link to="mypage">
+              <Link to="/mypage">
                 <p>마이페이지</p>
               </Link>
             </div>
@@ -66,7 +66,7 @@ function Nav() {
         <div className="navbar-menu-bar">
           <div className="navbar-menu-link">
             <Link
-              to="home"
+              to="/home"
               onClick={selectMenu}
               name="home"
               id={nowMenu === 'home' ? 'navbar-menu-link-selected' : null}
@@ -74,7 +74,7 @@ function Nav() {
               Home
             </Link>
             <Link
-              to="OOTD"
+              to="/OOTD"
               onClick={selectMenu}
               name="OOTD"
               id={nowMenu === 'OOTD' ? 'navbar-menu-link-selected' : null}
@@ -82,7 +82,7 @@ function Nav() {
               OOTD
             </Link>
             <Link
-              to="styling"
+              to="/styling"
               onClick={selectMenu}
               name="Styling"
               id={nowMenu === 'Styling' ? 'navbar-menu-link-selected' : null}
@@ -90,7 +90,7 @@ function Nav() {
               Styling
             </Link>
             <Link
-              to="Community"
+              to="/Community"
               onClick={selectMenu}
               name="Community"
               id={nowMenu === 'Community' ? 'navbar-menu-link-selected' : null}

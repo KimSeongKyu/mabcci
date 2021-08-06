@@ -8,6 +8,7 @@ function OOTDMain() {
   const [page, setPage] = useState(1);
   return (
     <div className="container">
+      {page}
       <OOTDHeader filter={filter} setFilter={setFilter} setPage={setPage} />
       <OOTDFeed filter={filter} page={page} setPage={setPage} />
     </div>
