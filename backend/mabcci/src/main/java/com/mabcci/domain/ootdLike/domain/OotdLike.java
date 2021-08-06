@@ -18,7 +18,8 @@ public class OotdLike extends Like {
     private Long id;
 
     @NotNull
-    @Column(name = "ootd_like_ootd", nullable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ootd_like_ootd", nullable = false, updatable = false)
     private Ootd ootd;
 
     protected OotdLike() {

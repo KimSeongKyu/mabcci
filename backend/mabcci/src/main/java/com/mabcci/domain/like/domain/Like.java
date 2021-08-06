@@ -5,19 +5,19 @@ import com.mabcci.domain.BaseTimeEntity;
 import com.mabcci.domain.member.domain.Member;
 import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @MappedSuperclass
 public class Like extends BaseTimeEntity {
 
-    @Column(name = "status")
+    @Column(name = "like_status")
     @ColumnDefault("0")
     private Boolean status;
 
     @NotNull
-    @Column(name = "member_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "like_member_id", nullable = false)
     private Member member;
 
     protected Like() {
