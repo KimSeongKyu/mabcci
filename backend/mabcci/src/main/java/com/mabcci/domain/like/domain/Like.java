@@ -1,5 +1,6 @@
 package com.mabcci.domain.like.domain;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.mabcci.domain.BaseTimeEntity;
 import com.mabcci.domain.member.domain.Member;
 
@@ -22,5 +23,15 @@ public class Like extends BaseTimeEntity {
 
     public Like(final Member member) {
         this.member = member;
+    }
+
+    @JsonValue
+    public Boolean status() {
+        return status;
+    }
+
+    @JsonValue
+    public Member member() {
+        return member;
     }
 }
