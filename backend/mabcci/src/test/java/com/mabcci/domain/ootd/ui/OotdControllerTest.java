@@ -4,11 +4,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mabcci.domain.hashtag.application.HashtagService;
 import com.mabcci.domain.hashtag.domain.Hashtag;
 import com.mabcci.domain.hashtag.dto.HashtagSaveResponse;
+import com.mabcci.domain.member.domain.Gender;
+import com.mabcci.domain.member.domain.Member;
+import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.domain.ootd.application.OotdService;
+import com.mabcci.domain.ootd.domain.Ootd;
 import com.mabcci.domain.ootdhashtag.application.OotdHashtagService;
 import com.mabcci.domain.ootdpicture.application.OotdPictureService;
 import com.mabcci.domain.picture.application.PictureService;
 import com.mabcci.domain.picture.domain.Picture;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +26,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mabcci.domain.ootd.domain.OotdTest.OOTD;
+import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
+import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
+import static com.mabcci.global.common.EmailTest.EMAIL;
+import static com.mabcci.global.common.NicknameTest.NICKNAME;
+import static com.mabcci.global.common.PasswordTest.PASSWORD;
+import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -52,6 +62,32 @@ class OotdControllerTest {
     @MockBean
     private OotdHashtagService ootdHashtagService;
 
+    private Member member;
+    private Ootd ootd;
+
+    @BeforeEach
+    void setUp() {
+        member = Member.Builder()
+                .email(EMAIL)
+                .password(PASSWORD)
+                .nickname(NICKNAME)
+                .phone(PHONE)
+                .gender(Gender.MAN)
+                .description(DESCRIPTION)
+                .picture(PICTURE)
+                .memberRole(MemberRole.USER)
+                .build();
+        ootd = Ootd.builder()
+                .member(member)
+                .content("content")
+                .top("top")
+                .bottom("bottom")
+                .shoes("shoes")
+                .accessory("accessory")
+                .views(0L)
+                .build();
+    }
+
     @DisplayName("OotdController 인스턴스 ootd 등록 테스트")
     @Test
     void register_ootd_test() throws Exception {
@@ -69,7 +105,7 @@ class OotdControllerTest {
         ));
         final HashtagSaveResponse hashtagSaveResponse = new HashtagSaveResponse(hashtags);
 
-        doReturn(OOTD).when(ootdService).saveOotd(any());
+        doReturn(ootd).when(ootdService).saveOotd(any());
         doReturn(pictures).when(pictureService).savePictures(any());
         doNothing().when(ootdPictureService).saveOotdPictures(any());
         doReturn(hashtagSaveResponse).when(hashtagService).saveHashtags(any());

@@ -1,6 +1,5 @@
 package com.mabcci.domain.ootd.domain;
 
-import com.mabcci.domain.category.domain.Category;
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
@@ -12,7 +11,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
-import java.util.HashSet;
 import java.util.Set;
 
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
@@ -26,19 +24,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class OotdTest {
 
-    public static final Ootd OOTD = Ootd.builder()
-            .member(MEMBER)
-            .content("content")
-            .top("top")
-            .bottom("bottom")
-            .shoes("shoes")
-            .accessory("accessory")
-            .views(0L)
-            .build();
-
     private Member member;
     private Ootd ootd;
-    private Validator validator;
 
     @BeforeEach
     void setUp() {
@@ -52,7 +39,6 @@ public class OotdTest {
                 .picture(PICTURE)
                 .memberRole(MemberRole.USER)
                 .build();
-
         ootd = Ootd.builder()
                 .member(member)
                 .content("content")
@@ -62,7 +48,6 @@ public class OotdTest {
                 .accessory("accessory")
                 .views(0L)
                 .build();
-        validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
     @DisplayName("Ootd 인스턴스 생성 여부 테스트")
@@ -105,6 +90,7 @@ public class OotdTest {
     @DisplayName("Ootd 인스턴스의 프로퍼티 유효성 검증 테스트")
     @Test
     void validate_test() {
+        final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         final Ootd invalidOotd = Ootd.builder()
                 .views(-1L)
                 .build();

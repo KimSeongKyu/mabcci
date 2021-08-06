@@ -16,10 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class HashtagTest {
 
-    public static final Hashtag HASHTAG = Hashtag.builder()
-            .name("해시태그")
-            .build();
-
     private Hashtag hashtag;
 
     @BeforeEach
