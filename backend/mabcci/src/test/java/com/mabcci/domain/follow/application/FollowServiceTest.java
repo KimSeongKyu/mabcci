@@ -33,18 +33,16 @@ import static org.mockito.Mockito.times;
 @ExtendWith(MockitoExtension.class)
 class FollowServiceTest {
 
-    @Mock
-    private FollowRepository followRepository;
-    @Mock
-    private MemberRepository memberRepository;
-    @InjectMocks
-    private FollowService followService;
+    @Mock private FollowRepository followRepository;
+    @Mock private MemberRepository memberRepository;
+    @InjectMocks private FollowService followService;
 
     private Member following;
     private Member follower;
 
     @BeforeEach
     void setUp() {
+        // 유니크 제약 조건으로 인한 새로 값 생성
         following = member(Email.of("following@email.com"), PASSWORD, Nickname.of("following"), Phone.of("010-1234-5678"));
         follower = member(Email.of("follower@email.com"), PASSWORD, Nickname.of("follower"), Phone.of("010-5678-1234"));
     }
@@ -67,13 +65,13 @@ class FollowServiceTest {
         ReflectionTestUtils.setField(follow, "id", 1L);
 
         given(followRepository.save(any())).willReturn(follow);
-        given(memberRepository.findByNickname(following.nickname())).willReturn(Optional.ofNullable(following));
-        given(memberRepository.findByNickname(follower.nickname())).willReturn(Optional.ofNullable(follower));
+        given(memberRepository.findByNickName(following.nickname())).willReturn(Optional.ofNullable(following));
+        given(memberRepository.findByNickName(follower.nickname())).willReturn(Optional.ofNullable(follower));
 
         final Long actual = followService.save(following.nickname(), follower.nickname());
 
         then(followRepository).should(times(1)).save(any());
-        then(memberRepository).should(times(2)).findByNickname(any());
+        then(memberRepository).should(times(2)).findByNickName(any());
         assertThat(actual).isEqualTo(1L);
     }
 
@@ -98,8 +96,8 @@ class FollowServiceTest {
                 .password(password)
                 .nickname(nickname)
                 .phone(phone)
-                .gender(Gender.MALE)
-                .role(MemberRole.USER)
+                .gender(Gender.MAN)
+                .memberRole(MemberRole.USER)
                 .build();
     }
 

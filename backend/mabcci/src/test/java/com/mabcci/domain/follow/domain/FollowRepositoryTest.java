@@ -33,7 +33,8 @@ class FollowRepositoryTest {
 
     @BeforeEach
     void setUp() {
-         following = member(Email.of("following@email.com"), PASSWORD, Nickname.of("following"), Phone.of("010-1234-5678"));
+        // 유니크 제약 조건으로 인한 새로 값 생성
+        following = member(Email.of("following@email.com"), PASSWORD, Nickname.of("following"), Phone.of("010-1234-5678"));
          follower = member(Email.of("follower@email.com"), PASSWORD, Nickname.of("follower"), Phone.of("010-5678-1234"));
     }
 
@@ -85,8 +86,8 @@ class FollowRepositoryTest {
                 .password(password)
                 .nickname(nickname)
                 .phone(phone)
-                .gender(Gender.MALE)
-                .role(MemberRole.USER)
+                .gender(Gender.MAN)
+                .memberRole(MemberRole.USER)
                 .build();
     }
 

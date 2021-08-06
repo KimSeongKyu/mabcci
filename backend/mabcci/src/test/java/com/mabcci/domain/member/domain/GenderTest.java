@@ -12,8 +12,8 @@ class GenderTest {
     @Test
     void initialize() {
         assertAll(
-                () -> assertThat(Gender.MALE).isExactlyInstanceOf(Gender.class),
-                () -> assertThat(Gender.FEMALE).isExactlyInstanceOf(Gender.class)
+                () -> assertThat(Gender.MAN).isExactlyInstanceOf(Gender.class),
+                () -> assertThat(Gender.WOMAN).isExactlyInstanceOf(Gender.class)
         );
     }
 }

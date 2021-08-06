@@ -1,4 +1,4 @@
-package com.mabcci.domain.member.dto;
+package com.mabcci.domain.member.dto.request;
 
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
@@ -77,7 +77,7 @@ public final class MemberJoinRequest {
                 .nickname(nickname)
                 .phone(phone)
                 .gender(gender)
-                .role(MemberRole.USER)
+                .memberRole(MemberRole.USER)
                 .build();
     }
 
