@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Pagination } from 'swiper/core';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { OOTDDetailApi } from '../../../../../API/OOTDAPI/OOTDDetailApi';
+import 'swiper/swiper.min.css';
+import 'swiper/components/pagination/pagination.min.css';
 
 const OOTDContentApi = () => {
   const history = useHistory();
@@ -13,14 +17,14 @@ const OOTDContentApi = () => {
   });
   const [detail, setDetail] = useState({
     id,
-    content: 'gdgd',
-    top: 'gdgd',
-    bottom: 'gdgd',
-    shoes: 'zz',
-    accessory: 'sdaf',
+    content: '',
+    top: '',
+    bottom: '',
+    shoes: '',
+    accessory: '',
     picture: [],
     views: '',
-    hashtag: ['해시', '태그'],
+    hashtag: [],
     registeredTime: '',
     likeMembers: [],
   });
@@ -73,7 +77,17 @@ const OOTDContentApi = () => {
           ) : null}
         </div>
       </section>
-      <section className="detail-ootd-photo">{detail.picture}</section>
+      <section className="detail-ootd-photo">
+        <Swiper pagination className="detail-swiper-container">
+          {detail.picture.map(picture => {
+            return (
+              <SwiperSlide className="detail-swiper-slide" key={picture}>
+                <img src={picture} alt="OotdPhoto" />
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      </section>
       <section className="detail-ootd">
         <div className="detail-ootd-like">
           {myLike ? (
@@ -107,6 +121,9 @@ const OOTDContentApi = () => {
             <p>{detail.shoes}</p>
             <p>{detail.accessory}</p>
           </div>
+        </div>
+        <div className="detail-ootd-hashtag">
+          <p>{detail.hashtag.map(hashtag => `#${hashtag} `)}</p>
         </div>
       </section>
     </article>
