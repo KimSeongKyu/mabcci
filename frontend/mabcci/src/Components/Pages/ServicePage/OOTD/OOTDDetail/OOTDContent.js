@@ -1,9 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Pagination } from 'swiper/core';
+import 'swiper/swiper.min.css';
+import 'swiper/components/pagination/pagination.min.css';
 import userphoto from './Images/userphoto.png';
 import ootdphoto from './Images/ootdphoto.jpg';
 
+SwiperCore.use([Pagination]);
+
 const OOTDContent = () => {
+  const [detail, setDetail] = useState({
+    id: '',
+    content: '',
+    top: '',
+    bottom: '',
+    shoes: '',
+    accessory: '',
+    picture: [ootdphoto, userphoto, ootdphoto],
+    views: '',
+    hashtag: ['해쉬태그1', '해쉬태그2'],
+    registeredTime: '',
+    likeMembers: [],
+  });
+
   return (
     <article className="detail-content">
       <section className="detail-info">
@@ -18,7 +38,15 @@ const OOTDContent = () => {
         </div>
       </section>
       <section className="detail-ootd-photo">
-        <img src={ootdphoto} alt="OotdPhoto" />
+        <Swiper pagination className="detail-swiper-container">
+          {detail.picture.map(picture => {
+            return (
+              <SwiperSlide className="detail-swiper-slide" key={picture}>
+                <img src={picture} alt="OotdPhoto" />
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
       </section>
       <section className="detail-ootd">
         <div className="detail-ootd-like">
@@ -40,6 +68,9 @@ const OOTDContent = () => {
             <p>새틴 슬림 스틸레토힐</p>
             <p>인터로킹 G 진주 귀걸이</p>
           </div>
+        </div>
+        <div className="detail-ootd-hashtag">
+          <p>{detail.hashtag.map(hashtag => `#${hashtag} `)}</p>
         </div>
       </section>
     </article>
