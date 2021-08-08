@@ -53,6 +53,12 @@ class PictureTest {
         );
     }
 
+    @DisplayName("Picture 인스턴스 파일 경로 반환 테스트")
+    @Test
+    void path_test() {
+        assertThat(picture.path()).isEqualTo("testDirectoryName/testFileName");
+    }
+
     @DisplayName("Picture 인스턴스 프로퍼티 유효성 검증 테스트")
     @Test
     void validate_test() {
