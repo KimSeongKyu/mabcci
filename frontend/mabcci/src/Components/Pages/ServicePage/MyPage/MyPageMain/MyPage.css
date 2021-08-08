@@ -1,3 +1,19 @@
+.mypage-entire {
+  position: relative;
+}
+
+.mypage-container {
+  min-width: 320px;
+  max-width: 768px;
+  min-height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  align-content: stretch;
+}
+
 .mypage-profile-box {
   width: 80%;
   margin: auto;
@@ -11,30 +27,38 @@
   position: relative;
   transition: all 1s;
   transform-style: preserve-3d;
+  margin-left: 10%;
 }
 
-.mypage-profile-inner:hover {
+/* .mypage-profile-inner:hover {
+  transform: rotateY(180deg);
+} */
+
+.mypage-profile-inner-active {
   transform: rotateY(180deg);
 }
 
 .mypage-profile-box img {
   background-size: cover;
   border-radius: 50%;
-  width: 70%;
+  width: 150px;
+  height: 150px;
   backface-visibility: hidden;
+  cursor: pointer;
 }
 
 .mypage-profile-bodyinfo {
   position: absolute;
   transform: rotateY(180deg);
   border-radius: 50%;
-  width: 70%;
-  margin-left: 15%;
+  width: 150px;
+  width: 150px;
   background-color: white;
   border: 1px solid var(--main-color-1);
   height: 100%;
   text-align: center;
   display: flex;
+  cursor: pointer;
 }
 
 .mypage-profile-bodyinfo img {
@@ -53,7 +77,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  margin-bottom: 30px;
   min-width: 200px;
 }
 
@@ -66,12 +89,25 @@
   margin-right: 10px;
 }
 
+.mypage-info-box button {
+  background-color: white;
+}
+
 .mypage-introduce-box {
   width: 80%;
   margin: auto;
   margin-top: 30px;
   margin-left: 15%;
   text-align: start;
+}
+
+#mypage-web-nickname {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+#mypage-mobile-category {
+  margin-top: 10px;
 }
 
 .mypage-introduce-box p {
@@ -160,14 +196,18 @@
   }
 
   .mypage-profile-box img {
-    width: 40%;
+    width: 35%;
     margin-bottom: 0;
   }
 
+  .mypage-profile-inner {
+    margin-left: 0;
+  }
+
   .mypage-profile-bodyinfo {
-    width: 40%;
+    width: 35%;
     height: 100%;
-    margin-left: 30%;
+    margin-left: 32.5%;
   }
 
   .mypage-profile-bodyinfo img {

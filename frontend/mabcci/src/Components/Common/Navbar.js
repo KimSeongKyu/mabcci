@@ -50,6 +50,7 @@ function Nav() {
   const goMypage = () => {
     const myInfo = JSON.parse(localStorage.getItem('userInfo'));
     setpopover(!popover);
+    setNowMenu('mypage');
     history.push(`/mypage/${myInfo.nickname}`);
   };
 
@@ -146,7 +147,7 @@ function Nav() {
             <p>커뮤니티</p>
           </div>
         </Link>
-        <Link to="/mypage">
+        <Link to="/mypage" onClick={selectMenu} name="mypage">
           <div className="navbar-mobile-btn">
             <FiUser />
             <p>내 정보</p>
