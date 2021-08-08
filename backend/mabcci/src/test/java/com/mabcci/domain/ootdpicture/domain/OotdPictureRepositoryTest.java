@@ -58,6 +58,9 @@ class OotdPictureRepositoryTest {
                 .url("testUrl")
                 .fileName("testFileName")
                 .build();
+
+        testEntityManager.persist(member);
+        testEntityManager.persist(ootd);
     }
 
     @DisplayName("OotdPictureRepository 구현체 존재 여부 테스트")
@@ -72,11 +75,18 @@ class OotdPictureRepositoryTest {
     @DisplayName("OotdPictureRepository save 기능 테스트")
     @Test
     void save_test() {
-        testEntityManager.persist(member);
-        testEntityManager.persist(ootd);
-
         final OotdPicture savedOotdPicture = ootdPictureRepository.save(ootdPicture);
 
         assertThat(savedOotdPicture.id()).isEqualTo(ootdPicture.id());
+    }
+
+    @DisplayName("OotdPictureRepository ootd의 대표 사진 조회 기능 테스트")
+    @Test
+    void find_first_ootd_picture_test() {
+        testEntityManager.persist(ootdPicture);
+
+        final OotdPicture firstOotdPicture = ootdPictureRepository.findFirstByOotd(ootd).get();
+
+        assertThat(firstOotdPicture.id()).isEqualTo(ootdPicture.id());
     }
 }
