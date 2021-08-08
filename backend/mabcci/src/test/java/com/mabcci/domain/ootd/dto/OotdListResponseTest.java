@@ -34,4 +34,13 @@ class OotdListResponseTest {
                 () -> assertThat(ootdListResponse).isExactlyInstanceOf(OotdListResponse.class)
         );
     }
+
+    @DisplayName("OotdListResponse 인스턴스 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        assertAll(
+                () -> assertThat(ootdListResponse.getOotdResponses()).isEqualTo(ootdResponses),
+                () -> assertThat(ootdListResponse.getTotalPages()).isEqualTo(1L)
+        );
+    }
 }
