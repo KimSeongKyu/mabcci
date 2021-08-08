@@ -1,6 +1,10 @@
 package com.mabcci.domain.ootd.domain;
 
+import com.mabcci.domain.follow.domain.Follow;
 import com.mabcci.domain.member.domain.Member;
+import com.mabcci.global.common.Email;
+import com.mabcci.global.common.Nickname;
+import com.mabcci.global.common.Phone;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,7 +31,12 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class OotdRepositoryTest {
 
     private Ootd ootd;
+    private Ootd firstFollowingMemberOotd;
+    private Ootd secondFollowingMemberOotd;
     private Member member;
+    private Member firstFollowingMember;
+    private Member secondFollowingMember;
+    private Follow follow;
 
     @Autowired
     private OotdRepository ootdRepository;
@@ -45,9 +54,49 @@ class OotdRepositoryTest {
                 .gender(MAN)
                 .memberRole(USER)
                 .build();
+        firstFollowingMember = Member.Builder()
+                .email(Email.of("test1@example.com"))
+                .password(PASSWORD)
+                .nickname(Nickname.of("닉네임1"))
+                .phone(Phone.of("010-2349-1823"))
+                .gender(MAN)
+                .memberRole(USER)
+                .build();
+        secondFollowingMember = Member.Builder()
+                .email(Email.of("test2@example.com"))
+                .password(PASSWORD)
+                .nickname(Nickname.of("닉네임2"))
+                .phone(Phone.of("010-2349-1833"))
+                .gender(MAN)
+                .memberRole(USER)
+                .build();
+        follow = Follow.Builder()
+                .follower(member)
+                .following(firstFollowingMember)
+                .build();
+        follow = Follow.Builder()
+                .follower(member)
+                .following(secondFollowingMember)
+                .build();
 
         ootd = Ootd.builder()
                 .member(member)
+                .content("content")
+                .top("top")
+                .bottom("bottom")
+                .shoes("shoes")
+                .accessory("accessory")
+                .build();
+        firstFollowingMemberOotd = Ootd.builder()
+                .member(firstFollowingMember)
+                .content("content")
+                .top("top")
+                .bottom("bottom")
+                .shoes("shoes")
+                .accessory("accessory")
+                .build();
+        secondFollowingMemberOotd = Ootd.builder()
+                .member(secondFollowingMember)
                 .content("content")
                 .top("top")
                 .bottom("bottom")
@@ -87,7 +136,7 @@ class OotdRepositoryTest {
         assertThat(foundOotd.id()).isEqualTo(ootd.id());
     }
 
-    @DisplayName("OotdRepository 페이징 처리된 findAll 기능 테스트")
+    @DisplayName("OotdRepository 전체 ootd 리스트 조회 기능 테스트")
     @Test
     void find_all_test() {
         testEntityManager.persist(member);
@@ -113,4 +162,18 @@ class OotdRepositoryTest {
         );
     }
 
+    @DisplayName("OotdRepository 팔로잉한 멤버의 ootd 리스트 조회 기능 테스트")
+    @Test
+    void find_all_of_following_test() {
+        testEntityManager.persist(member);
+        testEntityManager.persist(firstFollowingMember);
+        testEntityManager.persist(secondFollowingMember);
+        testEntityManager.persist(follow);
+        testEntityManager.persist(firstFollowingMemberOotd);
+        testEntityManager.persist(secondFollowingMemberOotd);
+
+        Page<Ootd> ootdsOfFollowingMember = ootdRepository.findAllOfFollowing(member, PageRequest.of(0, 20));
+
+        assertThat(ootdsOfFollowingMember.toList().size()).isEqualTo(2);
+    }
 }
