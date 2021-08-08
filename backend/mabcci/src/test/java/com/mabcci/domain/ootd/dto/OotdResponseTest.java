@@ -27,4 +27,16 @@ class OotdResponseTest {
                 () -> assertThat(ootdResponse).isExactlyInstanceOf(OotdResponse.class)
         );
     }
+
+    @DisplayName("OotdResponse 인스턴스 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        assertAll(
+                () -> assertThat(ootdResponse.getId()).isEqualTo(1L),
+                () -> assertThat(ootdResponse.getNickname()).isEqualTo("닉네임"),
+                () -> assertThat(ootdResponse.getPicture()).isEqualTo("url/name.png"),
+                () -> assertThat(ootdResponse.getHashtags()).contains("해시태그1", "해시태그2"),
+                () -> assertThat(ootdResponse.getLikeCount()).isEqualTo(10L)
+                );
+    }
 }
