@@ -136,6 +136,7 @@ class OotdControllerTest {
     void find_filtered_ootd_list_test() throws Exception {
         mockMvc.perform(get("/api/ootds")
                 .param("filter", "all")
+                .param("size", "20")
                 .param("page", "0")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))

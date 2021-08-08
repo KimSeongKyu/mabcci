@@ -15,14 +15,15 @@ import com.mabcci.domain.picture.application.PictureService;
 import com.mabcci.domain.picture.domain.Picture;
 import com.mabcci.domain.picture.domain.PictureType;
 import com.mabcci.domain.picture.dto.PictureSaveRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @CrossOrigin(originPatterns = "http://localhost:*")
@@ -56,5 +57,10 @@ public class OotdController {
         ootdHashtagService.saveOotdHashtags(new OotdHashtagSaveRequest(ootd, hashtagSaveResponse.getHashtags()));
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/api/ootds")
+    public ResponseEntity findFilteredOotdList(@NotBlank @RequestParam final String filter, @NotNull final Pageable pageable) {
+        return ResponseEntity.ok(ootdService.findFilteredOotdList(filter, pageable));
     }
 }
