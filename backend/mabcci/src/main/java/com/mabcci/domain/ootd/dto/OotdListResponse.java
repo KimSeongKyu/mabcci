@@ -10,13 +10,21 @@ public final class OotdListResponse {
     private List<OotdResponse> ootdResponses;
 
     @PositiveOrZero
-    private Long page;
+    private Long totalPages;
 
     private OotdListResponse() {
     }
 
-    public OotdListResponse(final List<OotdResponse> ootdResponses, final Long page) {
+    public OotdListResponse(final List<OotdResponse> ootdResponses, final Long totalPages) {
         this.ootdResponses = ootdResponses;
-        this.page = page;
+        this.totalPages = totalPages;
+    }
+
+    public final List<OotdResponse> getOotdResponses() {
+        return ootdResponses;
+    }
+
+    public final Long getTotalPages() {
+        return totalPages;
     }
 }
