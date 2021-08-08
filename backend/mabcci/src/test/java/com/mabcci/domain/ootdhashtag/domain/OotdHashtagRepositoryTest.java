@@ -13,6 +13,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import java.util.List;
+
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
 import static com.mabcci.global.common.EmailTest.EMAIL;
@@ -65,6 +67,10 @@ public class OotdHashtagRepositoryTest {
                 .ootd(ootd)
                 .hashtag(hashtag)
                 .build();
+
+        testEntityManager.persist(member);
+        testEntityManager.persist(ootd);
+        testEntityManager.persist(hashtag);
     }
 
     @DisplayName("OotdHashtagRepository 구현체 존재 여부 테스트")
@@ -79,12 +85,18 @@ public class OotdHashtagRepositoryTest {
     @DisplayName("OotdHashtagRepository save 기능 테스트")
     @Test
     void save_test() {
-        testEntityManager.persist(member);
-        testEntityManager.persist(ootd);
-        testEntityManager.persist(hashtag);
-
         final OotdHashtag savedOotdHashtag = ootdHashtagRepository.save(ootdHashtag);
 
         assertThat(savedOotdHashtag.id()).isEqualTo(ootdHashtag.id());
+    }
+
+    @DisplayName("OotdHashtagRepository ootd의 hastag들을 조회하는 기능 테스트")
+    @Test
+    void find_by_ootd_test() {
+        testEntityManager.persist(ootdHashtag);
+
+        final List<OotdHashtag> ootdHashtags = ootdHashtagRepository.findByOotd(ootd);
+
+        assertThat(ootdHashtags.size()).isEqualTo(1);
     }
 }
