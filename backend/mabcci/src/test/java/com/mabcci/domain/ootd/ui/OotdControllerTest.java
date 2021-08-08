@@ -35,6 +35,7 @@ import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -129,4 +130,16 @@ class OotdControllerTest {
                 .characterEncoding("UTF-8"))
                 .andExpect(status().isNoContent());
     }
+
+    @DisplayName("OotdController 인스턴스 필터링된 ootd 리스트 조회 테스트")
+    @Test
+    void find_filtered_ootd_list_test() throws Exception {
+        mockMvc.perform(get("/api/ootds")
+                .param("filter", "all")
+                .param("page", "0")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 }
+
