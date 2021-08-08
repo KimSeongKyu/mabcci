@@ -4,8 +4,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -38,5 +42,23 @@ class OotdResponseTest {
                 () -> assertThat(ootdResponse.getHashtags()).contains("해시태그1", "해시태그2"),
                 () -> assertThat(ootdResponse.getLikeCount()).isEqualTo(10L)
                 );
+    }
+
+    @DisplayName("OotdResponse 인스턴스 프로퍼티 유효성 검증 테스트")
+    @Test
+    void validate_test() {
+        final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        final OotdResponse invalidOotdResponse = new OotdResponse(0L, "", "", null, -1L);
+
+        final Set<ConstraintViolation<OotdResponse>> invalidPropertiesOfValidResponse =
+                validator.validate(ootdResponse);
+        final Set<ConstraintViolation<OotdResponse>> invalidPropertiesOfInvalidResponse =
+                validator.validate(invalidOotdResponse);
+
+        assertAll(
+                () -> assertThat(invalidPropertiesOfValidResponse.size()).isEqualTo(0),
+                () -> assertThat(invalidPropertiesOfInvalidResponse.size()).isEqualTo(5)
+        );
+
     }
 }
