@@ -5,7 +5,6 @@ const MyPageFeed = props => {
   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   // const imageList = numbers.map((N, index) => (<div key={index}><img src=`https://placeimg.com/${N}/${N}/arch`></img></div>))
-  numbers.map((N, index) => console.log(N));
   return (
     <div className="mypage-feed-container">
       <h5 className="mypage-feed-title">Feed</h5>
@@ -13,7 +12,7 @@ const MyPageFeed = props => {
         {numbers.map((N, index) => (
           <div className="mypage-feed">
             <div className="mypage-feed-overlay">
-              <p>글제목입니닷</p>
+              <p>좋아요 개수 보여주기?</p>
             </div>
             <img src="https://placeimg.com/100/250/arch" alt="하이" />
           </div>

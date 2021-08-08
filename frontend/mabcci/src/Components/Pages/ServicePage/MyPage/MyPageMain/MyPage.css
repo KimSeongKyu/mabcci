@@ -7,11 +7,46 @@
   justify-content: space-between;
 }
 
+.mypage-profile-inner {
+  position: relative;
+  transition: all 1s;
+  transform-style: preserve-3d;
+}
+
+.mypage-profile-inner:hover {
+  transform: rotateY(180deg);
+}
+
 .mypage-profile-box img {
   background-size: cover;
   border-radius: 50%;
   width: 70%;
-  margin-bottom: 30px;
+  backface-visibility: hidden;
+}
+
+.mypage-profile-bodyinfo {
+  position: absolute;
+  transform: rotateY(180deg);
+  border-radius: 50%;
+  width: 70%;
+  margin-left: 15%;
+  background-color: white;
+  border: 1px solid var(--main-color-1);
+  height: 100%;
+  text-align: center;
+  display: flex;
+}
+
+.mypage-profile-bodyinfo img {
+  width: 30%;
+  height: 70%;
+  margin: auto;
+  margin-right: 0;
+}
+
+.mypage-profile-bodysize {
+  margin: auto;
+  font-weight: 700;
 }
 
 .mypage-info-box {
@@ -34,6 +69,7 @@
 .mypage-introduce-box {
   width: 80%;
   margin: auto;
+  margin-top: 30px;
   margin-left: 15%;
   text-align: start;
 }
@@ -126,6 +162,22 @@
   .mypage-profile-box img {
     width: 40%;
     margin-bottom: 0;
+  }
+
+  .mypage-profile-bodyinfo {
+    width: 40%;
+    height: 100%;
+    margin-left: 30%;
+  }
+
+  .mypage-profile-bodyinfo img {
+    margin-bottom: 13%;
+    margin-left: 17%;
+  }
+
+  .mypage-profile-bodysize {
+    margin-right: 15%;
+    margin-top: 30%;
   }
 
   .mypage-blank {
