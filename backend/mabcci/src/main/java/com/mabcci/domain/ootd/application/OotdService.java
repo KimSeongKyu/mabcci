@@ -12,13 +12,13 @@ import com.mabcci.domain.ootdhashtag.domain.OotdHashtagRepository;
 import com.mabcci.domain.ootdpicture.domain.OotdPictureRepository;
 import com.mabcci.global.common.Nickname;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class OotdService {
@@ -62,9 +62,18 @@ public class OotdService {
         final List<Ootd> ootds = ootdPages.toList();
 
         final List<OotdResponse> ootdResponses = ootds.stream()
-                .map(ootd -> new OotdResponse(ootd.id(), ootd.member().nickname(),
-                        ootdPictureRepository.findByOotd(ootd).path(), ootdHashtagRepository.findByOotd(ootd),
-                        ootdLikeRepository.countByOotd(ootd)));
+                .map(ootd -> new OotdResponse(ootd.id(),
+                        ootd.member()
+                                .nickname()
+                                .nickname(),
+                        ootdPictureRepository.findFirstByOotd(ootd)
+                                .orElseThrow(IllegalArgumentException::new).path(),
+                        ootdHashtagRepository.findByOotd(ootd)
+                                .stream()
+                                .map(ootdHashtag -> ootdHashtag.hashtag().name())
+                                .collect(toList()),
+                        ootdLikeRepository.countByOotd(ootd)))
+                .collect(toList());
 
         return new OotdListResponse(ootdResponses, totalPages);
     }
