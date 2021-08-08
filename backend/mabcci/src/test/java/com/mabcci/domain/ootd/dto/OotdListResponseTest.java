@@ -27,7 +27,7 @@ class OotdListResponseTest {
                 new OotdResponse(1L, "닉네임2", "url/name2.png",
                         new ArrayList<>(List.of("해시태그1", "해시태그3")), 20L)
         ));
-        ootdListResponse = new OotdListResponse(ootdResponses, 1L);
+        ootdListResponse = new OotdListResponse(ootdResponses, 1);
     }
 
     @DisplayName("OotdListResponse 인스턴스 생성 여부 테스트")
@@ -52,7 +52,7 @@ class OotdListResponseTest {
     @Test
     void validate_test() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        final OotdListResponse invalidResponse = new OotdListResponse(new ArrayList<>(), -1L);
+        final OotdListResponse invalidResponse = new OotdListResponse(new ArrayList<>(), -1);
 
         final Set<ConstraintViolation<OotdListResponse>> invalidPropertiesOfValidResponse =
                 validator.validate(ootdListResponse);
