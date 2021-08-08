@@ -15,8 +15,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import java.util.List;
-
 import static com.mabcci.domain.member.domain.Gender.MAN;
 import static com.mabcci.domain.member.domain.MemberRole.USER;
 import static com.mabcci.global.common.EmailTest.EMAIL;
@@ -36,7 +34,8 @@ class OotdRepositoryTest {
     private Member member;
     private Member firstFollowingMember;
     private Member secondFollowingMember;
-    private Follow follow;
+    private Follow firstFollow;
+    private Follow secondFollow;
 
     @Autowired
     private OotdRepository ootdRepository;
@@ -70,11 +69,11 @@ class OotdRepositoryTest {
                 .gender(MAN)
                 .memberRole(USER)
                 .build();
-        follow = Follow.Builder()
+        firstFollow = Follow.Builder()
                 .follower(member)
                 .following(firstFollowingMember)
                 .build();
-        follow = Follow.Builder()
+        secondFollow = Follow.Builder()
                 .follower(member)
                 .following(secondFollowingMember)
                 .build();
@@ -168,7 +167,8 @@ class OotdRepositoryTest {
         testEntityManager.persist(member);
         testEntityManager.persist(firstFollowingMember);
         testEntityManager.persist(secondFollowingMember);
-        testEntityManager.persist(follow);
+        testEntityManager.persist(firstFollow);
+        testEntityManager.persist(secondFollow);
         testEntityManager.persist(firstFollowingMemberOotd);
         testEntityManager.persist(secondFollowingMemberOotd);
 
