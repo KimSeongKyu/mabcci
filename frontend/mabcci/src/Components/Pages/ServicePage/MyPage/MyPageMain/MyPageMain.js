@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useStore } from 'react-redux';
+
 import MabcciReview from './MabcciReview';
 import MyPageFeed from './MyPageFeed';
 import MyPageProfile from './MyPageProfile';
 import MypageReadApi from '../../../../../API/MypageAPI/MypageReadApi';
+import FollowBox from '../MyPageFollow/FollowBox';
 
 function MyPageMain() {
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
   const [myInfo, setMyInfo] = useState({});
+
+  const [followBox, setFollowBox] = useState('none');
 
   useEffect(async () => {
     const res = await MypageReadApi(userInfo.nickname);
@@ -17,10 +20,17 @@ function MyPageMain() {
   }, []);
 
   return (
-    <div className="container">
-      <MyPageProfile myInfo={myInfo} />
-      <MyPageFeed />
-      <MabcciReview />
+    <div className="mypage-entire">
+      <FollowBox followBox={followBox} setFollowBox={setFollowBox} />
+      <div className="mypage-container">
+        <MyPageProfile
+          myInfo={myInfo}
+          followBox={followBox}
+          setFollowBox={setFollowBox}
+        />
+        <MyPageFeed />
+        <MabcciReview />
+      </div>
     </div>
   );
 }
