@@ -36,4 +36,24 @@ public final class OotdResponse {
         this.hashtags = hashtags;
         this.likeCount = likeCount;
     }
+
+    public final Long getId() {
+        return id;
+    }
+
+    public final String getNickname() {
+        return nickname;
+    }
+
+    public final String getPicture() {
+        return picture;
+    }
+
+    public final List<String> getHashtags() {
+        return hashtags;
+    }
+
+    public final Long getLikeCount() {
+        return likeCount;
+    }
 }
