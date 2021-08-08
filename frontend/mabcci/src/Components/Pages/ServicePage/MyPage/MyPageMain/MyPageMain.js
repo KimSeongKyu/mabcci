@@ -14,7 +14,6 @@ function MyPageMain() {
     const res = await MypageReadApi(userInfo.nickname);
     // await setMyInfo(...myInfo, ...res.myInfo);
     await setMyInfo(res.myInfo);
-    console.log(myInfo, 'ㅇㅇ?');
   }, []);
 
   return (
