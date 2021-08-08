@@ -195,43 +195,43 @@ function SignupForm() {
       </div>
       <h5>성별</h5>
       <div className="signup-select-man-woman">
-        {userInfo.gender === 'MALE' ? (
+        {userInfo.gender === 'MAN' ? (
           <button
             className="signup-btn-sex-select"
-            name="MALE"
+            name="MAN"
             type="submit"
             onClick={mwBtnClick}
           >
-            <p className="signup-choice-gender">MALE</p>
+            <p className="signup-choice-gender">MAN</p>
           </button>
         ) : (
           <button
             className="btn-rounded-sm"
-            name="MALE"
+            name="MAN"
             type="submit"
             onClick={mwBtnClick}
           >
-            <p className="signup-choice-gender">MALE</p>
+            <p className="signup-choice-gender">MAN</p>
           </button>
         )}
 
-        {userInfo.gender === 'FEMALE' ? (
+        {userInfo.gender === 'WOMAN' ? (
           <button
             className="signup-btn-sex-select"
-            name="FEMALE"
+            name="WOMAN"
             type="submit"
             onClick={mwBtnClick}
           >
-            <p className="signup-choice-gender">FEMALE</p>
+            <p className="signup-choice-gender">WOMAN</p>
           </button>
         ) : (
           <button
             className="btn-rounded-sm"
-            name="FEMALE"
+            name="WOMAN"
             type="submit"
             onClick={mwBtnClick}
           >
-            <p className="signup-choice-gender">FEMALE</p>
+            <p className="signup-choice-gender">WOMAN</p>
           </button>
         )}
       </div>
