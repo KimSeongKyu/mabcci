@@ -60,6 +60,11 @@ public class PictureUtil {
                 .replace(File.separator, URL_SEPARATOR);
     }
 
+    public String mapUrlToDirectoryName(final String url) {
+        return url.replace(baseUrl, baseDirectory)
+                .replace(URL_SEPARATOR, File.separator);
+    }
+
     public String makeFileName(final String fileExtension) {
         return System.nanoTime() + fileExtension;
     }

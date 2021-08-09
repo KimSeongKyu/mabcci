@@ -11,6 +11,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,8 +81,10 @@ public class PictureUtilTest {
     @DisplayName("PictureUtil 인스턴스 디렉토리 이름을 url로 변경하는 기능 테스트")
     @Test
     void map_directory_name_to_url_test() {
-        final String baseUrl = "/images";
-        final String baseDirectory = "C:/mabcci/images/local";
+        final String baseUrl = Paths.get( "images").toString();
+        final String baseDirectory =
+                Paths.get("C:", File.separator, "mabcci", File.separator, "images", File.separator, "local")
+                        .toString();
         ReflectionTestUtils.setField(pictureUtil, "baseUrl", baseUrl);
         ReflectionTestUtils.setField(pictureUtil, "baseDirectory", baseDirectory);
         final String directoryName = baseDirectory.concat(File.separator);
@@ -99,8 +102,11 @@ public class PictureUtilTest {
     @DisplayName("PictureUtil 인스턴스 url을 디렉토리 이름으로 변경하는 기능 테스트")
     @Test
     void map_url_to_directory_name_test() {
-        final String baseUrl = "/images";
-        final String baseDirectory = "C:/mabcci/images/local";
+        final String baseUrl = Paths.get( "images").toString();
+        final String baseDirectory =
+                Paths.get("C:", File.separator, "mabcci", File.separator, "images", File.separator, "local")
+                        .toString();
+        System.out.println(baseDirectory);
         ReflectionTestUtils.setField(pictureUtil, "baseUrl", baseUrl);
         ReflectionTestUtils.setField(pictureUtil, "baseDirectory", baseDirectory);
         final String url = baseUrl.concat("/");
@@ -110,7 +116,6 @@ public class PictureUtilTest {
         assertAll(
                 () -> assertThat(directoryName).contains(baseDirectory),
                 () -> assertThat(directoryName).contains(File.separator),
-                () -> assertThat(directoryName).doesNotContain(baseUrl),
                 () -> assertThat(directoryName).doesNotContain("/")
         );
     }
