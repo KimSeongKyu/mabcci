@@ -35,6 +35,9 @@ public class PictureUtilTest {
 
     private PictureUtil pictureUtil;
     private List<MultipartFile> mockPictures;
+    private String baseUrl;
+    private String baseDirectory;
+
 
     @BeforeEach
     void setUp() {
@@ -54,6 +57,10 @@ public class PictureUtilTest {
                 MediaType.IMAGE_JPEG_VALUE,
                 "testJpegPicture".getBytes()
         ));
+
+        baseUrl = Paths.get( "images").toString();
+        baseDirectory = Paths.get("C:", File.separator, "mabcci", File.separator, "images", File.separator, "local")
+                        .toString();
     }
 
     @DisplayName("PictureUtil 인스턴스 생성 여부 테스트")
@@ -81,10 +88,6 @@ public class PictureUtilTest {
     @DisplayName("PictureUtil 인스턴스 디렉토리 이름을 url로 변경하는 기능 테스트")
     @Test
     void map_directory_name_to_url_test() {
-        final String baseUrl = Paths.get( "images").toString();
-        final String baseDirectory =
-                Paths.get("C:", File.separator, "mabcci", File.separator, "images", File.separator, "local")
-                        .toString();
         ReflectionTestUtils.setField(pictureUtil, "baseUrl", baseUrl);
         ReflectionTestUtils.setField(pictureUtil, "baseDirectory", baseDirectory);
         final String directoryName = baseDirectory.concat(File.separator);
@@ -102,14 +105,9 @@ public class PictureUtilTest {
     @DisplayName("PictureUtil 인스턴스 url을 디렉토리 이름으로 변경하는 기능 테스트")
     @Test
     void map_url_to_directory_name_test() {
-        final String baseUrl = Paths.get( "images").toString();
-        final String baseDirectory =
-                Paths.get("C:", File.separator, "mabcci", File.separator, "images", File.separator, "local")
-                        .toString();
-        System.out.println(baseDirectory);
         ReflectionTestUtils.setField(pictureUtil, "baseUrl", baseUrl);
         ReflectionTestUtils.setField(pictureUtil, "baseDirectory", baseDirectory);
-        final String url = baseUrl.concat("/");
+        final String url = baseUrl.concat(File.separator);
 
         final String directoryName = pictureUtil.mapUrlToDirectoryName(url);
 
@@ -147,20 +145,20 @@ public class PictureUtilTest {
     @DisplayName("PictureUtil 인스턴스 디렉토리 생성 테스트")
     @Test
     void make_directory_test() {
-        ReflectionTestUtils.setField(pictureUtil, "baseDirectory", "C:/mabcci/images/local");
+        ReflectionTestUtils.setField(pictureUtil, "baseDirectory", baseDirectory);
         final String directoryName = pictureUtil.makeDirectory(PictureType.OOTD);
 
         final File directory = new File(directoryName);
-        assertThat(directory.exists()).isTrue();
+        assertThat(directory).exists();
 
         directory.delete();
     }
 
-    @DisplayName("PictureUtil 인스턴스 사진 저장 테스트")
+    @DisplayName("PictureUtil 인스턴스 사진 저장 및 삭제 테스트")
     @Test
     void save_picture_test() throws Exception {
-        ReflectionTestUtils.setField(pictureUtil, "baseUrl", "/images");
-        ReflectionTestUtils.setField(pictureUtil, "baseDirectory", "C:/mabcci/images/local");
+        ReflectionTestUtils.setField(pictureUtil, "baseUrl", baseUrl);
+        ReflectionTestUtils.setField(pictureUtil, "baseDirectory", baseDirectory);
         final String directoryName = pictureUtil.makeDirectory(PictureType.OOTD);
 
         final MultipartFile picture = mockPictures.get(0);
@@ -170,6 +168,11 @@ public class PictureUtilTest {
                 () -> assertThat(savedPicture).isNotNull(),
                 () -> assertThat(savedPicture).isExactlyInstanceOf(Picture.class)
         );
+
+        final String realPath = pictureUtil.mapUrlToDirectoryName(savedPicture.path());
+        pictureUtil.deletePicture(savedPicture);
+
+        assertThat(new File(realPath)).doesNotExist();
 
         final File testFolder = new File(directoryName);
         final File[] filesInTestFolder = testFolder.listFiles();
