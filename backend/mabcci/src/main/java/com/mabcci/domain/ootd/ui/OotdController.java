@@ -7,6 +7,7 @@ import com.mabcci.domain.ootd.application.OotdService;
 import com.mabcci.domain.ootd.domain.Ootd;
 import com.mabcci.domain.ootd.domain.OotdFilter;
 import com.mabcci.domain.ootd.dto.OotdSaveRequest;
+import com.mabcci.domain.ootd.dto.OotdUpdateRequest;
 import com.mabcci.domain.ootd.dto.OotdWithPicturesAndHashtagsRegisterRequest;
 import com.mabcci.domain.ootdhashtag.application.OotdHashtagService;
 import com.mabcci.domain.ootdhashtag.dto.OotdHashtagSaveRequest;
@@ -26,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @CrossOrigin(originPatterns = "http://localhost:*")
@@ -66,5 +68,12 @@ public class OotdController {
                                                @NotBlank @RequestParam("filter") final OotdFilter ootdFilter,
                                                @NotNull final Pageable pageable) {
         return ResponseEntity.ok(ootdService.findFilteredOotdList(nickname, ootdFilter, pageable));
+    }
+
+    @PutMapping("/api/ootds/{id}")
+    public ResponseEntity updateOotd(@Positive @PathVariable("id") final Long id,
+                                     @Valid @NotNull @RequestBody final OotdUpdateRequest ootdUpdateRequest) {
+        ootdService.updateOotd(id, ootdUpdateRequest);
+        return ResponseEntity.noContent().build();
     }
 }
