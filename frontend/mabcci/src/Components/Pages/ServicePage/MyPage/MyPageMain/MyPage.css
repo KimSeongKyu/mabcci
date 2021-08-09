@@ -101,6 +101,12 @@
   background-color: white;
 }
 
+.mypage-info-box button:active {
+  padding-left: 3px;
+  padding-top: 3px;
+  box-shadow: none;
+}
+
 .mypage-introduce-box {
   width: 80%;
   margin: auto;
@@ -119,6 +125,12 @@
 #mypage-web-nickname svg {
   margin-left: 10px;
   font-size: x-large;
+}
+
+#mypage-web-nickname svg:active {
+  padding-left: 3px;
+  padding-top: 3px;
+  box-shadow: none;
 }
 
 #mypage-mobile-category {
