@@ -10,7 +10,7 @@ const MyPageFeed = props => {
       <h5 className="mypage-feed-title">Feed</h5>
       <div className="mypage-feed-box">
         {numbers.map((N, index) => (
-          <div className="mypage-feed">
+          <div className="mypage-feed" key={N}>
             <div className="mypage-feed-overlay">
               <p>좋아요 개수 보여주기?</p>
             </div>

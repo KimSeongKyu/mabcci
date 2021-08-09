@@ -6,6 +6,7 @@ import 박서준 from './images/박서준.jfif';
 import 직사각형_남자 from './images/직사각형_남자.png'
 import { useHistory } from 'react-router';
 import { useState } from 'react';
+import {AiOutlineSetting} from "react-icons/ai"
 
 const MyPageProfile = props => {
   const history = useHistory
@@ -15,7 +16,7 @@ const MyPageProfile = props => {
   const clickProfile = () => {setProfile(!profile)}
   
   const goToSetting = () => {
-    history.push()
+    // history.push()
   }
 
    const clickFollow = (e) => {
@@ -48,7 +49,7 @@ const MyPageProfile = props => {
             {/* <h3>{props.myInfo.nickname}</h3> */}
             <h3>박서준</h3>
             <button type="submit" onClick={goToSetting}>
-              프로필편집
+              <AiOutlineSetting/>
             </button>
           </div>
           <div id="mypage-mobile-nickname">

@@ -53,6 +53,57 @@ const FollowBox = props => {
             <p>유저네임</p>
             <button type="submit">팔로잉</button>
           </div>
+          <div className="follower-box-content">
+            <img src={박서준} alt="하이" />
+            <p>유저네임</p>
+            <button type="submit">팔로잉</button>
+          </div>
+          <div className="follower-box-content">
+            <img src={박서준} alt="하이" />
+            <p>유저네임</p>
+            <button type="submit">팔로잉</button>
+          </div>
+          <div className="follower-box-content">
+            <img src={박서준} alt="하이" />
+            <p>유저네임</p>
+            <button type="submit">팔로잉</button>
+          </div>
+          <div className="follower-box-content">
+            <img src={박서준} alt="하이" />
+            <p>유저네임</p>
+            <button type="submit">팔로잉</button>
+          </div>
+          <div className="follower-box-content">
+            <img src={박서준} alt="하이" />
+            <p>유저네임</p>
+            <button type="submit">팔로잉</button>
+          </div>
+          <div className="follower-box-content">
+            <img src={박서준} alt="하이" />
+            <p>유저네임</p>
+            <button type="submit">팔로잉</button>
+          </div>
+          <div className="follower-box-content">
+            <img src={박서준} alt="하이" />
+            <p>유저네임</p>
+            <button type="submit">팔로잉</button>
+          </div>
+          <div className="follower-box-content">
+            <img src={박서준} alt="하이" />
+            <p>유저네임</p>
+            <button type="submit">팔로잉</button>
+          </div>
+          <div className="follower-box-content">
+            <img src={박서준} alt="하이" />
+            <p>유저네임</p>
+            <button type="submit">팔로잉</button>
+          </div>
+          <div className="follower-box-content">
+            <img src={박서준} alt="하이" />
+            <p>유저네임</p>
+            <button type="submit">팔로잉</button>
+          </div>
+          
         </div>
       ) : null}
     </div>

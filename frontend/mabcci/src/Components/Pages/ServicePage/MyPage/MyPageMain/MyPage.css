@@ -12,6 +12,14 @@
   justify-content: center;
   align-items: stretch;
   align-content: stretch;
+  position: relative;
+}
+
+.mypage-mobile-setting {
+  background-color: white;
+  text-align: end;
+  margin-right: 5px;
+  font-size: xx-large;
 }
 
 .mypage-profile-box {
@@ -104,6 +112,13 @@
 #mypage-web-nickname {
   margin-bottom: 10px;
   margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+#mypage-web-nickname svg {
+  margin-left: 10px;
+  font-size: x-large;
 }
 
 #mypage-mobile-category {
@@ -182,12 +197,16 @@
   #mypage-mobile-nickname {
     display: none;
   }
+  .mypage-mobile-setting {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 576px) {
   .mypage-profile-box {
     flex-direction: column;
     margin-bottom: 0;
+    margin-top: 0;
   }
 
   .mypage-profile-box div {
@@ -238,5 +257,11 @@
 
   .mypage-feed img {
     height: 200px;
+  }
+
+  .mypage-feed-container {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 40px;
   }
 }
