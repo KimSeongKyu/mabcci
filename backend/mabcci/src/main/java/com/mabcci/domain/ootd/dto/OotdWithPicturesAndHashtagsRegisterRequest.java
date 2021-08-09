@@ -1,15 +1,18 @@
 package com.mabcci.domain.ootd.dto;
 
+import com.mabcci.global.common.Nickname;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public final class OotdWithPicturesAndHashtagsRegisterRequest {
 
-    @NotBlank
-    private String nickname;
+    @Valid
+    private Nickname nickname;
 
     private String content;
     private String top;
@@ -23,7 +26,7 @@ public final class OotdWithPicturesAndHashtagsRegisterRequest {
     private List<String> hashtags;
 
 
-    public OotdWithPicturesAndHashtagsRegisterRequest(final String nickname, final String content, final String top,
+    public OotdWithPicturesAndHashtagsRegisterRequest(@Valid final Nickname nickname, final String content, final String top,
                                                       final String bottom, final String shoes, final String accessory,
                                                       final List<MultipartFile> pictures, final List<String> hashtags) {
         this.nickname = nickname;
@@ -36,7 +39,7 @@ public final class OotdWithPicturesAndHashtagsRegisterRequest {
         this.hashtags = hashtags;
     }
 
-    public final String getNickname() {
+    public final Nickname getNickname() {
         return nickname;
     }
 

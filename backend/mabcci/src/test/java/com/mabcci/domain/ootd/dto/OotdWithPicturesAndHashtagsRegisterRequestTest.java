@@ -1,5 +1,6 @@
 package com.mabcci.domain.ootd.dto;
 
+import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 import static com.mabcci.domain.picture.common.PictureUtilTest.PICTURE_FILES;
+import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -22,7 +24,7 @@ class OotdWithPicturesAndHashtagsRegisterRequestTest {
     @BeforeEach
     void setUp() {
         request = new OotdWithPicturesAndHashtagsRegisterRequest(
-                "닉네임", "내용", "상의", "하의", "신발", "악세사리",
+                NICKNAME, "내용", "상의", "하의", "신발", "악세사리",
                 PICTURE_FILES, new ArrayList<>(List.of("해시태그1", "해시태그2"))
         );
     }
@@ -40,7 +42,7 @@ class OotdWithPicturesAndHashtagsRegisterRequestTest {
     @Test
     void getter_test() {
         assertAll(
-                () -> assertThat(request.getNickname()).isEqualTo("닉네임"),
+                () -> assertThat(request.getNickname()).isEqualTo(NICKNAME),
                 () -> assertThat(request.getContent()).isEqualTo("내용"),
                 () -> assertThat(request.getTop()).isEqualTo("상의"),
                 () -> assertThat(request.getBottom()).isEqualTo("하의"),
@@ -56,7 +58,7 @@ class OotdWithPicturesAndHashtagsRegisterRequestTest {
     void validate_test() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         final OotdWithPicturesAndHashtagsRegisterRequest invalidRequest = new OotdWithPicturesAndHashtagsRegisterRequest(
-                null, null, null, null, null, null,
+                Nickname.of(null), null, null, null, null, null,
                 new ArrayList<>(), null);
 
         final Set<ConstraintViolation<OotdWithPicturesAndHashtagsRegisterRequest>> invalidPropertiesOfValidRequest =
