@@ -3,6 +3,7 @@ package com.mabcci.domain.ootd.application;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.ootd.domain.Ootd;
+import com.mabcci.domain.ootd.domain.OotdFilter;
 import com.mabcci.domain.ootd.domain.OotdRepository;
 import com.mabcci.domain.ootd.dto.OotdListResponse;
 import com.mabcci.domain.ootd.dto.OotdResponse;
@@ -56,8 +57,10 @@ public class OotdService {
     }
 
     @Transactional(readOnly = true)
-    public OotdListResponse findFilteredOotdList(final String filter, final Pageable pageable) {
-        final Page<Ootd> ootdPages = ootdRepository.findAll(pageable);
+    public OotdListResponse findFilteredOotdList(final Nickname nickname, final OotdFilter ootdFilter, final Pageable pageable) {
+        final Member member = memberRepository.findByNickName(nickname)
+                .orElseThrow(IllegalArgumentException::new);
+        final Page<Ootd> ootdPages = ootdFilter.findOotds(ootdRepository, member, pageable);
         final int totalPages = ootdPages.getTotalPages();
         final List<Ootd> ootds = ootdPages.toList();
 

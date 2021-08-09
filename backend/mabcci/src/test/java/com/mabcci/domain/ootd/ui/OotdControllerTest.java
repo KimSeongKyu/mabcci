@@ -9,6 +9,7 @@ import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.domain.ootd.application.OotdService;
 import com.mabcci.domain.ootd.domain.Ootd;
+import com.mabcci.domain.ootd.dto.OotdListResponse;
 import com.mabcci.domain.ootdhashtag.application.OotdHashtagService;
 import com.mabcci.domain.ootdpicture.application.OotdPictureService;
 import com.mabcci.domain.picture.application.PictureService;
@@ -134,7 +135,11 @@ class OotdControllerTest {
     @DisplayName("OotdController 인스턴스 필터링된 ootd 리스트 조회 테스트")
     @Test
     void find_filtered_ootd_list_test() throws Exception {
-        mockMvc.perform(get("/api/ootds")
+        final OotdListResponse ootdListResponse = new OotdListResponse(new ArrayList<>(), 1);
+
+        doReturn(ootdListResponse).when(ootdService).findFilteredOotdList(any(), any(), any());
+
+        mockMvc.perform(get("/api/ootds/{nickname}", "닉네임")
                 .param("filter", "all")
                 .param("size", "20")
                 .param("page", "0")
