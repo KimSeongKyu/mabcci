@@ -20,7 +20,7 @@ const MakeSuggestion = () => {
     memberId: '',
     mabcciId: '',
     description: '',
-    top: '',
+    top: null,
     bottom: '',
     shoes: '',
     acc: '',
@@ -32,15 +32,39 @@ const MakeSuggestion = () => {
 
       <div>
         <Swiper
+          style={{
+            '--swiper-navigation-color': '#f9a77c',
+            '--swiper-pagination-color': '#f9a77c',
+          }}
           zoom
           navigation
           pagination={{
             clickable: true,
           }}
-          className="mySwiper"
+          className="makeSuggestion-swiper"
         >
-          <SwiperSlide>TEST1</SwiperSlide>
-          <SwiperSlide>TEST2</SwiperSlide>
+          <SwiperSlide>
+            <IoShirt size="30" />
+            {suggestion.top ? (
+              <div className="makeSuggestion-swiper-container">
+                <img src="test" alt="사진을 추가해주세요" />
+                <button type="submit" className="btn-util OOTDWrite-btn-remove">
+                  X
+                </button>
+              </div>
+            ) : (
+              <div className="makeSuggestion-initial-image">No image yet</div>
+            )}
+          </SwiperSlide>
+          <SwiperSlide>
+            <GiArmoredPants size="30" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <GiConverseShoe size="30" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <FaShoppingBag size="30" />
+          </SwiperSlide>
         </Swiper>
       </div>
     </div>

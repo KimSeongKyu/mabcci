@@ -21,3 +21,30 @@
 .swiper-pagination-color {
   color: black;
 }
+
+.makeSuggestion-swiper-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.makeSuggestion-swiper-container > img {
+  background-size: hover;
+  width: 60%;
+  height: 40vh;
+  position: relative;
+}
+
+.makeSuggestion-initial-image {
+  width: 60%;
+  height: 40vh;
+  margin: auto;
+  border: 1px solid lightgrey;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: lightgrey;
+}
