@@ -76,4 +76,10 @@ public class OotdController {
         ootdService.updateOotd(id, ootdUpdateRequest);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/api/ootds/{id}")
+    public ResponseEntity deleteOotd(@Positive @PathVariable("id") final Long id) {
+        ootdService.deleteOotd(id);
+        return ResponseEntity.noContent().build();
+    }
 }
