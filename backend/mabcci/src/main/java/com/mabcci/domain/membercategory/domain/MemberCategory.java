@@ -1,5 +1,6 @@
 package com.mabcci.domain.membercategory.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mabcci.domain.category.domain.Category;
 import com.mabcci.domain.member.domain.Member;
 
@@ -11,6 +12,7 @@ public class MemberCategory {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;

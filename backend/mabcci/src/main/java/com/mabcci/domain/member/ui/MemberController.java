@@ -5,17 +5,22 @@ import com.mabcci.domain.member.application.MemberFindService;
 import com.mabcci.domain.member.application.MemberJoinService;
 import com.mabcci.domain.member.application.MemberUpdateService;
 import com.mabcci.domain.member.domain.Member;
+import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.domain.member.dto.request.MemberDeleteRequest;
 import com.mabcci.domain.member.dto.request.MemberJoinRequest;
 import com.mabcci.domain.member.dto.request.MemberUpdateRequest;
-import com.mabcci.domain.member.dto.response.MemberListResponse;
+import com.mabcci.domain.member.dto.response.MemberByMemberRoleResponse;
 import com.mabcci.domain.member.dto.response.MemberByNickNameResponse;
+import com.mabcci.domain.member.dto.response.MemberListResponse;
+import com.mabcci.domain.member.ui.result.FindMabcciApiResult;
 import com.mabcci.global.common.Nickname;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin(originPatterns = "http://localhost:*")
 @RestController
@@ -36,17 +41,17 @@ public class MemberController {
     }
 
     @PostMapping(value = "/api/members")
-    public ResponseEntity<MemberByNickNameResponse> join(@Valid @RequestBody final MemberJoinRequest memberJoinRequest) {
-        final Member member = memberJoinService.join(memberJoinRequest.member(), memberJoinRequest.getCategories());
-        final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse(member);
-        return ResponseEntity.ok().body(memberByNickNameResponse);
+    public ResponseEntity<MemberByNickNameResponse> join(@Valid @RequestBody final MemberJoinRequest request) {
+        final Member member = memberJoinService.join(request.member(), request.getCategories());
+        final MemberByNickNameResponse response = new MemberByNickNameResponse(member);
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/api/members/{nickname}")
     public ResponseEntity<MemberByNickNameResponse> findByNickname(@Valid @PathVariable final Nickname nickname) {
         final Member member = memberFindService.findByNickname(nickname);
-        final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse(member);
-        return ResponseEntity.ok().body(memberByNickNameResponse);
+        final MemberByNickNameResponse response = new MemberByNickNameResponse(member);
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/api/members")
@@ -55,16 +60,28 @@ public class MemberController {
         return ResponseEntity.ok().body(members);
     }
 
-    @PutMapping("/api/members/{nickname}")
-    public ResponseEntity<?> update(@Valid @RequestBody final MemberUpdateRequest memberUpdateRequest) {
-        final Member updatedMember = memberUpdateService.update(memberUpdateRequest.getNickname(), memberUpdateRequest.getGender());
-        final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse(updatedMember);
-        return ResponseEntity.ok().body(memberByNickNameResponse);
+    @GetMapping("/api/members/mabcci")
+    public ResponseEntity<FindMabcciApiResult<List<MemberByMemberRoleResponse>>> findByMabcci() {
+        final List<Member> member = memberFindService.findByMemberRole(MemberRole.MABCCI);
+        final List<MemberByMemberRoleResponse> responses = member.stream()
+                .map(MemberByMemberRoleResponse::createMemberByMemberRoleResponse)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(new FindMabcciApiResult<>(responses));
+    }
+
+    @PostMapping("/api/members/nickname")
+    public ResponseEntity<?> update(@Valid @ModelAttribute MemberUpdateRequest request,
+                                    @RequestParam MultipartFile picture) {
+        final Member member = memberUpdateService.update(request.getNickname(), request.getGender(), request.getDescription(),
+                request.getHeight(), request.getWeight(), request.getFootSize(), request.getBodyType(),
+                request.getCategories(), picture);
+
+        return ResponseEntity.ok().body("ok");
     }
 
     @DeleteMapping("/api/members/{nickname}")
-    public ResponseEntity<?> delete(@Valid @RequestBody final MemberDeleteRequest memberDeleteRequest) {
-        memberDeleteService.delete(memberDeleteRequest.getNickname(), memberDeleteRequest.getPassword());
+    public ResponseEntity<?> delete(@Valid @RequestBody final MemberDeleteRequest request) {
+        memberDeleteService.delete(request.getNickname(), request.getPassword());
         return ResponseEntity.ok().build();
     }
 

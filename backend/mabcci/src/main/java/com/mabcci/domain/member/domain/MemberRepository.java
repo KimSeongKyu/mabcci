@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -16,8 +17,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("select m from Member m join fetch m.memberSpecs where m.nickname = :nickname")
     Optional<Member> findByNickName(@Param("nickname") Nickname nickname);
 
-    @Query("select m from Member m join fetch m.memberCategories where m.memberRole = :memberRole")
-    Optional<Member> findByMemberRole(@Param("memberRole")MemberRole memberRole);
+    @Query("select m from Member m where m.memberRole = :memberRole")
+    List<Member> findByMemberRole(@Param("memberRole")MemberRole memberRole);
 
     Optional<Member> findByNicknameAndPassword(Nickname nickname, Password password);
 

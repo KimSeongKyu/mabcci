@@ -53,18 +53,6 @@ class MemberByNickNameResponseTest {
         ReflectionTestUtils.setField(member, "id", ID);
     }
 
-    @DisplayName("MemberResponse 인스턴스 기본 생성자를 이용한 생성 테스트")
-    @Test
-    void default_constructor_test() {
-
-        final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse();
-
-        assertAll(
-                () -> assertThat(memberByNickNameResponse).isNotNull(),
-                () -> assertThat(memberByNickNameResponse).isExactlyInstanceOf(MemberByNickNameResponse.class)
-        );
-    }
-
     @DisplayName("MemberResponse 인스턴스 생성 여부 테스트")
     @Test
     void constructor_test() {

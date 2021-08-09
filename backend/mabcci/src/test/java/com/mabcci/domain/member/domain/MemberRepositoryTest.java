@@ -88,19 +88,6 @@ class MemberRepositoryTest {
 
     }
 
-
-    @DisplayName("MemberRepository findByMemberRole 기능 테스트")
-    @Test
-    void findByMemberRole_test() {
-        testEntityManager.persist(member);
-        testEntityManager.persist(category);
-        testEntityManager.persist(MemberCategory.createMemberCategory(member, category));
-
-        final Member findMember = memberRepository.findByMemberRole(member.memberRole()).get();
-
-        assertThat(findMember.id()).isEqualTo(member.id());
-    }
-
     @DisplayName("MemberRepository findByNickname 기능 실패 테스트")
     @Test
     void findByNickname_fail_test() {

@@ -1,6 +1,6 @@
-logging:
-  level:
-    root: info
+logging.level:
+  root: info
+  org.hibernate.SQL: debug
 spring:
   h2:
     console:
@@ -12,12 +12,14 @@ spring:
     username: sa
     password:
   jpa:
-    database: h2
-    generate-ddl: true
-    show-sql: true
     hibernate:
       ddl-auto: create-drop
+    properties:
+      hibernate:
+        default_batch_fetch_size: 1000
+        format_sql: true
+
 path:
   upload: "/images"
-  resource: "file:///C:/mabcci/images/local"
-  real: "C:/mabcci/images/local"
+  resource: "file:///images/mabcci/images/local"
+  real: "Users/mabcci/images/local"

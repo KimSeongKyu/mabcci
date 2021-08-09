@@ -1,16 +1,16 @@
 package com.mabcci.domain.member.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mabcci.domain.BaseTimeEntity;
 import com.mabcci.domain.follow.domain.Follow;
 import com.mabcci.domain.membercategory.domain.MemberCategory;
 import com.mabcci.global.common.Email;
 import com.mabcci.global.common.Nickname;
 import com.mabcci.global.common.Password;
 import com.mabcci.global.common.Phone;
-import com.mabcci.domain.BaseTimeEntity;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Member extends BaseTimeEntity {
@@ -58,15 +58,12 @@ public class Member extends BaseTimeEntity {
     @JoinColumn(name = "member_specs_id")
     private MemberSpecs memberSpecs;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private Set<MemberCategory> memberCategories = new HashSet<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "following", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Follow> followings = new HashSet<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Follow> followers = new HashSet<>();
 
@@ -132,14 +129,23 @@ public class Member extends BaseTimeEntity {
         }
     }
 
+    public Member update(final Nickname nickName, final Gender gender, final String description,
+                         int height, int weight, int footSize, BodyType bodyType, final String picture) {
+        this.nickname = nickName;
+        this.gender = gender;
+        this.description = description;
+        this.picture = picture;
+        updateMemberSpecs(memberSpecs.update(height, weight, footSize, bodyType));
+        return this;
+    }
+
     public void updateMemberSpecs(final MemberSpecs memberSpecs) {
         this.memberSpecs = memberSpecs;
     }
 
-    public Member update(final Nickname nickName, final Gender gender) {
-        this.nickname = nickName;
-        this.gender = gender;
-        return this;
+    public void clearMemberCategory() {
+        memberCategories.stream().forEach(memberCategory -> memberCategory.changeMember(null));
+        memberCategories.clear();
     }
 
     public static class MemberBuilder {

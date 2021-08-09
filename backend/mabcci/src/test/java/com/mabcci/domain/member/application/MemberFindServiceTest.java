@@ -77,24 +77,6 @@ public class MemberFindServiceTest {
         );
     }
 
-    @DisplayName("MemberFindService 인스턴스 findByMemberRole() 기능 테스트")
-    @Test
-    void findByMemberRole_test() {
-        given(memberRepository.findByMemberRole(any())).willReturn(Optional.ofNullable(member));
-        final Member findMember = memberFindService.findByMemberRole(member.memberRole());
-        final MemberCategory memberCategory = new MemberCategory(findMember, category);
-        findMember.addMemberCategory(memberCategory);
-        final MemberByMemberRoleResponse response =
-                MemberByMemberRoleResponse.createMemberByMemberRoleResponse(findMember);
-
-        assertAll(
-                () -> assertThat(response.getNickName()).isEqualTo(member.nickname()),
-                () -> assertThat(response.getPicture()).isEqualTo(member.picture()),
-                () -> assertThat(response.getCategories()).isEqualTo(member.memberCategories())
-        );
-    }
-
-
     @DisplayName("MemberService 인스턴스 findAll() 기능 테스트")
     @Test
     void findAll_test() {
