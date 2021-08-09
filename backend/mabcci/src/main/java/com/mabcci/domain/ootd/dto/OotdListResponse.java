@@ -1,5 +1,7 @@
 package com.mabcci.domain.ootd.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.List;
 public final class OotdListResponse {
 
     @NotEmpty
+    @JsonProperty("ootdList")
     private List<OotdResponse> ootdResponses;
 
     @PositiveOrZero

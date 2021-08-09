@@ -6,6 +6,7 @@ import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.domain.ootd.domain.Ootd;
+import com.mabcci.domain.ootd.domain.OotdFilter;
 import com.mabcci.domain.ootd.domain.OotdRepository;
 import com.mabcci.domain.ootd.dto.OotdListResponse;
 import com.mabcci.domain.ootd.dto.OotdSaveRequest;
@@ -14,6 +15,7 @@ import com.mabcci.domain.ootdhashtag.domain.OotdHashtag;
 import com.mabcci.domain.ootdhashtag.domain.OotdHashtagRepository;
 import com.mabcci.domain.ootdpicture.domain.OotdPicture;
 import com.mabcci.domain.ootdpicture.domain.OotdPictureRepository;
+import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -146,12 +148,13 @@ class OotdServiceTest {
     @Test
     void find_filtered_ootd_list_test() {
         final Page<Ootd> ootdPages = new PageImpl<>(ootds);
+        doReturn(Optional.of(member)).when(memberRepository).findByNickName(any());
         doReturn(ootdPages).when(ootdRepository).findAll((Pageable) any());
         doReturn(Optional.of(ootdPicture)).when(ootdPictureRepository).findFirstByOotd(any());
         doReturn(ootdHashtags).when(ootdHashtagRepository).findByOotd(any());
         doReturn(1L).when(ootdLikeRepository).countByOotd(any());
 
-        final OotdListResponse ootdListResponse = ootdService.findFilteredOotdList("all", PageRequest.of(1, 20));
+        final OotdListResponse ootdListResponse = ootdService.findFilteredOotdList(Nickname.of("닉네임"), OotdFilter.ALL, PageRequest.of(1, 20));
 
         verify(ootdRepository, times(1)).findAll((Pageable) any());
         verify(ootdPictureRepository, times(2)).findFirstByOotd(any());

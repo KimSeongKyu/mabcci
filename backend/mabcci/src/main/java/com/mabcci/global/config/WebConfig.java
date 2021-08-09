@@ -1,7 +1,9 @@
 package com.mabcci.global.config;
 
+import com.mabcci.domain.ootd.util.StringToOotdFilterConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -24,5 +26,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .forEach(folder -> registry.addResourceHandler(uploadPath + folder + "**")
                         .addResourceLocations(resourcePath + folder)
                 );
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new StringToOotdFilterConverter());
     }
 }
