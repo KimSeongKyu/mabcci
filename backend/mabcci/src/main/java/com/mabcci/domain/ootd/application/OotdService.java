@@ -8,6 +8,7 @@ import com.mabcci.domain.ootd.domain.OotdRepository;
 import com.mabcci.domain.ootd.dto.OotdListResponse;
 import com.mabcci.domain.ootd.dto.OotdResponse;
 import com.mabcci.domain.ootd.dto.OotdSaveRequest;
+import com.mabcci.domain.ootd.dto.OotdUpdateRequest;
 import com.mabcci.domain.ootdLike.domain.OotdLikeRepository;
 import com.mabcci.domain.ootdhashtag.domain.OotdHashtagRepository;
 import com.mabcci.domain.ootdpicture.domain.OotdPictureRepository;
@@ -79,5 +80,12 @@ public class OotdService {
                 .collect(toList());
 
         return new OotdListResponse(ootdResponses, totalPages);
+    }
+
+    @Transactional
+    public void updateOotd(final Long id, final OotdUpdateRequest ootdUpdateRequest) {
+        Ootd ootd = ootdRepository.findById(id)
+                .orElseThrow(IllegalArgumentException::new);
+        ootd.update(ootdUpdateRequest);
     }
 }
