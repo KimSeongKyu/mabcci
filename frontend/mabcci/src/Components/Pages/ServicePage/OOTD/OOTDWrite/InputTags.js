@@ -23,10 +23,12 @@ const Tag = ({ txt, idx, send, tagColor }) => {
 export default function InputTags({ onTag, placeHolder, tagColor, hashTag }) {
   const [tags, setTags] = useState([]);
 
-  // useEffect(async ()=>{
-  //   console.log(hashTag.hashTag, typeof hashTag.hashTag)
-  //   await setTags([...tags, ...hashTag.hashTag])
-  // },[])
+  // console.log(hashTag);
+  // console.log(hashTag.hashTag)
+  // setTags(hashTag.hashTag);
+  // useEffect(() => {
+  //   setTags(hashTag.hashTag);
+  // }, [])
 
   useEffect(() => {
     onTag(tags);

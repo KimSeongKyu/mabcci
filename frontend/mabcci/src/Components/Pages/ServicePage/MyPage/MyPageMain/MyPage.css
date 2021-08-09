@@ -1,3 +1,27 @@
+.mypage-entire {
+  position: relative;
+}
+
+.mypage-container {
+  min-width: 320px;
+  max-width: 768px;
+  min-height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  align-content: stretch;
+  position: relative;
+}
+
+.mypage-mobile-setting {
+  background-color: white;
+  text-align: end;
+  margin-right: 5px;
+  font-size: xx-large;
+}
+
 .mypage-profile-box {
   width: 80%;
   margin: auto;
@@ -7,18 +31,60 @@
   justify-content: space-between;
 }
 
+.mypage-profile-inner {
+  position: relative;
+  transition: all 1s;
+  transform-style: preserve-3d;
+  margin-left: 10%;
+}
+
+/* .mypage-profile-inner:hover {
+  transform: rotateY(180deg);
+} */
+
+.mypage-profile-inner-active {
+  transform: rotateY(180deg);
+}
+
 .mypage-profile-box img {
   background-size: cover;
   border-radius: 50%;
-  width: 70%;
-  margin-bottom: 30px;
+  width: 150px;
+  height: 150px;
+  backface-visibility: hidden;
+  cursor: pointer;
+}
+
+.mypage-profile-bodyinfo {
+  position: absolute;
+  transform: rotateY(180deg);
+  border-radius: 50%;
+  width: 150px;
+  width: 150px;
+  background-color: white;
+  border: 1px solid var(--main-color-1);
+  height: 100%;
+  text-align: center;
+  display: flex;
+  cursor: pointer;
+}
+
+.mypage-profile-bodyinfo img {
+  width: 30%;
+  height: 70%;
+  margin: auto;
+  margin-right: 0;
+}
+
+.mypage-profile-bodysize {
+  margin: auto;
+  font-weight: 700;
 }
 
 .mypage-info-box {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  margin-bottom: 30px;
   min-width: 200px;
 }
 
@@ -31,11 +97,32 @@
   margin-right: 10px;
 }
 
+.mypage-info-box button {
+  background-color: white;
+}
+
 .mypage-introduce-box {
   width: 80%;
   margin: auto;
+  margin-top: 30px;
   margin-left: 15%;
   text-align: start;
+}
+
+#mypage-web-nickname {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+#mypage-web-nickname svg {
+  margin-left: 10px;
+  font-size: x-large;
+}
+
+#mypage-mobile-category {
+  margin-top: 10px;
 }
 
 .mypage-introduce-box p {
@@ -49,13 +136,68 @@
   border-radius: 5px;
 }
 
-.mypage-feed-box {
+.mypage-feed-container {
   border-top: solid 1px lightgray;
   margin-top: 30px;
 }
 
+.mypage-feed-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 3px;
+}
+
+.mypage-feed-title {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  font-weight: 900;
+  color: var(--main-color-1);
+}
+
+.mypage-feed {
+  margin: 10px;
+  background-size: cover;
+  position: relative;
+}
+
+.mypage-feed img {
+  width: 100%;
+  border-radius: 10px;
+  height: 250px;
+}
+
+.mypage-feed-overlay {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  text-align: center;
+  opacity: 0;
+}
+
+.mypage-feed-overlay p {
+  margin-top: 50%;
+  font-weight: 400;
+  color: white;
+  opacity: 0.75;
+}
+
+.mypage-feed:hover {
+  transform: scale(1.05);
+  transition: all 1s;
+  cursor: pointer;
+}
+
+.mypage-feed-overlay:hover {
+  opacity: 1;
+}
+
 @media screen and (min-width: 576px) {
   #mypage-mobile-nickname {
+    display: none;
+  }
+  .mypage-mobile-setting {
     display: none;
   }
 }
@@ -64,6 +206,7 @@
   .mypage-profile-box {
     flex-direction: column;
     margin-bottom: 0;
+    margin-top: 0;
   }
 
   .mypage-profile-box div {
@@ -72,8 +215,28 @@
   }
 
   .mypage-profile-box img {
-    width: 40%;
+    width: 35%;
     margin-bottom: 0;
+  }
+
+  .mypage-profile-inner {
+    margin-left: 0;
+  }
+
+  .mypage-profile-bodyinfo {
+    width: 35%;
+    height: 100%;
+    margin-left: 32.5%;
+  }
+
+  .mypage-profile-bodyinfo img {
+    margin-bottom: 13%;
+    margin-left: 17%;
+  }
+
+  .mypage-profile-bodysize {
+    margin-right: 15%;
+    margin-top: 30%;
   }
 
   .mypage-blank {
@@ -86,5 +249,19 @@
 
   #mypage-web-nickname {
     display: none;
+  }
+
+  .mypage-feed {
+    margin: 2px;
+  }
+
+  .mypage-feed img {
+    height: 200px;
+  }
+
+  .mypage-feed-container {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 40px;
   }
 }

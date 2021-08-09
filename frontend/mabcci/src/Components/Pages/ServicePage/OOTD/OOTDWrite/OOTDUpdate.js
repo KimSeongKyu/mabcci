@@ -39,7 +39,6 @@ function OOTDUpdate() {
 
   useEffect(async () => {
     await setMyOOTDInfo({ ...myOOTDInfo, ...location.state.info });
-    console.log(myOOTDInfo);
   }, []);
 
   const addImage = e => {
@@ -83,6 +82,7 @@ function OOTDUpdate() {
   };
 
   const submitOOTD = async () => {
+    console.log(myOOTDInfo);
     const res = await OOTDUpdateApi(myOOTDInfo);
     if (res.status === 200) {
       console.log('mock연동 성공');

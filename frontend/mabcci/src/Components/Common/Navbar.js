@@ -49,7 +49,8 @@ function Nav() {
 
   const goMypage = () => {
     const myInfo = JSON.parse(localStorage.getItem('userInfo'));
-    setpopover(!popover);
+    setpopover(false);
+    setNowMenu('mypage');
     history.push(`/mypage/${myInfo.nickname}`);
   };
 
@@ -146,12 +147,15 @@ function Nav() {
             <p>커뮤니티</p>
           </div>
         </Link>
-        <Link to="/mypage">
-          <div className="navbar-mobile-btn">
-            <FiUser />
-            <p>내 정보</p>
-          </div>
-        </Link>
+        <button
+          className="navbar-mobile-btn"
+          onClick={goMypage}
+          name="mypage"
+          type="submit"
+        >
+          <FiUser />
+          <p>내 정보</p>
+        </button>
       </div>
     </div>
   );

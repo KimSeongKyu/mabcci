@@ -116,6 +116,7 @@
 .navbar-mobile-btn {
   text-align: center;
   cursor: pointer;
+  background-color: white;
 }
 
 .navbar-mobile-btn:hover {
