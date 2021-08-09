@@ -29,6 +29,10 @@ const MyPageProfile = props => {
      props.setChatBox(true)
    }
 
+   const clickProposalList = () => {
+     props.setProposalBox(true)
+   }
+
   return (
     <>
       <div className="mypage-profile-box">
@@ -55,7 +59,7 @@ const MyPageProfile = props => {
             {/* <h3>{props.myInfo.nickname}</h3> */}
             <h3>박서준</h3>
             <button type="submit">
-              <CgFileDocument />
+              <CgFileDocument onClick={clickProposalList} />
             </button>
             <button type="submit">
               <AiOutlineMessage onClick={clickChatList} />

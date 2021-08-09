@@ -84,6 +84,12 @@
   font-size: small;
 }
 
+.mypage-modal-box-content button:active {
+  padding-left: 3px;
+  padding-top: 3px;
+  box-shadow: none;
+}
+
 @media screen and (max-width: 576px) {
   .mypage-modal-box {
     margin-top: 200px;

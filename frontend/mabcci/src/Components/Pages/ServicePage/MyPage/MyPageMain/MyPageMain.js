@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { HiMenu } from 'react-icons/hi';
 import MabcciReview from './MabcciReview';
@@ -10,6 +11,8 @@ import MyChatList from '../MyPageSetting/MyChatList/MyChatList';
 import MyProposalList from '../MyPageSetting/MyProposal/MyProposalList';
 
 function MyPageMain() {
+  const history = useHistory();
+
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
   const [myInfo, setMyInfo] = useState({});
@@ -26,6 +29,10 @@ function MyPageMain() {
     await setMyInfo(res.myInfo);
   }, []);
 
+  const goToMobileMenu = () => {
+    history.push(`/mypage/menu/${userInfo.nickname}`);
+  };
+
   return (
     <div className="mypage-entire">
       <FollowBox followBox={followBox} setFollowBox={setFollowBox} />
@@ -35,7 +42,11 @@ function MyPageMain() {
         setProposalBox={setProposalBox}
       />
       <div className="mypage-container">
-        <button className="mypage-mobile-setting" type="submit">
+        <button
+          className="mypage-mobile-setting"
+          type="submit"
+          onClick={goToMobileMenu}
+        >
           <HiMenu />
         </button>
         <MyPageProfile

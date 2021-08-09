@@ -8,11 +8,15 @@ import { Switch, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 // Navbar
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Nav from './Components/Common/Navbar';
 // Pages - ServicePage
 import Home from './Components/Pages/ServicePage/Home/Home';
 import CommunityMain from './Components/Pages/ServicePage/Community/CommunityMain/CommunityMain';
 import MyPageMain from './Components/Pages/ServicePage/MyPage/MyPageMain/MyPageMain';
+import MyPageMobileMenu from './Components/Pages/ServicePage/MyPage/MyPageSetting/MySetting/MyPageMobileMenu';
+import MyPageProposalListMobile from './Components/Pages/ServicePage/MyPage/MyPageSetting/MyProposal/MyProposalListMobile';
+import MyPageProposalReviewMobile from './Components/Pages/ServicePage/MyPage/MyPageSetting/MyProposal/MyProposalReviewMobile';
 import OOTDMain from './Components/Pages/ServicePage/OOTD/OOTDMain/OOTDMain';
 import OOTDDetail from './Components/Pages/ServicePage/OOTD/OOTDDetail/OOTDDetail';
 import OOTDWrite from './Components/Pages/ServicePage/OOTD/OOTDWrite/OOTDWrite';
@@ -59,6 +63,21 @@ function App() {
         <Route exact path="/home" component={Home} />
         <Route exact path="/community" component={CommunityMain} />
         <Route exact path="/mypage/:nickname" component={MyPageMain} />
+        <Route
+          exact
+          path="/mypage/menu/:nickname"
+          component={MyPageMobileMenu}
+        />
+        <Route
+          exact
+          path="/mypage/menu/proposal/:nickname"
+          component={MyPageProposalListMobile}
+        />
+        <Route
+          exact
+          path="/mypage/menu/review/:nickname"
+          component={MyPageProposalReviewMobile}
+        />
         <Route exact path="/OOTD" component={OOTDMain} />
         <Route exact path="/OOTDWrite" component={OOTDWrite} />
         <Route exact path="/OOTD/:id/:nickname" component={OOTDDetail} />

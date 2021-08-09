@@ -9641,7 +9641,7 @@
   optionalDependencies:
     "fsevents" "^2.1.3"
 
-"react-transition-group@^4.4.1":
+"react-transition-group@^4.4.1", "react-transition-group@^4.4.2":
   "integrity" "sha512-/RNYfRAMlZwDSr6z4zNKV6xu53/e2BuaBbGhbyYIXTrmgu/bGHzmqOs7mJSJBHy9Ud+ApHx3QjrkKSp1pxvlFg=="
   "resolved" "https://registry.npmjs.org/react-transition-group/-/react-transition-group-4.4.2.tgz"
   "version" "4.4.2"

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import './Follow.css';
 import 박서준 from '../MyPageMain/images/박서준.jfif';
+import { IoMdClose } from 'react-icons/io';
 
 const FollowBox = props => {
 
@@ -25,7 +26,7 @@ const FollowBox = props => {
               className="mypage-modal-box-btn"
               onClick={exitFollowBox}
             >
-              X
+              <IoMdClose/>
             </button>
           </div>
           <div className="mypage-modal-box-content">
@@ -45,7 +46,7 @@ const FollowBox = props => {
               className="mypage-modal-box-btn"
               onClick={exitFollowBox}
             >
-              X
+              <IoMdClose/>
             </button>
           </div>
           <div className="mypage-modal-box-content">
