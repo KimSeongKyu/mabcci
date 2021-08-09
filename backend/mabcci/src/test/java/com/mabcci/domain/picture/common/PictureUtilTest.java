@@ -77,6 +77,25 @@ public class PictureUtilTest {
         );
     }
 
+    @DisplayName("PictureUtil 인스턴스 디렉토리 이름을 url로 변경하는 기능 테스트")
+    @Test
+    void map_directory_name_to_url_test() {
+        final String baseUrl = "/images";
+        final String baseDirectory = "C:/mabcci/images/local";
+        ReflectionTestUtils.setField(pictureUtil, "baseUrl", baseUrl);
+        ReflectionTestUtils.setField(pictureUtil, "baseDirectory", baseDirectory);
+        final String directoryName = baseDirectory.concat(File.separator).concat(PictureType.OOTD.type());
+
+        final String url = pictureUtil.mapDirectoryNameToUrl(directoryName);
+
+        assertAll(
+                () -> assertThat(url).contains(baseUrl),
+                () -> assertThat(url).contains("/"),
+                () -> assertThat(url).doesNotContain(baseDirectory),
+                () -> assertThat(url).doesNotContain(File.separator)
+        );
+    }
+
     @DisplayName("PictureUtil 인스턴스 확장자명 생성 테스트")
     @Test
     void make_original_file_extension_test() {
