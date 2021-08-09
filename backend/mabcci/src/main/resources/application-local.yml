@@ -16,6 +16,7 @@ spring:
     generate-ddl: true
     show-sql: true
     hibernate:
+      default_batch_fetch_size: 1000
       ddl-auto: create-drop
 path:
   upload: "/images"

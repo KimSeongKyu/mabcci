@@ -20,4 +20,8 @@ public class Category extends BaseTimeEntity {
         this.categoryName = categoryName;
     }
 
+    public String categoryName() {
+        return categoryName;
+    }
+
 }

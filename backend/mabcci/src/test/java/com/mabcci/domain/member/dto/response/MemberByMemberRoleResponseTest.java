@@ -73,7 +73,7 @@ class MemberByMemberRoleResponseTest {
         assertAll(
                 () -> assertThat(response.getNickName()).isEqualTo(member.nickname()),
                 () -> assertThat(response.getPicture()).isEqualTo(member.picture()),
-                () -> assertThat(response.getCategories()).isEqualTo(member.memberCategories())
+                () -> assertThat(response.getCategories()).containsExactly(category.categoryName())
         );
     }
 }

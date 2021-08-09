@@ -5,17 +5,21 @@ import com.mabcci.domain.member.application.MemberFindService;
 import com.mabcci.domain.member.application.MemberJoinService;
 import com.mabcci.domain.member.application.MemberUpdateService;
 import com.mabcci.domain.member.domain.Member;
+import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.domain.member.dto.request.MemberDeleteRequest;
 import com.mabcci.domain.member.dto.request.MemberJoinRequest;
 import com.mabcci.domain.member.dto.request.MemberUpdateRequest;
+import com.mabcci.domain.member.dto.response.MemberByMemberRoleResponse;
 import com.mabcci.domain.member.dto.response.MemberListResponse;
 import com.mabcci.domain.member.dto.response.MemberByNickNameResponse;
+import com.mabcci.domain.member.ui.result.FindMabcciApiResult;
 import com.mabcci.global.common.Nickname;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin(originPatterns = "http://localhost:*")
 @RestController
@@ -53,6 +57,15 @@ public class MemberController {
     public ResponseEntity<List<MemberListResponse>> findAll() {
         final List<MemberListResponse> members = memberFindService.findAll();
         return ResponseEntity.ok().body(members);
+    }
+
+    @GetMapping("/api/members/mabcci")
+    public ResponseEntity<FindMabcciApiResult<List<MemberByMemberRoleResponse>>> findByMabcci() {
+        final List<Member> member = memberFindService.findByMemberRole(MemberRole.MABCCI);
+        final List<MemberByMemberRoleResponse> memberByMemberRoleResponses = member.stream()
+                .map(MemberByMemberRoleResponse::createMemberByMemberRoleResponse)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(new FindMabcciApiResult<>(memberByMemberRoleResponses));
     }
 
     @PutMapping("/api/members/{nickname}")

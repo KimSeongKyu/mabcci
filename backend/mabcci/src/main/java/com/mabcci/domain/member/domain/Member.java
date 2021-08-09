@@ -1,16 +1,16 @@
 package com.mabcci.domain.member.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mabcci.domain.BaseTimeEntity;
 import com.mabcci.domain.follow.domain.Follow;
 import com.mabcci.domain.membercategory.domain.MemberCategory;
 import com.mabcci.global.common.Email;
 import com.mabcci.global.common.Nickname;
 import com.mabcci.global.common.Password;
 import com.mabcci.global.common.Phone;
-import com.mabcci.domain.BaseTimeEntity;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Member extends BaseTimeEntity {
@@ -58,15 +58,12 @@ public class Member extends BaseTimeEntity {
     @JoinColumn(name = "member_specs_id")
     private MemberSpecs memberSpecs;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private Set<MemberCategory> memberCategories = new HashSet<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "following", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Follow> followings = new HashSet<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Follow> followers = new HashSet<>();
 

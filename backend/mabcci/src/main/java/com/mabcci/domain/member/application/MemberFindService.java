@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Transactional(readOnly = true)
 @Service
 public class MemberFindService {
 
@@ -21,19 +22,15 @@ public class MemberFindService {
         this.memberRepository = memberRepository;
     }
 
-    @Transactional(readOnly = true)
     public Member findByNickname(final Nickname nickname) {
         return memberRepository.findByNickName(nickname)
                 .orElseThrow(MemberNotFoundException::new);
     }
 
-    @Transactional(readOnly = true)
-    public Member findByMemberRole(final MemberRole memberRole) {
-        return memberRepository.findByMemberRole(memberRole)
-                .orElseThrow(MemberNotFoundException::new);
+    public List<Member> findByMemberRole(final MemberRole memberRole) {
+        return memberRepository.findByMemberRole(memberRole);
     }
 
-    @Transactional(readOnly = true)
     public List<MemberListResponse> findAll() {
         return memberRepository.findAll().stream()
                 .map(MemberListResponse::new)
