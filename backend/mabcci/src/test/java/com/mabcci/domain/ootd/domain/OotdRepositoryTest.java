@@ -183,10 +183,10 @@ class OotdRepositoryTest {
         testEntityManager.persist(member);
         testEntityManager.persist(ootd);
 
-        assertThat(ootdRepository.existsById(1L)).isTrue();
+        assertThat(ootdRepository.existsById(ootd.id())).isTrue();
 
         ootdRepository.delete(ootd);
 
-        assertThat(ootdRepository.existsById(1L)).isFalse();
+        assertThat(ootdRepository.existsById(ootd.id())).isFalse();
     }
 }
