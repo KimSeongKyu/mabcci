@@ -28,6 +28,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @DataJpaTest
 class OotdRepositoryTest {
 
+    @Autowired private OotdRepository ootdRepository;
+    @Autowired private TestEntityManager testEntityManager;
+
     private Ootd ootd;
     private Ootd firstFollowingMemberOotd;
     private Ootd secondFollowingMemberOotd;
@@ -36,12 +39,6 @@ class OotdRepositoryTest {
     private Member secondFollowingMember;
     private Follow firstFollow;
     private Follow secondFollow;
-
-    @Autowired
-    private OotdRepository ootdRepository;
-
-    @Autowired
-    private TestEntityManager testEntityManager;
 
     @BeforeEach
     void setUp() {
@@ -113,7 +110,7 @@ class OotdRepositoryTest {
         );
     }
 
-    @DisplayName("OotdRepository save 기능 테스트")
+    @DisplayName("OotdRepository ootd 저장 테스트")
     @Test
     void save_test() {
         testEntityManager.persist(member);
@@ -124,7 +121,7 @@ class OotdRepositoryTest {
     }
 
 
-    @DisplayName("OotdRepository findById 기능 테스트")
+    @DisplayName("OotdRepository ootd id를 이용한 조회 테스트")
     @Test
     void find_by_id_test() {
         testEntityManager.persist(member);
@@ -135,11 +132,11 @@ class OotdRepositoryTest {
         assertThat(foundOotd.id()).isEqualTo(ootd.id());
     }
 
-    @DisplayName("OotdRepository 전체 ootd 리스트 조회 기능 테스트")
+    @DisplayName("OotdRepository 전체 ootd 리스트 조회 테스트")
     @Test
     void find_all_test() {
         testEntityManager.persist(member);
-        for(int i = 0; i < 21; i++) {
+        for (int i = 0; i < 21; i++) {
             testEntityManager.persist(Ootd.builder()
                     .member(member)
                     .content("content")
@@ -161,7 +158,7 @@ class OotdRepositoryTest {
         );
     }
 
-    @DisplayName("OotdRepository 팔로잉한 멤버의 ootd 리스트 조회 기능 테스트")
+    @DisplayName("OotdRepository 팔로잉한 멤버의 ootd 리스트 조회 테스트")
     @Test
     void find_all_of_following_test() {
         testEntityManager.persist(member);
@@ -175,5 +172,18 @@ class OotdRepositoryTest {
         Page<Ootd> ootdsOfFollowingMember = ootdRepository.findAllOfFollowing(member, PageRequest.of(0, 20));
 
         assertThat(ootdsOfFollowingMember.toList().size()).isEqualTo(2);
+    }
+
+    @DisplayName("OotdRepository ootd 삭제 테스트")
+    @Test
+    void delete_test() {
+        testEntityManager.persist(member);
+        testEntityManager.persist(ootd);
+
+        assertThat(ootdRepository.existsById(ootd.id())).isTrue();
+
+        ootdRepository.delete(ootd);
+
+        assertThat(ootdRepository.existsById(ootd.id())).isFalse();
     }
 }

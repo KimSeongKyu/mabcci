@@ -3,6 +3,7 @@ package com.mabcci.domain.ootd.domain;
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
+import com.mabcci.domain.ootd.dto.request.OotdUpdateRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -83,6 +84,27 @@ public class OotdTest {
                 () -> assertThat(ootd.bottom()).isEqualTo("bottom"),
                 () -> assertThat(ootd.shoes()).isEqualTo("shoes"),
                 () -> assertThat(ootd.accessory()).isEqualTo("accessory"),
+                () -> assertThat(ootd.views()).isEqualTo(0L)
+        );
+    }
+
+    @DisplayName("Ootd 인스턴스의 수정 테스트")
+    @Test
+    void update_test() {
+        ReflectionTestUtils.setField(ootd, "id", 1L);
+        final OotdUpdateRequest ootdUpdateRequest =
+                new OotdUpdateRequest("내용", "상의", "하의", "신발", "악세사리");
+
+        ootd = ootd.update(ootdUpdateRequest);
+
+        assertAll(
+                () -> assertThat(ootd.id()).isEqualTo(1L),
+                () -> assertThat(ootd.member()).isEqualTo(member),
+                () -> assertThat(ootd.content()).isEqualTo("내용"),
+                () -> assertThat(ootd.top()).isEqualTo("상의"),
+                () -> assertThat(ootd.bottom()).isEqualTo("하의"),
+                () -> assertThat(ootd.shoes()).isEqualTo("신발"),
+                () -> assertThat(ootd.accessory()).isEqualTo("악세사리"),
                 () -> assertThat(ootd.views()).isEqualTo(0L)
         );
     }

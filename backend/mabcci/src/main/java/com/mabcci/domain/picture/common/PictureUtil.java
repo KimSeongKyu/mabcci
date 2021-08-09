@@ -60,6 +60,11 @@ public class PictureUtil {
                 .replace(File.separator, URL_SEPARATOR);
     }
 
+    public String mapUrlToDirectoryName(final String url) {
+        return url.replace(baseUrl, baseDirectory)
+                .replace(URL_SEPARATOR, File.separator);
+    }
+
     public String makeFileName(final String fileExtension) {
         return System.nanoTime() + fileExtension;
     }
@@ -69,5 +74,10 @@ public class PictureUtil {
             return PNG_FILE_EXTENSION;
         }
         return JPG_FILE_EXTENSION;
+    }
+
+    public void deletePicture(final Picture picture) {
+        final String path = mapUrlToDirectoryName(picture.path());
+        new File(path).delete();
     }
 }

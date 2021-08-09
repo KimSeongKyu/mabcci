@@ -5,9 +5,9 @@ import com.mabcci.domain.auth.domain.RefreshToken;
 import com.mabcci.domain.auth.domain.RefreshTokenRepository;
 import com.mabcci.domain.auth.domain.vo.JwtToken;
 import com.mabcci.domain.auth.domain.vo.JwtTokenType;
-import com.mabcci.domain.auth.dto.LoginRequest;
-import com.mabcci.domain.auth.dto.LoginResponse;
-import com.mabcci.domain.auth.dto.LogoutRequest;
+import com.mabcci.domain.auth.dto.request.LoginRequest;
+import com.mabcci.domain.auth.dto.request.LogoutRequest;
+import com.mabcci.domain.auth.dto.response.LoginResponse;
 import com.mabcci.domain.auth.exception.NotLoginMemberException;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
@@ -34,20 +34,11 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class AuthServiceTest {
 
-    @InjectMocks
-    private AuthService authService;
-
-    @Mock
-    private RefreshTokenRepository refreshTokenRepository;
-
-    @Mock
-    private MemberRepository memberRepository;
-
-    @Mock
-    private Member member;
-
-    @Mock
-    private JwtUtil jwtUtil;
+    @InjectMocks private AuthService authService;
+    @Mock private RefreshTokenRepository refreshTokenRepository;
+    @Mock private MemberRepository memberRepository;
+    @Mock private Member member;
+    @Mock private JwtUtil jwtUtil;
 
     @DisplayName("AuthService 인스턴스 로그인 기능 성공 테스트")
     @Test

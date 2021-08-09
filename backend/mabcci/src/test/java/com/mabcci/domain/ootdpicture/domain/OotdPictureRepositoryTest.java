@@ -12,6 +12,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import java.util.List;
+
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
 import static com.mabcci.global.common.EmailTest.EMAIL;
@@ -72,7 +74,7 @@ class OotdPictureRepositoryTest {
         );
     }
 
-    @DisplayName("OotdPictureRepository save 기능 테스트")
+    @DisplayName("OotdPictureRepository ootd 사진 저장 테스트")
     @Test
     void save_test() {
         final OotdPicture savedOotdPicture = ootdPictureRepository.save(ootdPicture);
@@ -80,7 +82,7 @@ class OotdPictureRepositoryTest {
         assertThat(savedOotdPicture.id()).isEqualTo(ootdPicture.id());
     }
 
-    @DisplayName("OotdPictureRepository ootd의 대표 사진 조회 기능 테스트")
+    @DisplayName("OotdPictureRepository ootd의 대표 사진 조회 테스트")
     @Test
     void find_first_ootd_picture_test() {
         testEntityManager.persist(ootdPicture);
@@ -88,5 +90,15 @@ class OotdPictureRepositoryTest {
         final OotdPicture firstOotdPicture = ootdPictureRepository.findFirstByOotd(ootd).get();
 
         assertThat(firstOotdPicture.id()).isEqualTo(ootdPicture.id());
+    }
+
+    @DisplayName("OotdPictureRepository ootd에 해당하는 ootd 사진 리스트 조회 테스트")
+    @Test
+    void find_all_by_ootd_test() {
+        testEntityManager.persist(ootdPicture);
+
+        final List<OotdPicture> ootdPictures = ootdPictureRepository.findAllByOotd(ootd);
+
+        assertThat(ootdPictures.size()).isEqualTo(1);
     }
 }

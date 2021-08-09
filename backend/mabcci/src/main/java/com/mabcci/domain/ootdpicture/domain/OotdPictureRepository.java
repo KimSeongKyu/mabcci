@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface OotdPictureRepository extends JpaRepository<OotdPicture, Long> {
     Optional<OotdPicture> findFirstByOotd(Ootd ootd);
+    List<OotdPicture> findAllByOotd(Ootd ootd);
 }

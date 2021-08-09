@@ -1,9 +1,8 @@
 package com.mabcci.domain.auth.ui;
 
 import com.mabcci.domain.auth.application.AuthService;
-import com.mabcci.domain.auth.dto.LoginRequest;
-import com.mabcci.domain.auth.dto.LogoutRequest;
-import lombok.RequiredArgsConstructor;
+import com.mabcci.domain.auth.dto.request.LoginRequest;
+import com.mabcci.domain.auth.dto.request.LogoutRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
