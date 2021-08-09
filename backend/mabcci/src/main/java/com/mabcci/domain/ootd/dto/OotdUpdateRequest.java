@@ -1,7 +1,6 @@
 package com.mabcci.domain.ootd.dto;
 
 import javax.validation.constraints.NotEmpty;
-import java.util.List;
 
 public final class OotdUpdateRequest {
 
@@ -12,19 +11,17 @@ public final class OotdUpdateRequest {
     private String bottom;
     private String shoes;
     private String accessory;
-    private List<String> hashtags;
 
     private OotdUpdateRequest() {
     }
 
     public OotdUpdateRequest(final String content, final String top, final String bottom, final String shoes,
-                             final String accessory, final List<String> hashtags) {
+                             final String accessory) {
         this.content = content;
         this.top = top;
         this.bottom = bottom;
         this.shoes = shoes;
         this.accessory = accessory;
-        this.hashtags = hashtags;
     }
 
     public String getContent() {
@@ -45,9 +42,5 @@ public final class OotdUpdateRequest {
 
     public String getAccessory() {
         return accessory;
-    }
-
-    public List<String> getHashtags() {
-        return hashtags;
     }
 }

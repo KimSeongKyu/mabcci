@@ -12,7 +12,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
-import java.util.ArrayList;
 import java.util.Set;
 
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
@@ -94,7 +93,7 @@ public class OotdTest {
     void update_test() {
         ReflectionTestUtils.setField(ootd, "id", 1L);
         final OotdUpdateRequest ootdUpdateRequest =
-                new OotdUpdateRequest("내용", "상의", "하의", "신발", "악세사리", new ArrayList<>());
+                new OotdUpdateRequest("내용", "상의", "하의", "신발", "악세사리");
 
         ootd = ootd.update(ootdUpdateRequest);
 
