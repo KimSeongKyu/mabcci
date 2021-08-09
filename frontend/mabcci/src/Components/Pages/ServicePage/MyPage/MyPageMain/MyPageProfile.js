@@ -7,6 +7,8 @@ import 직사각형_남자 from './images/직사각형_남자.png'
 import { useHistory } from 'react-router';
 import { useState } from 'react';
 import {AiOutlineSetting} from "react-icons/ai"
+import {CgFileDocument} from "react-icons/cg"
+import {AiOutlineMessage} from 'react-icons/ai'
 
 const MyPageProfile = props => {
   const history = useHistory
@@ -21,6 +23,10 @@ const MyPageProfile = props => {
 
    const clickFollow = (e) => {
      props.setFollowBox(e.target.name)
+   }
+
+   const clickChatList = () => {
+     props.setChatBox(true)
    }
 
   return (
@@ -48,8 +54,14 @@ const MyPageProfile = props => {
           <div id="mypage-web-nickname">
             {/* <h3>{props.myInfo.nickname}</h3> */}
             <h3>박서준</h3>
+            <button type="submit">
+              <CgFileDocument />
+            </button>
+            <button type="submit">
+              <AiOutlineMessage onClick={clickChatList} />
+            </button>
             <button type="submit" onClick={goToSetting}>
-              <AiOutlineSetting/>
+              <AiOutlineSetting />
             </button>
           </div>
           <div id="mypage-mobile-nickname">
@@ -57,8 +69,12 @@ const MyPageProfile = props => {
             <h5>박서준</h5>
           </div>
           <div>
-            <button type="submit" onClick={clickFollow} name='팔로워'>팔로워 {}명</button>
-            <button type="submit"onClick={clickFollow} name="팔로잉">팔로잉 {}명</button>
+            <button type="submit" onClick={clickFollow} name="팔로워">
+              팔로워 {}명
+            </button>
+            <button type="submit" onClick={clickFollow} name="팔로잉">
+              팔로잉 {}명
+            </button>
           </div>
           <div id="mypage-mobile-category">
             <h5>#아메카지</h5>

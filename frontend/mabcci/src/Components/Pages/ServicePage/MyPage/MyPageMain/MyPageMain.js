@@ -6,6 +6,8 @@ import MyPageFeed from './MyPageFeed';
 import MyPageProfile from './MyPageProfile';
 import MypageReadApi from '../../../../../API/MypageAPI/MypageReadApi';
 import FollowBox from '../MyPageFollow/FollowBox';
+import MyChatList from '../MyPageSetting/MyChatList/MyChatList';
+import MyProposalList from '../MyPageSetting/MyProposal/MyProposalList';
 
 function MyPageMain() {
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -13,6 +15,10 @@ function MyPageMain() {
   const [myInfo, setMyInfo] = useState({});
 
   const [followBox, setFollowBox] = useState('none');
+
+  const [chatBox, setChatBox] = useState(false);
+
+  const [proposalBox, setProposalBox] = useState(false);
 
   useEffect(async () => {
     const res = await MypageReadApi(userInfo.nickname);
@@ -23,6 +29,11 @@ function MyPageMain() {
   return (
     <div className="mypage-entire">
       <FollowBox followBox={followBox} setFollowBox={setFollowBox} />
+      <MyChatList chatBox={chatBox} setChatBox={setChatBox} />
+      <MyProposalList
+        proposalBox={proposalBox}
+        setProposalBox={setProposalBox}
+      />
       <div className="mypage-container">
         <button className="mypage-mobile-setting" type="submit">
           <HiMenu />
@@ -31,6 +42,10 @@ function MyPageMain() {
           myInfo={myInfo}
           followBox={followBox}
           setFollowBox={setFollowBox}
+          chatBox={chatBox}
+          setChatBox={setChatBox}
+          proposalBox={proposalBox}
+          setProposalBox={setProposalBox}
         />
         <MyPageFeed />
         <MabcciReview />
