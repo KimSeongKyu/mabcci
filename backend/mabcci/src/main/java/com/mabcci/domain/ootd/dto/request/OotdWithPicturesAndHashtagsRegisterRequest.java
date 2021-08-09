@@ -1,4 +1,4 @@
-package com.mabcci.domain.ootd.dto;
+package com.mabcci.domain.ootd.dto.request;
 
 import com.mabcci.global.common.Nickname;
 import org.springframework.web.multipart.MultipartFile;

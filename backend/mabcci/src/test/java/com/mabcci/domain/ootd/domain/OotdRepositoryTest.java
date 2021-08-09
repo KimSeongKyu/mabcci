@@ -28,6 +28,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @DataJpaTest
 class OotdRepositoryTest {
 
+    @Autowired private OotdRepository ootdRepository;
+    @Autowired private TestEntityManager testEntityManager;
+
     private Ootd ootd;
     private Ootd firstFollowingMemberOotd;
     private Ootd secondFollowingMemberOotd;
@@ -36,12 +39,6 @@ class OotdRepositoryTest {
     private Member secondFollowingMember;
     private Follow firstFollow;
     private Follow secondFollow;
-
-    @Autowired
-    private OotdRepository ootdRepository;
-
-    @Autowired
-    private TestEntityManager testEntityManager;
 
     @BeforeEach
     void setUp() {

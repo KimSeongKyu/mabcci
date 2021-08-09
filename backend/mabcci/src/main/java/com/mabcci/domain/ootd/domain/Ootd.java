@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.mabcci.domain.BaseTimeEntity;
 import com.mabcci.domain.member.domain.Member;
-import com.mabcci.domain.ootd.dto.OotdUpdateRequest;
+import com.mabcci.domain.ootd.dto.request.OotdUpdateRequest;
 import com.mabcci.domain.ootdcategory.domain.OotdCategory;
 import com.mabcci.domain.ootdhashtag.domain.OotdHashtag;
 import com.mabcci.domain.ootdpicture.domain.OotdPicture;

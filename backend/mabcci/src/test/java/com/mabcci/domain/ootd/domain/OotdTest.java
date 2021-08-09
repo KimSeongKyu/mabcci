@@ -3,7 +3,7 @@ package com.mabcci.domain.ootd.domain;
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
-import com.mabcci.domain.ootd.dto.OotdUpdateRequest;
+import com.mabcci.domain.ootd.dto.request.OotdUpdateRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

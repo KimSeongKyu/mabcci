@@ -1,4 +1,4 @@
-package com.mabcci.domain.ootd.dto;
+package com.mabcci.domain.ootd.dto.response;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

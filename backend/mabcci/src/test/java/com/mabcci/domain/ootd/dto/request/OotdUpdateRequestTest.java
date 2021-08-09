@@ -1,4 +1,4 @@
-package com.mabcci.domain.ootd.dto;
+package com.mabcci.domain.ootd.dto.request;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

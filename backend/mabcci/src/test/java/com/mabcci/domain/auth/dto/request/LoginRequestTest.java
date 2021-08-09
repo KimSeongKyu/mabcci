@@ -1,4 +1,4 @@
-package com.mabcci.domain.auth.dto;
+package com.mabcci.domain.auth.dto.request;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

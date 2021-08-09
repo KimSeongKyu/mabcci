@@ -58,9 +58,9 @@ public class PictureUtilTest {
                 "testJpegPicture".getBytes()
         ));
 
-        baseUrl = Paths.get( "images").toString();
+        baseUrl = Paths.get("images").toString();
         baseDirectory = Paths.get("C:", File.separator, "mabcci", File.separator, "images", File.separator, "local")
-                        .toString();
+                .toString();
     }
 
     @DisplayName("PictureUtil 인스턴스 생성 여부 테스트")

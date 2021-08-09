@@ -1,4 +1,4 @@
-package com.mabcci.domain.auth.dto;
+package com.mabcci.domain.auth.dto.response;
 
 import com.mabcci.domain.auth.domain.vo.JwtToken;
 import org.junit.jupiter.api.BeforeEach;

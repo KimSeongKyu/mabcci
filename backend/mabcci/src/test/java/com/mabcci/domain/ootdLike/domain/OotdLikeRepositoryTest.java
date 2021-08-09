@@ -26,11 +26,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @DataJpaTest
 class OotdLikeRepositoryTest {
 
-    @Autowired
-    private OotdLikeRepository ootdLikeRepository;
-
-    @Autowired
-    private TestEntityManager testEntityManager;
+    @Autowired private OotdLikeRepository ootdLikeRepository;
+    @Autowired private TestEntityManager testEntityManager;
 
     private Member member;
     private Ootd ootd;

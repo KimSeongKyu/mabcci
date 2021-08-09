@@ -1,4 +1,4 @@
-package com.mabcci.domain.ootd.dto;
+package com.mabcci.domain.ootd.dto.request;
 
 import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,7 +50,7 @@ class OotdWithPicturesAndHashtagsRegisterRequestTest {
                 () -> assertThat(request.getAccessory()).isEqualTo("악세사리"),
                 () -> assertThat(request.getPictures()).isEqualTo(PICTURE_FILES),
                 () -> assertThat(request.getHashtags()).isEqualTo(new ArrayList<>(List.of("해시태그1", "해시태그2"))
-        ));
+                ));
     }
 
     @DisplayName("OotdWithPicturesAndHashtagsRegisterRequest 인스턴스 프토퍼티 유효성 검증 테스트")

@@ -3,7 +3,6 @@ package com.mabcci.domain.auth.common;
 import com.mabcci.domain.auth.domain.vo.ClaimType;
 import com.mabcci.domain.auth.domain.vo.JwtToken;
 import com.mabcci.domain.auth.domain.vo.JwtTokenType;
-import com.mabcci.domain.category.domain.Category;
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
@@ -20,7 +19,6 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import static com.mabcci.domain.member.application.MemberFindServiceTest.CATEGORY_NAME;
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
 import static com.mabcci.global.common.EmailTest.EMAIL;
@@ -34,6 +32,18 @@ class JwtUtilTest {
 
     private Member member;
 
+    static Stream<Arguments> provide_claim_types_for_create_claim_test() {
+        return Stream.of(
+                Arguments.of(ClaimType.HEADER, new String[]{"typ", "alg"}),
+                Arguments.of(ClaimType.PAYLOAD, new String[]{"iss", "sub", "aud"})
+        );
+    }
+
+    static Stream<Arguments> provide_token_types_for_tests_about_token() {
+        return Arrays.stream(JwtTokenType.values())
+                .map(tokenType -> Arguments.of(tokenType));
+    }
+
     @BeforeEach
     void setUp() {
         member = Member.Builder()
@@ -46,18 +56,6 @@ class JwtUtilTest {
                 .picture(PICTURE)
                 .memberRole(MemberRole.USER)
                 .build();
-    }
-
-    static Stream<Arguments> provide_claim_types_for_create_claim_test() {
-        return Stream.of(
-                Arguments.of(ClaimType.HEADER, new String[]{"typ", "alg"}),
-                Arguments.of(ClaimType.PAYLOAD, new String[]{"iss", "sub", "aud"})
-        );
-    }
-
-    static Stream<Arguments> provide_token_types_for_tests_about_token() {
-        return Arrays.stream(JwtTokenType.values())
-                .map(tokenType -> Arguments.of(tokenType));
     }
 
     @DisplayName("JwtUtil 인스턴스 생성 여부 테스트")

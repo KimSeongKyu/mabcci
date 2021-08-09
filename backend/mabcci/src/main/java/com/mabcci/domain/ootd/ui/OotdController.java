@@ -2,8 +2,8 @@ package com.mabcci.domain.ootd.ui;
 
 import com.mabcci.domain.ootd.application.OotdService;
 import com.mabcci.domain.ootd.domain.OotdFilter;
-import com.mabcci.domain.ootd.dto.OotdUpdateRequest;
-import com.mabcci.domain.ootd.dto.OotdWithPicturesAndHashtagsRegisterRequest;
+import com.mabcci.domain.ootd.dto.request.OotdUpdateRequest;
+import com.mabcci.domain.ootd.dto.request.OotdWithPicturesAndHashtagsRegisterRequest;
 import com.mabcci.global.common.Nickname;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;

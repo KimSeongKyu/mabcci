@@ -1,4 +1,4 @@
-package com.mabcci.domain.ootd.dto;
+package com.mabcci.domain.ootd.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

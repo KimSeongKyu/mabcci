@@ -8,7 +8,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
-
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -63,7 +62,7 @@ public class HashtagTest {
         final Hashtag invalidHashtag = new Hashtag();
 
         final Set<ConstraintViolation<Hashtag>> invalidPropertiesOfValidHashtag
-                 = validator.validate(hashtag);
+                = validator.validate(hashtag);
         final Set<ConstraintViolation<Hashtag>> invalidPropertiesOfInvalidHashtag
                 = validator.validate(invalidHashtag);
 

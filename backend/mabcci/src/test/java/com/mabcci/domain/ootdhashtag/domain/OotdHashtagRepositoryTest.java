@@ -28,11 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @DataJpaTest
 public class OotdHashtagRepositoryTest {
 
-    @Autowired
-    private OotdHashtagRepository ootdHashtagRepository;
-
-    @Autowired
-    private TestEntityManager testEntityManager;
+    @Autowired private OotdHashtagRepository ootdHashtagRepository;
+    @Autowired private TestEntityManager testEntityManager;
 
     private Member member;
     private Ootd ootd;

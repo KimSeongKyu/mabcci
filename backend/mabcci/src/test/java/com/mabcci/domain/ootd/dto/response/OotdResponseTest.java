@@ -1,4 +1,4 @@
-package com.mabcci.domain.ootd.dto;
+package com.mabcci.domain.ootd.dto.response;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -41,7 +41,7 @@ class OotdResponseTest {
                 () -> assertThat(ootdResponse.getPicture()).isEqualTo("url/name.png"),
                 () -> assertThat(ootdResponse.getHashtags()).contains("해시태그1", "해시태그2"),
                 () -> assertThat(ootdResponse.getLikeCount()).isEqualTo(10L)
-                );
+        );
     }
 
     @DisplayName("OotdResponse 인스턴스 프로퍼티 유효성 검증 테스트")

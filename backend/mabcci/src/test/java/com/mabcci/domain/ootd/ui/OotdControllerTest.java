@@ -6,8 +6,8 @@ import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.domain.ootd.application.OotdService;
 import com.mabcci.domain.ootd.domain.Ootd;
-import com.mabcci.domain.ootd.dto.OotdListResponse;
-import com.mabcci.domain.ootd.dto.OotdUpdateRequest;
+import com.mabcci.domain.ootd.dto.request.OotdUpdateRequest;
+import com.mabcci.domain.ootd.dto.response.OotdListResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,6 +38,7 @@ class OotdControllerTest {
     @Autowired private MockMvc mockMvc;
     @Autowired private ObjectMapper objectMapper;
     @MockBean private OotdService ootdService;
+
     private Member member;
     private Ootd ootd;
 
