@@ -84,7 +84,7 @@ public class PictureUtilTest {
         final String baseDirectory = "C:/mabcci/images/local";
         ReflectionTestUtils.setField(pictureUtil, "baseUrl", baseUrl);
         ReflectionTestUtils.setField(pictureUtil, "baseDirectory", baseDirectory);
-        final String directoryName = baseDirectory.concat(File.separator).concat(PictureType.OOTD.type());
+        final String directoryName = baseDirectory.concat(File.separator);
 
         final String url = pictureUtil.mapDirectoryNameToUrl(directoryName);
 
@@ -93,6 +93,25 @@ public class PictureUtilTest {
                 () -> assertThat(url).contains("/"),
                 () -> assertThat(url).doesNotContain(baseDirectory),
                 () -> assertThat(url).doesNotContain(File.separator)
+        );
+    }
+
+    @DisplayName("PictureUtil 인스턴스 url을 디렉토리 이름으로 변경하는 기능 테스트")
+    @Test
+    void map_url_to_directory_name_test() {
+        final String baseUrl = "/images";
+        final String baseDirectory = "C:/mabcci/images/local";
+        ReflectionTestUtils.setField(pictureUtil, "baseUrl", baseUrl);
+        ReflectionTestUtils.setField(pictureUtil, "baseDirectory", baseDirectory);
+        final String url = baseUrl.concat("/");
+
+        final String directoryName = pictureUtil.mapUrlToDirectoryName(url);
+
+        assertAll(
+                () -> assertThat(directoryName).contains(baseDirectory),
+                () -> assertThat(directoryName).contains(File.separator),
+                () -> assertThat(directoryName).doesNotContain(baseUrl),
+                () -> assertThat(directoryName).doesNotContain("/")
         );
     }
 
