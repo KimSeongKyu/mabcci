@@ -3,6 +3,7 @@ package com.mabcci.domain.ootd.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.mabcci.domain.member.domain.Member;
+import com.mabcci.domain.ootd.dto.OotdUpdateRequest;
 import com.mabcci.domain.ootdcategory.domain.OotdCategory;
 import com.mabcci.domain.BaseTimeEntity;
 import org.hibernate.annotations.ColumnDefault;
@@ -107,6 +108,16 @@ public class Ootd extends BaseTimeEntity {
     @JsonValue
     public Long views() {
         return views;
+    }
+
+    public Ootd update(final OotdUpdateRequest ootdUpdateRequest) {
+        this.content = ootdUpdateRequest.getContent();
+        this.top = ootdUpdateRequest.getTop();
+        this.bottom = ootdUpdateRequest.getBottom();
+        this.shoes = ootdUpdateRequest.getShoes();
+        this.accessory = ootdUpdateRequest.getAccessory();
+
+        return this;
     }
 
     public static class OotdBuilder {
