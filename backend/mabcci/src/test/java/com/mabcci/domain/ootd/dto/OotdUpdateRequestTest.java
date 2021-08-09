@@ -28,4 +28,17 @@ public class OotdUpdateRequestTest {
                 () -> assertThat(ootdUpdateRequest).isExactlyInstanceOf(OotdUpdateRequest.class)
         );
     }
+
+    @DisplayName("OotdUpdateRequest 인스턴스 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        assertAll(
+                () -> assertThat(ootdUpdateRequest.getContent()).isEqualTo("내용"),
+                () -> assertThat(ootdUpdateRequest.getTop()).isEqualTo("상의"),
+                () -> assertThat(ootdUpdateRequest.getBottom()).isEqualTo("하의"),
+                () -> assertThat(ootdUpdateRequest.getShoes()).isEqualTo("신발"),
+                () -> assertThat(ootdUpdateRequest.getAccessory()).isEqualTo("악세사리"),
+                () -> assertThat(ootdUpdateRequest.getHashtags()).contains(new String[]{"해시태그1", "해시태그2"})
+        );
+    }
 }
