@@ -16,6 +16,7 @@ import com.mabcci.domain.ootdhashtag.domain.OotdHashtag;
 import com.mabcci.domain.ootdhashtag.domain.OotdHashtagRepository;
 import com.mabcci.domain.ootdpicture.domain.OotdPicture;
 import com.mabcci.domain.ootdpicture.domain.OotdPictureRepository;
+import com.mabcci.domain.picture.common.PictureUtil;
 import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -53,6 +54,7 @@ class OotdServiceTest {
     @Mock private OotdPictureRepository ootdPictureRepository;
     @Mock private OotdHashtagRepository ootdHashtagRepository;
     @Mock private OotdLikeRepository ootdLikeRepository;
+    @Mock private PictureUtil pictureUtil;
 
     private Member member;
     private Ootd ootd;
@@ -186,11 +188,15 @@ class OotdServiceTest {
     @Test
     void delete_ootd_test() {
         doReturn(Optional.of(ootd)).when(ootdRepository).findById(any());
+        doReturn(List.of(ootdPicture)).when(ootdPictureRepository).findAllByOotd(any());
         doNothing().when(ootdRepository).delete(any());
+        doNothing().when(pictureUtil).deletePicture(any());
 
         ootdService.deleteOotd(1L);
 
         verify(ootdRepository, times(1)).findById(any());
+        verify(ootdPictureRepository, times(1)).findAllByOotd(any());
         verify(ootdRepository, times(1)).delete(any());
+        verify(pictureUtil, times(1)).deletePicture(any());
     }
 }

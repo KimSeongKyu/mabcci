@@ -11,7 +11,9 @@ import com.mabcci.domain.ootd.dto.OotdSaveRequest;
 import com.mabcci.domain.ootd.dto.OotdUpdateRequest;
 import com.mabcci.domain.ootdLike.domain.OotdLikeRepository;
 import com.mabcci.domain.ootdhashtag.domain.OotdHashtagRepository;
+import com.mabcci.domain.ootdpicture.domain.OotdPicture;
 import com.mabcci.domain.ootdpicture.domain.OotdPictureRepository;
+import com.mabcci.domain.picture.common.PictureUtil;
 import com.mabcci.global.common.Nickname;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,16 +32,18 @@ public class OotdService {
     private final OotdLikeRepository ootdLikeRepository;
     private final OotdPictureRepository ootdPictureRepository;
     private final OotdHashtagRepository ootdHashtagRepository;
+    private final PictureUtil pictureUtil;
 
 
     public OotdService(final MemberRepository memberRepository, final OotdRepository ootdRepository,
                        final OotdLikeRepository ootdLikeRepository, final OotdPictureRepository ootdPictureRepository,
-                       final OotdHashtagRepository ootdHashtagRepository) {
+                       final OotdHashtagRepository ootdHashtagRepository, final PictureUtil pictureUtil) {
         this.memberRepository = memberRepository;
         this.ootdRepository = ootdRepository;
         this.ootdLikeRepository = ootdLikeRepository;
         this.ootdPictureRepository = ootdPictureRepository;
         this.ootdHashtagRepository = ootdHashtagRepository;
+        this.pictureUtil = pictureUtil;
     }
 
     @Transactional
@@ -93,6 +97,10 @@ public class OotdService {
     public void deleteOotd(final Long id) {
         final Ootd ootd = ootdRepository.findById(id)
                 .orElseThrow(IllegalArgumentException::new);
+        final List<OotdPicture> ootdPictures = ootdPictureRepository.findAllByOotd(ootd);
+
         ootdRepository.delete(ootd);
+        ootdPictures.stream()
+                .forEach(pictureUtil::deletePicture);
     }
 }
