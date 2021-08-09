@@ -2,7 +2,7 @@ import {
   OOTD_ALL,
   OOTD_DETAIL,
   OOTD_FILTERING,
-  OOTD_CLEAN,
+  OOTD_FILTER_STATE,
 } from '../Type/OOTDType';
 
 export const OOTDAll = data => {
@@ -19,10 +19,10 @@ export const OOTDFiltering = data => {
   };
 };
 
-export const OOTDClean = () => {
+export const OOTDFilterState = data => {
   return {
-    type: OOTD_CLEAN,
-    payload: [],
+    type: OOTD_FILTER_STATE,
+    payload: data,
   };
 };
 

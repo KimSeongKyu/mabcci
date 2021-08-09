@@ -86,6 +86,7 @@ const MabcciSearch = () => {
 
   /* 스타일링 신청 이벤트 */
   const stylingApplyHandler = nickname => {
+    window.open('', '_blank');
     console.log(nickname, '스타일링 신청 페이지');
   };
 
