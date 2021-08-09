@@ -15,17 +15,29 @@
   margin-left: 50%;
   position: absolute;
   transform: translate(-50%);
+  transform-origin: left;
   margin-top: 100px;
   border: solid 1px lightgray;
-  border-radius: 20px;
   overflow-y: auto;
   overflow-x: hidden;
+  animation-name: appear;
+  animation-duration: 1s;
+}
+
+@keyframes appear {
+  0% {
+    transform: scale(0.8) translate(-50%);
+  }
+  100% {
+    transform: scale(1) translate(-50%);
+  }
 }
 
 .follower-box-header {
   display: flex;
   justify-content: space-between;
   border-bottom: solid 1px lightgray;
+  padding: 5px;
 }
 
 .follower-box-header h5 {
@@ -38,6 +50,7 @@
   font-weight: 600;
   font-size: large;
   border-radius: 10px;
+  margin-right: 5px;
   background-color: white;
 }
 
@@ -46,6 +59,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px;
 }
 
 .follower-box-content p {

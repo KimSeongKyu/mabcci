@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { HiMenu } from 'react-icons/hi';
 import MabcciReview from './MabcciReview';
 import MyPageFeed from './MyPageFeed';
 import MyPageProfile from './MyPageProfile';
@@ -23,6 +24,9 @@ function MyPageMain() {
     <div className="mypage-entire">
       <FollowBox followBox={followBox} setFollowBox={setFollowBox} />
       <div className="mypage-container">
+        <button className="mypage-mobile-setting" type="submit">
+          <HiMenu />
+        </button>
         <MyPageProfile
           myInfo={myInfo}
           followBox={followBox}
