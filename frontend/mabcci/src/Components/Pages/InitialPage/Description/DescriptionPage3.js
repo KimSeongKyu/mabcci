@@ -1,7 +1,29 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import {
+  LoginSuccess,
+  LoginFail,
+  LoginAuto,
+} from '../../../../Redux/Actions/LoginAction';
+import LoginApi from '../../../../API/AuthAPI/LoginApi';
 
 const DescriptionPage3 = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const loginRedux = useSelector(state => state.LoginReducer);
+
+  const LoginToHome = async () => {
+    const res = await LoginApi(loginRedux.userInfo);
+    if (res.status === 200) {
+      dispatch(LoginSuccess(res.userInfo));
+    } else {
+      dispatch(LoginFail());
+    }
+    history.push('/home');
+  };
+
   return (
     <div className="desc-third">
       <div className="desc-mabcci">
@@ -13,10 +35,8 @@ const DescriptionPage3 = () => {
       </div>
       <div className="desc-arrow">
         <p>Click!</p>
-        <button className="btn-site" type="button">
-          <Link to="home">
-            <p>사이트로 가기</p>
-          </Link>
+        <button className="btn-site" type="button" onClick={LoginToHome}>
+          <p>사이트로 가기</p>
         </button>
       </div>
     </div>

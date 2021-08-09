@@ -3,7 +3,11 @@ package com.mabcci.domain.auth.common;
 import com.mabcci.domain.auth.domain.vo.ClaimType;
 import com.mabcci.domain.auth.domain.vo.JwtToken;
 import com.mabcci.domain.auth.domain.vo.JwtTokenType;
+import com.mabcci.domain.member.domain.Gender;
+import com.mabcci.domain.member.domain.Member;
+import com.mabcci.domain.member.domain.MemberRole;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,11 +19,18 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import static com.mabcci.domain.member.domain.MemberTest.MEMBER;
+import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
+import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
+import static com.mabcci.global.common.EmailTest.EMAIL;
+import static com.mabcci.global.common.NicknameTest.NICKNAME;
+import static com.mabcci.global.common.PasswordTest.PASSWORD;
+import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class JwtUtilTest {
+
+    private Member member;
 
     static Stream<Arguments> provide_claim_types_for_create_claim_test() {
         return Stream.of(
@@ -31,6 +42,20 @@ class JwtUtilTest {
     static Stream<Arguments> provide_token_types_for_tests_about_token() {
         return Arrays.stream(JwtTokenType.values())
                 .map(tokenType -> Arguments.of(tokenType));
+    }
+
+    @BeforeEach
+    void setUp() {
+        member = Member.Builder()
+                .email(EMAIL)
+                .password(PASSWORD)
+                .nickname(NICKNAME)
+                .phone(PHONE)
+                .gender(Gender.MAN)
+                .description(DESCRIPTION)
+                .picture(PICTURE)
+                .memberRole(MemberRole.USER)
+                .build();
     }
 
     @DisplayName("JwtUtil 인스턴스 생성 여부 테스트")
@@ -60,7 +85,7 @@ class JwtUtilTest {
     void create_payload_test(final JwtTokenType jwtTokenType) {
         final JwtUtil jwtUtil = new JwtUtil();
         final String[] expectedKeys = new String[]{"iss", "sub", "aud", "exp", "nbf", "iat", "email", "nickname", "role"};
-        final Map<String, Object> payload = jwtUtil.createPayload(jwtTokenType, MEMBER);
+        final Map<String, Object> payload = jwtUtil.createPayload(jwtTokenType, member);
 
         assertThat(payload.keySet()).contains(expectedKeys);
     }
@@ -79,7 +104,7 @@ class JwtUtilTest {
     @MethodSource("provide_token_types_for_tests_about_token")
     void create_token_test(final JwtTokenType jwtTokenType) {
         final JwtUtil jwtUtil = new JwtUtil();
-        final JwtToken jwtToken = jwtUtil.createToken(jwtTokenType, MEMBER);
+        final JwtToken jwtToken = jwtUtil.createToken(jwtTokenType, member);
 
         Arrays.stream(jwtToken.jwtToken().split("."))
                 .forEach(jwtTokenSplitByComma -> assertThat(jwtTokenSplitByComma).isBase64());
@@ -89,8 +114,8 @@ class JwtUtilTest {
     @Test
     void is_valid_token_test() {
         final JwtUtil jwtUtil = new JwtUtil();
-        final JwtToken accessToken = jwtUtil.createToken(JwtTokenType.ACCESS_TOKEN, MEMBER);
-        final JwtToken refreshToken = jwtUtil.createToken(JwtTokenType.REFRESH_TOKEN, MEMBER);
+        final JwtToken accessToken = jwtUtil.createToken(JwtTokenType.ACCESS_TOKEN, member);
+        final JwtToken refreshToken = jwtUtil.createToken(JwtTokenType.REFRESH_TOKEN, member);
         final JwtToken invalidToken = JwtToken.of("invalid.test.token");
 
         assertAll(

@@ -5,14 +5,14 @@ import com.mabcci.domain.auth.domain.RefreshToken;
 import com.mabcci.domain.auth.domain.RefreshTokenRepository;
 import com.mabcci.domain.auth.domain.vo.JwtToken;
 import com.mabcci.domain.auth.domain.vo.JwtTokenType;
-import com.mabcci.domain.auth.dto.LoginRequest;
-import com.mabcci.domain.auth.dto.LoginResponse;
-import com.mabcci.domain.auth.dto.LogoutRequest;
+import com.mabcci.domain.auth.dto.request.LoginRequest;
+import com.mabcci.domain.auth.dto.response.LoginResponse;
+import com.mabcci.domain.auth.dto.request.LogoutRequest;
 import com.mabcci.domain.auth.exception.NotLoginMemberException;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.exception.MemberNotFoundException;
-import com.mabcci.domain.model.Email;
+import com.mabcci.global.common.Email;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -8,8 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class JwtTokenTest {
 
-    public static final JwtToken JWT_TOKEN = JwtToken.of("test.jwt.token");
-
     @DisplayName("JwtToken 인스턴스 생성 여부 테스트")
     @Test
     void initialize() {

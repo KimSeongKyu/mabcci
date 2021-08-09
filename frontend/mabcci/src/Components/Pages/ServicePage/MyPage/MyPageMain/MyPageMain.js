@@ -1,22 +1,40 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+
+import { HiMenu } from 'react-icons/hi';
 import MabcciReview from './MabcciReview';
 import MyPageFeed from './MyPageFeed';
 import MyPageProfile from './MyPageProfile';
+import MypageReadApi from '../../../../../API/MypageAPI/MypageReadApi';
+import FollowBox from '../MyPageFollow/FollowBox';
 
 function MyPageMain() {
-  const history = useHistory();
-  const localLoinToken = localStorage.getItem('accessToken');
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
-  // 로그인이 안되어 있는 경우 intro 화면으로
-  if (!localLoinToken) {
-    history.push('/intro');
-  }
+  const [myInfo, setMyInfo] = useState({});
+
+  const [followBox, setFollowBox] = useState('none');
+
+  useEffect(async () => {
+    const res = await MypageReadApi(userInfo.nickname);
+    // await setMyInfo(...myInfo, ...res.myInfo);
+    await setMyInfo(res.myInfo);
+  }, []);
+
   return (
-    <div id="container">
-      <MyPageProfile />
-      <MabcciReview />
-      <MyPageFeed />
+    <div className="mypage-entire">
+      <FollowBox followBox={followBox} setFollowBox={setFollowBox} />
+      <div className="mypage-container">
+        <button className="mypage-mobile-setting" type="submit">
+          <HiMenu />
+        </button>
+        <MyPageProfile
+          myInfo={myInfo}
+          followBox={followBox}
+          setFollowBox={setFollowBox}
+        />
+        <MyPageFeed />
+        <MabcciReview />
+      </div>
     </div>
   );
 }

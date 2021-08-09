@@ -1,4 +1,10 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, SIGNUP } from '../Type/LoginType';
+import {
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT,
+  SIGNUP,
+  LOGIN_AUTO,
+} from '../Type/LoginType';
 
 export const LoginSuccess = id => {
   return {
@@ -22,5 +28,12 @@ export const Logout = () => {
 export const Signup = () => {
   return {
     type: SIGNUP,
+  };
+};
+
+export const LoginAuto = authUserInfo => {
+  return {
+    type: LOGIN_AUTO,
+    payload: authUserInfo,
   };
 };

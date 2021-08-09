@@ -1,20 +1,19 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import './Home.css';
+import HomeHeader from './HomeHeader';
+import { PopularMabcci, PopularPost } from './HomeContent';
 
-function Home() {
-  const history = useHistory();
-  const localLoinToken = localStorage.getItem('accessToken');
-
-  // 로그인이 안되어 있는 경우 intro 화면으로
-  if (!localLoinToken) {
-    history.push('/intro');
-  }
-
+const Home = () => {
   return (
-    <div>
-      <h3>홈페이지입니다.</h3>
+    <div className="container home-container">
+      <HomeHeader />
+      <div className="home-content">
+        <PopularMabcci />
+        <PopularPost />
+      </div>
     </div>
   );
-}
+};
 
 export default Home;

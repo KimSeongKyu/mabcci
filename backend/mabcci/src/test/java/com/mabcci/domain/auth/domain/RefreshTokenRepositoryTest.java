@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.validation.ConstraintViolationException;
 
-import static com.mabcci.domain.model.EmailTest.EMAIL;
+import static com.mabcci.global.common.EmailTest.EMAIL;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @EnableJpaAuditing

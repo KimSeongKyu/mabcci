@@ -1,6 +1,6 @@
 package com.mabcci.domain.auth.exception;
 
-import com.mabcci.domain.model.Email;
+import com.mabcci.global.common.Email;
 
 public class NotLoginMemberException extends RuntimeException {
 

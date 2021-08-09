@@ -1,0 +1,90 @@
+.follow-container {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  position: absolute;
+  z-index: 2;
+  opacity: 0.5;
+}
+
+.follower-box {
+  width: 400px;
+  height: 300px;
+  background-color: white;
+  z-index: 3;
+  margin-left: 50%;
+  position: absolute;
+  transform: translate(-50%);
+  transform-origin: left;
+  margin-top: 100px;
+  border: solid 1px lightgray;
+  overflow-y: auto;
+  overflow-x: hidden;
+  animation-name: appear;
+  animation-duration: 1s;
+}
+
+@keyframes appear {
+  0% {
+    transform: scale(0.8) translate(-50%);
+  }
+  100% {
+    transform: scale(1) translate(-50%);
+  }
+}
+
+.follower-box-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 1px lightgray;
+  padding: 5px;
+}
+
+.follower-box-header h5 {
+  margin-left: 50%;
+  transform: translate(-50%);
+}
+
+.follower-box-btn {
+  padding: 0px 10px 0px 10px;
+  font-weight: 600;
+  font-size: large;
+  border-radius: 10px;
+  margin-right: 5px;
+  background-color: white;
+}
+
+.follower-box-content {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.follower-box-content p {
+  margin-right: 55%;
+}
+
+.follower-box-content img {
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  border-radius: 50%;
+  margin: 5px;
+}
+
+.follower-box-content button {
+  margin-right: 5%;
+  padding: 5px;
+  border-radius: 10px;
+  color: white;
+  background-color: var(--main-color-1);
+  font-size: small;
+}
+
+@media screen and (max-width: 576px) {
+  .follower-box {
+    margin-top: 200px;
+  }
+}

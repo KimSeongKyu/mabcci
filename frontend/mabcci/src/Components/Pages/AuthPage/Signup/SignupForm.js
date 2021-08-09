@@ -1,8 +1,8 @@
-/* eslint-disable */
-
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import SignupApi from '../../../../API/AuthAPI/SignupApi';
+import { LoginAuto } from '../../../../Redux/Actions/LoginAction';
 import 미니멀 from '../../../../Asset/Images/미니멀.png';
 import 스트릿 from '../../../../Asset/Images/스트릿.png';
 import 아메카지 from '../../../../Asset/Images/아메카지.png';
@@ -12,6 +12,7 @@ import 포멀 from '../../../../Asset/Images/포멀.png';
 
 function SignupForm() {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const [userInfo, setUserInfo] = useState({
     email: '',
@@ -25,7 +26,6 @@ function SignupForm() {
     categories: [],
   });
 
-  // input값에 적은 유저정보 저장하기
   function changeUserInfo(e) {
     const { name, value } = e.target;
     setUserInfo({
@@ -34,114 +34,94 @@ function SignupForm() {
     });
   }
 
-  // 성별 선택 버튼 클릭
   function mwBtnClick(e) {
-    console.log(e.target)
-    console.log(e.target.name);
     setUserInfo({
       ...userInfo,
-      ['gender']: e.target.name,
+      gender: e.target.name,
     });
   }
 
-  // 스타일 선택 버튼 클릭
   function styleBtnClick(e) {
-    e.target.classList.toggle('btn-select-style-active');
-    const copy = [...userInfo.categories];
-    const idx = copy.indexOf(e.target.name);
-    if (idx >= 0) {
-      copy.splice(idx, 1);
-    } else {
-      copy.push(e.target.name);
-    }
+    const copyCategory = [...userInfo.categories];
 
+    const nowCategory = e.target.name;
+
+    let index = -2;
+    for (let i = 0; i < copyCategory.length; i += 1) {
+      if (copyCategory[i] === nowCategory) {
+        index = i;
+      }
+    }
+    if (index > -1) {
+      copyCategory.splice(index, 1);
+    } else {
+      copyCategory.push(nowCategory);
+    }
     setUserInfo({
       ...userInfo,
-      ['categories']: copy,
+      categories: copyCategory,
     });
   }
 
-  // signup 버튼 실행시
-  const handleSubmit = async e => {
+  const signupSubmit = async e => {
     e.preventDefault();
     const data = {
       email: userInfo.email,
       nickname: userInfo.nickname,
       password: userInfo.password,
       gender: userInfo.gender,
-      phoneNumber:
-        userInfo.firstPhoneNumber +
-        '-' +
-        userInfo.secondPhoneNumber +
-        '-' +
-        userInfo.thirdPhoneNumber,
+      phone: `${userInfo.firstPhoneNumber}-${userInfo.secondPhoneNumber}-${userInfo.thirdPhoneNumber}`,
       categories: userInfo.categories,
     };
-
     const response = await SignupApi(data);
 
     if (response.status === 200) {
-      history.push('/login');
+      const authUserInfo = {
+        email: userInfo.email,
+        password: userInfo.password,
+      };
+      dispatch(LoginAuto(authUserInfo));
+      history.push('/desc');
     } else {
-      alert('회원가입 실패');
+      console.log(response.status);
     }
   };
 
-  // email 알맞게 입력했는지 체크
-
-  // .com으로 끝나는지
-  const comCheck = userInfo.email.slice(
-    userInfo.email.length - 4,
-    userInfo.email.length,
-  );
-
-  // @ 개수가 몇개인지
-  var count = 0;
-  var pos = userInfo.email.indexOf('@')
-  const atCheck = () => {
-    while (pos !== -1) {
-      count += 1;
-      pos = userInfo.email.indexOf('@', pos + 1)
-    } return count
-  }
-
   const isEmail = () => {
-    if (
-      comCheck !== '.com' ||
-      userInfo.email.includes('@') === false ||
-      userInfo.email.slice(0, 1) === '@' ||
-      atCheck() > 1
-    ) {
-      return false;
-    } 
-    return true
-  }
+    if (userInfo.email.match(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/)) {
+      return true;
+    }
+    return false;
+  };
 
-  // phoneNumber 알맞게 입력했는지 체크
-  const isphoneNumber = () => {
-    if (
-      isNaN(Number(userInfo.firstPhoneNumber)) === true ||
-      isNaN(Number(userInfo.secondPhoneNumber)) === true ||
-      isNaN(Number(userInfo.thirdPhoneNumber)) === true ||
-      userInfo.firstPhoneNumber.length !== 3 ||
-      userInfo.secondPhoneNumber.length < 3 ||
-      userInfo.thirdPhoneNumber.length !== 4
-    ) {
+  const isPhoneNumber = () => {
+    const phonNumber =
+      userInfo.firstPhoneNumber +
+      userInfo.secondPhoneNumber +
+      userInfo.thirdPhoneNumber;
+    const regExp = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/;
+    return regExp.test(phonNumber);
+  };
+
+  const isCorrectPassword = () => {
+    const regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    return regExp.test(userInfo.password);
+  };
+
+  const isSamePassword = () => {
+    if (userInfo.password !== userInfo.passwordConfirmation) {
       return false;
-    } 
+    }
     return true;
-  }
+  };
 
-  // signup 실행해도 되는지 체크 1 (정보 다 적었는지)
-  const isEmpty = Object.values(userInfo).some(x => x === '' || x.length === 0);
-
-  // signup 실행해도 되는지 체크 2 (정보 알맞게 적었는지)
-  const isCorrect = () => {
+  const isSignupOK = () => {
     if (
+      Object.values(userInfo).some(x => x === '' || x.length === 0) === true ||
       isEmail() === false ||
-      userInfo.password !== userInfo.passwordConfirmation ||
-      (userInfo.password.length < 10 && userInfo.password.length) ||
-      isphoneNumber() === false
+      isPhoneNumber() === false ||
+      isSamePassword() === false ||
+      isCorrectPassword() === false
     ) {
       return false;
     }
@@ -149,8 +129,8 @@ function SignupForm() {
   };
 
   return (
-    <div className="input-box">
-      <div className="input-list">
+    <div className="signup-input-box">
+      <div className="signup-input-list">
         <input
           type="email"
           placeholder="Email"
@@ -158,7 +138,7 @@ function SignupForm() {
           onChange={changeUserInfo}
         />
         {isEmail() === false && userInfo.email.length > 0 ? (
-          <p className="warnning-email">이메일 형식으로 입력해주세요</p>
+          <p className="signup-warnning-email">이메일 형식으로 입력해주세요</p>
         ) : null}
         <input
           type="text"
@@ -166,7 +146,7 @@ function SignupForm() {
           name="nickname"
           onChange={changeUserInfo}
         />
-        <div className="phone-number">
+        <div className="signup-phone-number">
           <div>PhoneNumber</div>
           <input
             name="firstPhoneNumber"
@@ -186,11 +166,11 @@ function SignupForm() {
             onChange={changeUserInfo}
           />
         </div>
-        {isphoneNumber() === false &&
+        {isPhoneNumber() === false &&
         (userInfo.firstPhoneNumber.length > 0 ||
           userInfo.secondPhoneNumber.length > 0 ||
           userInfo.thirdPhoneNumber.length > 0) ? (
-          <p className="warnning-phone">번호를 알맞게 입력해주세요</p>
+          <p className="signup-warnning-phone">번호를 알맞게 입력해주세요</p>
         ) : null}
         <input
           type="password"
@@ -204,63 +184,68 @@ function SignupForm() {
           name="passwordConfirmation"
           onChange={changeUserInfo}
         />
-        {userInfo.password !== userInfo.passwordConfirmation ? (
-          <p className="warnning-password">비밀번호가 다릅니다!</p>
+        {!isSamePassword() ? (
+          <p className="signup-warnning-password">비밀번호가 다릅니다!</p>
         ) : null}
-
-        {userInfo.password.length < 10 && userInfo.password.length > 0 ? (
-          <p className="warnning-password-length">10자 이상으로 작성해주세요</p>
+        {!isCorrectPassword() ? (
+          <p className="signup-warnning-password-length">
+            8자 이상의 숫자, 문자 조합으로 작성해주세요
+          </p>
         ) : null}
       </div>
       <h5>성별</h5>
-      <div className="select-man-woman">
-        {userInfo.gender === 'MALE' ? (
+      <div className="signup-select-man-woman">
+        {userInfo.gender === 'MAN' ? (
           <button
-            className="btn-sex-select"
-            name="MALE"
+            className="signup-btn-sex-select"
+            name="MAN"
             type="submit"
             onClick={mwBtnClick}
           >
-            <p className="choice-gender">Man</p>
+            <p className="signup-choice-gender">MAN</p>
           </button>
         ) : (
           <button
             className="btn-rounded-sm"
-            name="MALE"
+            name="MAN"
             type="submit"
             onClick={mwBtnClick}
           >
-            <p className="choice-gender">Man</p>
+            <p className="signup-choice-gender">MAN</p>
           </button>
         )}
 
-        {userInfo.gender === 'FEMALE' ? (
+        {userInfo.gender === 'WOMAN' ? (
           <button
-            className="btn-sex-select"
-            name="FEMALE"
+            className="signup-btn-sex-select"
+            name="WOMAN"
             type="submit"
             onClick={mwBtnClick}
           >
-            <p className="choice-gender">Woman</p>
+            <p className="signup-choice-gender">WOMAN</p>
           </button>
         ) : (
           <button
             className="btn-rounded-sm"
-            name="FEMALE"
+            name="WOMAN"
             type="submit"
             onClick={mwBtnClick}
           >
-            <p className="choice-gender">Woman</p>
+            <p className="signup-choice-gender">WOMAN</p>
           </button>
         )}
       </div>
 
       <h5>선호하는 스타일을 골라주세요!</h5>
-      <div className="style-box">
-        <div className="select-style">
+      <div className="signup-style-box">
+        <div className="signup-select-style">
           <div>
             <button
-              className="btn-select-style"
+              className={
+                userInfo.categories.includes('미니멀') === false
+                  ? 'signup-btn-select-style'
+                  : 'signup-btn-select-style-active'
+              }
               type="submit"
               name="미니멀"
               onClick={styleBtnClick}
@@ -271,7 +256,11 @@ function SignupForm() {
           </div>
           <div>
             <button
-              className="btn-select-style"
+              className={
+                userInfo.categories.includes('스트릿') === false
+                  ? 'signup-btn-select-style'
+                  : 'signup-btn-select-style-active'
+              }
               type="submit"
               name="스트릿"
               onClick={styleBtnClick}
@@ -282,7 +271,11 @@ function SignupForm() {
           </div>
           <div>
             <button
-              className="btn-select-style"
+              className={
+                userInfo.categories.includes('아메카지') === false
+                  ? 'signup-btn-select-style'
+                  : 'signup-btn-select-style-active'
+              }
               type="submit"
               name="아메카지"
               onClick={styleBtnClick}
@@ -292,10 +285,14 @@ function SignupForm() {
             <p>아메카지</p>
           </div>
         </div>
-        <div className="select-style">
+        <div className="signup-select-style">
           <div>
             <button
-              className="btn-select-style"
+              className={
+                userInfo.categories.includes('오피스') === false
+                  ? 'signup-btn-select-style'
+                  : 'signup-btn-select-style-active'
+              }
               type="submit"
               name="오피스"
               onClick={styleBtnClick}
@@ -306,7 +303,11 @@ function SignupForm() {
           </div>
           <div>
             <button
-              className="btn-select-style"
+              className={
+                userInfo.categories.includes('캐쥬얼') === false
+                  ? 'signup-btn-select-style'
+                  : 'signup-btn-select-style-active'
+              }
               type="submit"
               name="캐쥬얼"
               onClick={styleBtnClick}
@@ -317,7 +318,11 @@ function SignupForm() {
           </div>
           <div>
             <button
-              className="btn-select-style"
+              className={
+                userInfo.categories.includes('포멀') === false
+                  ? 'signup-btn-select-style'
+                  : 'signup-btn-select-style-active'
+              }
               type="submit"
               name="포멀"
               onClick={styleBtnClick}
@@ -328,16 +333,16 @@ function SignupForm() {
           </div>
         </div>
       </div>
-      {isEmpty === true || isCorrect() === false ? (
+      {isSignupOK() === false ? (
         <button
           type="submit"
-          onClick={handleSubmit}
-          className="btn-signup-nonactive"
+          onClick={signupSubmit}
+          className="signup-btn-signup-nonactive"
         >
-          <h5>회원정보를 모두 입력해주세요</h5>
+          <p>회원정보를 모두 입력해주세요</p>
         </button>
       ) : (
-        <button type="submit" onClick={handleSubmit} className="btn-rounded">
+        <button type="submit" onClick={signupSubmit} className="btn-rounded">
           Sign up
         </button>
       )}

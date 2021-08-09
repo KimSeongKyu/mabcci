@@ -1,17 +1,14 @@
 package com.mabcci.domain.auth.ui;
 
 import com.mabcci.domain.auth.application.AuthService;
-import com.mabcci.domain.auth.dto.LoginRequest;
-import com.mabcci.domain.auth.dto.LogoutRequest;
-import lombok.RequiredArgsConstructor;
+import com.mabcci.domain.auth.dto.request.LoginRequest;
+import com.mabcci.domain.auth.dto.request.LogoutRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@CrossOrigin(originPatterns = "http://localhost:*")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {

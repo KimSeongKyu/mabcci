@@ -1,6 +1,4 @@
-/* web navbar */
-
-.logo-bar {
+.navbar-logo-bar {
   width: 100%;
   height: 150px;
   background-color: white;
@@ -9,18 +7,18 @@
   position: relative;
 }
 
-.logo-bar a {
+.navbar-logo-bar a {
   text-decoration: none;
   color: #0f0e0e;
 }
 
-.logo-image {
+.navbar-logo-image {
   margin-top: 20px;
   width: 250px;
   height: auto;
 }
 
-.web-navbar-icon {
+.navbar-web-icon {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -34,7 +32,7 @@
   cursor: pointer;
 }
 
-.popover-box {
+.navbar-popover-box {
   width: 100px;
   font-size: medium;
   font-weight: 600;
@@ -44,15 +42,20 @@
   margin: auto;
   cursor: pointer;
   box-shadow: 3px 3px 3px grey;
+  text-align: start;
 }
 
-.popover-box p {
+.navbar-popover-box button {
+  background-color: white;
+  font-weight: 600;
+}
+
+.navbar-popover-box p {
   margin: 5px;
-  text-align: start;
   padding-left: 4px;
 }
 
-.menu-bar {
+.navbar-menu-bar {
   width: 100%;
   height: 30px;
   background-color: white;
@@ -63,23 +66,30 @@
   text-align: center;
 }
 
-.menu-link {
+.navbar-menu-link {
   width: 576px;
   margin: auto;
   display: flex;
   justify-content: space-around;
+  text-decoration: none;
 }
 
-.menu-bar a {
+.navbar-menu-link a {
   text-decoration: none;
   color: #0f0e0e;
 }
 
-/* mobile navbar */
+.navbar-menu-link a:hover {
+  color: var(--main-color-1);
+}
 
-.mobile-navbar {
+#navbar-menu-link-selected {
+  color: var(--main-color-1);
+}
+
+#navbar-mobile {
   background-color: white;
-  height: 50px;
+  height: 70px;
   border-width: 1px 0px 0px 0px;
   border-top-color: #faf9f8;
   border-style: solid;
@@ -87,39 +97,53 @@
   text-align: center;
   display: flex;
   justify-content: space-around;
+  align-items: center;
   position: fixed;
   bottom: 0;
   width: 100%;
   z-index: 1;
 }
 
-.mobile-navbar a {
+#navbar-mobile a {
   text-decoration: none;
   color: #0f0e0e;
-  padding-top: 5px;
 }
 
-/* .mobile-navbar div:hover {
-  color: var(--main-color-1);
-} */
-
-.mobile-navbar p {
-  font-size: x-small;
+#navbar-mobile p {
+  font-size: small;
 }
 
-/* 반응형 */
+.navbar-mobile-btn {
+  text-align: center;
+  cursor: pointer;
+  background-color: white;
+}
+
+.navbar-mobile-btn:hover {
+  text-align: center;
+  background-color: rgb(235, 232, 230);
+  opacity: 90%;
+  border-radius: 20px;
+  margin: 0;
+}
+
+.navbar-mobile-btn:active {
+  padding-left: 3px;
+  padding-top: 3px;
+  box-shadow: none;
+}
 
 @media screen and (max-width: 576px) {
-  .web-navbar {
+  .navbar-web {
     display: none;
   }
-  .menu-link {
+  .navbar-menu-link {
     width: 100%;
   }
 }
 
 @media screen and (min-width: 576px) {
-  .mobile-navbar {
+  #navbar-mobile {
     display: none;
   }
 }
