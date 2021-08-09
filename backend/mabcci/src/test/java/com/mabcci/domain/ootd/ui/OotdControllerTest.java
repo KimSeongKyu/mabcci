@@ -10,6 +10,7 @@ import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.domain.ootd.application.OotdService;
 import com.mabcci.domain.ootd.domain.Ootd;
 import com.mabcci.domain.ootd.dto.OotdListResponse;
+import com.mabcci.domain.ootd.dto.OotdUpdateRequest;
 import com.mabcci.domain.ootdhashtag.application.OotdHashtagService;
 import com.mabcci.domain.ootdpicture.application.OotdPictureService;
 import com.mabcci.domain.picture.application.PictureService;
@@ -36,21 +37,27 @@ import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(OotdController.class)
 class OotdControllerTest {
 
-    @Autowired private MockMvc mockMvc;
-    @Autowired private ObjectMapper objectMapper;
+    @Autowired
+    private MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper objectMapper;
 
-    @MockBean private OotdService ootdService;
-    @MockBean private PictureService pictureService;
-    @MockBean private OotdPictureService ootdPictureService;
-    @MockBean private HashtagService hashtagService;
-    @MockBean private OotdHashtagService ootdHashtagService;
+    @MockBean
+    private OotdService ootdService;
+    @MockBean
+    private PictureService pictureService;
+    @MockBean
+    private OotdPictureService ootdPictureService;
+    @MockBean
+    private HashtagService hashtagService;
+    @MockBean
+    private OotdHashtagService ootdHashtagService;
 
     private Member member;
     private Ootd ootd;
@@ -146,6 +153,20 @@ class OotdControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    @DisplayName("OotdController 인스턴스 ootd 수정 테스트")
+    @Test
+    void update_ootd_test() throws Exception {
+        doNothing().when(ootdService).updateOotd(any(), any());
+        final OotdUpdateRequest ootdUpdateRequest =
+                new OotdUpdateRequest("내용", "상의", "하의", "신발", "악세사리");
+
+        mockMvc.perform(put("/api/ootds/" + 1L)
+                .content(objectMapper.writeValueAsString(ootdUpdateRequest))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
     }
 }
 
