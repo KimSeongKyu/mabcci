@@ -39,8 +39,16 @@ public class MemberSpecs {
         return footSize;
     }
 
-    public BodyType form() {
+    public BodyType bodyType() {
         return bodyType;
+    }
+
+    public MemberSpecs update(int height, int weight, int footSize, BodyType bodyType) {
+        this.height = height;
+        this.weight = weight;
+        this.footSize = footSize;
+        this.bodyType = bodyType;
+        return this;
     }
 
     protected MemberSpecs() {

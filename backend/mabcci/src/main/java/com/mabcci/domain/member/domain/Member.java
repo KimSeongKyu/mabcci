@@ -129,14 +129,23 @@ public class Member extends BaseTimeEntity {
         }
     }
 
+    public Member update(final Nickname nickName, final Gender gender, final String description,
+                         int height, int weight, int footSize, BodyType bodyType, final String picture) {
+        this.nickname = nickName;
+        this.gender = gender;
+        this.description = description;
+        this.picture = picture;
+        updateMemberSpecs(memberSpecs.update(height, weight, footSize, bodyType));
+        return this;
+    }
+
     public void updateMemberSpecs(final MemberSpecs memberSpecs) {
         this.memberSpecs = memberSpecs;
     }
 
-    public Member update(final Nickname nickName, final Gender gender) {
-        this.nickname = nickName;
-        this.gender = gender;
-        return this;
+    public void clearMemberCategory() {
+        memberCategories.stream().forEach(memberCategory -> memberCategory.changeMember(null));
+        memberCategories.clear();
     }
 
     public static class MemberBuilder {

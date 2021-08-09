@@ -45,7 +45,7 @@ public class MemberSpecsTest {
                 () -> assertThat(memberSpecs.height()).isEqualTo(HEIGHT),
                 () -> assertThat(memberSpecs.weight()).isEqualTo(WEIGHT),
                 () -> assertThat(memberSpecs.footSize()).isEqualTo(FOOT_SIZE),
-                () -> assertThat(memberSpecs.form()).isEqualTo(BodyType.TRIANGLE)
+                () -> assertThat(memberSpecs.bodyType()).isEqualTo(BodyType.TRIANGLE)
         );
     }
 

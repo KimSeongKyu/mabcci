@@ -1,25 +1,18 @@
 package com.mabcci.domain.member.ui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mabcci.domain.category.domain.Category;
 import com.mabcci.domain.member.application.MemberDeleteService;
 import com.mabcci.domain.member.application.MemberFindService;
 import com.mabcci.domain.member.application.MemberJoinService;
 import com.mabcci.domain.member.application.MemberUpdateService;
-import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
-import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.domain.member.domain.MemberSpecs;
-import com.mabcci.domain.member.dto.request.MemberJoinRequest;
 import com.mabcci.domain.member.dto.request.MemberDeleteRequest;
-import com.mabcci.domain.member.dto.response.MemberByNickNameResponse;
-import com.mabcci.domain.member.dto.request.MemberUpdateRequest;
+import com.mabcci.domain.member.dto.request.MemberJoinRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -34,8 +27,6 @@ import static com.mabcci.domain.member.application.MemberFindServiceTest.CATEGOR
 import static com.mabcci.domain.member.domain.Gender.MAN;
 import static com.mabcci.domain.member.domain.MemberRole.USER;
 import static com.mabcci.domain.member.domain.MemberSpecsTest.*;
-import static com.mabcci.domain.member.domain.MemberSpecsTest.BODY_TYPE;
-import static com.mabcci.domain.member.domain.MemberTest.*;
 import static com.mabcci.global.common.EmailTest.EMAIL;
 import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static com.mabcci.global.common.PasswordTest.PASSWORD;
@@ -44,7 +35,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
@@ -112,22 +102,22 @@ class MemberControllerTest {
     }
 
 
-    @DisplayName("MemberRestController update 메서드 테스트")
-    @Test
-    public void update_test() throws Exception {
-        final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse(member);
-        final MemberUpdateRequest updateRequestDto = new MemberUpdateRequest(NICKNAME, MAN);
-        final String updateRequestDtoString = objectMapper.writeValueAsString(updateRequestDto);
-        final String memberResponseDtoString = objectMapper.writeValueAsString(memberByNickNameResponse);
-
-        given(memberUpdateService.update(any(), any())).willReturn(member);
-
-        mvc.perform(put("/api/members/" + NICKNAME)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(updateRequestDtoString))
-                .andExpect(status().isOk())
-                .andExpect(content().json(memberResponseDtoString));
-    }
+//    @DisplayName("MemberRestController update 메서드 테스트")
+//    @Test
+//    public void update_test() throws Exception {
+//        final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse(member);
+//        final MemberUpdateRequest updateRequestDto = new MemberUpdateRequest(NICKNAME, MAN);
+//        final String updateRequestDtoString = objectMapper.writeValueAsString(updateRequestDto);
+//        final String memberResponseDtoString = objectMapper.writeValueAsString(memberByNickNameResponse);
+//
+//        given(memberUpdateService.update(any(), any())).willReturn(member);
+//
+//        mvc.perform(put("/api/members/" + NICKNAME)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(updateRequestDtoString))
+//                .andExpect(status().isOk())
+//                .andExpect(content().json(memberResponseDtoString));
+//    }
 
     @DisplayName("MemberRestController delete 메서드 테스트")
     @Test
