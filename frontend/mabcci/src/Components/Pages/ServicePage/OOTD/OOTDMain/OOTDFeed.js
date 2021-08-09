@@ -3,25 +3,34 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Masonry from 'react-masonry-css';
 import OOTDFeedApi from '../../../../../API/OOTDAPI/OOTDMainApi';
-import { OOTDAll, OOTDClean } from '../../../../../Redux/Actions/OOTDAction';
+import {
+  OOTDAll,
+  OOTDFiltering,
+  OOTDClean,
+} from '../../../../../Redux/Actions/OOTDAction';
 
-const OOTDFeed = ({ filter, page, setPage }) => {
+const OOTDFeed = ({
+  filter,
+  page,
+  searching,
+  setPage,
+  filtering,
+  setFiltering,
+}) => {
   const feeds = useSelector(state => state.OotdReducer.ootd);
   const [loading, setLoading] = useState(false);
   const [end, setEnd] = useState(false);
+  const [searchCategory, setSearchCategory] = useState('tag');
   const dispatch = useDispatch();
   const fetchMoreTrigger = useRef(null);
   const breakpointColumnsObj = {
     default: 3,
-    1100: 3,
-    700: 3,
-    500: 3,
+    576: 2,
   };
 
   // 관찰 요소가 보이면 page + 1
   const fetchMoreObserver = new IntersectionObserver(
     ([{ isIntersecting }]) => {
-      console.log('관찰됨', fetchMoreTrigger.current);
       if (isIntersecting && !loading) setPage(newPage => newPage + 1);
     },
     { thredhold: 1 },
@@ -29,17 +38,21 @@ const OOTDFeed = ({ filter, page, setPage }) => {
 
   // api 요청 데이터 수신
   useEffect(async () => {
-    if (end) return;
+    if (end && !filtering) return;
+    if (end && filtering) setEnd(false);
+
     setLoading(true);
     const response = await OOTDFeedApi(filter, page);
-    if (response.status === 204) {
+    if (response.data.message === 'no more data') {
       return setEnd(true);
     }
-    dispatch(OOTDAll(response.data.ootd));
+    if (!filtering) {
+      dispatch(OOTDAll(response.data.ootd));
+    } else {
+      dispatch(OOTDFiltering(response.data.ootd));
+      setFiltering(false);
+    }
     setLoading(false);
-    return () => {
-      dispatch(OOTDClean());
-    };
   }, [page, filter]);
 
   useEffect(() => {
@@ -50,20 +63,22 @@ const OOTDFeed = ({ filter, page, setPage }) => {
         if (fetchMoreTrigger.current) {
           fetchMoreObserver.unobserve(fetchMoreTrigger.current);
         }
+        dispatch(OOTDClean());
       };
     }
   }, [feeds, loading]);
 
+  const onCheckSearchCategory = e => {
+    const categoryName = e.target.name;
+    setSearchCategory(categoryName);
+  };
+
   const showFeeds = () => {
-    console.log('실행 showFeeds');
     return feeds.map(({ id, nickname, picture, hashTag }, index) => {
       const lastEl = index === feeds.length - 1;
       return (
         <div className="card" key={id} ref={lastEl ? fetchMoreTrigger : null}>
-          <h3 className="nickname">
-            {nickname}
-            {page}
-          </h3>
+          <h3 className="nickname">{nickname}</h3>
           <Link to={`/OOTD/${id}/${nickname}`}>
             <img src={picture} alt="" />
             <i className="fas fa-heartbeat" />
@@ -76,7 +91,36 @@ const OOTDFeed = ({ filter, page, setPage }) => {
   };
 
   return (
-    <div>
+    <div className="ootd-feeds">
+      <div className={`ootd-search ${searching ? 'active' : ''}`}>
+        <input
+          type="text"
+          placeholder="해시태그 혹은 사용자 이름으로 검색하세요."
+        />
+        <div className="ootd-search-category">
+          <h5>
+            <button
+              type="button"
+              className={`${searchCategory === 'tag' ? 'active' : ''}`}
+              name="tag"
+              onClick={onCheckSearchCategory}
+            >
+              해시태그
+            </button>
+          </h5>
+          <h5>
+            <button
+              type="button"
+              className={`${searchCategory === 'user' ? 'active' : ''}`}
+              name="user"
+              onClick={onCheckSearchCategory}
+            >
+              사용자
+            </button>
+          </h5>
+        </div>
+        <h1>검색창</h1>
+      </div>
       <Masonry
         breakpointCols={breakpointColumnsObj}
         className="my-masonry-grid ootd-feed"

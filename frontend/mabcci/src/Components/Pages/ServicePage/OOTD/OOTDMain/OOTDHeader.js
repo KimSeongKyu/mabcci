@@ -1,11 +1,24 @@
 import React from 'react';
 
-const OOTDHeader = ({ filter, setFilter, setPage }) => {
+const OOTDHeader = ({
+  filter,
+  searching,
+  setFilter,
+  setPage,
+  setFiltering,
+  setSearching,
+}) => {
   const onFilter = e => {
     if (filter === e.target.name) return;
     const keyword = e.target.name;
     setFilter(keyword);
+    setFiltering(true);
+    console.log('필터링 ㄱㄱ');
     setPage(1);
+  };
+
+  const isSearching = () => {
+    setSearching(!searching);
   };
 
   return (
@@ -16,6 +29,7 @@ const OOTDHeader = ({ filter, setFilter, setPage }) => {
         </button>
       </div>
       <div className="ootd-util">
+        {filter}
         <div>
           <p>
             <button
@@ -36,9 +50,9 @@ const OOTDHeader = ({ filter, setFilter, setPage }) => {
             </button>
           </p>
         </div>
-        <div>
+        <button type="button" onClick={isSearching}>
           <i className="fas fa-search fa-lg" />
-        </div>
+        </button>
       </div>
     </div>
   );
