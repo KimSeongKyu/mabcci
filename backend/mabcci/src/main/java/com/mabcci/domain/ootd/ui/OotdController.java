@@ -5,6 +5,7 @@ import com.mabcci.domain.hashtag.dto.HashtagSaveRequest;
 import com.mabcci.domain.hashtag.dto.HashtagSaveResponse;
 import com.mabcci.domain.ootd.application.OotdService;
 import com.mabcci.domain.ootd.domain.Ootd;
+import com.mabcci.domain.ootd.domain.OotdFilter;
 import com.mabcci.domain.ootd.dto.OotdSaveRequest;
 import com.mabcci.domain.ootd.dto.OotdWithPicturesAndHashtagsRegisterRequest;
 import com.mabcci.domain.ootdhashtag.application.OotdHashtagService;
@@ -15,14 +16,16 @@ import com.mabcci.domain.picture.application.PictureService;
 import com.mabcci.domain.picture.domain.Picture;
 import com.mabcci.domain.picture.domain.PictureType;
 import com.mabcci.domain.picture.dto.PictureSaveRequest;
+import com.mabcci.global.common.Nickname;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @CrossOrigin(originPatterns = "http://localhost:*")
@@ -56,5 +59,12 @@ public class OotdController {
         ootdHashtagService.saveOotdHashtags(new OotdHashtagSaveRequest(ootd, hashtagSaveResponse.getHashtags()));
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/api/ootds/{nickname}")
+    public ResponseEntity findFilteredOotdList(@NotBlank @PathVariable("nickname") final Nickname nickname,
+                                               @NotBlank @RequestParam("filter") final OotdFilter ootdFilter,
+                                               @NotNull final Pageable pageable) {
+        return ResponseEntity.ok(ootdService.findFilteredOotdList(nickname, ootdFilter, pageable));
     }
 }

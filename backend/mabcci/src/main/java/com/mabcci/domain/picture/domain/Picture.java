@@ -10,6 +10,8 @@ import javax.validation.constraints.NotBlank;
 @MappedSuperclass
 public class Picture extends BaseTimeEntity {
 
+    private final static String URL_SEPARATOR = "/";
+
     @NotBlank
     @Column(nullable = false, updatable = false)
     private String url;
@@ -32,5 +34,9 @@ public class Picture extends BaseTimeEntity {
 
     public String fileName() {
         return fileName;
+    }
+
+    public String path() {
+        return url.concat(URL_SEPARATOR).concat(fileName);
     }
 }

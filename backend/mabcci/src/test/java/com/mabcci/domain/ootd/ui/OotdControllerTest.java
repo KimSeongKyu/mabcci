@@ -9,6 +9,7 @@ import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.domain.ootd.application.OotdService;
 import com.mabcci.domain.ootd.domain.Ootd;
+import com.mabcci.domain.ootd.dto.OotdListResponse;
 import com.mabcci.domain.ootdhashtag.application.OotdHashtagService;
 import com.mabcci.domain.ootdpicture.application.OotdPictureService;
 import com.mabcci.domain.picture.application.PictureService;
@@ -35,6 +36,7 @@ import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -129,4 +131,21 @@ class OotdControllerTest {
                 .characterEncoding("UTF-8"))
                 .andExpect(status().isNoContent());
     }
+
+    @DisplayName("OotdController 인스턴스 필터링된 ootd 리스트 조회 테스트")
+    @Test
+    void find_filtered_ootd_list_test() throws Exception {
+        final OotdListResponse ootdListResponse = new OotdListResponse(new ArrayList<>(), 1);
+
+        doReturn(ootdListResponse).when(ootdService).findFilteredOotdList(any(), any(), any());
+
+        mockMvc.perform(get("/api/ootds/{nickname}", "닉네임")
+                .param("filter", "all")
+                .param("size", "20")
+                .param("page", "0")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 }
+

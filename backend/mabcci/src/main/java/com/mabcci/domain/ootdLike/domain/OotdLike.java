@@ -19,7 +19,7 @@ public class OotdLike extends Like {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ootd_like_ootd", nullable = false, updatable = false)
+    @JoinColumn(name = "ootd_like_ootd_id", nullable = false, updatable = false)
     private Ootd ootd;
 
     protected OotdLike() {
