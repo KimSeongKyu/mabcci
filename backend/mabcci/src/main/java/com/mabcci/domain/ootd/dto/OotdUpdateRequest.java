@@ -26,4 +26,28 @@ public final class OotdUpdateRequest {
         this.accessory = accessory;
         this.hashtags = hashtags;
     }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getTop() {
+        return top;
+    }
+
+    public String getBottom() {
+        return bottom;
+    }
+
+    public String getShoes() {
+        return shoes;
+    }
+
+    public String getAccessory() {
+        return accessory;
+    }
+
+    public List<String> getHashtags() {
+        return hashtags;
+    }
 }
