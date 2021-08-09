@@ -168,5 +168,16 @@ class OotdControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
     }
+
+    @DisplayName("OotdController 인스턴스 ootd 삭제 테스트")
+    @Test
+    void delete_ootd_test() throws Exception {
+        doNothing().when(ootdService).deleteOotd(any());
+
+        mockMvc.perform(delete("/api/ootds" + 1L)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+    }
 }
 
