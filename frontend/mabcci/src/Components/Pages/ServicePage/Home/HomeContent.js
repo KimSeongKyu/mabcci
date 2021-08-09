@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Navigation } from 'swiper/core';
+import 'swiper/swiper.min.css';
+import 'swiper/components/navigation/navigation.min.css';
 import userphoto from './Images/userphoto.png';
 
-const mabcciListPrint = mabcciList => {
+SwiperCore.use([Navigation]);
+
+const mabcciListPrint = (mabcciList, type) => {
+  const className = `home-mabcci-${type}`;
+
   return mabcciList.map(mabcci => {
     return (
-      <div className="home-mabcci" key={mabcci.nickname}>
+      <div className={className} key={mabcci.nickname}>
         <img
           className="home-mabcci-photo"
           src={mabcci.picture}
@@ -55,14 +63,6 @@ const PopularMabcci = () => {
     },
   ]);
 
-  const nextClickHandler = () => {
-    setfirstMabcciIdx(4);
-  };
-
-  const beforeClickHandler = () => {
-    setfirstMabcciIdx(0);
-  };
-
   return (
     <article className="home-popularMabcci">
       <section className="home-popularMabcci-title">
@@ -70,37 +70,32 @@ const PopularMabcci = () => {
       </section>
       <div className="home-popularMabcci-background" />
       <section className="home-popularMabcci-web">
-        <div className="home-popularMabcci-top">
-          {mabcciListPrint(mabcciList.slice(0, 4))}
+        <div className="home-popularMabcci-top-web">
+          {mabcciListPrint(mabcciList.slice(0, 4), 'web')}
         </div>
-        <div className="home-popularMabcci-bottom">
-          {mabcciListPrint(mabcciList.slice(4, 8))}
+        <div className="home-popularMabcci-bottom-web">
+          {mabcciListPrint(mabcciList.slice(4, 8), 'web')}
         </div>
       </section>
       <section className="home-popularMabcci-mobile">
-        <div className="home-popularMabcci-top">
-          {mabcciListPrint(
-            mabcciList.slice(firstMabcciIdx, firstMabcciIdx + 2),
-          )}
-        </div>
-        <div className="home-popularMabcci-bottom">
-          {mabcciListPrint(
-            mabcciList.slice(firstMabcciIdx + 2, firstMabcciIdx + 4),
-          )}
-        </div>
-        {firstMabcciIdx === 0 ? (
-          <RiArrowRightSLine
-            className="home-popularMabcci-next"
-            size="25"
-            onClick={nextClickHandler}
-          />
-        ) : (
-          <RiArrowLeftSLine
-            className="home-popularMabcci-before"
-            size="25"
-            onClick={beforeClickHandler}
-          />
-        )}
+        <Swiper navigation className="home-swiper-container">
+          <SwiperSlide className="home-swiper-slide">
+            <div className=".home-popularMabcci-top-mobile">
+              {mabcciListPrint(mabcciList.slice(0, 2), 'mobile')}
+            </div>
+            <div className=".home-popularMabcci-bottom-mobile">
+              {mabcciListPrint(mabcciList.slice(2, 4), 'mobile')}
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className="home-swiper-slide">
+            <div className="home-popularMabcci-top">
+              {mabcciListPrint(mabcciList.slice(4, 6), 'mobile')}
+            </div>
+            <div className="home-popularMabcci-bottom">
+              {mabcciListPrint(mabcciList.slice(6, 8), 'mobile')}
+            </div>
+          </SwiperSlide>
+        </Swiper>
       </section>
     </article>
   );
