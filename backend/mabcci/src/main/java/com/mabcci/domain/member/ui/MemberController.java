@@ -13,9 +13,13 @@ import com.mabcci.domain.member.dto.response.MemberByMemberRoleResponse;
 import com.mabcci.domain.member.dto.response.MemberListResponse;
 import com.mabcci.domain.member.dto.response.MemberByNickNameResponse;
 import com.mabcci.domain.member.ui.result.FindMabcciApiResult;
+import com.mabcci.domain.picture.common.PictureUtil;
+import com.mabcci.domain.picture.domain.Picture;
+import com.mabcci.domain.picture.domain.PictureType;
 import com.mabcci.global.common.Nickname;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -68,11 +72,11 @@ public class MemberController {
         return ResponseEntity.ok().body(new FindMabcciApiResult<>(memberByMemberRoleResponses));
     }
 
-    @PutMapping("/api/members/{nickname}")
-    public ResponseEntity<?> update(@Valid @RequestBody final MemberUpdateRequest memberUpdateRequest) {
-        final Member updatedMember = memberUpdateService.update(memberUpdateRequest.getNickname(), memberUpdateRequest.getGender());
-        final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse(updatedMember);
-        return ResponseEntity.ok().body(memberByNickNameResponse);
+    @PostMapping("/api/members/nickname")
+    public ResponseEntity<?> update(@Valid @ModelAttribute MemberUpdateRequest memberUpdateRequest,
+                                    @RequestParam MultipartFile picture) {
+
+        return ResponseEntity.ok().body("ok");
     }
 
     @DeleteMapping("/api/members/{nickname}")
