@@ -181,4 +181,16 @@ class OotdServiceTest {
                 () -> assertThat(ootd.accessory()).isEqualTo("악세사리")
         );
     }
+
+    @DisplayName("OotdServce 인스턴스 ootd 삭제 테스트")
+    @Test
+    void delete_ootd_test() {
+        doReturn(ootd).when(ootdRepository).findById(any());
+        doNothing().when(ootdRepository).delete(any());
+
+        ootdService.deleteOotd(1L);
+
+        verify(ootdRepository, times(1)).findById(any());
+        verify(ootdRepository, times(1)).delete(any());
+    }
 }
