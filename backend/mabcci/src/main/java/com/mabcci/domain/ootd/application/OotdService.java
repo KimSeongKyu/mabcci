@@ -84,8 +84,15 @@ public class OotdService {
 
     @Transactional
     public void updateOotd(final Long id, final OotdUpdateRequest ootdUpdateRequest) {
-        Ootd ootd = ootdRepository.findById(id)
+        final Ootd ootd = ootdRepository.findById(id)
                 .orElseThrow(IllegalArgumentException::new);
         ootd.update(ootdUpdateRequest);
+    }
+
+    @Transactional
+    public void deleteOotd(final Long id) {
+        final Ootd ootd = ootdRepository.findById(id)
+                .orElseThrow(IllegalArgumentException::new);
+        ootdRepository.delete(ootd);
     }
 }

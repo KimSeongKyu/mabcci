@@ -185,7 +185,7 @@ class OotdServiceTest {
     @DisplayName("OotdServce 인스턴스 ootd 삭제 테스트")
     @Test
     void delete_ootd_test() {
-        doReturn(ootd).when(ootdRepository).findById(any());
+        doReturn(Optional.of(ootd)).when(ootdRepository).findById(any());
         doNothing().when(ootdRepository).delete(any());
 
         ootdService.deleteOotd(1L);
