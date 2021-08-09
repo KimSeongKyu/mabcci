@@ -75,4 +75,9 @@ public class PictureUtil {
         }
         return JPG_FILE_EXTENSION;
     }
+
+    public void deletePicture(final Picture picture) {
+        final String path = mapUrlToDirectoryName(picture.path());
+        new File(path).delete();
+    }
 }
