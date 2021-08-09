@@ -10,6 +10,7 @@ import com.mabcci.domain.ootd.domain.OotdFilter;
 import com.mabcci.domain.ootd.domain.OotdRepository;
 import com.mabcci.domain.ootd.dto.OotdListResponse;
 import com.mabcci.domain.ootd.dto.OotdSaveRequest;
+import com.mabcci.domain.ootd.dto.OotdUpdateRequest;
 import com.mabcci.domain.ootdLike.domain.OotdLikeRepository;
 import com.mabcci.domain.ootdhashtag.domain.OotdHashtag;
 import com.mabcci.domain.ootdhashtag.domain.OotdHashtagRepository;
@@ -46,18 +47,12 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class OotdServiceTest {
 
+    @InjectMocks private OotdService ootdService;
     @Mock private MemberRepository memberRepository;
     @Mock private OotdRepository ootdRepository;
-    @InjectMocks private OotdService ootdService;
-
-    @Mock
-    private OotdPictureRepository ootdPictureRepository;
-
-    @Mock
-    private OotdHashtagRepository ootdHashtagRepository;
-
-    @Mock
-    private OotdLikeRepository ootdLikeRepository;
+    @Mock private OotdPictureRepository ootdPictureRepository;
+    @Mock private OotdHashtagRepository ootdHashtagRepository;
+    @Mock private OotdLikeRepository ootdLikeRepository;
 
     private Member member;
     private Ootd ootd;
@@ -164,6 +159,26 @@ class OotdServiceTest {
         assertAll(
                 () -> assertThat(ootdListResponse.getOotdResponses().size()).isEqualTo(2),
                 () -> assertThat(ootdListResponse.getTotalPages()).isEqualTo(1)
+        );
+    }
+
+    @DisplayName("OotdService 인스턴스 ootd 수정 테스트")
+    @Test
+    void update_ootd_test() {
+        doReturn(Optional.of(ootd)).when(ootdRepository).findById(any());
+        final OotdUpdateRequest ootdUpdateRequest =
+                new OotdUpdateRequest("내용", "상의", "하의", "신발", "악세사리");
+
+        ootdService.updateOotd(1L, ootdUpdateRequest);
+
+        verify(ootdRepository, times(1)).findById(any());
+
+        assertAll(
+                () -> assertThat(ootd.content()).isEqualTo("내용"),
+                () -> assertThat(ootd.top()).isEqualTo("상의"),
+                () -> assertThat(ootd.bottom()).isEqualTo("하의"),
+                () -> assertThat(ootd.shoes()).isEqualTo("신발"),
+                () -> assertThat(ootd.accessory()).isEqualTo("악세사리")
         );
     }
 }
