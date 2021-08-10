@@ -64,10 +64,15 @@ function OOTDWrite() {
   const removeImage = e => {
     const nowIdx = e.target.value;
     const copyMyImage = [...myOOTDInfo.pictures];
+    const copyMyOriginImage = [...myOOTDInfo.originPictures];
+
     copyMyImage.splice(nowIdx, 1);
+    copyMyOriginImage.splice(nowIdx, 1);
+
     setMyOOTDInfo({
       ...myOOTDInfo,
       pictures: copyMyImage,
+      originPictures: copyMyOriginImage,
     });
   };
 

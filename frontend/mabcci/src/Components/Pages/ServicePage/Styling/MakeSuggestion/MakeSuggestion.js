@@ -12,11 +12,12 @@ import { GrGallery } from 'react-icons/gr';
 import { IoShirt } from 'react-icons/io5';
 import { GiArmoredPants, GiConverseShoe } from 'react-icons/gi';
 import { FaShoppingBag } from 'react-icons/fa';
+import { IconBase } from 'react-icons/lib';
 
 SwiperCore.use([Zoom, Navigation, Pagination]);
 
-const imageProcess = cloth => {
-  return cloth ? (
+const imageProcess = (cloth, clothImage, addImage) => {
+  return clothImage.length !== 0 ? (
     <div className="makeSuggestion-swiper-container">
       <img src="test" alt="사진을 추가해주세요" />
       <button type="submit" className="btn-util OOTDWrite-btn-remove">
@@ -27,12 +28,15 @@ const imageProcess = cloth => {
     <div className="makeSuggestion-swiper-container-noimage">
       <div className="makeSuggestion-initial-image">No image yet</div>
       <div>
-        <label htmlFor="input-file" className="OOTDWrite-input-file">
+        <label
+          htmlFor="input-file"
+          className="makeSuggestion-input-file"
+          onChange={e => addImage(e, cloth)}
+        >
           <GrGallery />
           Add your photo
           <input
             type="file"
-            multiple="multiple"
             id="input-file"
             style={{ display: 'none' }}
             accept=".jpg,.jpeg,.png"
@@ -44,20 +48,33 @@ const imageProcess = cloth => {
 };
 
 const MakeSuggestion = () => {
+  const clothes = ['top', 'bottom', 'shoes', 'acc'];
+  const clothIcon = [IoShirt, GiArmoredPants, GiConverseShoe, FaShoppingBag];
   const [suggestion, setSuggestion] = useState({
     memberId: '',
     mabcciId: '',
     description: '',
-    top: '',
-    bottom: '',
-    shoes: '',
-    acc: '',
+    top: [] /* [ImageURL, originImageURL] */,
+    bottom: [],
+    shoes: [],
+    acc: [],
   });
+
+  const addImage = async (e, cloth) => {
+    const nowSelectImage = e.target.files[0];
+    const ImageUrl = URL.createObjectURL(nowSelectImage);
+    const OriginImageUrl = nowSelectImage;
+
+    await setSuggestion({
+      ...suggestion,
+      [cloth]: [ImageUrl, OriginImageUrl],
+    });
+    e.target.value = '';
+  };
 
   return (
     <div className="makeSuggestion-container">
       <h5>제안서 작성하기</h5>
-
       <div>
         <Swiper
           style={{
@@ -71,22 +88,15 @@ const MakeSuggestion = () => {
           }}
           className="makeSuggestion-swiper"
         >
-          <SwiperSlide>
-            <IoShirt size="30" className="makeSuggestion-swiper-icon" />
-            {imageProcess(suggestion.top)}
-          </SwiperSlide>
-          <SwiperSlide>
-            <GiArmoredPants size="30" className="makeSuggestion-swiper-icon" />
-            {imageProcess(suggestion.bottom)}
-          </SwiperSlide>
-          <SwiperSlide>
-            <GiConverseShoe size="30" className="makeSuggestion-swiper-icon" />
-            {imageProcess(suggestion.shoes)}
-          </SwiperSlide>
-          <SwiperSlide>
-            <FaShoppingBag size="30" className="makeSuggestion-swiper-icon" />
-            {imageProcess(suggestion.acc)}
-          </SwiperSlide>
+          {clothes.map((cloth, index) => {
+            const Icon = clothIcon[index];
+            return (
+              <SwiperSlide key={cloth}>
+                <Icon size="30" className="makeSuggestion-swiper-icon" />
+                {imageProcess(cloth, suggestion[cloth], addImage)}
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       </div>
     </div>
