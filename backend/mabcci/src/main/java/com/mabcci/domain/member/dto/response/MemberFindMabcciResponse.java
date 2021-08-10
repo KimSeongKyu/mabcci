@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public final class FindMabcciResponse {
+public final class MemberFindMabcciResponse {
 
     @JsonProperty("nickname")
     private Nickname nickname;
@@ -22,8 +22,8 @@ public final class FindMabcciResponse {
     @JsonProperty("categories")
     private Set<String> categories;
 
-    public static final FindMabcciResponse ofMember(final Member member) {
-        return new FindMabcciResponse(member.nickname(), member.picture(), memberCategoryMapToCategoryNames(member));
+    public static final MemberFindMabcciResponse ofMember(final Member member) {
+        return new MemberFindMabcciResponse(member.nickname(), member.picture(), memberCategoryMapToCategoryNames(member));
     }
 
     private static final Set<String> memberCategoryMapToCategoryNames(final Member member) {
@@ -33,10 +33,10 @@ public final class FindMabcciResponse {
                 .collect(Collectors.toSet());
     }
 
-    FindMabcciResponse() {
+    MemberFindMabcciResponse() {
     }
 
-    private FindMabcciResponse(final Nickname nickname, final String picture, final Set<String> categories) {
+    private MemberFindMabcciResponse(final Nickname nickname, final String picture, final Set<String> categories) {
         this.nickname = nickname;
         this.picture = picture;
         this.categories = categories;

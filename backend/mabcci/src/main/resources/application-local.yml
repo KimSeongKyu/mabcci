@@ -23,3 +23,4 @@ path:
   upload: "/images"
   resource: "file:///images/mabcci/images/local"
   real: "Users/mabcci/images/local"
+

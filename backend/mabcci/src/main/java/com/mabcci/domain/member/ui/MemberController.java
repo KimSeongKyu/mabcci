@@ -8,11 +8,7 @@ import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.dto.request.MemberDeleteRequest;
 import com.mabcci.domain.member.dto.request.MemberJoinRequest;
 import com.mabcci.domain.member.dto.request.MemberUpdateRequest;
-import com.mabcci.domain.member.dto.response.FindMabcciResponse;
-import com.mabcci.domain.member.dto.response.FindMemberByNickNameResponse;
-import com.mabcci.domain.member.dto.response.MemberInfoResponse;
-import com.mabcci.domain.member.dto.response.MemberListResponse;
-import com.mabcci.domain.member.dto.response.FindMabcciResponses;
+import com.mabcci.domain.member.dto.response.*;
 import com.mabcci.global.common.Nickname;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,9 +39,9 @@ public class MemberController {
     }
 
     @PostMapping(value = "/api/members")
-    public ResponseEntity<FindMemberByNickNameResponse> join(@Valid @RequestBody final MemberJoinRequest request) {
+    public ResponseEntity<MemberFindByNickNameResponse> join(@Valid @RequestBody final MemberJoinRequest request) {
         final Member member = memberJoinService.join(request.member(), request.categories());
-        final FindMemberByNickNameResponse response = FindMemberByNickNameResponse.ofMember(member);
+        final MemberFindByNickNameResponse response = MemberFindByNickNameResponse.ofMember(member);
         return ResponseEntity.ok().body(response);
     }
 
@@ -57,9 +53,9 @@ public class MemberController {
     }
 
     @GetMapping("/api/members/{nickname}")
-    public ResponseEntity<FindMemberByNickNameResponse> findMemberByNickname(@Valid @PathVariable final Nickname nickname) {
+    public ResponseEntity<MemberFindByNickNameResponse> findMemberByNickname(@Valid @PathVariable final Nickname nickname) {
         final Member member = memberFindService.findByNickname(nickname);
-        final FindMemberByNickNameResponse response = FindMemberByNickNameResponse.ofMember(member);
+        final MemberFindByNickNameResponse response = MemberFindByNickNameResponse.ofMember(member);
         return ResponseEntity.ok().body(response);
     }
 
@@ -70,22 +66,23 @@ public class MemberController {
     }
 
     @GetMapping("/api/members/mabcci")
-    public ResponseEntity<FindMabcciResponses> findMabcci() {
+    public ResponseEntity<MemberFindMabcciResponses> findMabcci() {
         final List<Member> member = memberFindService.findByMemberRole(MABCCI);
-        final List<FindMabcciResponse> responses = member.stream()
-                .map(FindMabcciResponse::ofMember)
+        final List<MemberFindMabcciResponse> responses = member.stream()
+                .map(MemberFindMabcciResponse::ofMember)
                 .collect(Collectors.toList());
-        return ResponseEntity.ok().body(new FindMabcciResponses(responses));
+        return ResponseEntity.ok().body(new MemberFindMabcciResponses(responses));
     }
 
     @PostMapping("/api/members/nickname")
     public ResponseEntity<?> update(@Valid @ModelAttribute MemberUpdateRequest request,
                                     @RequestParam MultipartFile picture) {
-        final Member member = memberUpdateService.update(request.nickname(), request.gender(), request.description(),
+        memberUpdateService.update(
+                request.nickname(), request.gender(), request.description(),
                 request.height(), request.weight(), request.footSize(), request.bodytype(),
                 request.categories(), picture);
-        // update 리스폰스 만들기
-        return ResponseEntity.ok().body("ok");
+
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/api/members/{nickname}")

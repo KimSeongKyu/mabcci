@@ -21,7 +21,7 @@ import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class FindMemberByNickNameResponseTest {
+class MemberFindByNickNameResponseTest {
 
     private static final Long ID = 1L;
     private Member member;
@@ -54,22 +54,22 @@ class FindMemberByNickNameResponseTest {
     @Test
     void static_factory_method_test() {
 
-        final FindMemberByNickNameResponse findMemberByNickNameResponse = FindMemberByNickNameResponse.ofMember(member);
+        final MemberFindByNickNameResponse memberFindByNickNameResponse = MemberFindByNickNameResponse.ofMember(member);
 
         assertAll(
-                () -> assertThat(findMemberByNickNameResponse).isNotNull(),
-                () -> assertThat(findMemberByNickNameResponse).isExactlyInstanceOf(FindMemberByNickNameResponse.class)
+                () -> assertThat(memberFindByNickNameResponse).isNotNull(),
+                () -> assertThat(memberFindByNickNameResponse).isExactlyInstanceOf(MemberFindByNickNameResponse.class)
         );
     }
 
     @DisplayName("MemberResponse 인스턴스 getter 메서드들 테스트")
     @Test
     void getter_test() {
-        final FindMemberByNickNameResponse findMemberByNickNameResponse = FindMemberByNickNameResponse.ofMember(member);
+        final MemberFindByNickNameResponse memberFindByNickNameResponse = MemberFindByNickNameResponse.ofMember(member);
         assertAll(
-                () -> assertThat(findMemberByNickNameResponse.email()).isEqualTo(EMAIL),
-                () -> assertThat(findMemberByNickNameResponse.nickname()).isEqualTo(NICKNAME),
-                () -> assertThat(findMemberByNickNameResponse.role()).isEqualTo(MemberRole.USER)
+                () -> assertThat(memberFindByNickNameResponse.email()).isEqualTo(EMAIL),
+                () -> assertThat(memberFindByNickNameResponse.nickname()).isEqualTo(NICKNAME),
+                () -> assertThat(memberFindByNickNameResponse.role()).isEqualTo(MemberRole.USER)
         );
     }
 }

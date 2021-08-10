@@ -97,8 +97,7 @@ public class PictureUtilTest {
         assertAll(
                 () -> assertThat(url).contains(baseUrl),
                 () -> assertThat(url).contains("/"),
-                () -> assertThat(url).doesNotContain(baseDirectory),
-                () -> assertThat(url).doesNotContain(File.separator)
+                () -> assertThat(url).doesNotContain(baseDirectory)
         );
     }
 
@@ -113,8 +112,7 @@ public class PictureUtilTest {
 
         assertAll(
                 () -> assertThat(directoryName).contains(baseDirectory),
-                () -> assertThat(directoryName).contains(File.separator),
-                () -> assertThat(directoryName).doesNotContain("/")
+                () -> assertThat(directoryName).contains(File.separator)
         );
     }
 

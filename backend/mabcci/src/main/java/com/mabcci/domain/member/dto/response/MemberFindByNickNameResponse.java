@@ -5,9 +5,7 @@ import com.mabcci.domain.member.domain.*;
 import com.mabcci.global.common.Email;
 import com.mabcci.global.common.Nickname;
 
-import javax.validation.constraints.NotBlank;
-
-public final class FindMemberByNickNameResponse {
+public final class MemberFindByNickNameResponse {
 
     @JsonProperty("email")
     private Email email;
@@ -33,15 +31,15 @@ public final class FindMemberByNickNameResponse {
     @JsonProperty("bodyType")
     private BodyType bodyType;
 
-    FindMemberByNickNameResponse() {
+    MemberFindByNickNameResponse() {
     }
 
-    public static final FindMemberByNickNameResponse ofMember(final Member entity) {
+    public static final MemberFindByNickNameResponse ofMember(final Member entity) {
         final MemberSpecs memberSpecs = entity.memberSpecs();
         return fromMemberAndMemberSpecs(entity, memberSpecs);
     }
 
-    private static final FindMemberByNickNameResponse fromMemberAndMemberSpecs(final Member member, final MemberSpecs memberSpecs) {
+    private static final MemberFindByNickNameResponse fromMemberAndMemberSpecs(final Member member, final MemberSpecs memberSpecs) {
         final Email email = member.email();
         final Nickname nickname = member.nickname();
         final Gender gender = member.gender();
@@ -50,10 +48,10 @@ public final class FindMemberByNickNameResponse {
         final int weight = memberSpecs.weight();
         final int footSize = memberSpecs.footSize();
         final BodyType bodyType = memberSpecs.bodyType();
-        return new FindMemberByNickNameResponse(email, nickname, gender, memberRole, height, weight, footSize, bodyType);
+        return new MemberFindByNickNameResponse(email, nickname, gender, memberRole, height, weight, footSize, bodyType);
     }
 
-    private FindMemberByNickNameResponse(final Email email, final Nickname nickname, final Gender gender, final MemberRole role,
+    private MemberFindByNickNameResponse(final Email email, final Nickname nickname, final Gender gender, final MemberRole role,
                                          final int height, final int weight, final int footSize, final BodyType bodyType) {
         this.email = email;
         this.nickname = nickname;
