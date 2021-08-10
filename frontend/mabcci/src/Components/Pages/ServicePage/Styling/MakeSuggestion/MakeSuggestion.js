@@ -15,12 +15,40 @@ import { FaShoppingBag } from 'react-icons/fa';
 
 SwiperCore.use([Zoom, Navigation, Pagination]);
 
+const imageProcess = cloth => {
+  return cloth ? (
+    <div className="makeSuggestion-swiper-container">
+      <img src="test" alt="사진을 추가해주세요" />
+      <button type="submit" className="btn-util OOTDWrite-btn-remove">
+        X
+      </button>
+    </div>
+  ) : (
+    <div className="makeSuggestion-swiper-container-noimage">
+      <div className="makeSuggestion-initial-image">No image yet</div>
+      <div>
+        <label htmlFor="input-file" className="OOTDWrite-input-file">
+          <GrGallery />
+          Add your photo
+          <input
+            type="file"
+            multiple="multiple"
+            id="input-file"
+            style={{ display: 'none' }}
+            accept=".jpg,.jpeg,.png"
+          />
+        </label>
+      </div>
+    </div>
+  );
+};
+
 const MakeSuggestion = () => {
   const [suggestion, setSuggestion] = useState({
     memberId: '',
     mabcciId: '',
     description: '',
-    top: null,
+    top: '',
     bottom: '',
     shoes: '',
     acc: '',
@@ -44,26 +72,20 @@ const MakeSuggestion = () => {
           className="makeSuggestion-swiper"
         >
           <SwiperSlide>
-            <IoShirt size="30" />
-            {suggestion.top ? (
-              <div className="makeSuggestion-swiper-container">
-                <img src="test" alt="사진을 추가해주세요" />
-                <button type="submit" className="btn-util OOTDWrite-btn-remove">
-                  X
-                </button>
-              </div>
-            ) : (
-              <div className="makeSuggestion-initial-image">No image yet</div>
-            )}
+            <IoShirt size="30" className="makeSuggestion-swiper-icon" />
+            {imageProcess(suggestion.top)}
           </SwiperSlide>
           <SwiperSlide>
-            <GiArmoredPants size="30" />
+            <GiArmoredPants size="30" className="makeSuggestion-swiper-icon" />
+            {imageProcess(suggestion.bottom)}
           </SwiperSlide>
           <SwiperSlide>
-            <GiConverseShoe size="30" />
+            <GiConverseShoe size="30" className="makeSuggestion-swiper-icon" />
+            {imageProcess(suggestion.shoes)}
           </SwiperSlide>
           <SwiperSlide>
-            <FaShoppingBag size="30" />
+            <FaShoppingBag size="30" className="makeSuggestion-swiper-icon" />
+            {imageProcess(suggestion.acc)}
           </SwiperSlide>
         </Swiper>
       </div>

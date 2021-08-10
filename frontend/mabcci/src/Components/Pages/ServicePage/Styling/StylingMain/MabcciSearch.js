@@ -11,7 +11,7 @@ import userphoto from './Images/userphoto.png';
 
 const MabcciSearch = () => {
   const [searchContent, setSearchContent] = useState('');
-  const [mabcciList, setMabcciList] = useState([
+  const [mabcciListTmp, setMabcciListTmp] = useState([
     {
       nickName: '젠킨스1',
       picture: userphoto,
@@ -38,7 +38,8 @@ const MabcciSearch = () => {
       categories: ['아메카지', '캐쥬얼'],
     },
   ]);
-  const [filterMabcciList, setFilterMabcciList] = useState(mabcciList);
+  const [mabcciList, setMabcciList] = useState([]);
+  const [filterMabcciList, setFilterMabcciList] = useState([]);
   const categories = [
     '미니멀',
     '스트릿',
@@ -49,9 +50,10 @@ const MabcciSearch = () => {
   ];
   const categoriesImage = [미니멀, 스트릿, 아메카지, 오피스, 캐쥬얼, 포멀];
 
-  useEffect(() => {
-    // const response = await AllMabcciApi();
-    // setMabcciList(response.mabccies);
+  useEffect(async () => {
+    const response = await AllMabcciApi();
+    setMabcciList(response.mabccies);
+    setFilterMabcciList(response.mabccies);
   }, []);
 
   /* 검색 이벤트 */
@@ -61,9 +63,10 @@ const MabcciSearch = () => {
 
   const searchHandler = () => {
     setFilterMabcciList(
-      mabcciList.filter(mabcci => {
-        return mabcci.nickName === searchContent;
-      }),
+      mabcciList &&
+        mabcciList.filter(mabcci => {
+          return mabcci.nickName === searchContent;
+        }),
     );
   };
 
@@ -74,13 +77,14 @@ const MabcciSearch = () => {
   /* 카테고리 이벤트 */
   const categoryHandler = category => {
     setFilterMabcciList(
-      mabcciList.filter(mabcci => {
-        let flag = false;
-        mabcci.categories.forEach(mabcciCategory => {
-          if (mabcciCategory === category) flag = true;
-        });
-        return flag === true;
-      }),
+      mabcciList &&
+        mabcciList.filter(mabcci => {
+          let flag = false;
+          mabcci.categories.forEach(mabcciCategory => {
+            if (mabcciCategory === category) flag = true;
+          });
+          return flag === true;
+        }),
     );
   };
 
@@ -128,34 +132,35 @@ const MabcciSearch = () => {
         ))}
       </article>
       <article className="styling-mabccilist">
-        {filterMabcciList.map(mabcci => (
-          <div className="styling-mabcci" key={mabcci.nickName}>
-            <button
-              type="button"
-              onClick={() => mabcciPageHandler(mabcci.nickName)}
-              onKeyDown={() => mabcciPageHandler(mabcci.nickName)}
-            >
-              <img
-                className="styling-mabcci-photo"
-                src={mabcci.picture}
-                alt="mabcciPhoto"
-                width="100"
+        {filterMabcciList &&
+          filterMabcciList.map(mabcci => (
+            <div className="styling-mabcci" key={mabcci.nickName}>
+              <button
+                type="button"
+                onClick={() => mabcciPageHandler(mabcci.nickName)}
+                onKeyDown={() => mabcciPageHandler(mabcci.nickName)}
+              >
+                <img
+                  className="styling-mabcci-photo"
+                  src={mabcci.picture}
+                  alt="mabcciPhoto"
+                  width="100"
+                />
+              </button>
+              <div className="styling-mabcci-info">
+                <h3>{mabcci.nickName}</h3>
+                {mabcci.categories.map(category => (
+                  <h6 key={category}># {category} </h6>
+                ))}
+              </div>
+              <BiEdit
+                className="styling-mabcci-apply"
+                size="40"
+                onClick={() => stylingApplyHandler(mabcci.nickName)}
+                onKeyDown={() => stylingApplyHandler(mabcci.nickName)}
               />
-            </button>
-            <div className="styling-mabcci-info">
-              <h3>{mabcci.nickName}</h3>
-              {mabcci.categories.map(category => (
-                <h6 key={category}># {category} </h6>
-              ))}
             </div>
-            <BiEdit
-              className="styling-mabcci-apply"
-              size="40"
-              onClick={() => stylingApplyHandler(mabcci.nickName)}
-              onKeyDown={() => stylingApplyHandler(mabcci.nickName)}
-            />
-          </div>
-        ))}
+          ))}
       </article>
     </>
   );
