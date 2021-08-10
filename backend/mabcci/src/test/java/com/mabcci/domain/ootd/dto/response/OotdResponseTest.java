@@ -20,7 +20,7 @@ class OotdResponseTest {
 
     @BeforeEach
     void setUp() {
-        ootdResponse = new OotdResponse(1L, "닉네임", "url/name.png", new ArrayList<>(List.of("해시태그1", "해시태그2")), 10L);
+        ootdResponse = new OotdResponse(1L, "닉네임", "url/name.png", new ArrayList<>(List.of("해시태그1", "해시태그2")));
     }
 
     @DisplayName("OotdResponse 인스턴스 생성 여부 테스트")
@@ -39,8 +39,7 @@ class OotdResponseTest {
                 () -> assertThat(ootdResponse.getId()).isEqualTo(1L),
                 () -> assertThat(ootdResponse.getNickname()).isEqualTo("닉네임"),
                 () -> assertThat(ootdResponse.getPicture()).isEqualTo("url/name.png"),
-                () -> assertThat(ootdResponse.getHashtags()).contains("해시태그1", "해시태그2"),
-                () -> assertThat(ootdResponse.getLikeCount()).isEqualTo(10L)
+                () -> assertThat(ootdResponse.getHashtags()).contains("해시태그1", "해시태그2")
         );
     }
 
@@ -48,7 +47,7 @@ class OotdResponseTest {
     @Test
     void validate_test() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        final OotdResponse invalidOotdResponse = new OotdResponse(0L, "", "", null, -1L);
+        final OotdResponse invalidOotdResponse = new OotdResponse(0L, "", "", null);
 
         final Set<ConstraintViolation<OotdResponse>> invalidPropertiesOfValidResponse =
                 validator.validate(ootdResponse);

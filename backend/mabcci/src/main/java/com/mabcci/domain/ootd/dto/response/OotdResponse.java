@@ -21,20 +21,15 @@ public final class OotdResponse {
     @NotNull
     private List<String> hashtags;
 
-    @NotNull
-    @PositiveOrZero
-    private Long likeCount;
-
     private OotdResponse() {
     }
 
     public OotdResponse(final Long id, final String nickname, final String picture,
-                        final List<String> hashtags, final Long likeCount) {
+                        final List<String> hashtags) {
         this.id = id;
         this.nickname = nickname;
         this.picture = picture;
         this.hashtags = hashtags;
-        this.likeCount = likeCount;
     }
 
     public final Long getId() {
@@ -51,9 +46,5 @@ public final class OotdResponse {
 
     public final List<String> getHashtags() {
         return hashtags;
-    }
-
-    public final Long getLikeCount() {
-        return likeCount;
     }
 }

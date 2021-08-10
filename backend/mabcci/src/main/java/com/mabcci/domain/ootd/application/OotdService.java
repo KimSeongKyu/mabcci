@@ -85,8 +85,7 @@ public class OotdService {
                         ootdHashtagRepository.findByOotd(ootd)
                                 .stream()
                                 .map(ootdHashtag -> ootdHashtag.hashtag().name())
-                                .collect(toList()),
-                        ootdLikeRepository.countByOotd(ootd)))
+                                .collect(toList())))
                 .collect(toList());
 
         return new OotdListResponse(ootdResponses, totalPages);

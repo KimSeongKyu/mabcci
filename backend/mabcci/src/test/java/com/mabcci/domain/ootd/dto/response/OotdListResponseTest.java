@@ -23,9 +23,9 @@ class OotdListResponseTest {
     void setUp() {
         ootdResponses = new ArrayList<>(List.of(
                 new OotdResponse(1L, "닉네임1", "url/name1.png",
-                        new ArrayList<>(List.of("해시태그1", "해시태그2")), 10L),
+                        new ArrayList<>(List.of("해시태그1", "해시태그2"))),
                 new OotdResponse(1L, "닉네임2", "url/name2.png",
-                        new ArrayList<>(List.of("해시태그1", "해시태그3")), 20L)
+                        new ArrayList<>(List.of("해시태그1", "해시태그3")))
         ));
         ootdListResponse = new OotdListResponse(ootdResponses, 1);
     }
