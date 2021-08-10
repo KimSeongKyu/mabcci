@@ -32,14 +32,14 @@ public class MemberUpdateService {
     }
 
     @Transactional
-    public Member update(final Nickname nickname, final Gender gender, final String description,
+    public void update(final Nickname nickname, final Gender gender, final String description,
                          final int height, final int weight, final int footSize, final BodyType bodyType,
                          final Set<String> categories, final MultipartFile rawPicture) {
 
         final Member member = memberByNickName(nickname);
         final Picture picture = picture(rawPicture);
         updateCategory(categories, member);
-        return member.update(nickname, gender, description, height, weight, footSize, bodyType, picture.path());
+        member.update(nickname, gender, description, height, weight, footSize, bodyType, picture.path());
     }
 
     private Member memberByNickName(final Nickname nickname) {
