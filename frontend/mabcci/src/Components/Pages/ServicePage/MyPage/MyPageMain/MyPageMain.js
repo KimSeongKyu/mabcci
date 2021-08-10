@@ -9,6 +9,8 @@ import MypageReadApi from '../../../../../API/MypageAPI/MypageReadApi';
 import FollowBox from '../MyPageFollow/FollowBox';
 import MyChatList from '../MyPageSetting/MyChatList/MyChatList';
 import MyProposalList from '../MyPageSetting/MyProposal/MyProposalList';
+import MyProposalListMobile from '../MyPageSetting/MyProposal/MyProposalListMobile';
+import MyPageMobileMenu from '../MyPageSetting/MySetting/MyPageMobileMenu';
 
 function MyPageMain() {
   const history = useHistory();
@@ -23,6 +25,8 @@ function MyPageMain() {
 
   const [proposalBox, setProposalBox] = useState(false);
 
+  const [mobileMenu, setMobileMenu] = useState(false);
+
   useEffect(async () => {
     const res = await MypageReadApi(userInfo.nickname);
     // await setMyInfo(...myInfo, ...res.myInfo);
@@ -31,7 +35,7 @@ function MyPageMain() {
   }, []);
 
   const goToMobileMenu = () => {
-    history.push(`/mypage/menu/${userInfo.nickname}`);
+    setMobileMenu(true);
   };
 
   return (
@@ -39,6 +43,16 @@ function MyPageMain() {
       <FollowBox followBox={followBox} setFollowBox={setFollowBox} />
       <MyChatList chatBox={chatBox} setChatBox={setChatBox} />
       <MyProposalList
+        proposalBox={proposalBox}
+        setProposalBox={setProposalBox}
+      />
+      <MyProposalListMobile
+        proposalBox={proposalBox}
+        setProposalBox={setProposalBox}
+      />
+      <MyPageMobileMenu
+        mobileMenu={mobileMenu}
+        setMobileMenu={setMobileMenu}
         proposalBox={proposalBox}
         setProposalBox={setProposalBox}
       />

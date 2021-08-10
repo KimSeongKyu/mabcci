@@ -37,7 +37,7 @@ const MyProposalReview = props => {
   return (
     <>
       {props.reviewBox === true ? (
-        <div className="mypage-modal-box mypage-review-box">
+        <div className="mypage-review-box">
           <div className="mypage-modal-box-header">
             <button
               type="submit"
