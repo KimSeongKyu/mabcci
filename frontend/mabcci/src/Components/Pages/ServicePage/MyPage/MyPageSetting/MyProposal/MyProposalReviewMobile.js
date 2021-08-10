@@ -51,7 +51,7 @@ const MyPageProposalReviewMobile = () => {
         </button>
         <h3>Review</h3>
       </div>
-      <div className="mypage-review-content">
+      <div className="mypage-review-content mypage-review-content-mobile">
         <div className="mypage-review-star-box">
           <div className="star-rating">
             <input
@@ -114,7 +114,7 @@ const MyPageProposalReviewMobile = () => {
           rows="6"
         />
       </div>
-      <button type="submit" className="btn-sm" onClick={submitReview}>
+      <button type="submit" className="btn-sm mypage-review-btn" onClick={submitReview}>
         Submit
       </button>
     </div>

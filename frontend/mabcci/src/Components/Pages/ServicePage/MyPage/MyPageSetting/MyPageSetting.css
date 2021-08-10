@@ -46,6 +46,19 @@
   background-color: #faf9f8;
 }
 
+.mypage-review-content-mobile {
+  text-align: center;
+}
+
+.mypage-review-content-mobile textarea {
+  width: 80%;
+}
+
+.mypage-review-btn {
+  margin-left: 50%;
+  transform: translate(-50%);
+}
+
 #mypage-review-box-head {
   margin-left: 0%;
   margin-right: 35%;
@@ -89,6 +102,7 @@
   width: 80%;
   height: 100vh;
   margin: auto;
+  margin-top: 10px;
 }
 
 .mobile-menu-logout-btn {
@@ -142,4 +156,10 @@
 .mypage-mobile-proposal-box {
   width: 100%;
   margin-top: 10px;
+}
+
+@media screen and (min-width: 576px) {
+  .mypage-mobile-menu {
+    width: 40%;
+  }
 }
