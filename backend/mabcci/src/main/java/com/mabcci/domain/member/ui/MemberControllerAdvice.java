@@ -17,7 +17,7 @@ public class MemberControllerAdvice {
 
     @ExceptionHandler(MemberNotFoundException.class)
     public ResponseEntity handleMemberNotFoundException(final MemberNotFoundException memberNotFoundException) {
-        log.debug("notFound Member Exception : {}", memberNotFoundException.getMessage(), memberNotFoundException);
+        log.error("notFound Member Exception : {}", memberNotFoundException.getMessage(), memberNotFoundException);
         return ResponseEntity.badRequest().body(memberNotFoundException.getMessage());
     }
 

@@ -1,10 +1,11 @@
 package com.mabcci.domain.member.dto.response;
 
-import com.mabcci.domain.member.domain.*;
+import com.mabcci.domain.member.domain.Gender;
+import com.mabcci.domain.member.domain.Member;
+import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.global.common.Email;
 import com.mabcci.global.common.Nickname;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 public final class MemberListResponse {

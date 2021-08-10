@@ -23,10 +23,6 @@ public class MemberFindService {
     }
 
     public Member findByNickname(final Nickname nickname) {
-        return findMemberByNickName(nickname);
-    }
-
-    private Member findMemberByNickName(Nickname nickname) {
         return memberRepository.findByNickName(nickname)
                 .orElseThrow(MemberNotFoundException::new);
     }

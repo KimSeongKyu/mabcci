@@ -73,7 +73,7 @@ public class MemberTest {
     @DisplayName("Member 인스턴스의 MemberCategory 값 추가 테스트")
     @Test
     void addMemberCategory_test() {
-        final MemberCategory memberCategory = MemberCategory.createMemberCategory(member, category);
+        final MemberCategory memberCategory = MemberCategory.fromMemberAndCategory(member, category);
         member.addMemberCategory(memberCategory);
 
         assertThat(member.memberCategories().size()).isEqualTo(1);

@@ -2,10 +2,8 @@ package com.mabcci.domain.member.application;
 
 import com.mabcci.domain.category.domain.Category;
 import com.mabcci.domain.member.domain.*;
-import com.mabcci.domain.member.dto.response.MemberByMemberRoleResponse;
 import com.mabcci.domain.member.dto.response.MemberListResponse;
-import com.mabcci.domain.member.dto.response.MemberByNickNameResponse;
-import com.mabcci.domain.membercategory.domain.MemberCategory;
+import com.mabcci.domain.member.dto.response.FindMemberByNickNameResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +18,6 @@ import static com.mabcci.domain.member.domain.Gender.MAN;
 import static com.mabcci.domain.member.domain.MemberRole.USER;
 import static com.mabcci.domain.member.domain.MemberSpecsTest.*;
 import static com.mabcci.domain.member.domain.MemberSpecsTest.BODY_TYPE;
-import static com.mabcci.domain.member.domain.MemberTest.*;
 import static com.mabcci.global.common.EmailTest.EMAIL;
 import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static com.mabcci.global.common.PasswordTest.PASSWORD;
@@ -67,13 +64,13 @@ public class MemberFindServiceTest {
     void findByNickname_test() {
         given(memberRepository.findByNickName(any())).willReturn(Optional.ofNullable(member));
         final Member findMember = memberFindService.findByNickname(member.nickname());
-        final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse(findMember);
+        final FindMemberByNickNameResponse findMemberByNickNameResponse = FindMemberByNickNameResponse.ofMember(findMember);
 
         assertAll(
-                () -> assertThat(memberByNickNameResponse.getEmail()).isEqualTo(member.email()),
-                () -> assertThat(memberByNickNameResponse.getNickname()).isEqualTo(member.nickname()),
-                () -> assertThat(memberByNickNameResponse.getGender()).isEqualTo(member.gender()),
-                () -> assertThat(memberByNickNameResponse.getRole()).isEqualTo(member.memberRole())
+                () -> assertThat(findMemberByNickNameResponse.email()).isEqualTo(member.email()),
+                () -> assertThat(findMemberByNickNameResponse.nickname()).isEqualTo(member.nickname()),
+                () -> assertThat(findMemberByNickNameResponse.gender()).isEqualTo(member.gender()),
+                () -> assertThat(findMemberByNickNameResponse.role()).isEqualTo(member.memberRole())
         );
     }
 

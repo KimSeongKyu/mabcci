@@ -68,7 +68,7 @@ class FollowServiceTest {
         given(memberRepository.findByNickName(following.nickname())).willReturn(Optional.ofNullable(following));
         given(memberRepository.findByNickName(follower.nickname())).willReturn(Optional.ofNullable(follower));
 
-        final Long actual = followService.save(following.nickname(), follower.nickname());
+        final Long actual = followService.follow(following.nickname(), follower.nickname());
 
         then(followRepository).should(times(1)).save(any());
         then(memberRepository).should(times(2)).findByNickName(any());
@@ -84,7 +84,7 @@ class FollowServiceTest {
         doNothing().when(followRepository).delete(any());
         given(followRepository.findById(any())).willReturn(Optional.ofNullable(follow));
 
-        followService.cancel(1L);
+        followService.unfollow(1L);
 
         then(followRepository).should(times(1)).delete(any());
         then(followRepository).should(times(1)).findById(any());

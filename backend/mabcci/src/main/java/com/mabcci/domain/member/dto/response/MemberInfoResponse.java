@@ -1,5 +1,6 @@
 package com.mabcci.domain.member.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mabcci.domain.category.domain.Category;
 import com.mabcci.domain.follow.domain.Follow;
 import com.mabcci.domain.member.domain.*;
@@ -11,20 +12,43 @@ import java.util.stream.Collectors;
 
 public final class MemberInfoResponse {
 
+    @JsonProperty("nickname")
     private Nickname nickname;
+
+    @JsonProperty("gender")
     private Gender gender;
+
+    @JsonProperty("role")
     private MemberRole role;
+
+    @JsonProperty("picture")
     private String picture;
+
+    @JsonProperty("description")
     private String description;
+
+    @JsonProperty("height")
     private int height;
+
+    @JsonProperty("weight")
     private int weight;
+
+    @JsonProperty("footSize")
     private int footSize;
+
+    @JsonProperty("bodyType")
     private BodyType bodyType;
+
+    @JsonProperty("categories")
     private Set<String> categories;
+
+    @JsonProperty("follower")
     private int follower;
+
+    @JsonProperty("following")
     private int following;
 
-    public static final MemberInfoResponse createMemberInfoResponse(final Member member) {
+    public static final MemberInfoResponse ofMember(final Member member) {
         final Set<String> categories = mapToStringCategoryNames(member);
         final MemberSpecs memberSpecs = member.memberSpecs();
         final Set<Follow> followers = member.followers();
@@ -46,8 +70,8 @@ public final class MemberInfoResponse {
     }
 
     public MemberInfoResponse(final Nickname nickname, final Gender gender, final MemberRole role, final String picture, final String description,
-                                    final int height, final int weight, final int footSize, final BodyType bodyType,
-                                    final Set<String> categories, int follower, int following) {
+                              final int height, final int weight, final int footSize, final BodyType bodyType,
+                              final Set<String> categories, int follower, int following) {
         this.nickname = nickname;
         this.gender = gender;
         this.role = role;
@@ -62,51 +86,51 @@ public final class MemberInfoResponse {
         this.following = following;
     }
 
-    public Nickname getNickname() {
+    public final Nickname nickname() {
         return nickname;
     }
 
-    public Gender getGender() {
+    public final Gender gender() {
         return gender;
     }
 
-    public MemberRole getRole() {
+    public final MemberRole role() {
         return role;
     }
 
-    public String getPicture() {
+    public final String picture() {
         return picture;
     }
 
-    public String getDescription() {
+    public final String description() {
         return description;
     }
 
-    public int getHeight() {
+    public final int height() {
         return height;
     }
 
-    public int getWeight() {
+    public final int weight() {
         return weight;
     }
 
-    public int getFootSize() {
+    public final int footSize() {
         return footSize;
     }
 
-    public BodyType getBodyType() {
+    public final BodyType bodyType() {
         return bodyType;
     }
 
-    public Set<String> getCategories() {
+    public final Set<String> categories() {
         return categories;
     }
 
-    public int getFollower() {
+    public final int follower() {
         return follower;
     }
 
-    public int getFollowing() {
+    public final int following() {
         return following;
     }
 

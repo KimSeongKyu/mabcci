@@ -9,7 +9,8 @@ import javax.persistence.*;
 @Entity
 public class MemberCategory {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JsonIgnore
@@ -21,7 +22,7 @@ public class MemberCategory {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    public static MemberCategory createMemberCategory(final Member member, final Category category) {
+    public static MemberCategory fromMemberAndCategory(final Member member, final Category category) {
         return new MemberCategory(member, category);
     }
 
@@ -41,7 +42,7 @@ public class MemberCategory {
         return category;
     }
 
-    public void changeMember(Member member) {
+    public void changeMember(final Member member) {
         this.member = member;
     }
 }

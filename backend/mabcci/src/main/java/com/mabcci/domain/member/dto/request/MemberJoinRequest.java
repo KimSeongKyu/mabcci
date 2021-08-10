@@ -1,5 +1,6 @@
 package com.mabcci.domain.member.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
@@ -14,30 +15,30 @@ import java.util.Set;
 
 public final class MemberJoinRequest {
 
-    @Valid
+    @JsonProperty("email")
     private Email email;
 
-    @Valid
+    @JsonProperty("password")
     private Password password;
 
-    @Valid
+    @JsonProperty("nickname")
     private Nickname nickname;
 
-    @Valid
+    @JsonProperty("phone")
     private Phone phone;
 
-    @Valid
+    @JsonProperty("gender")
     private Gender gender;
 
     @Size(min = 1)
+    @JsonProperty("categories")
     private Set<String> categories;
 
-    private MemberJoinRequest() {
+    MemberJoinRequest() {
     }
 
-    public MemberJoinRequest(@Valid final Email email, @Valid final Password password,
-                             @Valid final Nickname nickname, @Valid final Phone phone, @Valid final Gender gender,
-                             final Set<String> categories) {
+    public MemberJoinRequest(final Email email, final Password password, final Nickname nickname,
+                             final Phone phone, final Gender gender, final Set<String> categories) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
@@ -46,27 +47,27 @@ public final class MemberJoinRequest {
         this.categories = categories;
     }
 
-    public final Email getEmail() {
+    public final Email email() {
         return email;
     }
 
-    public final Password getPassword() {
+    public final Password password() {
         return password;
     }
 
-    public final Nickname getNickname() {
+    public final Nickname nickname() {
         return nickname;
     }
 
-    public final Phone getPhone() {
+    public final Phone phone() {
         return phone;
     }
 
-    public final Gender getGender() {
+    public final Gender gender() {
         return gender;
     }
 
-    public final Set<String> getCategories() {
+    public final Set<String> categories() {
         return categories;
     }
 
