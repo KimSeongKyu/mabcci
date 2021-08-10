@@ -1,7 +1,8 @@
 /* eslint-disable */
 import React from 'react';
 import '../../MyPageFollow/Follow.css';
-import '../MyPageSetting.css';
+import '../MySetting/MySetting.css';
+import './MyProposal.css';
 import {IoMdArrowBack} from 'react-icons/io';
 import { useState } from 'react';
 

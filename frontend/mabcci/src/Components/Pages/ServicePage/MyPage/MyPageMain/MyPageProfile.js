@@ -17,9 +17,9 @@ const MyPageProfile = props => {
 
   const clickProfile = () => {setProfile(!profile)}
   
-  const goToSetting = () => {
-    // history.push()
-  }
+  const openSetting = () => {
+    props.setMyPageUpdate('setting');
+  };
 
    const clickFollow = (e) => {
      props.setFollowBox(e.target.name)
@@ -64,7 +64,7 @@ const MyPageProfile = props => {
             <button type="submit">
               <AiOutlineMessage onClick={clickChatList} />
             </button>
-            <button type="submit" onClick={goToSetting}>
+            <button type="submit" onClick={openSetting}>
               <AiOutlineSetting />
             </button>
           </div>

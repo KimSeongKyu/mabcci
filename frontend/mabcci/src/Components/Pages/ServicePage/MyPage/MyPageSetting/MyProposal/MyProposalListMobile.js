@@ -1,10 +1,10 @@
 /* eslint-disable */
 import React, { useState } from 'react';
-import '../MyPageSetting.css';
+import '../MySetting/MySetting.css';
 import { IoArrowBackCircle } from 'react-icons/io5';
 import { useHistory } from 'react-router-dom';
 import 아라찌 from '../../MyPageMain/images/다운로드.jfif';
-import MyPageProposalReviewMobile from './MyProposalReview';
+import MyPageProposalReview from './MyProposalReview';
 
 const MyPageProposalListMobile = props => {
   const [reviewBox, setReviewBox] = useState(false);
@@ -21,7 +21,7 @@ const MyPageProposalListMobile = props => {
 
   return (
     <>
-      <MyPageProposalReviewMobile
+      <MyPageProposalReview
         reviewBox={reviewBox}
         setReviewBox={setReviewBox}
       />

@@ -11,6 +11,7 @@ import MyChatList from '../MyPageSetting/MyChatList/MyChatList';
 import MyProposalList from '../MyPageSetting/MyProposal/MyProposalList';
 import MyProposalListMobile from '../MyPageSetting/MyProposal/MyProposalListMobile';
 import MyPageMobileMenu from '../MyPageSetting/MySetting/MyPageMobileMenu';
+import MyPageUpdate from '../MyPageSetting/MySetting/MyPageUpdate';
 
 function MyPageMain() {
   const history = useHistory();
@@ -27,6 +28,8 @@ function MyPageMain() {
 
   const [mobileMenu, setMobileMenu] = useState(false);
 
+  const [myPageUpdate, setMyPageUpdate] = useState('none');
+
   useEffect(async () => {
     const res = await MypageReadApi(userInfo.nickname);
     // await setMyInfo(...myInfo, ...res.myInfo);
@@ -40,6 +43,10 @@ function MyPageMain() {
 
   return (
     <div className="mypage-entire">
+      <MyPageUpdate
+        myPageUpdate={myPageUpdate}
+        setMyPageUpdate={setMyPageUpdate}
+      />
       <FollowBox followBox={followBox} setFollowBox={setFollowBox} />
       <MyChatList chatBox={chatBox} setChatBox={setChatBox} />
       <MyProposalList
@@ -55,6 +62,8 @@ function MyPageMain() {
         setMobileMenu={setMobileMenu}
         proposalBox={proposalBox}
         setProposalBox={setProposalBox}
+        myPageUpdate={myPageUpdate}
+        setMyPageUpdate={setMyPageUpdate}
       />
       <div className="mypage-container">
         <button
@@ -72,6 +81,8 @@ function MyPageMain() {
           setChatBox={setChatBox}
           proposalBox={proposalBox}
           setProposalBox={setProposalBox}
+          myPageUpdate={myPageUpdate}
+          setMyPageUpdate={setMyPageUpdate}
         />
         <MyPageFeed />
         <MabcciReview />

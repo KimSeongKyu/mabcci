@@ -1,6 +1,6 @@
 /* eslint-disable */
 import '../../MyPageFollow/Follow.css';
-import '../../MyPageSetting/MyPageSetting.css';
+import '../MySetting/MySetting.css'
 import React, {useState} from 'react';
 import 아라찌 from '../../MyPageMain/images/다운로드.jfif';
 import MyProposalReview from './MyProposalReview';

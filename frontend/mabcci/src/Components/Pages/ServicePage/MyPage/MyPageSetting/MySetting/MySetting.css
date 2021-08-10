@@ -1,0 +1,130 @@
+.mypage-update-container {
+  background-color: aqua;
+  position: absolute;
+  width: 600px;
+  max-height: 600px;
+  margin-left: 50%;
+  margin-top: 5%;
+  transform: translate(-50%);
+  transform-origin: left;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  animation-name: mypage-update-appear;
+  animation-duration: 1s;
+}
+
+@keyframes mypage-update-appear {
+  0% {
+    transform: scale(0.7) translate(-50%);
+  }
+  100% {
+    transform: scale(1) translate(-50%);
+  }
+}
+
+.mypage-moblie-container {
+  width: 100%;
+  height: 120%;
+  background-color: black;
+  position: absolute;
+  z-index: 2;
+  opacity: 0.5;
+  transform: translateY(-15%);
+}
+
+.mypage-mobile-menu {
+  width: 100%;
+  height: 90vh;
+  margin-bottom: 15%;
+  overflow-y: auto;
+  margin-left: 5%;
+  position: absolute;
+  z-index: 3;
+  background-color: white;
+  position: fixed;
+  animation-name: mobile-appear;
+  animation-duration: 1.2s;
+}
+
+@keyframes mobile-appear {
+  0% {
+    transform: translate(100%);
+  }
+  100% {
+    transform: translate(0%);
+  }
+}
+
+.mypage-mobile-update {
+  z-index: 4;
+}
+
+.mobile-menu-logout-btn {
+  margin-left: 80%;
+  font-size: small;
+  color: gray;
+}
+
+.mypage-mobile-menu-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: solid 0.5px lightgray;
+}
+
+.mypage-mobile-menu-btn {
+  font-size: 50px;
+  margin-right: 20px;
+}
+
+.mypage-mobile-menu-btn svg {
+  fill: var(--main-color-1);
+  margin-bottom: 10px;
+}
+
+.mypage-mobile-menu-btn:active {
+  padding-top: 3px;
+  padding-left: 3px;
+  box-shadow: none;
+}
+
+.mypage-mobile-menu-content {
+  margin-top: 10px;
+  padding: 20px;
+}
+
+.mypage-mobile-menu-content h3 {
+  background-color: var(--main-color-2);
+}
+
+.mypage-mobile-menu-content div {
+  margin-top: 20px;
+}
+
+.mypage-mobile-menu-content button:active {
+  margin-left: 3px;
+  margin-top: 3px;
+  box-shadow: none;
+}
+
+.mypage-mobile-proposal-box {
+  width: 100%;
+  margin-top: 10px;
+}
+
+@media screen and (min-width: 576px) {
+  .mypage-mobile-menu {
+    display: none;
+  }
+
+  .mypage-moblie-container {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .mypage-update-container {
+    display: none;
+  }
+}
