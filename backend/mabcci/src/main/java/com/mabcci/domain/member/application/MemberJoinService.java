@@ -28,7 +28,7 @@ public class MemberJoinService {
         member.updateMemberSpecs(memberSpecs);
         for (String categoryName : categoryNames) {
             final Category category = getCategoryByCategoryName(categoryName);
-            final MemberCategory memberCategory = MemberCategory.createMemberCategory(member, category);
+            final MemberCategory memberCategory = MemberCategory.fromMemberAndCategory(member, category);
             member.addMemberCategory(memberCategory);
         }
         return memberRepository.save(member);

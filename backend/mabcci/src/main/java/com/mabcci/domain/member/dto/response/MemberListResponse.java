@@ -1,28 +1,20 @@
 package com.mabcci.domain.member.dto.response;
 
-import com.mabcci.domain.member.domain.*;
+import com.mabcci.domain.member.domain.Gender;
+import com.mabcci.domain.member.domain.Member;
+import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.global.common.Email;
 import com.mabcci.global.common.Nickname;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 public final class MemberListResponse {
 
-    @Valid
     @NotBlank
     private Long id;
-
-    @Valid
     private Email email;
-
-    @Valid
     private Nickname nickname;
-
-    @Valid
     private Gender gender;
-
-    @Valid
     private MemberRole role;
 
     MemberListResponse() {
@@ -33,7 +25,7 @@ public final class MemberListResponse {
                 entity.gender(), entity.memberRole());
     }
 
-    private MemberListResponse(final Long id, @Valid final Email email, @Valid final Nickname nickname,
+    private MemberListResponse(final Long id, final Email email, final Nickname nickname,
                                final Gender gender, final MemberRole role) {
         this.id = id;
         this.email = email;

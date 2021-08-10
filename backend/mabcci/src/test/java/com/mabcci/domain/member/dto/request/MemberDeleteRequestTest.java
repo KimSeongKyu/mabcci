@@ -25,8 +25,8 @@ class MemberDeleteRequestTest {
     void getter_test() {
         final MemberDeleteRequest memberDeleteRequest = new MemberDeleteRequest(NICKNAME, PASSWORD);
         assertAll(
-                () -> assertThat(memberDeleteRequest.getNickname()).isEqualTo(NICKNAME),
-                () -> assertThat(memberDeleteRequest.getPassword()).isEqualTo(PASSWORD)
+                () -> assertThat(memberDeleteRequest.nickname()).isEqualTo(NICKNAME),
+                () -> assertThat(memberDeleteRequest.password()).isEqualTo(PASSWORD)
         );
     }
 

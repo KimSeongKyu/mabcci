@@ -9,7 +9,8 @@ import javax.persistence.*;
 @Entity
 public class Follow extends BaseTimeEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JsonIgnore
@@ -17,13 +18,13 @@ public class Follow extends BaseTimeEntity {
     @JoinColumn(name = "following")
     private Member following;
 
-
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "follower")
     private Member follower;
 
-    protected Follow() { }
+    protected Follow() {
+    }
 
     protected Follow(final FollowBuilder followBuilder) {
         this.following = followBuilder.following;
@@ -58,7 +59,7 @@ public class Follow extends BaseTimeEntity {
         private Member following;
         private Member follower;
 
-        private FollowBuilder(){
+        private FollowBuilder() {
         }
 
         public FollowBuilder following(final Member following) {
@@ -76,4 +77,5 @@ public class Follow extends BaseTimeEntity {
         }
 
     }
+
 }

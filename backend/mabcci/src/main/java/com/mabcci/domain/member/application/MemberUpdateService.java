@@ -47,7 +47,7 @@ public class MemberUpdateService {
                 .orElseThrow(MemberNotFoundException::new);
     }
 
-    private Picture picture(MultipartFile rawPicture) {
+    private Picture picture(final MultipartFile rawPicture) {
         final String pictureDirectory = pictureUtil.makeDirectory(PictureType.OOTD);
         return pictureUtil.savePicture(rawPicture, pictureDirectory);
     }
@@ -55,13 +55,13 @@ public class MemberUpdateService {
     private void updateCategory(final Set<String> categories, final Member member) {
         member.clearMemberCategory();
         for (String categoryName : categories) {
-            final Category category = getCategoryByCategoryName(categoryName);
-            final MemberCategory memberCategory = MemberCategory.createMemberCategory(member, category);
+            final Category category = findCategoryByCategoryName(categoryName);
+            final MemberCategory memberCategory = MemberCategory.fromMemberAndCategory(member, category);
             member.addMemberCategory(memberCategory);
         }
     }
 
-    private Category getCategoryByCategoryName(final String categoryName) {
+    private Category findCategoryByCategoryName(final String categoryName) {
         return categoryRepository.findByCategoryName(categoryName)
                 .orElseThrow(IllegalArgumentException::new);
     }

@@ -52,7 +52,7 @@ public class MemberCategoryTest {
     @DisplayName("MemberCategory 정적 팩토리 메서드를 이용한 생성 테스트")
     @Test
     void static_factory_method_test() {
-        final MemberCategory memberCategory = MemberCategory.createMemberCategory(member, category);
+        final MemberCategory memberCategory = MemberCategory.fromMemberAndCategory(member, category);
 
         assertAll(
                 () -> assertThat(memberCategory).isNotNull(),

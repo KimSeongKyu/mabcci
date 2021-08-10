@@ -18,7 +18,7 @@ import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class MemberByMemberRoleResponseTest {
+class FindMabcciResponseTest {
 
     private Category category;
     private Member member;
@@ -42,38 +42,38 @@ class MemberByMemberRoleResponseTest {
     @DisplayName("MemberByMemberRoleResponse 인스턴스 기본 생성자를 이용한 생성 테스트")
     @Test
     void default_constructor_test() {
-        final MemberByMemberRoleResponse response = new MemberByMemberRoleResponse();
+        final FindMabcciResponse response = new FindMabcciResponse();
 
         assertAll(
                 () -> assertThat(response).isNotNull(),
-                () -> assertThat(response).isExactlyInstanceOf(MemberByMemberRoleResponse.class)
+                () -> assertThat(response).isExactlyInstanceOf(FindMabcciResponse.class)
         );
     }
 
     @DisplayName("MemberByMemberRoleResponse 인스턴스 정적 팩토리 메서드를 이용한 생성 테스트")
     @Test
     void static_factory_method_test() {
-        final MemberByMemberRoleResponse response = MemberByMemberRoleResponse
-                .createMemberByMemberRoleResponse(member);
+        final FindMabcciResponse response = FindMabcciResponse
+                .ofMember(member);
 
         assertAll(
                 () -> assertThat(response).isNotNull(),
-                () -> assertThat(response).isExactlyInstanceOf(MemberByMemberRoleResponse.class)
+                () -> assertThat(response).isExactlyInstanceOf(FindMabcciResponse.class)
         );
     }
 
     @DisplayName("MemberByMemberRoleResponse 인스턴스 getter 기능 테스트")
     @Test
     void getter_test() {
-        final MemberCategory memberCategory = new MemberCategory(member, category);
+        final MemberCategory memberCategory = MemberCategory.fromMemberAndCategory(member, category);
         member.addMemberCategory(memberCategory);
-        final MemberByMemberRoleResponse response = MemberByMemberRoleResponse
-                .createMemberByMemberRoleResponse(member);
+        final FindMabcciResponse response = FindMabcciResponse
+                .ofMember(member);
 
         assertAll(
-                () -> assertThat(response.getNickName()).isEqualTo(member.nickname()),
-                () -> assertThat(response.getPicture()).isEqualTo(member.picture()),
-                () -> assertThat(response.getCategories()).containsExactly(category.categoryName())
+                () -> assertThat(response.nickname()).isEqualTo(member.nickname()),
+                () -> assertThat(response.picture()).isEqualTo(member.picture()),
+                () -> assertThat(response.categories()).containsExactly(category.categoryName())
         );
     }
 }

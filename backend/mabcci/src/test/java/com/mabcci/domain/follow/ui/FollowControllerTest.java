@@ -53,7 +53,7 @@ class FollowControllerTest {
     @DisplayName("FollowController 인스턴스 팔로우 등록 기능 테스트")
     @Test
     void save_test() throws Exception {
-        given(followService.save(any(), any())).willReturn(1L);
+        given(followService.follow(any(), any())).willReturn(1L);
         final Nickname following = Nickname.of("following");
         final Nickname follower = Nickname.of("follower");
         final FollowSaveRequest followSaveRequest = new FollowSaveRequest(following, follower);
@@ -70,7 +70,7 @@ class FollowControllerTest {
     @DisplayName("FollowController 인스턴스 팔로우 취소 기능 테스트")
     @Test
     void cancel_test() throws Exception {
-        doNothing().when(followService).cancel(any());
+        doNothing().when(followService).unfollow(any());
 
         mockMvc.perform(delete("/api/follow")
                 .contentType(MediaType.APPLICATION_JSON)

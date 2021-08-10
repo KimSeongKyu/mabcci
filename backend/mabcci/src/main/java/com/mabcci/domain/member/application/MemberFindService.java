@@ -28,7 +28,7 @@ public class MemberFindService {
     }
 
     public List<Member> findByMemberRole(final MemberRole memberRole) {
-        return memberRepository.findByMemberRole(memberRole);
+        return memberRepository.findAllByMemberRole(memberRole);
     }
 
     public List<MemberListResponse> findAll() {
@@ -36,4 +36,5 @@ public class MemberFindService {
                 .map(MemberListResponse::new)
                 .collect(Collectors.toList());
     }
+
 }
