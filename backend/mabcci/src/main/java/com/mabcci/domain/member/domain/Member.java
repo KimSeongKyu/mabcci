@@ -67,85 +67,8 @@ public class Member extends BaseTimeEntity {
     @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Follow> followers = new HashSet<>();
 
-    protected Member() {
-    }
-
-    protected Member(final MemberBuilder memberBuilder) {
-        this.email = memberBuilder.email;
-        this.nickname = memberBuilder.nickname;
-        this.password = memberBuilder.password;
-        this.phone = memberBuilder.phone;
-        this.gender = memberBuilder.gender;
-        this.description = memberBuilder.description;
-        this.picture = memberBuilder.picture;
-        this.memberRole = memberBuilder.memberRole;
-        this.memberSpecs = memberBuilder.memberSpecs;
-    }
-
     public static MemberBuilder Builder() {
         return new MemberBuilder();
-    }
-
-    public boolean checkPassword(final Password otherPassword) {
-        return password.checkPassword(otherPassword);
-    }
-
-    public Long id() {
-        return id;
-    }
-
-    public Nickname nickname() {
-        return nickname;
-    }
-
-    public MemberRole memberRole() {
-        return memberRole;
-    }
-
-    public Email email() {
-        return email;
-    }
-
-    public MemberSpecs memberSpecs() {
-        return memberSpecs;
-    }
-
-    public Gender gender() {
-        return gender;
-    }
-
-    public String picture() {
-        return picture;
-    }
-
-    public Set<MemberCategory> memberCategories() {
-        return memberCategories;
-    }
-
-    public void addMemberCategory(final MemberCategory memberCategory) {
-        memberCategory.changeMember(this);
-        if(!memberCategories.contains(memberCategory)) {
-            memberCategories.add(memberCategory);
-        }
-    }
-
-    public Member update(final Nickname nickName, final Gender gender, final String description,
-                         int height, int weight, int footSize, BodyType bodyType, final String picture) {
-        this.nickname = nickName;
-        this.gender = gender;
-        this.description = description;
-        this.picture = picture;
-        updateMemberSpecs(memberSpecs.update(height, weight, footSize, bodyType));
-        return this;
-    }
-
-    public void updateMemberSpecs(final MemberSpecs memberSpecs) {
-        this.memberSpecs = memberSpecs;
-    }
-
-    public void clearMemberCategory() {
-        memberCategories.stream().forEach(memberCategory -> memberCategory.changeMember(null));
-        memberCategories.clear();
     }
 
     public static class MemberBuilder {
@@ -212,6 +135,87 @@ public class Member extends BaseTimeEntity {
             return new Member(this);
         }
 
+    }
+
+    protected Member() {
+    }
+
+    protected Member(final MemberBuilder memberBuilder) {
+        this.email = memberBuilder.email;
+        this.nickname = memberBuilder.nickname;
+        this.password = memberBuilder.password;
+        this.phone = memberBuilder.phone;
+        this.gender = memberBuilder.gender;
+        this.description = memberBuilder.description;
+        this.picture = memberBuilder.picture;
+        this.memberRole = memberBuilder.memberRole;
+        this.memberSpecs = memberBuilder.memberSpecs;
+    }
+
+    public Long id() {
+        return id;
+    }
+
+    public Email email() {
+        return email;
+    }
+
+    public Nickname nickname() {
+        return nickname;
+    }
+
+    public Gender gender() {
+        return gender;
+    }
+
+    public String description() { return description; }
+
+    public String picture() {
+        return picture;
+    }
+
+    public MemberRole memberRole() {
+        return memberRole;
+    }
+
+    public MemberSpecs memberSpecs() {
+        return memberSpecs;
+    }
+
+    public Set<MemberCategory> memberCategories() { return memberCategories; }
+
+    public Set<Follow> followings() { return followings; }
+
+    public Set<Follow> followers() { return followers; }
+
+    public boolean checkPassword(final Password otherPassword) {
+        return password.checkPassword(otherPassword);
+    }
+
+    public void addMemberCategory(final MemberCategory memberCategory) {
+        memberCategory.changeMember(this);
+        if(!memberCategories.contains(memberCategory)) {
+            memberCategories.add(memberCategory);
+        }
+    }
+
+    public Member update(final Nickname nickName, final Gender gender, final String description,
+                         int height, int weight, int footSize, BodyType bodyType, final String picture) {
+        this.nickname = nickName;
+        this.gender = gender;
+        this.description = description;
+        this.picture = picture;
+        updateMemberSpecs(memberSpecs.update(height, weight, footSize, bodyType));
+        return this;
+    }
+
+    public void updateMemberSpecs(final MemberSpecs memberSpecs) {
+        this.memberSpecs = memberSpecs;
+    }
+
+    public void clearMemberCategory() {
+        memberCategories.stream().forEach(memberCategory -> memberCategory.changeMember(null));
+        memberCategories.clear();
     }
 
 }

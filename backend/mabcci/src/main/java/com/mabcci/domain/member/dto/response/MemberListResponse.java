@@ -9,20 +9,11 @@ import javax.validation.constraints.NotBlank;
 
 public final class MemberListResponse {
 
-    @Valid
     @NotBlank
     private Long id;
-
-    @Valid
     private Email email;
-
-    @Valid
     private Nickname nickname;
-
-    @Valid
     private Gender gender;
-
-    @Valid
     private MemberRole role;
 
     MemberListResponse() {
@@ -33,7 +24,7 @@ public final class MemberListResponse {
                 entity.gender(), entity.memberRole());
     }
 
-    private MemberListResponse(final Long id, @Valid final Email email, @Valid final Nickname nickname,
+    private MemberListResponse(final Long id, final Email email, final Nickname nickname,
                                final Gender gender, final MemberRole role) {
         this.id = id;
         this.email = email;

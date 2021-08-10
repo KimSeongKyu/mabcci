@@ -9,28 +9,15 @@ import javax.validation.constraints.NotBlank;
 
 public final class MemberByNickNameResponse {
 
-    @Valid
     @NotBlank
     private Long id;
-
-    @Valid
     private Email email;
-
-    @Valid
     private Nickname nickname;
-
-    @Valid
     private Gender gender;
-
-    @Valid
     private MemberRole role;
-
     private int height;
-
     private int weight;
-
     private int footSize;
-
     private BodyType bodyType;
 
     MemberByNickNameResponse() {
@@ -46,7 +33,7 @@ public final class MemberByNickNameResponse {
                 memberSpecs.height(), memberSpecs.weight(), memberSpecs.footSize(), memberSpecs.bodyType());
     }
 
-    private MemberByNickNameResponse(final Long id, @Valid final Email email, @Valid final Nickname nickname,
+    private MemberByNickNameResponse(final Long id, final Email email, final Nickname nickname,
                                      final Gender gender, final MemberRole role,
                                      final int height, final int weight, final int footSize, final BodyType bodyType) {
         this.id = id;

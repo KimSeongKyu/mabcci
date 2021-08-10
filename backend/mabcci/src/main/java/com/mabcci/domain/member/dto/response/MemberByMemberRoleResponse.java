@@ -1,23 +1,17 @@
 package com.mabcci.domain.member.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonRootName;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.mabcci.domain.category.domain.Category;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.membercategory.domain.MemberCategory;
 import com.mabcci.global.common.Nickname;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Size;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public final class MemberByMemberRoleResponse {
 
-    @Valid
     private Nickname nickname;
-
     private String picture;
 
     @Size(min = 1)
@@ -37,7 +31,7 @@ public final class MemberByMemberRoleResponse {
     MemberByMemberRoleResponse() {
     }
 
-    private MemberByMemberRoleResponse(@Valid final Nickname nickname, final String picture, final Set<String> categories) {
+    private MemberByMemberRoleResponse(final Nickname nickname, final String picture, final Set<String> categories) {
         this.nickname = nickname;
         this.picture = picture;
         this.categories = categories;

@@ -11,6 +11,7 @@ import com.mabcci.domain.member.dto.request.MemberJoinRequest;
 import com.mabcci.domain.member.dto.request.MemberUpdateRequest;
 import com.mabcci.domain.member.dto.response.MemberByMemberRoleResponse;
 import com.mabcci.domain.member.dto.response.MemberByNickNameResponse;
+import com.mabcci.domain.member.dto.response.MemberInfoResponse;
 import com.mabcci.domain.member.dto.response.MemberListResponse;
 import com.mabcci.domain.member.ui.result.FindMabcciApiResult;
 import com.mabcci.global.common.Nickname;
@@ -44,6 +45,13 @@ public class MemberController {
     public ResponseEntity<MemberByNickNameResponse> join(@Valid @RequestBody final MemberJoinRequest request) {
         final Member member = memberJoinService.join(request.member(), request.getCategories());
         final MemberByNickNameResponse response = new MemberByNickNameResponse(member);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/api/members/{nickname}/info")
+    public ResponseEntity<MemberInfoResponse> findInfoByNickname(@Valid @PathVariable final Nickname nickname) {
+        final Member member = memberFindService.findByNickname(nickname);
+        final MemberInfoResponse response = MemberInfoResponse.createMemberInfoResponse(member);
         return ResponseEntity.ok().body(response);
     }
 
