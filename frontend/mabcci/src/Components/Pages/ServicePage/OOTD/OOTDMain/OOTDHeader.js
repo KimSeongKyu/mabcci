@@ -1,19 +1,16 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { OOTDFilterState } from '../../../../../Redux/Actions/OOTDAction';
 
-const OOTDHeader = ({
-  filter,
-  searching,
-  setFilter,
-  setPage,
-  setFiltering,
-  setSearching,
-}) => {
+const OOTDHeader = ({ searching, setPage, setFiltering, setSearching }) => {
+  const dispatch = useDispatch();
+  const filterState = useSelector(state => state.OotdReducer.filter);
   const onFilter = e => {
-    if (filter === e.target.name) return;
+    if (filterState === e.target.name) return;
     const keyword = e.target.name;
-    setFilter(keyword);
+    dispatch(OOTDFilterState(keyword));
     setFiltering(true);
-    console.log('필터링 ㄱㄱ');
     setPage(1);
   };
 
@@ -24,16 +21,17 @@ const OOTDHeader = ({
   return (
     <div>
       <div className="ootd-write">
-        <button className="btn-util" type="button">
-          <i className="fas fa-plus" />
-        </button>
+        <Link to="/OOTDWrite">
+          <button className="btn-util" type="button">
+            <i className="fas fa-plus" />
+          </button>
+        </Link>
       </div>
       <div className="ootd-util">
-        {filter}
         <div>
           <p>
             <button
-              className={`${filter === 'All' ? 'active' : ''}`}
+              className={`${filterState === 'All' ? 'active' : ''}`}
               name="All"
               onClick={onFilter}
               type="button"
@@ -41,7 +39,7 @@ const OOTDHeader = ({
               All
             </button>
             <button
-              className={`${filter === 'Following' ? 'active' : ''}`}
+              className={`${filterState === 'Following' ? 'active' : ''}`}
               onClick={onFilter}
               name="Following"
               type="button"

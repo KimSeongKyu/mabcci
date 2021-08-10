@@ -25,6 +25,8 @@ import Signup from './Components/Pages/AuthPage/Signup/Signup';
 // Pages - InitialPage
 import Description from './Components/Pages/InitialPage/Description/Description';
 import Intro from './Components/Pages/InitialPage/Intro/Intro';
+// Pages - MabcciChat
+import MabcciChat from './Components/Pages/ServicePage/Styling/MabcciChat/MabcciChat';
 
 import { PrivateRoute, PublicRoute } from './CustomRouter';
 
@@ -61,6 +63,7 @@ function App() {
         <Route exact path="/OOTD/:id/:nickname" component={OOTDDetail} />
         <Route exact path="/styling" component={StylingMain} />
         <Route exact path="/OOTDUpdate/:id/:nickname" component={OOTDUpdate} />
+        <Route exact path="/chat" component={MabcciChat} />
       </Switch>
     </div>
   );

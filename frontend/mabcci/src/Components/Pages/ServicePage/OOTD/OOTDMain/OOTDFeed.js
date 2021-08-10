@@ -6,18 +6,11 @@ import OOTDFeedApi from '../../../../../API/OOTDAPI/OOTDMainApi';
 import {
   OOTDAll,
   OOTDFiltering,
-  OOTDClean,
 } from '../../../../../Redux/Actions/OOTDAction';
 
-const OOTDFeed = ({
-  filter,
-  page,
-  searching,
-  setPage,
-  filtering,
-  setFiltering,
-}) => {
+const OOTDFeed = ({ page, searching, setPage, filtering, setFiltering }) => {
   const feeds = useSelector(state => state.OotdReducer.ootd);
+  const filterState = useSelector(state => state.OotdReducer.filter);
   const [loading, setLoading] = useState(false);
   const [end, setEnd] = useState(false);
   const [searchCategory, setSearchCategory] = useState('tag');
@@ -42,7 +35,7 @@ const OOTDFeed = ({
     if (end && filtering) setEnd(false);
 
     setLoading(true);
-    const response = await OOTDFeedApi(filter, page);
+    const response = await OOTDFeedApi(filterState, page);
     if (response.data.message === 'no more data') {
       return setEnd(true);
     }
@@ -53,7 +46,7 @@ const OOTDFeed = ({
       setFiltering(false);
     }
     setLoading(false);
-  }, [page, filter]);
+  }, [page, filterState]);
 
   useEffect(() => {
     if (fetchMoreTrigger.current && !loading) {
@@ -63,7 +56,6 @@ const OOTDFeed = ({
         if (fetchMoreTrigger.current) {
           fetchMoreObserver.unobserve(fetchMoreTrigger.current);
         }
-        dispatch(OOTDClean());
       };
     }
   }, [feeds, loading]);

@@ -1,8 +1,9 @@
 import _ from 'lodash';
-import { OOTD_ALL, OOTD_FILTERING, OOTD_CLEAN } from '../Type/OOTDType';
+import { OOTD_ALL, OOTD_FILTERING, OOTD_FILTER_STATE } from '../Type/OOTDType';
 import { data } from '../data';
 
 const initialState = {
+  filter: 'All',
   ootd: [],
 };
 
@@ -15,8 +16,9 @@ const OotdReducer = (state = initialState, { type, payload }) => {
       console.log(payload);
       return { ...state, ootd: payload };
     }
-    case OOTD_CLEAN: {
-      return { ...state, ootd: [] };
+    case OOTD_FILTER_STATE: {
+      console.log(payload);
+      return { ...state, filter: payload };
     }
     default:
       return state;
