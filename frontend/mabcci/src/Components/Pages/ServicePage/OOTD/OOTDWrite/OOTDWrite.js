@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import './OOTDWrite.css';
 
@@ -23,6 +24,8 @@ import InputTags from './InputTags';
 SwiperCore.use([Zoom, Navigation, Pagination]);
 
 function OOTDWrite() {
+  const history = useHistory();
+
   const [myOOTDInfo, setMyOOTDInfo] = useState({
     nickname: '',
     top: '',
@@ -92,26 +95,28 @@ function OOTDWrite() {
   };
 
   const submitOOTD = async () => {
-    const data = new FormData();
-    for (let i = 0; i < myOOTDInfo.originPictures.length; i += 1) {
-      const images = myOOTDInfo.originPictures[i];
-      data.append('pictures', images);
-    }
-    data.append('top', myOOTDInfo.top);
-    data.append('nickname', myOOTDInfo.nickname);
-    data.append('bottom', myOOTDInfo.bottom);
-    data.append('hashtags', myOOTDInfo.hashTags);
-    data.append('content', myOOTDInfo.content);
-    data.append('shoes', myOOTDInfo.shoes);
-    data.append('accessory', myOOTDInfo.accessory);
-
-    const res = await OOTDWriteApi(data);
-    console.log(res);
-    if (res.status === 204) {
-      console.log('mock연동 성공');
-      console.log(res);
+    if (myOOTDInfo.content.length === 0 || myOOTDInfo.pictures.length === 0) {
+      alert('image와 content는 필수입력 사항입니다!');
     } else {
-      console.log('mock연동 실패');
+      const data = new FormData();
+      for (let i = 0; i < myOOTDInfo.originPictures.length; i += 1) {
+        const images = myOOTDInfo.originPictures[i];
+        data.append('pictures', images);
+      }
+      data.append('top', myOOTDInfo.top);
+      data.append('nickname', myOOTDInfo.nickname);
+      data.append('bottom', myOOTDInfo.bottom);
+      data.append('hashtags', myOOTDInfo.hashTags);
+      data.append('content', myOOTDInfo.content);
+      data.append('shoes', myOOTDInfo.shoes);
+      data.append('accessory', myOOTDInfo.accessory);
+
+      const res = await OOTDWriteApi(data);
+      if (res.status === 204) {
+        history.push('/OOTD');
+      } else {
+        console.log(res.status);
+      }
     }
   };
 
