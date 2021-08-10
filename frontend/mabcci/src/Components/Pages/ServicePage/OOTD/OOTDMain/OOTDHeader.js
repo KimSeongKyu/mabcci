@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { OOTDFilterState } from '../../../../../Redux/Actions/OOTDAction';
 
 const OOTDHeader = ({ searching, setPage, setFiltering, setSearching }) => {
@@ -20,9 +21,11 @@ const OOTDHeader = ({ searching, setPage, setFiltering, setSearching }) => {
   return (
     <div>
       <div className="ootd-write">
-        <button className="btn-util" type="button">
-          <i className="fas fa-plus" />
-        </button>
+        <Link to="/OOTDWrite">
+          <button className="btn-util" type="button">
+            <i className="fas fa-plus" />
+          </button>
+        </Link>
       </div>
       <div className="ootd-util">
         <div>

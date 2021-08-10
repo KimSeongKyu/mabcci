@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './Nav.css';
-import { AiOutlineLogin, AiOutlineHome } from 'react-icons/ai';
+import {
+  AiOutlineLogin,
+  AiOutlineHome,
+  AiOutlineMessage,
+} from 'react-icons/ai';
 
 import { FiUser } from 'react-icons/fi';
 import { FaRegComments } from 'react-icons/fa';
@@ -64,6 +68,9 @@ function Nav() {
           </Link>
           {isLoggedin ? (
             <div className="navbar-web-icon">
+              <Link to="/chat">
+                <AiOutlineMessage />
+              </Link>
               <MdAccessAlarm />
               <MdAccountCircle className="mypage" onClick={openPopover} />
             </div>
