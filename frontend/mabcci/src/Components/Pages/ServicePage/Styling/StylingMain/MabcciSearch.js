@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BiSearchAlt2, BiEdit } from 'react-icons/bi';
-import MabcciSearchApi from '../../../../../API/MabcciAPI/MabcciSearchApi';
+import AllMabcciApi from '../../../../../API/MabcciAPI/AllMabcciApi';
 import 미니멀 from '../../../../../Asset/Images/미니멀옷.png';
 import 스트릿 from '../../../../../Asset/Images/스트릿옷.png';
 import 아메카지 from '../../../../../Asset/Images/아메카지옷.png';
@@ -11,34 +11,35 @@ import userphoto from './Images/userphoto.png';
 
 const MabcciSearch = () => {
   const [searchContent, setSearchContent] = useState('');
-  const [mabcciList, setMabcciList] = useState([
+  const [mabcciListTmp, setMabcciListTmp] = useState([
     {
-      nickname: '젠킨스1',
+      nickName: '젠킨스1',
       picture: userphoto,
       categories: ['스트릿', '캐쥬얼'],
     },
     {
-      nickname: '젠킨스2',
+      nickName: '젠킨스2',
       picture: userphoto,
       categories: ['오피스', '캐쥬얼'],
     },
     {
-      nickname: '젠킨스3',
+      nickName: '젠킨스3',
       picture: userphoto,
       categories: ['오피스', '포멀'],
     },
     {
-      nickname: '젠킨스4',
+      nickName: '젠킨스4',
       picture: userphoto,
       categories: ['오피스', '미니멀'],
     },
     {
-      nickname: '젠킨스5',
+      nickName: '젠킨스5',
       picture: userphoto,
       categories: ['아메카지', '캐쥬얼'],
     },
   ]);
-  const [filterMabcciList, setFilterMabcciList] = useState(mabcciList);
+  const [mabcciList, setMabcciList] = useState([]);
+  const [filterMabcciList, setFilterMabcciList] = useState([]);
   const categories = [
     '미니멀',
     '스트릿',
@@ -49,9 +50,10 @@ const MabcciSearch = () => {
   ];
   const categoriesImage = [미니멀, 스트릿, 아메카지, 오피스, 캐쥬얼, 포멀];
 
-  useEffect(() => {
-    // const response = await MabcciSearch();
-    // setMabcciList(response.mabcci);
+  useEffect(async () => {
+    const response = await AllMabcciApi();
+    setMabcciList(response.mabccies);
+    setFilterMabcciList(response.mabccies);
   }, []);
 
   /* 검색 이벤트 */
@@ -61,9 +63,10 @@ const MabcciSearch = () => {
 
   const searchHandler = () => {
     setFilterMabcciList(
-      mabcciList.filter(mabcci => {
-        return mabcci.nickname === searchContent;
-      }),
+      mabcciList &&
+        mabcciList.filter(mabcci => {
+          return mabcci.nickName === searchContent;
+        }),
     );
   };
 
@@ -74,13 +77,14 @@ const MabcciSearch = () => {
   /* 카테고리 이벤트 */
   const categoryHandler = category => {
     setFilterMabcciList(
-      mabcciList.filter(mabcci => {
-        let flag = false;
-        mabcci.categories.forEach(mabcciCategory => {
-          if (mabcciCategory === category) flag = true;
-        });
-        return flag === true;
-      }),
+      mabcciList &&
+        mabcciList.filter(mabcci => {
+          let flag = false;
+          mabcci.categories.forEach(mabcciCategory => {
+            if (mabcciCategory === category) flag = true;
+          });
+          return flag === true;
+        }),
     );
   };
 
@@ -91,8 +95,8 @@ const MabcciSearch = () => {
   };
 
   /* Mabcci 마이페이지 이벤트 */
-  const mabcciPageHandler = nickname => {
-    console.log(nickname, 'Mabcci 마이페이지');
+  const mabcciPageHandler = nickName => {
+    console.log(nickName, 'Mabcci 마이페이지');
   };
 
   return (
@@ -128,34 +132,35 @@ const MabcciSearch = () => {
         ))}
       </article>
       <article className="styling-mabccilist">
-        {filterMabcciList.map(mabcci => (
-          <div className="styling-mabcci" key={mabcci.nickname}>
-            <button
-              type="button"
-              onClick={() => mabcciPageHandler(mabcci.nickname)}
-              onKeyDown={() => mabcciPageHandler(mabcci.nickname)}
-            >
-              <img
-                className="styling-mabcci-photo"
-                src={mabcci.picture}
-                alt="mabcciPhoto"
-                width="100"
+        {filterMabcciList &&
+          filterMabcciList.map(mabcci => (
+            <div className="styling-mabcci" key={mabcci.nickName}>
+              <button
+                type="button"
+                onClick={() => mabcciPageHandler(mabcci.nickName)}
+                onKeyDown={() => mabcciPageHandler(mabcci.nickName)}
+              >
+                <img
+                  className="styling-mabcci-photo"
+                  src={mabcci.picture}
+                  alt="mabcciPhoto"
+                  width="100"
+                />
+              </button>
+              <div className="styling-mabcci-info">
+                <h3>{mabcci.nickName}</h3>
+                {mabcci.categories.map(category => (
+                  <h6 key={category}># {category} </h6>
+                ))}
+              </div>
+              <BiEdit
+                className="styling-mabcci-apply"
+                size="40"
+                onClick={() => stylingApplyHandler(mabcci.nickName)}
+                onKeyDown={() => stylingApplyHandler(mabcci.nickName)}
               />
-            </button>
-            <div className="styling-mabcci-info">
-              <h3>{mabcci.nickname}</h3>
-              {mabcci.categories.map(category => (
-                <h6 key={category}># {category} </h6>
-              ))}
             </div>
-            <BiEdit
-              className="styling-mabcci-apply"
-              size="40"
-              onClick={() => stylingApplyHandler(mabcci.nickname)}
-              onKeyDown={() => stylingApplyHandler(mabcci.nickname)}
-            />
-          </div>
-        ))}
+          ))}
       </article>
     </>
   );

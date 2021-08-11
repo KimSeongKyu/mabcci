@@ -31,21 +31,20 @@
 }
 
 .home-popularMabcci-title {
-  margin-left: 20px;
-  margin-bottom: 70px;
+  margin-left: 30px;
 }
 
 .home-popularMabcci-background {
   background: var(--main-color-1);
   width: 100%;
   height: 150px;
-  margin-top: 80px;
+  margin-top: 70px;
 }
 
 .home-popularMabcci-web {
   width: 100%;
   position: absolute;
-  top: 60px;
+  top: 50px;
   left: 30px;
 }
 
@@ -84,18 +83,6 @@
   filter: drop-shadow(5px 5px 4px rgba(0, 0, 0, 0.25));
 }
 
-.home-popularMabcci-next {
-  position: absolute;
-  top: 110px;
-  left: 290px;
-}
-
-.home-popularMabcci-before {
-  position: absolute;
-  top: 110px;
-  right: 230px;
-}
-
 .home-swiper-container {
   width: 450px;
   height: 370px;
@@ -129,15 +116,17 @@
   justify-content: space-between;
 }
 
-.swiper-button-prev {
+/*
+.home-swiper-container > swiper-button-prev {
   color: var(--main-color-2) !important;
 }
 .swiper-button-next {
   color: var(--main-color-2) !important;
 }
+*/
 
 /* 웹 */
-@media screen and (min-width: 576px) {
+@media screen and (min-width: 577px) {
   .home-mobile-header {
     display: none;
   }
