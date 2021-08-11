@@ -10,6 +10,8 @@ import com.mabcci.domain.member.dto.request.MemberJoinRequest;
 import com.mabcci.domain.member.dto.request.MemberUpdateRequest;
 import com.mabcci.domain.member.dto.response.*;
 import com.mabcci.global.common.Nickname;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +25,8 @@ import static com.mabcci.domain.member.domain.MemberRole.MABCCI;
 @CrossOrigin(originPatterns = "http://localhost:*")
 @RestController
 public class MemberController {
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final MemberJoinService memberJoinService;
     private final MemberFindService memberFindService;
@@ -74,12 +78,15 @@ public class MemberController {
         return ResponseEntity.ok().body(new MemberFindMabcciResponses(responses));
     }
 
-    @PostMapping("/api/members/update/{nickname}")
+    @PostMapping("/api/members/update/{originalNickname}")
     public ResponseEntity<?> update(@Valid @ModelAttribute MemberUpdateRequest request,
-                                    @PathVariable Nickname nickname,
-                                    @RequestParam MultipartFile picture) {
+                                    @PathVariable("originalNickname") Nickname originalNickname,
+                                    @RequestParam("picture") MultipartFile picture) {
+        log.info("requset : {}", request.toString());
+        log.info("originalNickname : {}", originalNickname.toString());
+        log.info("multipart : {}", picture.toString());
         memberUpdateService.update(
-                nickname, request.gender(), request.description(),
+                originalNickname, request.gender(), request.description(), request.nickname(),
                 request.height(), request.weight(), request.footSize(), request.bodytype(),
                 request.categories(), picture);
 
