@@ -30,44 +30,44 @@ const mabcciListPrint = (mabcciList, type) => {
 const PopularMabcci = () => {
   const [firstMabcciIdx, setfirstMabcciIdx] = useState(0);
   const [mabcciList, setMabcciList] = useState([
-    // {
-    //   nickname: '젠킨스1',
-    //   picture: userphoto,
-    // },
-    // {
-    //   nickname: '젠킨스2',
-    //   picture: userphoto,
-    // },
-    // {
-    //   nickname: '젠킨스3',
-    //   picture: userphoto,
-    // },
-    // {
-    //   nickname: '젠킨스4',
-    //   picture: userphoto,
-    // },
-    // {
-    //   nickname: '젠킨스5',
-    //   picture: userphoto,
-    // },
-    // {
-    //   nickname: '젠킨스6',
-    //   picture: userphoto,
-    // },
-    // {
-    //   nickname: '젠킨스7',
-    //   picture: userphoto,
-    // },
-    // {
-    //   nickname: '젠킨스8',
-    //   picture: userphoto,
-    // },
+    {
+      nickname: '젠킨스1',
+      picture: userphoto,
+    },
+    {
+      nickname: '젠킨스2',
+      picture: userphoto,
+    },
+    {
+      nickname: '젠킨스3',
+      picture: userphoto,
+    },
+    {
+      nickname: '젠킨스4',
+      picture: userphoto,
+    },
+    {
+      nickname: '젠킨스5',
+      picture: userphoto,
+    },
+    {
+      nickname: '젠킨스6',
+      picture: userphoto,
+    },
+    {
+      nickname: '젠킨스7',
+      picture: userphoto,
+    },
+    {
+      nickname: '젠킨스8',
+      picture: userphoto,
+    },
   ]);
 
   useEffect(async () => {
-    const response = await PopularMabcciApi();
-    console.log(response);
-    setMabcciList(response.mabccies);
+    // const response = await PopularMabcciApi();
+    // console.log(response);
+    // setMabcciList(response.mabccies);
   }, []);
 
   return (
