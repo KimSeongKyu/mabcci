@@ -42,4 +42,12 @@ public class Nickname {
     public int hashCode() {
         return Objects.hash(nickname());
     }
+
+    @Override
+    public String toString() {
+        return "Nickname{" +
+                "nickname='" + nickname() + '\'' +
+                '}';
+    }
+
 }

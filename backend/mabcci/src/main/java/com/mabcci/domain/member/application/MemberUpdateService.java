@@ -32,11 +32,11 @@ public class MemberUpdateService {
     }
 
     @Transactional
-    public void update(final Nickname nickname, final Gender gender, final String description,
+    public void update(final Nickname originalNickName, final Gender gender, final String description, final Nickname nickname,
                          final int height, final int weight, final int footSize, final BodyType bodyType,
                          final Set<String> categories, final MultipartFile rawPicture) {
 
-        final Member member = memberByNickName(nickname);
+        final Member member = memberByNickName(originalNickName);
         final Picture picture = picture(rawPicture);
         updateCategory(categories, member);
         member.update(nickname, gender, description, height, weight, footSize, bodyType, picture.path());
@@ -48,7 +48,7 @@ public class MemberUpdateService {
     }
 
     private Picture picture(final MultipartFile rawPicture) {
-        final String pictureDirectory = pictureUtil.makeDirectory(PictureType.OOTD);
+        final String pictureDirectory = pictureUtil.makeDirectory(PictureType.PROFILE);
         return pictureUtil.savePicture(rawPicture, pictureDirectory);
     }
 

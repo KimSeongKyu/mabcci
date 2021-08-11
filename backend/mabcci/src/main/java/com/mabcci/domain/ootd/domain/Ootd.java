@@ -29,7 +29,8 @@ public class Ootd extends BaseTimeEntity {
     private Long id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ootd_member_id", nullable = false)
     private Member member;
 
