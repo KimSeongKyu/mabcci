@@ -34,7 +34,7 @@ public class OotdController {
     public ResponseEntity findFilteredOotdList(@NotBlank @PathVariable("nickname") final Nickname nickname,
                                                @NotBlank @RequestParam("filter") final OotdFilter ootdFilter,
                                                @NotNull final Pageable pageable) {
-        return ResponseEntity.ok(ootdService.findFilteredOotdList(nickname, ootdFilter, pageable));
+        return ResponseEntity.ok(ootdService.findOotds(nickname, ootdFilter, pageable));
     }
 
     @PutMapping("/api/ootds/{id}")

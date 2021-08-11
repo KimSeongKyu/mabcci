@@ -1,10 +1,7 @@
 package com.mabcci.domain.ootd.domain;
 
 import com.mabcci.domain.follow.domain.Follow;
-import com.mabcci.domain.hashtag.domain.Hashtag;
 import com.mabcci.domain.member.domain.Member;
-import com.mabcci.domain.ootdhashtag.domain.OotdHashtag;
-import com.mabcci.domain.ootdpicture.domain.OotdPicture;
 import com.mabcci.global.common.Email;
 import com.mabcci.global.common.Nickname;
 import com.mabcci.global.common.Phone;
@@ -17,10 +14,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import static com.mabcci.domain.member.domain.Gender.MAN;
 import static com.mabcci.domain.member.domain.MemberRole.USER;
@@ -176,7 +169,7 @@ class OotdRepositoryTest {
         testEntityManager.persist(firstFollowingMemberOotd);
         testEntityManager.persist(secondFollowingMemberOotd);
 
-        Page<Ootd> ootdsOfFollowingMember = ootdRepository.findAllOfFollowing(member, PageRequest.of(0, 20));
+        Page<Ootd> ootdsOfFollowingMember = ootdRepository.findOotdsOfFollowing(member, PageRequest.of(0, 20));
 
         assertThat(ootdsOfFollowingMember.toList().size()).isEqualTo(2);
     }

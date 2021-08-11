@@ -70,8 +70,10 @@ public class OotdService {
     }
 
     @Transactional(readOnly = true)
-    public OotdListResponse findFilteredOotdList(final Nickname nickname, final OotdFilter ootdFilter, final Pageable pageable) {
-        final Page<Ootd> ootdPages = ootdRepository.findOotds(pageable);
+    public OotdListResponse findOotds(final Nickname nickname, final OotdFilter ootdFilter, final Pageable pageable) {
+        final Member member = memberRepository.findByNickName(nickname)
+                .orElseThrow(IllegalArgumentException::new);
+        final Page<Ootd> ootdPages = ootdFilter.findOotds(ootdRepository, member, pageable);
         final int totalPages = ootdPages.getTotalPages();
         final List<Ootd> ootds = ootdPages.toList();
         final List<OotdResponse> ootdResponses = ootds.stream()

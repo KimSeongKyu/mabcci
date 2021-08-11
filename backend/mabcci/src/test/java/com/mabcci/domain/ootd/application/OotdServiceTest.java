@@ -12,7 +12,8 @@ import com.mabcci.domain.ootd.domain.OotdRepository;
 import com.mabcci.domain.ootd.dto.request.OotdUpdateRequest;
 import com.mabcci.domain.ootd.dto.request.OotdWithPicturesAndHashtagsRegisterRequest;
 import com.mabcci.domain.ootd.dto.response.OotdListResponse;
-import com.mabcci.domain.ootdLike.domain.OotdLikeRepository;
+import com.mabcci.domain.ootd.dto.response.OotdResponse;
+import com.mabcci.domain.ootdLike.domain.OotdLike;
 import com.mabcci.domain.ootdhashtag.domain.OotdHashtag;
 import com.mabcci.domain.ootdhashtag.domain.OotdHashtagRepository;
 import com.mabcci.domain.ootdpicture.domain.OotdPicture;
@@ -27,15 +28,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
@@ -58,8 +58,8 @@ class OotdServiceTest {
     @Mock private OotdPictureRepository ootdPictureRepository;
     @Mock private HashtagRepository hashtagRepository;
     @Mock private OotdHashtagRepository ootdHashtagRepository;
-    @Mock private OotdLikeRepository ootdLikeRepository;
     @Mock private PictureUtil pictureUtil;
+    @Mock private OotdFilter ootdFilter;
 
     private Member member;
     private Ootd ootd;
@@ -71,6 +71,7 @@ class OotdServiceTest {
     private OotdHashtag firstOotdHashtag;
     private OotdHashtag secondOotdHashtag;
     private List<OotdHashtag> ootdHashtags;
+    private OotdLike ootdLike;
 
     @BeforeEach
     void setUp() {
@@ -134,6 +135,10 @@ class OotdServiceTest {
                 .hashtag(firstHashtag)
                 .build();
         ootdHashtags = new ArrayList<>(List.of(firstOotdHashtag, secondOotdHashtag));
+        ootdLike = OotdLike.builder()
+                .member(member)
+                .ootd(ootd)
+                .build();
     }
 
     @DisplayName("OotdService 인스턴스 ootd, 사진, 해시태그 저장 테스트")
@@ -161,6 +166,34 @@ class OotdServiceTest {
         verify(hashtagRepository, times(2)).findByName(any());
         verify(hashtagRepository, times(2)).save(any());
         verify(ootdHashtagRepository, times(2)).save(any());
+    }
+
+    @DisplayName("OotdService 인스턴스 ootd 리스트 조회 테스트")
+    @Test
+    void find_ootds_test() {
+        doReturn(Optional.of(member)).when(memberRepository).findByNickName(any());
+        doReturn(new PageImpl<>(List.of(ootd))).when(ootdRepository).findOotds(any());
+
+        ReflectionTestUtils.setField(ootd, "id", 1L);
+        ReflectionTestUtils.setField(ootd, "ootdPictures", List.of(ootdPicture));
+        ReflectionTestUtils.setField(ootd, "ootdHashtags", ootdHashtags);
+        ReflectionTestUtils.setField(ootdLike, "status", true);
+        ReflectionTestUtils.setField(ootd, "ootdLikes", List.of(ootdLike));
+
+        final OotdListResponse ootdListResponse = ootdService.findOotds(NICKNAME, OotdFilter.ALL, PageRequest.of(0, 20));
+        final OotdResponse ootdResponse = ootdListResponse.getOotdResponses().get(0);
+        final List<String> hashtagNames = ootdHashtags.stream()
+                .map(OotdHashtag::hashtag)
+                .map(Hashtag::name)
+                .collect(Collectors.toList());
+
+        assertAll(
+                () -> assertThat(ootdResponse.getId()).isEqualTo(ootd.id()),
+                () -> assertThat(ootdResponse.getNickname()).isEqualTo(NICKNAME),
+                () -> assertThat(ootdResponse.getPicture()).isEqualTo(ootdPicture.path()),
+                () -> assertThat(ootdResponse.getHashtags()).isEqualTo(hashtagNames),
+                () -> assertThat(ootdResponse.getLikeCount()).isEqualTo(1L)
+        );
     }
 
     @DisplayName("OotdService 인스턴스 ootd 수정 테스트")
