@@ -32,4 +32,20 @@ public final class OotdCommentSaveRequest {
         this.parentCommentId = parentCommentId;
         this.content = content;
     }
+
+    public final Long getOotdId() {
+        return ootdId;
+    }
+
+    public final Nickname getNickname() {
+        return nickname;
+    }
+
+    public final Long getParentCommentId() {
+        return parentCommentId;
+    }
+
+    public final String getContent() {
+        return content;
+    }
 }
