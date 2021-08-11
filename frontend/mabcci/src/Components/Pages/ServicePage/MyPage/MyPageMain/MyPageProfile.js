@@ -2,25 +2,36 @@
 
 import React from 'react';
 import './MyPage.css';
-import 박서준 from './images/박서준.jfif';
-import 직사각형_남자 from './images/직사각형_남자.png'
 import { useHistory } from 'react-router';
 import { useState } from 'react';
 import {AiOutlineSetting} from "react-icons/ai"
+import {CgFileDocument} from "react-icons/cg"
+import {AiOutlineMessage} from 'react-icons/ai'
+import 기본프로필 from '../../../../../Asset/Images/기본프로필.jpg'
+import { baseUrl } from '../../../../../API/ApiUrl';
 
 const MyPageProfile = props => {
+
   const history = useHistory
 
   const [profile, setProfile] = useState(false)
 
   const clickProfile = () => {setProfile(!profile)}
   
-  const goToSetting = () => {
-    // history.push()
-  }
+  const openSetting = () => {
+    props.setMyPageUpdate('setting');
+  };
 
    const clickFollow = (e) => {
      props.setFollowBox(e.target.name)
+   }
+
+   const clickChatList = () => {
+     props.setChatBox(true)
+   }
+
+   const clickProposalList = () => {
+     props.setProposalBox(true)
    }
 
   return (
@@ -34,49 +45,77 @@ const MyPageProfile = props => {
           }
         >
           <div className="mypage-profile-bodyinfo" onClick={clickProfile}>
-            <img src={직사각형_남자}></img>
+            {props.myInfo.bodyType !== null ? (
+              <img src={baseUrl + props.myInfo.bodyType} alt="No image"></img>
+            ) : (
+              <div className="mypage-profile-bodysize-noimage">No Type</div>
+            )}
             <div className="mypage-profile-bodysize">
-              <p>185cm</p>
-              <p>75kg</p>
-              <p>270mm</p>
+              {props.myInfo.height !== 0 ? (
+                <p>{props.myInfo.height}cm</p>
+              ) : (
+                <p className="mypage-profile-bodysize-secret">secret</p>
+              )}
+              {props.myInfo.weight !== 0 ? (
+                <p>{props.myInfo.height}cm</p>
+              ) : (
+                <p className="mypage-profile-bodysize-secret">secret</p>
+              )}
+              {props.myInfo.height !== 0 ? (
+                <p>{props.myInfo.footSize}cm</p>
+              ) : (
+                <p className="mypage-profile-bodysize-secret">secret</p>
+              )}
             </div>
           </div>
-          <img src={박서준} alt="" onClick={clickProfile} />
+          {props.myInfo.picture !== null ? (
+            <img src={baseUrl + props.myInfo.picture} alt="No image"></img>
+          ) : (
+            <img src={기본프로필} alt="" onClick={clickProfile} />
+          )}
         </div>
 
         <div className="mypage-info-box">
           <div id="mypage-web-nickname">
-            {/* <h3>{props.myInfo.nickname}</h3> */}
-            <h3>박서준</h3>
-            <button type="submit" onClick={goToSetting}>
-              <AiOutlineSetting/>
+            <h3>{props.myInfo.nickname}</h3>
+            <button type="submit">
+              <CgFileDocument onClick={clickProposalList} />
+            </button>
+            <button type="submit">
+              <AiOutlineMessage onClick={clickChatList} />
+            </button>
+            <button type="submit" onClick={openSetting}>
+              <AiOutlineSetting />
             </button>
           </div>
           <div id="mypage-mobile-nickname">
-            {/* <h5>{props.myInfo.nickname}</h5> */}
-            <h5>박서준</h5>
+            <h5>{props.myInfo.nickname}</h5>
           </div>
           <div>
-            <button type="submit" onClick={clickFollow} name='팔로워'>팔로워 {}명</button>
-            <button type="submit"onClick={clickFollow} name="팔로잉">팔로잉 {}명</button>
+            <button type="submit" onClick={clickFollow} name="팔로워">
+              팔로워 {props.myInfo.follower}명
+            </button>
+            <button type="submit" onClick={clickFollow} name="팔로잉">
+              팔로잉 {props.myInfo.following}명
+            </button>
           </div>
           <div id="mypage-mobile-category">
-            <h5>#아메카지</h5>
-            <h5>#스트릿</h5>
-            <h5>#포멀</h5>
+            {/* {props.myInfo.categories} */}
+            {props.myInfo.categories.map((category, idx) => (
+              <h5 key={idx}>#{category}</h5>
+            ))}
           </div>
         </div>
         <div className="mypage-blank" />
       </div>
       <div className="mypage-introduce-box">
         <p>Introduce</p>
-        {/* 
-        {props.myInfo.introduce === [] ? (
-          <div>소개글이 비어있어요!</div>
+
+        {props.myInfo.description === null ? (
+          <div className="mypage-introduce-box-null">No information❕</div>
         ) : (
-          <div>안녕하세요 아라찌입니다.</div>
-        )} */}
-        <div>안녕하세요 서준팍입니다.</div>
+          <div>{props.myInfo.description}</div>
+        )}
       </div>
     </>
   );
