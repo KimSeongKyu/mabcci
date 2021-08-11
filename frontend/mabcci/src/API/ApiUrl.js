@@ -1,3 +1,4 @@
+export const baseUrl = 'http://localhost:8080';
 export const LoginUrl = '/auth/login';
 export const LogoutUrl = '/auth/logout';
 export const SignupUrl = '/api/members';

@@ -6,7 +6,7 @@ import './OOTD.css';
 function OOTDMain() {
   const [filtering, setFiltering] = useState(false);
   const [searching, setSearching] = useState(false);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
   return (
     <div className="container">
