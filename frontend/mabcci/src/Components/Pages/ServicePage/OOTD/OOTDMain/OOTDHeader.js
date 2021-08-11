@@ -11,7 +11,7 @@ const OOTDHeader = ({ searching, setPage, setFiltering, setSearching }) => {
     const keyword = e.target.name;
     dispatch(OOTDFilterState(keyword));
     setFiltering(true);
-    setPage(1);
+    setPage(0);
   };
 
   const isSearching = () => {
@@ -31,17 +31,17 @@ const OOTDHeader = ({ searching, setPage, setFiltering, setSearching }) => {
         <div>
           <p>
             <button
-              className={`${filterState === 'All' ? 'active' : ''}`}
-              name="All"
+              className={`${filterState === 'all' ? 'active' : ''}`}
+              name="all"
               onClick={onFilter}
               type="button"
             >
               All
             </button>
             <button
-              className={`${filterState === 'Following' ? 'active' : ''}`}
+              className={`${filterState === 'following' ? 'active' : ''}`}
               onClick={onFilter}
-              name="Following"
+              name="following"
               type="button"
             >
               Following

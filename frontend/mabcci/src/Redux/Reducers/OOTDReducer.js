@@ -3,7 +3,7 @@ import { OOTD_ALL, OOTD_FILTERING, OOTD_FILTER_STATE } from '../Type/OOTDType';
 import { data } from '../data';
 
 const initialState = {
-  filter: 'All',
+  filter: 'all',
   ootd: [],
 };
 

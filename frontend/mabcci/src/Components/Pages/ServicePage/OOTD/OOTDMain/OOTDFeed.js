@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Masonry from 'react-masonry-css';
 import OOTDFeedApi from '../../../../../API/OOTDAPI/OOTDMainApi';
+import { baseUrl } from '../../../../../API/ApiUrl';
 import {
   OOTDAll,
   OOTDFiltering,
@@ -12,7 +13,7 @@ const OOTDFeed = ({ page, searching, setPage, filtering, setFiltering }) => {
   const feeds = useSelector(state => state.OotdReducer.ootd);
   const filterState = useSelector(state => state.OotdReducer.filter);
   const [loading, setLoading] = useState(false);
-  const [end, setEnd] = useState(false);
+  const [maxPage, setMaxPage] = useState(0);
   const [searchCategory, setSearchCategory] = useState('tag');
   const dispatch = useDispatch();
   const fetchMoreTrigger = useRef(null);
@@ -31,19 +32,25 @@ const OOTDFeed = ({ page, searching, setPage, filtering, setFiltering }) => {
 
   // api 요청 데이터 수신
   useEffect(async () => {
-    if (end && !filtering) return;
-    if (end && filtering) setEnd(false);
+    if (page > maxPage && !filtering) {
+      return;
+    }
 
     setLoading(true);
-    const response = await OOTDFeedApi(filterState, page);
-    if (response.data.message === 'no more data') {
-      return setEnd(true);
-    }
-    if (!filtering) {
-      dispatch(OOTDAll(response.data.ootd));
-    } else {
-      dispatch(OOTDFiltering(response.data.ootd));
-      setFiltering(false);
+
+    try {
+      const { nickname } = JSON.parse(localStorage.getItem('userInfo'));
+      const response = await OOTDFeedApi(filterState, page, nickname);
+      const { totalPages, ootdList } = response.data;
+      setMaxPage(totalPages);
+      if (!filtering) {
+        dispatch(OOTDAll(ootdList));
+      } else {
+        dispatch(OOTDFiltering(ootdList));
+        setFiltering(false);
+      }
+    } catch (error) {
+      console.log('error');
     }
     setLoading(false);
   }, [page, filterState]);
@@ -66,20 +73,26 @@ const OOTDFeed = ({ page, searching, setPage, filtering, setFiltering }) => {
   };
 
   const showFeeds = () => {
-    return feeds.map(({ id, nickname, picture, hashTag }, index) => {
-      const lastEl = index === feeds.length - 1;
-      return (
-        <div className="card" key={id} ref={lastEl ? fetchMoreTrigger : null}>
-          <h3 className="nickname">{nickname}</h3>
-          <Link to={`/OOTD/${id}/${nickname}`}>
-            <img src={picture} alt="" />
-            <i className="fas fa-heartbeat" />
-            <span>likenum</span>
-            <p>{hashTag}</p>
-          </Link>
-        </div>
-      );
-    });
+    return feeds.map(
+      ({ id, nickname, picture, hashtags, likeCount }, index) => {
+        const lastEl = index === feeds.length - 1;
+        return (
+          <div className="card" key={id} ref={lastEl ? fetchMoreTrigger : null}>
+            <h3 className="nickname">{nickname}</h3>
+            <Link to={`/OOTD/${id}/${nickname}`}>
+              <img src={baseUrl + picture} alt="" />
+              <i className="fas fa-heartbeat" />
+              <span>{likeCount}</span>
+              <p>
+                {hashtags.map(tag => {
+                  return `#${tag}`;
+                })}
+              </p>
+            </Link>
+          </div>
+        );
+      },
+    );
   };
 
   return (
@@ -120,7 +133,7 @@ const OOTDFeed = ({ page, searching, setPage, filtering, setFiltering }) => {
       >
         {showFeeds()}
       </Masonry>
-      <h1>{end ? '컨텐츠가 더이상 없습니다' : ''}</h1>
+      <h1>{loading ? <div className="loader">Loading...</div> : ''}</h1>
     </div>
   );
 };
