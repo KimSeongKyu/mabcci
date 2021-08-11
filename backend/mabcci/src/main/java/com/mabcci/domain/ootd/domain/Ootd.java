@@ -123,6 +123,10 @@ public class Ootd extends BaseTimeEntity {
         return views;
     }
 
+    public Set<OotdPicture> ootdPictures() {
+        return ootdPictures;
+    }
+
     public Ootd update(final OotdUpdateRequest ootdUpdateRequest) {
         this.content = ootdUpdateRequest.getContent();
         this.top = ootdUpdateRequest.getTop();

@@ -3,6 +3,7 @@ package com.mabcci.domain.member.domain;
 import com.mabcci.domain.BaseTimeEntity;
 import com.mabcci.domain.follow.domain.Follow;
 import com.mabcci.domain.membercategory.domain.MemberCategory;
+import com.mabcci.domain.ootd.domain.Ootd;
 import com.mabcci.global.common.Email;
 import com.mabcci.global.common.Nickname;
 import com.mabcci.global.common.Password;
@@ -66,6 +67,9 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Follow> followers = new HashSet<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Ootd> ootds = new HashSet<>();
 
     public static MemberBuilder Builder() {
         return new MemberBuilder();
@@ -187,6 +191,8 @@ public class Member extends BaseTimeEntity {
     public Set<Follow> followings() { return followings; }
 
     public Set<Follow> followers() { return followers; }
+
+    public Set<Ootd> ootds() { return ootds; }
 
     public boolean checkPassword(final Password otherPassword) {
         return password.checkPassword(otherPassword);
