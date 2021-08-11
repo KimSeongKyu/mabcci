@@ -45,10 +45,10 @@ public class MemberController {
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping("/api/members/info/{nickname}")
-    public ResponseEntity<MemberInfoResponse> findMemberInfoByNickName(@Valid @PathVariable final Nickname nickname) {
+    @GetMapping("/api/members/mypage/{nickname}")
+    public ResponseEntity<MemberMyPageResponse> findMemberInfoByNickName(@Valid @PathVariable final Nickname nickname) {
         final Member member = memberFindService.findByNickname(nickname);
-        final MemberInfoResponse response = MemberInfoResponse.ofMember(member);
+        final MemberMyPageResponse response = MemberMyPageResponse.ofMember(member);
         return ResponseEntity.ok().body(response);
     }
 
@@ -74,11 +74,12 @@ public class MemberController {
         return ResponseEntity.ok().body(new MemberFindMabcciResponses(responses));
     }
 
-    @PostMapping("/api/members/nickname")
+    @PutMapping("/api/members/{nickname}")
     public ResponseEntity<?> update(@Valid @ModelAttribute MemberUpdateRequest request,
+                                    @PathVariable Nickname nickname,
                                     @RequestParam MultipartFile picture) {
         memberUpdateService.update(
-                request.nickname(), request.gender(), request.description(),
+                nickname, request.gender(), request.description(),
                 request.height(), request.weight(), request.footSize(), request.bodytype(),
                 request.categories(), picture);
 

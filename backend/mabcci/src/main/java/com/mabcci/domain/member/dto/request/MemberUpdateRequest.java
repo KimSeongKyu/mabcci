@@ -3,14 +3,10 @@ package com.mabcci.domain.member.dto.request;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mabcci.domain.member.domain.BodyType;
 import com.mabcci.domain.member.domain.Gender;
-import com.mabcci.global.common.Nickname;
 
 import java.util.Set;
 
 public final class MemberUpdateRequest {
-
-    @JsonProperty("nickname")
-    private Nickname nickname;
 
     @JsonProperty("gender")
     private Gender gender;
@@ -39,10 +35,9 @@ public final class MemberUpdateRequest {
     MemberUpdateRequest() {
     }
 
-    public MemberUpdateRequest(final Nickname nickname, final Gender gender, final String picture, final String description,
+    public MemberUpdateRequest(final Gender gender, final String picture, final String description,
                                final int height, final int weight, final int footSize, final BodyType bodyType,
                                final Set<String> categories) {
-        this.nickname = nickname;
         this.gender = gender;
         this.picture = picture;
         this.description = description;
@@ -51,10 +46,6 @@ public final class MemberUpdateRequest {
         this.footSize = footSize;
         this.bodyType = bodyType;
         this.categories = categories;
-    }
-
-    public final Nickname nickname() {
-        return nickname;
     }
 
     public final Gender gender() {
