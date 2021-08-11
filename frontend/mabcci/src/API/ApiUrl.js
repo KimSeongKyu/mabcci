@@ -19,5 +19,5 @@ export const OOTDLikeUrl = '/api/ootd/';
 export const AllMabcciUrl = '/api/members/mabcci';
 export const PopularMabcciUrl = '/api/members/mabcci/popular';
 
-export const MypageReadUrl = '/api/members';
+export const MypageReadUrl = '/api/members/info';
 export const MypageUpdateUrl = '/api/members';

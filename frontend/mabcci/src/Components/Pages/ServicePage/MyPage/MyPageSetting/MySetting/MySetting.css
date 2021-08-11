@@ -8,10 +8,10 @@
   transform: translate(-50%);
   transform-origin: left;
   z-index: 5;
-  display: flex;
-  justify-content: center;
+  text-align: center;
   animation-name: mypage-update-appear;
   animation-duration: 1s;
+  overflow: auto;
 }
 
 @keyframes mypage-update-appear {

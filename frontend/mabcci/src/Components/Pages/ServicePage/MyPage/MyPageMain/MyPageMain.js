@@ -14,8 +14,6 @@ import MyPageMobileMenu from '../MyPageSetting/MySetting/MyPageMobileMenu';
 import MyPageUpdate from '../MyPageSetting/MySetting/MyPageUpdate';
 
 function MyPageMain() {
-  const history = useHistory();
-
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
   const [myInfo, setMyInfo] = useState({});
@@ -34,7 +32,8 @@ function MyPageMain() {
     const res = await MypageReadApi(userInfo.nickname);
     // await setMyInfo(...myInfo, ...res.myInfo);
     await setMyInfo(res.myInfo);
-    console.log(res.myInfo);
+    console.log(res.myInfo, typeof res.myInfo);
+    console.log(myInfo, typeof myInfo, '여기다');
   }, []);
 
   const goToMobileMenu = () => {

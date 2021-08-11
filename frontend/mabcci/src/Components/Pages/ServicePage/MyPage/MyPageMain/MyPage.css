@@ -135,6 +135,9 @@
 
 #mypage-mobile-category {
   margin-top: 10px;
+  margin-bottom: 0px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .mypage-introduce-box p {
@@ -253,10 +256,6 @@
 
   .mypage-blank {
     display: none;
-  }
-
-  #mypage-mobile-category {
-    margin-bottom: 0px;
   }
 
   #mypage-web-nickname {
