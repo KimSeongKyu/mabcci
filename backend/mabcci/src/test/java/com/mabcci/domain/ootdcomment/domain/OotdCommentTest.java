@@ -90,18 +90,31 @@ class OotdCommentTest {
     @Test
     void getter_test() {
         ReflectionTestUtils.setField(parentComment, "id", 1L);
-        ReflectionTestUtils.setField(parentComment, "childComments", new HashSet<>(Set.of(childComment)));
+        ReflectionTestUtils.setField(parentComment, "childrenComments", new HashSet<>(Set.of(childComment)));
 
         assertAll(
                 () -> assertThat(parentComment.id()).isEqualTo(1L),
                 () -> assertThat(parentComment.member()).isEqualTo(member),
                 () -> assertThat(parentComment.ootd()).isEqualTo(ootd),
                 () -> assertThat(parentComment.parentComment()).isEmpty(),
-                () -> assertThat(parentComment.childComments().contains(childComment)).isTrue(),
+                () -> assertThat(parentComment.childrenComments().contains(childComment)).isTrue(),
                 () -> assertThat(parentComment.content()).isEqualTo("내용"),
                 () -> assertThat(childComment.parentComment().get()).isEqualTo(parentComment)
         );
     }
+
+    @DisplayName("OotdComment 인스턴스 내용 수정 테스트")
+    @Test
+    void update_test() {
+        ReflectionTestUtils.setField(parentComment, "id", 1L);
+        final OotdComment updatedComment = parentComment.update("수정된 내용");
+
+        assertAll(
+                () -> assertThat(updatedComment.id()).isEqualTo(parentComment.id()),
+                () -> assertThat(updatedComment.content()).isEqualTo("수정된 내용")
+        );
+    }
+
 
     @DisplayName("OotdComment 인스턴스 프로퍼티 유효성 검증 테스트")
     @Test
