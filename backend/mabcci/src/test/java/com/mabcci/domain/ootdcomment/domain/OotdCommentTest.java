@@ -23,7 +23,8 @@ class OotdCommentTest {
 
     private Member member;
     private Ootd ootd;
-    private OotdComment ootdComment;
+    private OotdComment parentComment;
+    private OotdComment childComment;
 
     @BeforeEach
     void setUp() {
@@ -46,10 +47,16 @@ class OotdCommentTest {
                 .accessory("accessory")
                 .views(0L)
                 .build();
-        ootdComment = OotdComment.builder()
+        parentComment = OotdComment.builder()
                 .member(member)
                 .ootd(ootd)
                 .parentComment(Optional.empty())
+                .content("내용")
+                .build();
+        childComment = OotdComment.builder()
+                .member(member)
+                .ootd(ootd)
+                .parentComment(Optional.of(parentComment))
                 .content("내용")
                 .build();
     }
@@ -58,8 +65,8 @@ class OotdCommentTest {
     @Test
     void initialize() {
         assertAll(
-                () -> assertThat(ootdComment).isNotNull(),
-                () -> assertThat(ootdComment).isInstanceOf(OotdComment.class)
+                () -> assertThat(parentComment).isNotNull(),
+                () -> assertThat(parentComment).isExactlyInstanceOf(OotdComment.class)
         );
     }
 
@@ -67,9 +74,10 @@ class OotdCommentTest {
     @Test
     void default_constructor_test() {
         final OotdComment ootdComment = new OotdComment();
+
         assertAll(
                 () -> assertThat(ootdComment).isNotNull(),
-                () -> assertThat(ootdComment).isInstanceOf(OotdComment.class)
+                () -> assertThat(ootdComment).isExactlyInstanceOf(OotdComment.class)
         );
     }
 
