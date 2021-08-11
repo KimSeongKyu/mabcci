@@ -206,7 +206,6 @@
 @media screen and (max-width: 576px) {
   .signup-input-list {
     width: 350px;
-    margin: auto;
     margin-bottom: 40px;
   }
   .signup-warnning-password-length {
@@ -214,5 +213,8 @@
   }
   .signup-warnning-password {
     margin-top: 80%;
+  }
+  .signup-warnning-email {
+    margin-bottom: 55%;
   }
 }

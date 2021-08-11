@@ -63,7 +63,6 @@
 .mypage-mobile-update-box {
   width: 90%;
   height: 100%;
-  background-color: lightgreen;
   margin: auto;
 }
 
@@ -76,9 +75,43 @@
 }
 
 .mypage-mobile-update-content input {
-  border: solid 1px var(--main-color-1);
+  border: solid 0.5px lightgray;
   border-radius: 15px;
   text-align: center;
+}
+
+.mypage-mobile-gender-box {
+  display: flex;
+  width: 180px;
+  justify-content: space-between;
+}
+
+.mypage-mobile-gender-btn {
+  background-color: var(--main-color-2);
+  border-radius: 25px;
+  text-align: center;
+  padding: 5px;
+  font-weight: 500;
+}
+
+.mypage-mobile-gender-btn-select {
+  border: solid 0.5px var(--main-color-2);
+  border-radius: 25px;
+  text-align: center;
+  padding: 5px;
+  background-color: var(--main-color-1);
+  color: white;
+  font-weight: 500;
+}
+
+.mypage-mobile-gender-btn:hover {
+  background-color: var(--main-color-1);
+}
+
+.mypage-mobile-gender-btn:active {
+  padding-left: 3px;
+  padding-top: 3px;
+  box-shadow: none;
 }
 
 .mobile-menu-logout-btn {

@@ -34,8 +34,6 @@ const MyPageProfile = props => {
      props.setProposalBox(true)
    }
 
-   console.log(props.myInfo.categories, typeof props.myInfo.categories)
-
   return (
     <>
       <div className="mypage-profile-box">

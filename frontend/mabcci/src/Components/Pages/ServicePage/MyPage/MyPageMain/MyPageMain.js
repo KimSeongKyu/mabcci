@@ -31,7 +31,6 @@ function MyPageMain() {
   useEffect(async () => {
     const res = await MypageReadApi(userInfo.nickname);
     setMyInfo(res.myInfo);
-    console.log(res.myInfo, typeof res.myInfo);
   }, []);
 
   const goToMobileMenu = () => {
@@ -57,6 +56,8 @@ function MyPageMain() {
         setMobileMenu={setMobileMenu}
       />
       <MyPageMobileMenu
+        myInfo={myInfo}
+        setMyInfo={setMyInfo}
         mobileMenu={mobileMenu}
         setMobileMenu={setMobileMenu}
         proposalBox={proposalBox}

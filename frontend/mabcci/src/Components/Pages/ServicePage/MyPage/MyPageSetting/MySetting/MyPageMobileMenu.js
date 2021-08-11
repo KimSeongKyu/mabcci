@@ -45,16 +45,22 @@ const MyPageMobileMenu = props => {
         myPageUpdate={props.myPageUpdate}
         setMyPageUpdate={props.setMyPageUpdate}
         setMobileMenu={props.setMobileMenu}
+        myInfo={props.myInfo}
+        setMyInfo={props.setMyInfo}
       />
       <MyInfoMobile
         myPageUpdate={props.myPageUpdate}
         setMyPageUpdate={props.setMyPageUpdate}
         setMobileMenu={props.setMobileMenu}
+        myInfo={props.myInfo}
+        setMyInfo={props.setMyInfo}
       />
       <MyProfileMobile
         myPageUpdate={props.myPageUpdate}
         setMyPageUpdate={props.setMyPageUpdate}
         setMobileMenu={props.setMobileMenu}
+        myInfo={props.myInfo}
+        setMyInfo={props.setMyInfo}
       />
       {props.mobileMenu === true ? (
         <div className="mypage-moblie-container" />

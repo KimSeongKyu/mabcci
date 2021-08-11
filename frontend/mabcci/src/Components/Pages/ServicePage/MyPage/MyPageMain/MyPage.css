@@ -53,7 +53,7 @@
   height: 150px;
   backface-visibility: hidden;
   cursor: pointer;
-  border: solid 1px var(--main-color-1);
+  border: solid 0.1px var(--main-color-1);
 }
 
 .mypage-profile-bodyinfo {
@@ -152,6 +152,7 @@
   margin-bottom: 0px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  text-align: center;
 }
 
 .mypage-introduce-box p {
