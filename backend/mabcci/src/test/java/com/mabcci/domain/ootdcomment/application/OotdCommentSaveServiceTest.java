@@ -17,6 +17,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
 import static com.mabcci.global.common.EmailTest.EMAIL;
@@ -29,7 +31,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class OotdCommentSaveServiceTest {
 
-    @InjectMocks private OotdCommentService ootdCommentService;
+    @InjectMocks private OotdCommentSaveService ootdCommentSaveService;
     @Mock private MemberRepository memberRepository;
     @Mock private OotdRepository ootdRepository;
     @Mock private OotdCommentRepository ootdCommentRepository;
@@ -69,8 +71,9 @@ class OotdCommentSaveServiceTest {
     @DisplayName("OotdCommentSaveService 인스턴스 ootd 댓글 저장 테스트")
     @Test
     void save_ootd_comment_test() {
-        doReturn(member).when(memberRepository).findByNickName(any());
-        doReturn(ootd).when(ootdRepository).findById(any());
+        doReturn(Optional.of(member)).when(memberRepository).findByNickName(any());
+        doReturn(Optional.of(ootd)).when(ootdRepository).findById(any());
+        doReturn(Optional.empty()).when(ootdCommentRepository).findById(any());
         doReturn(ootdComment).when(ootdCommentRepository).save(any());
 
         final OotdCommentSaveRequest ootdCommentSaveRequest =
@@ -79,6 +82,7 @@ class OotdCommentSaveServiceTest {
 
         verify(memberRepository, times(1)).findByNickName(any());
         verify(ootdRepository, times(1)).findById(any());
-        verify(ootdCommentRepository, times(1)).save(any());ㄱ
+        verify(ootdCommentRepository, times(1)).findById(any());
+        verify(ootdCommentRepository, times(1)).save(any());
     }
 }
