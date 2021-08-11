@@ -58,4 +58,14 @@ class CommentTest {
                 () -> assertThat(comment).isExactlyInstanceOf(Comment.class)
         );
     }
+
+    @DisplayName("Comment 인스턴스 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        assertAll(
+                () -> assertThat(parentComment.member()).isEqualTo(member),
+                () -> assertThat(parentComment.parentComment()).isEmpty(),
+                () -> assertThat(parentComment.content()).isEqualTo("내용")
+        );
+    }
 }
