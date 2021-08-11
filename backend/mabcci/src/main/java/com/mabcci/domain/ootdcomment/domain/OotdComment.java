@@ -29,10 +29,9 @@ public class OotdComment extends BaseTimeEntity {
     @JoinColumn(name = "ootd_comment_ootd_id", nullable = false, updatable = false)
     private Ootd ootd;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ootd_comment_parent_comment_id")
-    private Optional<OotdComment> parentComment;
+    private OotdComment parentComment;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<OotdComment> childComments = new HashSet<>();
@@ -68,7 +67,7 @@ public class OotdComment extends BaseTimeEntity {
     }
 
     public Optional<OotdComment> parentComment() {
-        return parentComment;
+        return Optional.ofNullable(parentComment);
     }
 
     public Set<OotdComment> childComments() {
@@ -82,7 +81,7 @@ public class OotdComment extends BaseTimeEntity {
     public static class OotdCommentBuilder {
         private Member member;
         private Ootd ootd;
-        private Optional<OotdComment> parentComment;
+        private OotdComment parentComment;
         private String content;
 
         private OotdCommentBuilder() {
@@ -98,7 +97,7 @@ public class OotdComment extends BaseTimeEntity {
             return this;
         }
 
-        public OotdCommentBuilder parentComment(final Optional<OotdComment> parentComment) {
+        public OotdCommentBuilder parentComment(final OotdComment parentComment) {
             this.parentComment = parentComment;
             return this;
         }

@@ -13,7 +13,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
@@ -56,13 +55,13 @@ class OotdCommentTest {
         parentComment = OotdComment.builder()
                 .member(member)
                 .ootd(ootd)
-                .parentComment(Optional.empty())
+                .parentComment(null)
                 .content("내용")
                 .build();
         childComment = OotdComment.builder()
                 .member(member)
                 .ootd(ootd)
-                .parentComment(Optional.of(parentComment))
+                .parentComment(parentComment)
                 .content("내용")
                 .build();
     }
@@ -122,7 +121,7 @@ class OotdCommentTest {
 
         assertAll(
                 () -> assertThat(invalidPropertiesOfValidOotdComment.size()).isEqualTo(0),
-                () -> assertThat(invalidPropertiesOfInvalidOotdComment.size()).isEqualTo(4)
+                () -> assertThat(invalidPropertiesOfInvalidOotdComment.size()).isEqualTo(3)
         );
     }
 }
