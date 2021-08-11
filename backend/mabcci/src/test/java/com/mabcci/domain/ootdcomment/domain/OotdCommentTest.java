@@ -9,6 +9,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -98,6 +101,28 @@ class OotdCommentTest {
                 () -> assertThat(parentComment.childComments().contains(childComment)).isTrue(),
                 () -> assertThat(parentComment.content()).isEqualTo("내용"),
                 () -> assertThat(childComment.parentComment().get()).isEqualTo(parentComment)
+        );
+    }
+
+    @DisplayName("OotdComment 인스턴스 프로퍼티 유효성 검증 테스트")
+    @Test
+    void validate_test() {
+        final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        final OotdComment invalidOotdComment = OotdComment.builder()
+                .member(null)
+                .ootd(null)
+                .parentComment(null)
+                .content("")
+                .build();
+
+        final Set<ConstraintViolation<OotdComment>> invalidPropertiesOfValidOotdComment =
+                validator.validate(parentComment);
+        final Set<ConstraintViolation<OotdComment>> invalidPropertiesOfInvalidOotdComment =
+                validator.validate(invalidOotdComment);
+
+        assertAll(
+                () -> assertThat(invalidPropertiesOfValidOotdComment.size()).isEqualTo(0),
+                () -> assertThat(invalidPropertiesOfInvalidOotdComment.size()).isEqualTo(4)
         );
     }
 }
