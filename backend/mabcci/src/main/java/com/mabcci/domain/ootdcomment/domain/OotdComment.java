@@ -78,6 +78,11 @@ public class OotdComment extends BaseTimeEntity {
         return content;
     }
 
+    public OotdComment update(final String content) {
+        this.content = content;
+        return this;
+    }
+
     public static class OotdCommentBuilder {
         private Member member;
         private Ootd ootd;
