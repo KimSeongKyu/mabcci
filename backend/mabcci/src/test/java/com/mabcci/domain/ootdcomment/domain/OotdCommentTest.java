@@ -103,6 +103,19 @@ class OotdCommentTest {
         );
     }
 
+    @DisplayName("OotdComment 인스턴스 내용 수정 테스트")
+    @Test
+    void update_test() {
+        ReflectionTestUtils.setField(parentComment, "id", 1L);
+        final OotdComment updatedComment = parentComment.update("수정된 내용");
+
+        assertAll(
+                () -> assertThat(updatedComment.id()).isEqualTo(parentComment.id()),
+                () -> assertThat(updatedComment.content()).isEqualTo("수정된 내용")
+        );
+    }
+
+
     @DisplayName("OotdComment 인스턴스 프로퍼티 유효성 검증 테스트")
     @Test
     void validate_test() {
