@@ -24,4 +24,10 @@ class OotdCommentUpdateRequestTest {
                 () -> assertThat(ootdCommentUpdateRequest).isExactlyInstanceOf(OotdCommentUpdateRequest.class)
         );
     }
+
+    @DisplayName("OotdCommentUpdateRequest 인스턴스 getter 메서드 테스트")
+    @Test
+    void getter_test() {
+        assertThat(ootdCommentUpdateRequest.getContent()).isEqualTo("수정된 내용");
+    }
 }
