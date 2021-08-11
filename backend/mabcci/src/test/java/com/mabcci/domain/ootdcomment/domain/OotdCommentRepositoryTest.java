@@ -79,4 +79,16 @@ class OotdCommentRepositoryTest {
 
         assertThat(savedOotdComment.id()).isEqualTo(ootdComment.id());
     }
+
+    @DisplayName("OotdCommentRepository ootd 댓글 삭제 테스트")
+    @Test
+    void delete_test() {
+        final Long ootdCommentId = ootdComment.id();
+
+        assertThat(ootdCommentRepository.existsById(ootdCommentId)).isTrue();
+
+        ootdCommentRepository.deleteById(ootdCommentId);
+
+        assertThat(ootdCommentRepository.existsById(ootdCommentId)).isFalse();
+    }
 }
