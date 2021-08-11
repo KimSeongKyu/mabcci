@@ -74,7 +74,7 @@ public class MemberController {
         return ResponseEntity.ok().body(new MemberFindMabcciResponses(responses));
     }
 
-    @PutMapping("/api/members/{nickname}")
+    @PostMapping("/api/members/update/{nickname}")
     public ResponseEntity<?> update(@Valid @ModelAttribute MemberUpdateRequest request,
                                     @PathVariable Nickname nickname,
                                     @RequestParam MultipartFile picture) {
