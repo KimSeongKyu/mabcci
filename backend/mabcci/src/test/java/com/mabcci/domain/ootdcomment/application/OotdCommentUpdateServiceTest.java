@@ -15,6 +15,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
 import static com.mabcci.global.common.EmailTest.EMAIL;
@@ -68,7 +70,7 @@ class OotdCommentUpdateServiceTest {
     void update_ootd_comment_test() {
         final String updatedContent = "수정된 내용";
         final OotdCommentUpdateRequest ootdCommentUpdateRequest = new OotdCommentUpdateRequest(updatedContent);
-        doReturn(ootdComment).when(ootdCommentRepository).findById(any());
+        doReturn(Optional.of(ootdComment)).when(ootdCommentRepository).findById(any());
 
         ootdCommentUpdateService.updateOotdComment(1L, ootdCommentUpdateRequest);
 
