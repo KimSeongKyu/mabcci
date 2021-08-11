@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { chatListApi } from '../../../../../API/ChatAPI/ChatApi';
 
-const ChatSide = () => {
+const ChatSide = ({ chatMenu }) => {
   const [chatList, setChatList] = useState([]);
 
   useEffect(async () => {
@@ -14,7 +14,7 @@ const ChatSide = () => {
   const showChatList = () => {
     return chatList.map(({ nickname, picture }) => {
       return (
-        <div className="chat-side-item">
+        <div key={nickname} className="chat-side-item">
           <img src={picture} alt="" />
           <p>{nickname}</p>
         </div>
@@ -22,7 +22,7 @@ const ChatSide = () => {
     });
   };
   return (
-    <div className="chat-side">
+    <div className={`chat-side ${chatMenu ? 'active' : ''}`}>
       <header>
         <p>채팅 목록</p>
       </header>

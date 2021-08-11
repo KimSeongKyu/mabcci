@@ -1,14 +1,28 @@
 import React from 'react';
+import { AiOutlineMenu } from 'react-icons/ai';
 
-const ChatRoom = () => {
+const ChatRoom = ({ setChatMenu, chatMenu }) => {
+  const menuToggle = () => {
+    setChatMenu(!chatMenu);
+  };
   return (
     <div className="chat-room">
       <header>
+        <button type="button" className="chat-menu" onClick={menuToggle}>
+          <AiOutlineMenu />
+        </button>
         <p>채팅창</p>
       </header>
       <section>
         <div className="chat-room-log">
           <div className="you-box">
+            <div>
+              <img
+                className="profile"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5e9ZV_LPO-_MZ8OX1FA3F-dzDUqkuKCtv8A&usqp=CAU"
+                alt=""
+              />
+            </div>
             <div className="you">
               <p>
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi
@@ -19,6 +33,11 @@ const ChatRoom = () => {
             </div>
           </div>
           <div className="you-box">
+            <img
+              className="profile invisible"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5e9ZV_LPO-_MZ8OX1FA3F-dzDUqkuKCtv8A&usqp=CAU"
+              alt=""
+            />
             <div className="you">
               <p>Lorem ipsum dolois, a maxime dolores.</p>
             </div>
