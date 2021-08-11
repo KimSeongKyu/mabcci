@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation } from 'swiper/core';
 import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.min.css';
+import PopularMabcciApi from '../../../../API/MabcciAPI/PopularMabcciApi';
 import userphoto from './Images/userphoto.png';
 
 SwiperCore.use([Navigation]);
@@ -13,14 +14,14 @@ const mabcciListPrint = (mabcciList, type) => {
 
   return mabcciList.map(mabcci => {
     return (
-      <div className={className} key={mabcci.nickname}>
+      <div className={className} key={mabcci.nickName}>
         <img
           className="home-mabcci-photo"
           src={mabcci.picture}
           alt="mabcciPhoto"
           width="100"
         />
-        <h5>{mabcci.nickname}</h5>
+        <h5>{mabcci.nickName}</h5>
       </div>
     );
   });
@@ -29,39 +30,45 @@ const mabcciListPrint = (mabcciList, type) => {
 const PopularMabcci = () => {
   const [firstMabcciIdx, setfirstMabcciIdx] = useState(0);
   const [mabcciList, setMabcciList] = useState([
-    {
-      nickname: '젠킨스1',
-      picture: userphoto,
-    },
-    {
-      nickname: '젠킨스2',
-      picture: userphoto,
-    },
-    {
-      nickname: '젠킨스3',
-      picture: userphoto,
-    },
-    {
-      nickname: '젠킨스4',
-      picture: userphoto,
-    },
-    {
-      nickname: '젠킨스5',
-      picture: userphoto,
-    },
-    {
-      nickname: '젠킨스6',
-      picture: userphoto,
-    },
-    {
-      nickname: '젠킨스7',
-      picture: userphoto,
-    },
-    {
-      nickname: '젠킨스8',
-      picture: userphoto,
-    },
+    // {
+    //   nickname: '젠킨스1',
+    //   picture: userphoto,
+    // },
+    // {
+    //   nickname: '젠킨스2',
+    //   picture: userphoto,
+    // },
+    // {
+    //   nickname: '젠킨스3',
+    //   picture: userphoto,
+    // },
+    // {
+    //   nickname: '젠킨스4',
+    //   picture: userphoto,
+    // },
+    // {
+    //   nickname: '젠킨스5',
+    //   picture: userphoto,
+    // },
+    // {
+    //   nickname: '젠킨스6',
+    //   picture: userphoto,
+    // },
+    // {
+    //   nickname: '젠킨스7',
+    //   picture: userphoto,
+    // },
+    // {
+    //   nickname: '젠킨스8',
+    //   picture: userphoto,
+    // },
   ]);
+
+  useEffect(async () => {
+    const response = await PopularMabcciApi();
+    console.log(response);
+    setMabcciList(response.mabccies);
+  }, []);
 
   return (
     <article className="home-popularMabcci">
