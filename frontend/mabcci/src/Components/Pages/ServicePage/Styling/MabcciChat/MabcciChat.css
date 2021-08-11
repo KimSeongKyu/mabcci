@@ -63,7 +63,7 @@
 }
 
 .chat-side-item:hover {
-  background-color: var(--main-color-2);
+  background-color: var(--main-color-3);
   cursor: pointer;
 }
 
@@ -75,4 +75,30 @@
 
 .chat-side-item p {
   margin-left: 10px;
+}
+
+.you-box {
+  width: 100%;
+  display: flex;
+  margin: 10px;
+}
+
+.you {
+  border: 1px solid var(--main-color-3);
+  border-radius: 25px;
+  padding: 10px;
+  width: 70%;
+}
+
+.me-box {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.me {
+  background-color: var(--main-color-2);
+  border-radius: 25px;
+  padding: 10px;
+  width: 70%;
 }
