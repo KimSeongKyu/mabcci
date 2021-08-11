@@ -7,6 +7,9 @@ public final class OotdCommentUpdateRequest {
     @NotEmpty
     private String content;
 
+    private OotdCommentUpdateRequest() {
+    }
+
     public OotdCommentUpdateRequest(final String content) {
         this.content = content;
     }
