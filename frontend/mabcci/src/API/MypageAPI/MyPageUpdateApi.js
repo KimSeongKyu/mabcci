@@ -4,7 +4,7 @@ import instance from '../index';
 const MypageUpdateApi = async (myInfo, nickname) => {
   try {
     console.log(nickname);
-    const response = await instance.put(
+    const response = await instance.post(
       `${MypageUpdateUrl}/${nickname}`,
       myInfo,
     );

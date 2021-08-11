@@ -20,4 +20,4 @@ export const AllMabcciUrl = '/api/members/mabcci';
 export const PopularMabcciUrl = '/api/members/mabcci/popular';
 
 export const MypageReadUrl = '/api/members/mypage';
-export const MypageUpdateUrl = '/api/members';
+export const MypageUpdateUrl = '/api/members/update';
