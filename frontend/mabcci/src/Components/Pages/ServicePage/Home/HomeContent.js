@@ -93,18 +93,18 @@ const PopularMabcci = () => {
           className="home-swiper-container"
         >
           <SwiperSlide className="home-swiper-slide">
-            <div className=".home-popularMabcci-top-mobile">
+            <div className="home-popularMabcci-top-mobile">
               {mabcciListPrint(mabcciList.slice(0, 2), 'mobile')}
             </div>
-            <div className=".home-popularMabcci-bottom-mobile">
+            <div className="home-popularMabcci-bottom-mobile">
               {mabcciListPrint(mabcciList.slice(2, 4), 'mobile')}
             </div>
           </SwiperSlide>
           <SwiperSlide className="home-swiper-slide">
-            <div className="home-popularMabcci-top">
+            <div className="home-popularMabcci-top-mobile">
               {mabcciListPrint(mabcciList.slice(4, 6), 'mobile')}
             </div>
-            <div className="home-popularMabcci-bottom">
+            <div className="home-popularMabcci-bottom-mobile">
               {mabcciListPrint(mabcciList.slice(6, 8), 'mobile')}
             </div>
           </SwiperSlide>

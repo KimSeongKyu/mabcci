@@ -63,8 +63,8 @@
 
 .home-popularMabcci-mobile {
   position: absolute;
-  top: 0px;
-  left: 60px;
+  top: 40px;
+  width: 100%;
 }
 
 .home-mabcci-web {
@@ -83,17 +83,32 @@
   filter: drop-shadow(5px 5px 4px rgba(0, 0, 0, 0.25));
 }
 
+/*
 .home-swiper-container {
   width: 450px;
   height: 370px;
 }
+*/
 
 .home-swiper-slide {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /*align-items: center;*/
+  width: 100%;
+  height: 100%;
+
+  /*
   text-align: center;
   font-size: 18px;
-  background: transparent;
+  background: transparent;*/
 
   /* Center slide text vertically */
+  /*
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -107,23 +122,15 @@
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
+  */
 }
 
 .home-swiper-slide > div {
-  width: 60%;
+  width: 30%;
+  height: 30%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
 }
-
-/*
-.home-swiper-container > swiper-button-prev {
-  color: var(--main-color-2) !important;
-}
-.swiper-button-next {
-  color: var(--main-color-2) !important;
-}
-*/
 
 /* 웹 */
 @media screen and (min-width: 577px) {
