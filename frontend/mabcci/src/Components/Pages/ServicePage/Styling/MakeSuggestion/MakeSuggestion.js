@@ -20,7 +20,7 @@ const imageProcess = (cloth, clothImage, addImage) => {
   return clothImage.length !== 0 ? (
     <div className="makeSuggestion-swiper-container">
       <img src={clothImage[0]} alt="사진을 추가해주세요" />
-      <button type="submit" className="btn-util OOTDWrite-btn-remove">
+      <button type="submit" className="btn-util makeSuggestion-btn-remove">
         X
       </button>
     </div>

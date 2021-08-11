@@ -44,6 +44,19 @@
   justify-content: center;
   color: lightgrey;
 }
+
+.makeSuggestion-btn-remove {
+  position: absolute;
+  color: lightgray;
+  width: 20px;
+  height: 20px;
+  font-size: xx-small;
+  background-color: var(--main-color-2);
+  font-weight: 800;
+  margin-bottom: 28%;
+  margin-left: 47%;
+}
+
 .makeSuggestion-input-file {
   margin-top: 10px;
   padding: 6px 15px;
