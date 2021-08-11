@@ -39,4 +39,20 @@ public class Comment extends BaseTimeEntity {
         this.content = content;
     }
 
+    public Member member() {
+        return member;
+    }
+
+    public Optional<Comment> parentComment() {
+        return parentComment;
+    }
+
+    public Set<Comment> childComments() {
+        return childComments;
+    }
+
+    public String content() {
+        return content;
+    }
+
 }
