@@ -2,7 +2,8 @@ package com.mabcci.domain.follow.ui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mabcci.domain.follow.application.FollowService;
-import com.mabcci.domain.follow.dto.FollowSaveRequest;
+import com.mabcci.domain.follow.application.UnFollowService;
+import com.mabcci.domain.follow.dto.FollowRequest;
 import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -29,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class FollowControllerTest {
 
     @Mock private FollowService followService;
+    @Mock private UnFollowService unFollowService;
     @InjectMocks private FollowController followController;
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;
@@ -42,7 +44,7 @@ class FollowControllerTest {
     @DisplayName("FollowController 인스턴스 생성 여부 테스트")
     @Test
     void constructor_test() {
-        final FollowController followController = new FollowController(followService);
+        final FollowController followController = new FollowController(followService, unFollowService);
 
         assertAll(
                 () -> assertThat(followController).isNotNull(),
@@ -56,25 +58,29 @@ class FollowControllerTest {
         given(followService.follow(any(), any())).willReturn(1L);
         final Nickname following = Nickname.of("following");
         final Nickname follower = Nickname.of("follower");
-        final FollowSaveRequest followSaveRequest = new FollowSaveRequest(following, follower);
-        final String followSaveRequestString = objectMapper.writeValueAsString(followSaveRequest);
+        final FollowRequest followRequest = new FollowRequest(following, follower);
+        final String followSaveRequestString = objectMapper.writeValueAsString(followRequest);
 
         mockMvc.perform(post("/api/follow")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(followSaveRequestString))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
 
     }
 
     @DisplayName("FollowController 인스턴스 팔로우 취소 기능 테스트")
     @Test
     void cancel_test() throws Exception {
-        doNothing().when(followService).unfollow(any());
+        doNothing().when(unFollowService).unfollow(any(), any());
+        final Nickname following = Nickname.of("following");
+        final Nickname follower = Nickname.of("follower");
+        final FollowRequest unFollowRequest = new FollowRequest(following, follower);
+        final String unFollowRequestString = objectMapper.writeValueAsString(unFollowRequest);
 
-        mockMvc.perform(delete("/api/follow")
+        mockMvc.perform(delete("/api/unfollow")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("1"))
+                .content(unFollowRequestString))
                 .andExpect(status().isOk());
     }
 

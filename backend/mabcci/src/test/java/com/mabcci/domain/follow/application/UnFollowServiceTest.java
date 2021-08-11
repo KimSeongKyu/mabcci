@@ -27,15 +27,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class FollowServiceTest {
+class UnFollowServiceTest {
 
     @Mock private FollowRepository followRepository;
     @Mock private MemberRepository memberRepository;
-    @InjectMocks private FollowService followService;
+    @InjectMocks private UnFollowService unFollowService;
 
     private Member following;
     private Member follower;
@@ -46,8 +45,7 @@ class FollowServiceTest {
         following = member(Email.of("following@email.com"), PASSWORD, Nickname.of("following"), Phone.of("010-1234-5678"));
         follower = member(Email.of("follower@email.com"), PASSWORD, Nickname.of("follower"), Phone.of("010-5678-1234"));
     }
-
-    @DisplayName("FollowService 인스턴스 생성 여부 테스트")
+    @DisplayName("UnFollowService 인스턴스 생성 여부 테스트")
     @Test
     void constructor_test() {
         final FollowService followService = new FollowService(followRepository, memberRepository);
@@ -58,21 +56,19 @@ class FollowServiceTest {
         );
     }
 
-    @DisplayName("FollowService 인스턴스 save() 기능 테스트")
+    @DisplayName("FollowService 인스턴스 unfollow() 기능 테스트")
     @Test
-    void save_test() {
+    void delete_test() {
         final Follow follow = Follow.Builder().following(following).follower(follower).build();
         ReflectionTestUtils.setField(follow, "id", 1L);
 
-        given(followRepository.save(any())).willReturn(follow);
+        doReturn(Optional.ofNullable(follow)).when(followRepository).findByFollowingAndFollower(any(), any());
         given(memberRepository.findByNickName(following.nickname())).willReturn(Optional.ofNullable(following));
         given(memberRepository.findByNickName(follower.nickname())).willReturn(Optional.ofNullable(follower));
+        doNothing().when(followRepository).delete(any());
 
-        final Long actual = followService.follow(following.nickname(), follower.nickname());
-
-        then(followRepository).should(times(1)).save(any());
-        then(memberRepository).should(times(2)).findByNickName(any());
-        assertThat(actual).isEqualTo(1L);
+        unFollowService.unfollow(following.nickname(), follower.nickname());
+        then(followRepository).should(times(1)).delete(any());
     }
 
     private static Member member(Email email, Password password, Nickname nickname, Phone phone) {

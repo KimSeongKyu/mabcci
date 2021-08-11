@@ -8,31 +8,31 @@ import com.mabcci.global.common.Nickname;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
-public class FollowService {
+public class UnFollowService {
 
     private final FollowRepository followRepository;
     private final MemberRepository memberRepository;
 
-    public FollowService(final FollowRepository followRepository,
-                         final MemberRepository memberRepository) {
+    public UnFollowService(final FollowRepository followRepository,
+                           final MemberRepository memberRepository) {
         this.followRepository = followRepository;
         this.memberRepository = memberRepository;
     }
 
     @Transactional
-    public Long follow(final Nickname followingNickname, final Nickname followerNickname) {
+    public void unfollow(final Nickname followingNickname, final Nickname followerNickname) {
         final Member following = findMemberByNickName(followingNickname);
         final Member follower = findMemberByNickName(followerNickname);
-        final Follow follow = follow(following, follower);
-        return followRepository.save(follow).id();
+        final Follow follow = findFollow(following, follower);
+        followRepository.delete(follow);
     }
 
-    private Follow follow(final Member following, final Member follower) {
-        return Follow.Builder()
-                .following(following)
-                .follower(follower)
-                .build();
+    private Follow findFollow(final Member following, final Member follower) {
+        return followRepository.findByFollowingAndFollower(following, follower)
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     private Member findMemberByNickName(final Nickname nickname) {
