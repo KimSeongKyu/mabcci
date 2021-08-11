@@ -27,7 +27,6 @@
 }
 
 .swiper-zoom-container {
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -50,8 +49,8 @@
   font-size: xx-small;
   background-color: var(--main-color-2);
   font-weight: 800;
-  top: 0;
-  right: 80px;
+  margin-bottom: 28%;
+  margin-left: 47%;
 }
 
 .swiper-slide {
