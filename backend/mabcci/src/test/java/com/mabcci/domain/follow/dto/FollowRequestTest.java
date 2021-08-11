@@ -7,16 +7,16 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-class FollowSaveRequestTest {
+class FollowRequestTest {
 
     @DisplayName("FollowSaveRequest 인스턴스 기본 생성자를 이용한 생성 테스트")
     @Test
     void default_constructor_test() {
-        final FollowSaveRequest followSaveRequest = new FollowSaveRequest();
+        final FollowRequest followRequest = new FollowRequest();
 
         assertAll(
-                () -> assertThat(followSaveRequest).isNotNull(),
-                () -> assertThat(followSaveRequest).isExactlyInstanceOf(FollowSaveRequest.class)
+                () -> assertThat(followRequest).isNotNull(),
+                () -> assertThat(followRequest).isExactlyInstanceOf(FollowRequest.class)
         );
     }
 
@@ -25,11 +25,11 @@ class FollowSaveRequestTest {
     void static_factory_method_test() {
         final Nickname following = Nickname.of("following");
         final Nickname follower = Nickname.of("follower");
-        final FollowSaveRequest followSaveRequest = new FollowSaveRequest(following, follower);
+        final FollowRequest followRequest = new FollowRequest(following, follower);
 
         assertAll(
-                () -> assertThat(followSaveRequest).isNotNull(),
-                () -> assertThat(followSaveRequest).isExactlyInstanceOf(FollowSaveRequest.class)
+                () -> assertThat(followRequest).isNotNull(),
+                () -> assertThat(followRequest).isExactlyInstanceOf(FollowRequest.class)
         );
     }
 
@@ -38,11 +38,11 @@ class FollowSaveRequestTest {
     void getter_test() {
         final Nickname following = Nickname.of("following");
         final Nickname follower = Nickname.of("follower");
-        final FollowSaveRequest followSaveRequest = new FollowSaveRequest(following, follower);
+        final FollowRequest followRequest = new FollowRequest(following, follower);
 
         assertAll(
-                () -> assertThat(followSaveRequest.following()).isEqualTo(following),
-                () -> assertThat(followSaveRequest.follower()).isEqualTo(follower)
+                () -> assertThat(followRequest.following()).isEqualTo(following),
+                () -> assertThat(followRequest.follower()).isEqualTo(follower)
         );
     }
 
