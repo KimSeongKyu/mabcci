@@ -106,7 +106,7 @@ class OotdControllerTest {
     void find_filtered_ootd_list_test() throws Exception {
         final OotdListResponse ootdListResponse = new OotdListResponse(new ArrayList<>(), 1);
 
-        doReturn(ootdListResponse).when(ootdService).findFilteredOotdList(any(), any(), any());
+        doReturn(ootdListResponse).when(ootdService).findOotds(any(), any(), any());
 
         mockMvc.perform(get("/api/ootds/{nickname}", "닉네임")
                 .param("filter", "all")

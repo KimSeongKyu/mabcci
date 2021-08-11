@@ -2,6 +2,7 @@ package com.mabcci.domain.ootd.domain;
 
 import com.mabcci.domain.follow.domain.Follow;
 import com.mabcci.domain.member.domain.Member;
+import com.mabcci.domain.ootdpicture.domain.OotdPicture;
 import com.mabcci.global.common.Email;
 import com.mabcci.global.common.Nickname;
 import com.mabcci.global.common.Phone;
@@ -14,6 +15,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+
+import java.util.List;
 
 import static com.mabcci.domain.member.domain.Gender.MAN;
 import static com.mabcci.domain.member.domain.MemberRole.USER;
@@ -31,14 +34,16 @@ class OotdRepositoryTest {
     @Autowired private OotdRepository ootdRepository;
     @Autowired private TestEntityManager testEntityManager;
 
-    private Ootd ootd;
-    private Ootd firstFollowingMemberOotd;
-    private Ootd secondFollowingMemberOotd;
     private Member member;
     private Member firstFollowingMember;
     private Member secondFollowingMember;
     private Follow firstFollow;
     private Follow secondFollow;
+    private Ootd ootd;
+    private Ootd firstFollowingMemberOotd;
+    private Ootd secondFollowingMemberOotd;
+    private OotdPicture firstFollowingMemberOotdPicture;
+    private OotdPicture secondFollowingMemberOotdPicture;
 
     @BeforeEach
     void setUp() {
@@ -99,6 +104,16 @@ class OotdRepositoryTest {
                 .shoes("shoes")
                 .accessory("accessory")
                 .build();
+        firstFollowingMemberOotdPicture = OotdPicture.builder()
+                .url("firstTestUrl")
+                .fileName("firstTestFileName")
+                .ootd(firstFollowingMemberOotd)
+                .build();
+        secondFollowingMemberOotdPicture = OotdPicture.builder()
+                .url("secondTestUrl")
+                .fileName("secondTestFileName")
+                .ootd(secondFollowingMemberOotd)
+                .build();
     }
 
     @DisplayName("OotdRepository 구현체 존재 여부 테스트")
@@ -132,32 +147,6 @@ class OotdRepositoryTest {
         assertThat(foundOotd.id()).isEqualTo(ootd.id());
     }
 
-    @DisplayName("OotdRepository 전체 ootd 리스트 조회 테스트")
-    @Test
-    void find_all_test() {
-        testEntityManager.persist(member);
-        for (int i = 0; i < 21; i++) {
-            testEntityManager.persist(Ootd.builder()
-                    .member(member)
-                    .content("content")
-                    .top("top")
-                    .bottom("bottom")
-                    .shoes("shoes")
-                    .accessory("accessory")
-                    .build());
-        }
-
-        Page<Ootd> firstPageOotds = ootdRepository.findAll(PageRequest.of(0, 20));
-        Page<Ootd> secondPageOotds = ootdRepository.findAll(PageRequest.of(1, 20));
-
-        assertAll(
-                () -> assertThat(firstPageOotds.getSize()).isEqualTo(20),
-                () -> assertThat(firstPageOotds.toList().size()).isEqualTo(20),
-                () -> assertThat(secondPageOotds.toList().size()).isEqualTo(1),
-                () -> assertThat(firstPageOotds.getTotalPages()).isEqualTo(2)
-        );
-    }
-
     @DisplayName("OotdRepository 팔로잉한 멤버의 ootd 리스트 조회 테스트")
     @Test
     void find_all_of_following_test() {
@@ -168,10 +157,44 @@ class OotdRepositoryTest {
         testEntityManager.persist(secondFollow);
         testEntityManager.persist(firstFollowingMemberOotd);
         testEntityManager.persist(secondFollowingMemberOotd);
+        testEntityManager.persist(firstFollowingMemberOotdPicture);
+        testEntityManager.persist(secondFollowingMemberOotdPicture);
 
-        Page<Ootd> ootdsOfFollowingMember = ootdRepository.findAllOfFollowing(member, PageRequest.of(0, 20));
+        Page<Ootd> ootdsOfFollowingMember = ootdRepository.findOotdsOfFollowing(member, PageRequest.of(0, 20));
 
         assertThat(ootdsOfFollowingMember.toList().size()).isEqualTo(2);
+    }
+
+    @DisplayName("OotdRepository 전체 ootd 리스트 조회 테스트")
+    @Test
+    void find_ootds_test() {
+        testEntityManager.persist(member);
+        for (int i = 0; i < 21; i++) {
+            final Ootd ootd = Ootd.builder()
+                    .member(member)
+                    .content("content")
+                    .top("top")
+                    .bottom("bottom")
+                    .shoes("shoes")
+                    .accessory("accessory")
+                    .build();
+            testEntityManager.persist(ootd);
+            testEntityManager.persist(OotdPicture.builder()
+                    .ootd(ootd)
+                    .url("testUrl")
+                    .fileName("testFileName")
+                    .build());
+        }
+
+        Page<Ootd> firstPageOotds = ootdRepository.findOotds(PageRequest.of(0, 20));
+        Page<Ootd> secondPageOotds = ootdRepository.findOotds(PageRequest.of(1, 20));
+
+        assertAll(
+                () -> assertThat(firstPageOotds.getSize()).isEqualTo(20),
+                () -> assertThat(firstPageOotds.toList().size()).isEqualTo(20),
+                () -> assertThat(secondPageOotds.toList().size()).isEqualTo(1),
+                () -> assertThat(firstPageOotds.getTotalPages()).isEqualTo(2)
+        );
     }
 
     @DisplayName("OotdRepository ootd 삭제 테스트")

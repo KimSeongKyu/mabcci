@@ -1,19 +1,30 @@
 package com.mabcci.domain.ootd.dto.response;
 
+import com.mabcci.domain.hashtag.domain.Hashtag;
+import com.mabcci.domain.ootd.domain.Ootd;
+import com.mabcci.domain.ootdLike.domain.OotdLike;
+import com.mabcci.domain.ootdhashtag.domain.OotdHashtag;
+import com.mabcci.global.common.Nickname;
+
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 public final class OotdResponse {
+
+    private final static int FIRST = 0;
 
     @NotNull
     @Positive
     private Long id;
 
     @NotBlank
-    private String nickname;
+    private Nickname nickname;
 
     @NotBlank
     private String picture;
@@ -21,27 +32,35 @@ public final class OotdResponse {
     @NotNull
     private List<String> hashtags;
 
-    @NotNull
     @PositiveOrZero
     private Long likeCount;
 
     private OotdResponse() {
     }
 
-    public OotdResponse(final Long id, final String nickname, final String picture,
-                        final List<String> hashtags, final Long likeCount) {
-        this.id = id;
-        this.nickname = nickname;
-        this.picture = picture;
-        this.hashtags = hashtags;
-        this.likeCount = likeCount;
+    public OotdResponse(@Valid final Ootd ootd) {
+        this.id = ootd.id();
+        this.nickname = ootd.member()
+                .nickname();
+        this.picture = ootd.ootdPictures()
+                .get(FIRST)
+                .path();
+        this.hashtags = ootd.ootdHashtags()
+                .stream()
+                .map(OotdHashtag::hashtag)
+                .map(Hashtag::name)
+                .collect(toList());
+        this.likeCount = ootd.ootdLikes()
+                .stream()
+                .filter(OotdLike::status)
+                .count();
     }
 
     public final Long getId() {
         return id;
     }
 
-    public final String getNickname() {
+    public final Nickname getNickname() {
         return nickname;
     }
 

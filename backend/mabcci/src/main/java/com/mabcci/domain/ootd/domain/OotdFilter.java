@@ -8,12 +8,12 @@ public enum OotdFilter {
 
     ALL() {
         public Page<Ootd> findOotds(final OotdRepository ootdRepository, final Member member, final Pageable pageable) {
-            return ootdRepository.findAll(pageable);
+            return ootdRepository.findOotds(pageable);
         }
     },
     FOLLOWING() {
         public Page<Ootd> findOotds(final OotdRepository ootdRepository, final Member member, final Pageable pageable) {
-            return ootdRepository.findAllOfFollowing(member, pageable);
+            return ootdRepository.findOotdsOfFollowing(member, pageable);
         }
     };
 
