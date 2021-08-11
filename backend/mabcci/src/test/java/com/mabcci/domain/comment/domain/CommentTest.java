@@ -7,8 +7,11 @@ import com.mabcci.domain.ootd.domain.Ootd;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
@@ -23,6 +26,7 @@ class CommentTest {
 
     private Member member;
     private Comment parentComment;
+    private Comment childComment;
 
     @BeforeEach
     void setUp() {
@@ -37,6 +41,7 @@ class CommentTest {
                 .memberRole(MemberRole.USER)
                 .build();
         parentComment = new Comment(member, Optional.empty(), "내용");
+        childComment = new Comment(member, Optional.of(parentComment), "내용");
     }
 
     @DisplayName("Comment 인스턴스 생성 여부 테스트")
@@ -62,10 +67,17 @@ class CommentTest {
     @DisplayName("Comment 인스턴스 getter 메서드들 테스트")
     @Test
     void getter_test() {
+        ReflectionTestUtils.setField(parentComment, "childComments", new HashSet<>(Set.of(childComment)));
+
         assertAll(
                 () -> assertThat(parentComment.member()).isEqualTo(member),
                 () -> assertThat(parentComment.parentComment()).isEmpty(),
-                () -> assertThat(parentComment.content()).isEqualTo("내용")
+                () -> assertThat(parentComment.childComments().contains(childComment)).isTrue(),
+                () -> assertThat(parentComment.content()).isEqualTo("내용"),
+                () -> assertThat(childComment.member()).isEqualTo(member),
+                () -> assertThat(childComment.parentComment().get()).isEqualTo(parentComment),
+                () -> assertThat(childComment.childComments()).isEmpty(),
+                () -> assertThat(childComment.content()).isEqualTo("내용")
         );
     }
 }
