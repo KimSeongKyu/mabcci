@@ -13,7 +13,7 @@ public interface OotdRepository extends JpaRepository<Ootd, Long> {
     value = "SELECT DISTINCT o " +
             "FROM Ootd o " +
             "JOIN FETCH o.member m " +
-            "JOIN m.followings f " +
+            "JOIN FETCH m.followings f " +
             "LEFT OUTER JOIN o.ootdLikes o_l " +
             "JOIN o.ootdPictures p " +
             "LEFT OUTER JOIN o.ootdHashtags o_h " +

@@ -1,6 +1,5 @@
 package com.mabcci.domain.ootdpicture.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.mabcci.domain.ootd.domain.Ootd;
 import com.mabcci.domain.picture.domain.Picture;
@@ -17,7 +16,6 @@ public class OotdPicture extends Picture {
     private Long id;
 
     @NotNull
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ootd_picture_ootd_id", nullable = false)
     private Ootd ootd;
