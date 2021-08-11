@@ -11,6 +11,7 @@ import com.mabcci.domain.ootd.dto.request.OotdUpdateRequest;
 import com.mabcci.domain.ootd.dto.request.OotdWithPicturesAndHashtagsRegisterRequest;
 import com.mabcci.domain.ootd.dto.response.OotdListResponse;
 import com.mabcci.domain.ootd.dto.response.OotdResponse;
+import com.mabcci.domain.ootdLike.domain.OotdLike;
 import com.mabcci.domain.ootdLike.domain.OotdLikeRepository;
 import com.mabcci.domain.ootdhashtag.domain.OotdHashtag;
 import com.mabcci.domain.ootdhashtag.domain.OotdHashtagRepository;
@@ -29,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -69,23 +71,11 @@ public class OotdService {
 
     @Transactional(readOnly = true)
     public OotdListResponse findFilteredOotdList(final Nickname nickname, final OotdFilter ootdFilter, final Pageable pageable) {
-        final Member member = memberRepository.findByNickName(nickname)
-                .orElseThrow(IllegalArgumentException::new);
-        final Page<Ootd> ootdPages = ootdFilter.findOotds(ootdRepository, member, pageable);
+        final Page<Ootd> ootdPages = ootdRepository.findOotds(pageable);
         final int totalPages = ootdPages.getTotalPages();
         final List<Ootd> ootds = ootdPages.toList();
-
         final List<OotdResponse> ootdResponses = ootds.stream()
-                .map(ootd -> new OotdResponse(ootd.id(),
-                        ootd.member()
-                                .nickname()
-                                .nickname(),
-                        ootdPictureRepository.findFirstByOotd(ootd)
-                                .orElseThrow(IllegalArgumentException::new).path(),
-                        ootdHashtagRepository.findByOotd(ootd)
-                                .stream()
-                                .map(ootdHashtag -> ootdHashtag.hashtag().name())
-                                .collect(toList())))
+                .map(OotdResponse::new)
                 .collect(toList());
 
         return new OotdListResponse(ootdResponses, totalPages);

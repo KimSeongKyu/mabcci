@@ -31,6 +31,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -160,29 +161,6 @@ class OotdServiceTest {
         verify(hashtagRepository, times(2)).findByName(any());
         verify(hashtagRepository, times(2)).save(any());
         verify(ootdHashtagRepository, times(2)).save(any());
-    }
-
-    @DisplayName("OotdService 인스턴스 필터링된 ootd 리스트 조회 테스트")
-    @Test
-    void find_filtered_ootd_list_test() {
-        final Page<Ootd> ootdPages = new PageImpl<>(ootds);
-        doReturn(Optional.of(member)).when(memberRepository).findByNickName(any());
-        doReturn(ootdPages).when(ootdRepository).findAll((Pageable) any());
-        doReturn(Optional.of(ootdPicture)).when(ootdPictureRepository).findFirstByOotd(any());
-        doReturn(ootdHashtags).when(ootdHashtagRepository).findByOotd(any());
-        doReturn(1L).when(ootdLikeRepository).countByOotd(any());
-
-        final OotdListResponse ootdListResponse = ootdService.findFilteredOotdList(Nickname.of("닉네임"), OotdFilter.ALL, PageRequest.of(1, 20));
-
-        verify(ootdRepository, times(1)).findAll((Pageable) any());
-        verify(ootdPictureRepository, times(2)).findFirstByOotd(any());
-        verify(ootdHashtagRepository, times(2)).findByOotd(any());
-        verify(ootdLikeRepository, times(2)).countByOotd(any());
-
-        assertAll(
-                () -> assertThat(ootdListResponse.getOotdResponses().size()).isEqualTo(2),
-                () -> assertThat(ootdListResponse.getTotalPages()).isEqualTo(1)
-        );
     }
 
     @DisplayName("OotdService 인스턴스 ootd 수정 테스트")

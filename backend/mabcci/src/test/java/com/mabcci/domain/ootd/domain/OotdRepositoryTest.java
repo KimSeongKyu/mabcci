@@ -3,7 +3,6 @@ package com.mabcci.domain.ootd.domain;
 import com.mabcci.domain.follow.domain.Follow;
 import com.mabcci.domain.hashtag.domain.Hashtag;
 import com.mabcci.domain.member.domain.Member;
-import com.mabcci.domain.ootd.dto.response.OotdResponse;
 import com.mabcci.domain.ootdhashtag.domain.OotdHashtag;
 import com.mabcci.domain.ootdpicture.domain.OotdPicture;
 import com.mabcci.global.common.Email;
@@ -19,8 +18,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import java.nio.file.Path;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.mabcci.domain.member.domain.Gender.MAN;
 import static com.mabcci.domain.member.domain.MemberRole.USER;
@@ -181,53 +181,31 @@ class OotdRepositoryTest {
         assertThat(ootdsOfFollowingMember.toList().size()).isEqualTo(2);
     }
 
-    @DisplayName("OotdRepository 전체 ootd 리스트의 ootd id, 닉네임, 대표 사진, 해시태그들 조회")
+    @DisplayName("OotdRepository 전체 ootd 리스트 조회 테스트")
     @Test
-    void find_all_with_id_and_nickname_and_picture_and_hashtags_test() {
-        final OotdPicture firstOotdPicture = OotdPicture.builder()
-                .ootd(ootd)
-                .url("testUrl1")
-                .fileName("testFilePath1")
-                .build();
-        final OotdPicture secondOotdPicture = OotdPicture.builder()
-                .ootd(ootd)
-                .url("testUrl2")
-                .fileName("testFilePath2")
-                .build();
-        final Hashtag firstHashtag = Hashtag.builder()
-                .name("해시태그1")
-                .build();
-        final Hashtag secondHashtag = Hashtag.builder()
-                .name("해시태그2")
-                .build();
-        final OotdHashtag firstOotdHashtag = OotdHashtag.builder()
-                .ootd(ootd)
-                .hashtag(firstHashtag)
-                .build();
-        final OotdHashtag secondOotdHashtag = OotdHashtag.builder()
-                .ootd(ootd)
-                .hashtag(secondHashtag)
-                .build();
-
+    void find_ootds_test() {
         testEntityManager.persist(member);
-        testEntityManager.persist(ootd);
-        testEntityManager.persist(firstOotdPicture);
-        testEntityManager.persist(secondOotdPicture);
-        testEntityManager.persist(firstHashtag);
-        testEntityManager.persist(secondHashtag);
-        testEntityManager.persist(firstOotdHashtag);
-        testEntityManager.persist(secondOotdHashtag);
+        for (int i = 0; i < 21; i++) {
+            testEntityManager.persist(Ootd.builder()
+                    .member(member)
+                    .content("content")
+                    .top("top")
+                    .bottom("bottom")
+                    .shoes("shoes")
+                    .accessory("accessory")
+                    .build());
+        }
 
-        final List<OotdResponse> ootdResponses = ootdRepository.findAllWithIdAndNicknameAndPictureAndHashtags(PageRequest.of(0, 20));
-        final OotdResponse ootdResponse = ootdResponses.get(0);
+        Page<Ootd> firstPageOotds = ootdRepository.findAll(PageRequest.of(0, 20));
+        Page<Ootd> secondPageOotds = ootdRepository.findAll(PageRequest.of(1, 20));
 
         assertAll(
-                () -> assertThat(ootdResponses.size()).isEqualTo(1),
-                () -> assertThat(ootdResponse.getId()).isEqualTo(ootd.id()),
-                () -> assertThat(ootdResponse.getNickname()).isEqualTo(member.nickname().nickname()),
-                () -> assertThat(ootdResponse.getPicture()).isEqualTo(Path.of(firstOotdPicture.url(), "/", firstOotdPicture.fileName())),
-                () -> assertThat(ootdResponse.getHashtags().size()).isEqualTo(2)
+                () -> assertThat(firstPageOotds.getSize()).isEqualTo(20),
+                () -> assertThat(firstPageOotds.toList().size()).isEqualTo(20),
+                () -> assertThat(secondPageOotds.toList().size()).isEqualTo(1),
+                () -> assertThat(firstPageOotds.getTotalPages()).isEqualTo(2)
         );
+
     }
 
     @DisplayName("OotdRepository ootd 삭제 테스트")

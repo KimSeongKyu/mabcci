@@ -1,5 +1,6 @@
 package com.mabcci.domain.ootdhashtag.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.mabcci.domain.BaseTimeEntity;
 import com.mabcci.domain.hashtag.domain.Hashtag;
@@ -17,6 +18,7 @@ public class OotdHashtag extends BaseTimeEntity {
     private Long id;
 
     @NotNull
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ootd_hashtag_ootd_id", nullable = false)
     private Ootd ootd;

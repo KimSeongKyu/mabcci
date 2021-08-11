@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.mabcci.domain.BaseTimeEntity;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.ootd.dto.request.OotdUpdateRequest;
+import com.mabcci.domain.ootdLike.domain.OotdLike;
 import com.mabcci.domain.ootdcategory.domain.OotdCategory;
 import com.mabcci.domain.ootdhashtag.domain.OotdHashtag;
 import com.mabcci.domain.ootdpicture.domain.OotdPicture;
+import com.mabcci.domain.picture.domain.Picture;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -59,11 +61,12 @@ public class Ootd extends BaseTimeEntity {
     @OneToMany(mappedBy = "ootd", cascade = CascadeType.ALL)
     private Set<OotdCategory> ootdCategories = new HashSet<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "ootd", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<OotdPicture> ootdPictures = new HashSet<>();
+    private List<OotdLike> ootdLikes = new ArrayList<>();
 
-    @JsonIgnore
+    @OneToMany(mappedBy = "ootd", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OotdPicture> ootdPictures = new ArrayList<>();
+
     @OneToMany(mappedBy = "ootd", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OotdHashtag> ootdHashtags = new ArrayList<>();
 
@@ -84,48 +87,48 @@ public class Ootd extends BaseTimeEntity {
         return new OotdBuilder();
     }
 
-    @JsonValue
     public Long id() {
         return id;
     }
 
-    @JsonValue
     public Member member() {
         return member;
     }
 
-    @JsonValue
     public String content() {
         return content;
     }
 
-    @JsonValue
     public String top() {
         return top;
     }
 
-    @JsonValue
     public String bottom() {
         return bottom;
     }
 
-    @JsonValue
     public String shoes() {
         return shoes;
     }
 
-    @JsonValue
     public String accessory() {
         return accessory;
     }
 
-    @JsonValue
     public Long views() {
         return views;
     }
 
-    public Set<OotdPicture> ootdPictures() {
+    public List<OotdLike> ootdLikes() {
+        return ootdLikes;
+    }
+
+    public List<OotdPicture> ootdPictures() {
         return ootdPictures;
+    }
+
+    public List<OotdHashtag> ootdHashtags() {
+        return ootdHashtags;
     }
 
     public Ootd update(final OotdUpdateRequest ootdUpdateRequest) {
