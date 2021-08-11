@@ -99,4 +99,5 @@ class OotdCommentTest {
                 () -> assertThat(parentComment.content()).isEqualTo("내용"),
                 () -> assertThat(childComment.parentComment().get()).isEqualTo(parentComment)
         );
+    }
 }

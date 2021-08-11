@@ -55,6 +55,30 @@ public class OotdComment extends BaseTimeEntity {
         return new OotdCommentBuilder();
     }
 
+    public Long id() {
+        return id;
+    }
+
+    public Member member() {
+        return member;
+    }
+
+    public Ootd ootd() {
+        return ootd;
+    }
+
+    public Optional<OotdComment> parentComment() {
+        return parentComment;
+    }
+
+    public Set<OotdComment> childComments() {
+        return childComments;
+    }
+
+    public String content() {
+        return content;
+    }
+
     public static class OotdCommentBuilder {
         private Member member;
         private Ootd ootd;
@@ -87,7 +111,5 @@ public class OotdComment extends BaseTimeEntity {
         public OotdComment build() {
             return new OotdComment(this);
         }
-
     }
-
 }
