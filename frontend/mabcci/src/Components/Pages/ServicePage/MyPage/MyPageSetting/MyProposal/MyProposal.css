@@ -119,4 +119,7 @@
   .mypage-review-box {
     position: fixed;
   }
+  .mypage-modal-box {
+    display: none;
+  }
 }

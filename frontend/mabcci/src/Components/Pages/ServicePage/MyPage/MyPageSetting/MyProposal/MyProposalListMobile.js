@@ -13,6 +13,7 @@ const MyPageProposalListMobile = props => {
 
   const goBack = () => {
     props.setProposalBox(false)
+    props.setMobileMenu(true)
   };  
 
   const goReview = () => {

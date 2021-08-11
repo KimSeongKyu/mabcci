@@ -7,6 +7,7 @@ import './MySetting.css'
 const MyInfoMobile = props => {
   const goBack = () => {
     props.setMyPageUpdate('none');
+    props.setMobileMenu(true);
   };
 
   return (
@@ -22,6 +23,24 @@ const MyInfoMobile = props => {
               <IoArrowBackCircle />
             </button>
             <h3>내 정보 변경</h3>
+          </div>
+          <div className="mypage-mobile-update-box">
+            <div className="mypage-mobile-update-content">
+              <h3>닉네임</h3>
+              <input type="text" />
+            </div>
+            <div className="mypage-mobile-update-content">
+              <h3>키(cm)</h3>
+              <input type="number" placeholder="숫자만 입력해주세요" />
+            </div>
+            <div className="mypage-mobile-update-content">
+              <h3>몸무게(kg)</h3>
+              <input type="number" placeholder="숫자만 입력해주세요" />
+            </div>
+            <div className="mypage-mobile-update-content">
+              <h3>발(mm)</h3>
+              <input type="number" placeholder="숫자만 입력해주세요" />
+            </div>
           </div>
         </div>
       ) : null}

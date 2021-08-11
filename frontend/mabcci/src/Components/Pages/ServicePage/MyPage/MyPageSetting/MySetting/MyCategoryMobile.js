@@ -6,6 +6,7 @@ import { IoArrowBackCircle } from 'react-icons/io5';
 const MyCategoryMobile = props => {
   const goBack = () => {
     props.setMyPageUpdate('none');
+    props.setMobileMenu(true);
   };
 
   return (

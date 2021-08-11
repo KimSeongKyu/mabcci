@@ -60,6 +60,27 @@
   z-index: 4;
 }
 
+.mypage-mobile-update-box {
+  width: 90%;
+  height: 100%;
+  background-color: lightgreen;
+  margin: auto;
+}
+
+.mypage-mobile-update-content {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.mypage-mobile-update-content input {
+  border: solid 1px var(--main-color-1);
+  border-radius: 15px;
+  text-align: center;
+}
+
 .mobile-menu-logout-btn {
   margin-left: 80%;
   font-size: small;

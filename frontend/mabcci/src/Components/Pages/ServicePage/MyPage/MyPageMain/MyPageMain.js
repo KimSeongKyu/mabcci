@@ -30,10 +30,8 @@ function MyPageMain() {
 
   useEffect(async () => {
     const res = await MypageReadApi(userInfo.nickname);
-    // await setMyInfo(...myInfo, ...res.myInfo);
-    await setMyInfo(res.myInfo);
+    setMyInfo(res.myInfo);
     console.log(res.myInfo, typeof res.myInfo);
-    console.log(myInfo, typeof myInfo, '여기다');
   }, []);
 
   const goToMobileMenu = () => {
@@ -55,6 +53,8 @@ function MyPageMain() {
       <MyProposalListMobile
         proposalBox={proposalBox}
         setProposalBox={setProposalBox}
+        mobileMenu={mobileMenu}
+        setMobileMenu={setMobileMenu}
       />
       <MyPageMobileMenu
         mobileMenu={mobileMenu}
@@ -72,18 +72,20 @@ function MyPageMain() {
         >
           <HiMenu />
         </button>
-        <MyPageProfile
-          myInfo={myInfo}
-          followBox={followBox}
-          setFollowBox={setFollowBox}
-          chatBox={chatBox}
-          setChatBox={setChatBox}
-          proposalBox={proposalBox}
-          setProposalBox={setProposalBox}
-          myPageUpdate={myPageUpdate}
-          setMyPageUpdate={setMyPageUpdate}
-        />
-        <MyPageFeed />
+        {myInfo.categories ? (
+          <MyPageProfile
+            myInfo={myInfo}
+            followBox={followBox}
+            setFollowBox={setFollowBox}
+            chatBox={chatBox}
+            setChatBox={setChatBox}
+            proposalBox={proposalBox}
+            setProposalBox={setProposalBox}
+            myPageUpdate={myPageUpdate}
+            setMyPageUpdate={setMyPageUpdate}
+          />
+        ) : null}
+        {myInfo.ootds ? <MyPageFeed myInfo={myInfo} /> : null}
         <MabcciReview />
       </div>
     </div>

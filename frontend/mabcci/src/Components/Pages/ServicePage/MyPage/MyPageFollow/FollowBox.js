@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import './Follow.css';
-import 박서준 from '../MyPageMain/images/박서준.jfif';
+import 아라찌 from '../MyPageMain/images/다운로드.jfif';
 import { IoMdClose } from 'react-icons/io';
 
 const FollowBox = props => {
@@ -26,11 +26,11 @@ const FollowBox = props => {
               className="mypage-modal-box-btn"
               onClick={exitFollowBox}
             >
-              <IoMdClose/>
+              <IoMdClose />
             </button>
           </div>
           <div className="mypage-modal-box-content">
-            <img src={박서준} alt="하이" />
+            <img src={아라찌} alt="하이" />
             <p>유저네임</p>
             <button type="submit">삭제</button>
           </div>
@@ -46,58 +46,58 @@ const FollowBox = props => {
               className="mypage-modal-box-btn"
               onClick={exitFollowBox}
             >
-              <IoMdClose/>
+              <IoMdClose />
             </button>
           </div>
           <div className="mypage-modal-box-content">
-            <img src={박서준} alt="하이" />
+            <img src={아라찌} alt="하이" />
             <p>유저네임</p>
-            <button type="submit">팔로잉</button>
+            <button type="submit">팔로잉취소</button>
           </div>
           <div className="mypage-modal-box-content">
-            <img src={박서준} alt="하이" />
+            <img src={아라찌} alt="하이" />
             <p>유저네임</p>
-            <button type="submit">팔로잉</button>
+            <button type="submit">팔로잉취소</button>
           </div>
           <div className="mypage-modal-box-content">
-            <img src={박서준} alt="하이" />
+            <img src={아라찌} alt="하이" />
             <p>유저네임</p>
-            <button type="submit">팔로잉</button>
+            <button type="submit">팔로잉취소</button>
           </div>
           <div className="mypage-modal-box-content">
-            <img src={박서준} alt="하이" />
+            <img src={아라찌} alt="하이" />
             <p>유저네임</p>
-            <button type="submit">팔로잉</button>
+            <button type="submit">팔로잉취소</button>
           </div>
           <div className="mypage-modal-box-content">
-            <img src={박서준} alt="하이" />
+            <img src={아라찌} alt="하이" />
             <p>유저네임</p>
-            <button type="submit">팔로잉</button>
+            <button type="submit">팔로잉취소</button>
           </div>
           <div className="mypage-modal-box-content">
-            <img src={박서준} alt="하이" />
+            <img src={아라찌} alt="하이" />
             <p>유저네임</p>
-            <button type="submit">팔로잉</button>
+            <button type="submit">팔로잉취소</button>
           </div>
           <div className="mypage-modal-box-content">
-            <img src={박서준} alt="하이" />
+            <img src={아라찌} alt="하이" />
             <p>유저네임</p>
-            <button type="submit">팔로잉</button>
+            <button type="submit">팔로잉취소</button>
           </div>
           <div className="mypage-modal-box-content">
-            <img src={박서준} alt="하이" />
+            <img src={아라찌} alt="하이" />
             <p>유저네임</p>
-            <button type="submit">팔로잉</button>
+            <button type="submit">팔로잉취소</button>
           </div>
           <div className="mypage-modal-box-content">
-            <img src={박서준} alt="하이" />
+            <img src={아라찌} alt="하이" />
             <p>유저네임</p>
-            <button type="submit">팔로잉</button>
+            <button type="submit">팔로잉취소</button>
           </div>
           <div className="mypage-modal-box-content">
-            <img src={박서준} alt="하이" />
+            <img src={아라찌} alt="하이" />
             <p>유저네임</p>
-            <button type="submit">팔로잉</button>
+            <button type="submit">팔로잉취소</button>
           </div>
         </div>
       ) : null}

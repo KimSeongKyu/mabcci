@@ -31,10 +31,12 @@ const MyPageMobileMenu = props => {
 
   const goMyPageUpdate = e => {
     props.setMyPageUpdate(e.target.name);
+    props.setMobileMenu(false)
   }
 
   const goToMobileProposal = () => {
     props.setProposalBox(true)
+    props.setMobileMenu(false);
   };
 
   return (
@@ -42,14 +44,17 @@ const MyPageMobileMenu = props => {
       <MyCategoryMobile
         myPageUpdate={props.myPageUpdate}
         setMyPageUpdate={props.setMyPageUpdate}
+        setMobileMenu={props.setMobileMenu}
       />
       <MyInfoMobile
         myPageUpdate={props.myPageUpdate}
         setMyPageUpdate={props.setMyPageUpdate}
+        setMobileMenu={props.setMobileMenu}
       />
       <MyProfileMobile
         myPageUpdate={props.myPageUpdate}
         setMyPageUpdate={props.setMyPageUpdate}
+        setMobileMenu={props.setMobileMenu}
       />
       {props.mobileMenu === true ? (
         <div className="mypage-moblie-container" />

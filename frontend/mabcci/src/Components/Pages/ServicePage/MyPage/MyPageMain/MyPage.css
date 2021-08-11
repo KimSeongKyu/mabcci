@@ -53,6 +53,7 @@
   height: 150px;
   backface-visibility: hidden;
   cursor: pointer;
+  border: solid 1px var(--main-color-1);
 }
 
 .mypage-profile-bodyinfo {
@@ -74,6 +75,15 @@
   height: 70%;
   margin: auto;
   margin-right: 0;
+}
+
+.mypage-profile-bodysize-secret {
+  color: antiquewhite;
+}
+
+.mypage-profile-bodysize-noimage {
+  margin-top: 40%;
+  margin-left: 4%;
 }
 
 .mypage-profile-bodysize {
@@ -113,6 +123,10 @@
   margin-top: 30px;
   margin-left: 15%;
   text-align: start;
+}
+
+.mypage-introduce-box-null {
+  color: lightgrey;
 }
 
 #mypage-web-nickname {
