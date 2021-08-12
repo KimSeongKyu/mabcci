@@ -1,5 +1,5 @@
 import axios from 'axios';
-import instance from '../indexMock';
+import instance from '../indexMockSeongae';
 
 import {
   OOTDDetailUrl,
@@ -12,7 +12,7 @@ import {
 
 export const OOTDDetailApi = async id => {
   try {
-    const response = await instance.get(`${OOTDDetailUrl}${id}`);
+    const response = await instance.get(`${OOTDDetailUrl}/${id}`);
 
     return {
       status: response.status,
