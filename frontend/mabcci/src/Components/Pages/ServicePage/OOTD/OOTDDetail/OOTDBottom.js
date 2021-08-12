@@ -16,7 +16,7 @@ export const SingleComment = props => {
           <div className="detail-comment-info-content">
             <p>{comment.memberNickname}</p>
             <p>{comment.createdDate}</p>
-            {depth === 0 ? (
+            {depth === '0' ? (
               <button type="button" className="detail-comment-info-button">
                 답글달기
               </button>
@@ -35,19 +35,21 @@ export const SingleComment = props => {
         </div>
         <div className="detail-comment-content">{comment.content}</div>
       </div>
-      <div className="detail-reply-comment">
-        {comment.comments.length !== 0 &&
-          comment.comments.map(replyComment => {
-            return (
-              <SingleComment
-                key={comment.createdDate}
-                depth={depth + 1}
-                comment={replyComment}
-                userInfo={userInfo}
-              />
-            );
-          })}
-      </div>
+      {depth === '0' ? (
+        <div className="detail-reply-comment">
+          {comment.comments.length !== 0 &&
+            comment.comments.map(replyComment => {
+              return (
+                <SingleComment
+                  key={comment.createdDate}
+                  depth={depth + 1}
+                  comment={replyComment}
+                  userInfo={userInfo}
+                />
+              );
+            })}
+        </div>
+      ) : null}
     </div>
   );
 };
@@ -119,7 +121,7 @@ const OOTDBottom = props => {
   return (
     <footer className="detail-bottom">
       <div className="detail-comments-title">
-        <h5>Comments ({comments.length})</h5>
+        <h5>Comments</h5>
       </div>
       <div className="detail-comments">
         {comments.length !== 0 &&
