@@ -28,14 +28,14 @@ public final class OotdCommentResponse {
     private String content;
 
     @NotNull
-    private List<OotdComment> comments;
+    private List<OotdCommentResponse> comments;
 
     private OotdCommentResponse() {
     }
 
     public OotdCommentResponse(final String memberPicture, final Nickname memberNickname,
                                final LocalDateTime createdDate, final LocalDateTime modifiedDate,
-                               final String content, final List<OotdComment> comments) {
+                               final String content, final List<OotdCommentResponse> comments) {
         this.memberPicture = memberPicture;
         this.memberNickname = memberNickname;
         this.createdDate = createdDate;
@@ -64,7 +64,7 @@ public final class OotdCommentResponse {
         return content;
     }
 
-    public final List<OotdComment> getComments() {
+    public final List<OotdCommentResponse> getComments() {
         return comments;
     }
 }
