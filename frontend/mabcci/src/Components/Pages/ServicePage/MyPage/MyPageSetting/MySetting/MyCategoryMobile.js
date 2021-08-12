@@ -12,6 +12,9 @@ const MyCategoryMobile = props => {
   return (
     <>
       {props.myPageUpdate === 'category' ? (
+        <div className="mypage-moblie-container" />
+      ) : null}
+      {props.myPageUpdate === 'category' ? (
         <div className="mypage-mobile-menu mypage-mobile-update">
           <div className="mypage-mobile-menu-header">
             <button

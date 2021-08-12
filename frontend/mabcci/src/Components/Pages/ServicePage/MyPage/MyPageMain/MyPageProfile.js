@@ -2,7 +2,6 @@
 
 import React from 'react';
 import './MyPage.css';
-import { useHistory } from 'react-router';
 import { useState } from 'react';
 import {AiOutlineSetting} from "react-icons/ai"
 import {CgFileDocument} from "react-icons/cg"
@@ -12,14 +11,13 @@ import { baseUrl } from '../../../../../API/ApiUrl';
 
 const MyPageProfile = props => {
 
-  const history = useHistory
-
   const [profile, setProfile] = useState(false)
 
   const clickProfile = () => {setProfile(!profile)}
   
   const openSetting = () => {
     props.setMyPageUpdate('setting');
+    props.setMobileMenu(true);
   };
 
    const clickFollow = (e) => {
@@ -100,7 +98,6 @@ const MyPageProfile = props => {
             </button>
           </div>
           <div id="mypage-mobile-category">
-            {/* {props.myInfo.categories} */}
             {props.myInfo.categories.map((category, idx) => (
               <h5 key={idx}>#{category}</h5>
             ))}

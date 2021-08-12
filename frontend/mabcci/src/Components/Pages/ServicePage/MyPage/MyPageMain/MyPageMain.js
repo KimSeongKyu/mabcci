@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { HiMenu } from 'react-icons/hi';
 import MabcciReview from './MabcciReview';
@@ -14,7 +14,7 @@ import MyPageMobileMenu from '../MyPageSetting/MySetting/MyPageMobileMenu';
 import MyPageUpdate from '../MyPageSetting/MySetting/MyPageUpdate';
 
 function MyPageMain() {
-  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+  const { nickname } = useParams();
 
   const [myInfo, setMyInfo] = useState({});
 
@@ -29,7 +29,7 @@ function MyPageMain() {
   const [myPageUpdate, setMyPageUpdate] = useState('none');
 
   useEffect(async () => {
-    const res = await MypageReadApi(userInfo.nickname);
+    const res = await MypageReadApi(nickname);
     setMyInfo(res.myInfo);
   }, []);
 
@@ -84,6 +84,7 @@ function MyPageMain() {
             setProposalBox={setProposalBox}
             myPageUpdate={myPageUpdate}
             setMyPageUpdate={setMyPageUpdate}
+            setMobileMenu={setMobileMenu}
           />
         ) : null}
         {myInfo.ootds ? <MyPageFeed myInfo={myInfo} /> : null}

@@ -277,6 +277,10 @@
     display: none;
   }
 
+  #mypage-mobile-category h5 {
+    margin-bottom: 10px;
+  }
+
   .mypage-feed {
     margin: 2px;
   }
