@@ -6,16 +6,16 @@ import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { OOTDDetailApi } from '../../../../../API/OOTDAPI/OOTDDetailApi';
 import 'swiper/swiper.min.css';
 import 'swiper/components/pagination/pagination.min.css';
+import getUserInfo from '../../../../Common/getUserInfo';
 
 const OOTDContentApi = () => {
   const history = useHistory();
-  const myInfo = JSON.parse(localStorage.getItem('userInfo'));
+  const myInfo = getUserInfo();
   const { id, nickname } = useParams();
   const [user, setUser] = useState({
     nickname,
     userphoto: '사진',
   });
-
   const [detail, setDetail] = useState({
     id,
     content: '',
@@ -29,7 +29,6 @@ const OOTDContentApi = () => {
     registeredTime: '',
     likeMembers: [],
   });
-
   const [myLike, setMyLike] = useState(false);
 
   useEffect(async () => {
@@ -59,6 +58,7 @@ const OOTDContentApi = () => {
 
   const ootdDeleteHandler = () => {
     const response = OOTDDetailApi(id);
+    console.log(response);
     if (response.status === 200) {
       history.push('/OOTD');
       console.log('삭제 완료');
@@ -137,7 +137,10 @@ const OOTDContentApi = () => {
           </div>
         </div>
         <div className="detail-ootd-hashtag">
-          <p>{detail.hashtag.map(hashtag => `#${hashtag} `)}</p>
+          <p>
+            {detail.hashtag === 0 &&
+              detail.hashtag.map(hashtag => `#${hashtag} `)}
+          </p>
         </div>
       </section>
     </article>
