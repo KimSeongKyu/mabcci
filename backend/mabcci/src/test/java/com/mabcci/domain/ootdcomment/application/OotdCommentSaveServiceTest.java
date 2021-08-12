@@ -16,6 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Optional;
 
@@ -25,6 +26,7 @@ import static com.mabcci.global.common.EmailTest.EMAIL;
 import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static com.mabcci.global.common.PasswordTest.PASSWORD;
 import static com.mabcci.global.common.PhoneTest.PHONE;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -84,5 +86,20 @@ class OotdCommentSaveServiceTest {
         verify(ootdRepository, times(1)).findById(any());
         verify(ootdCommentRepository, times(1)).findById(any());
         verify(ootdCommentRepository, times(1)).save(any());
+    }
+
+    @DisplayName("OotdCommentSaveService 인스턴스 댓글이 대대댓글인지 검증 테스트")
+    @Test
+    void validate_parent_comment_has_no_parent_test() {
+        final OotdComment parentOotdComment = OotdComment.builder()
+                .member(member)
+                .ootd(ootd)
+                .content("부모 댓글")
+                .parentComment(ootdComment)
+                .build();
+
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() ->
+                ReflectionTestUtils.invokeMethod(ootdCommentSaveService, "validateParentCommentHasNoParent", parentOotdComment)
+        );
     }
 }
