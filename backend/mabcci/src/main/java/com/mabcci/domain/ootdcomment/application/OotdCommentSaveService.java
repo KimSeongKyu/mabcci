@@ -11,6 +11,8 @@ import com.mabcci.global.common.Nickname;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
+
 @Service
 public class OotdCommentSaveService {
 
@@ -31,7 +33,9 @@ public class OotdCommentSaveService {
         final Ootd ootd = getOotdByOotdId(ootdCommentSaveRequest.getOotdId());
         final OotdComment parentComment = getParentCommentByCommentId(ootdCommentSaveRequest.getParentCommentId());
 
-        validateParentCommentHasNoParent(parentComment);
+        if(Objects.nonNull(parentComment)) {
+            validateParentCommentHasNoParent(parentComment);
+        }
 
         ootdCommentRepository.save(OotdComment.builder()
                 .member(member)
