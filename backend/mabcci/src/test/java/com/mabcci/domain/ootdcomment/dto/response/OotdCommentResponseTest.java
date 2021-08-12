@@ -24,7 +24,7 @@ public class OotdCommentResponseTest {
     void initialize() {
         assertAll(
                 () -> assertThat(ootdCommentResponse).isNotNull(),
-                () -> assertThat(ootdCommentResponse).isExactlyInstanceOf()
+                () -> assertThat(ootdCommentResponse).isExactlyInstanceOf(OotdCommentResponse.class)
         );
     }
 }
