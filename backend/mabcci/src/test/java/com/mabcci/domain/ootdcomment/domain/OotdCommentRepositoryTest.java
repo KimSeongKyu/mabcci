@@ -12,6 +12,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import java.util.List;
+
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
 import static com.mabcci.global.common.EmailTest.EMAIL;
@@ -69,6 +71,24 @@ class OotdCommentRepositoryTest {
         assertAll(
                 () -> assertThat(ootdCommentRepository).isNotNull(),
                 () -> assertThat(ootdCommentRepository).isInstanceOf(OotdCommentRepository.class)
+        );
+    }
+
+    @DisplayName("OotdCommentRepository ootd의 댓글 리스트 조회 테스트")
+    @Test
+    void find_all_by_ootd_test() {
+        final OotdComment childOotdComment = OotdComment.builder()
+                .member(member)
+                .ootd(ootd)
+                .content("내용")
+                .parentComment(ootdComment)
+                .build();
+        testEntityManager.persist(childOotdComment);
+        final List<OotdComment> ootdComments = ootdCommentRepository.findAllByOotd(ootd);
+
+        assertAll(
+                () -> assertThat(ootdComments.size()).isEqualTo(2),
+                () -> assertThat(ootdComments).containsAll(List.of(ootdComment, childOotdComment))
         );
     }
 
