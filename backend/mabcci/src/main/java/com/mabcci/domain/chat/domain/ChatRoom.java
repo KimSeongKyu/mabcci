@@ -1,5 +1,6 @@
 package com.mabcci.domain.chat.domain;
 
+import com.mabcci.domain.chat.service.ChatService;
 import lombok.Builder;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -29,9 +30,9 @@ public class ChatRoom {
         sendMessage(chatMessage, chatService);
     }
 
-    private <T> sendMessage(T message, final ChatService chatService) {
+    private <T> void sendMessage(T message, final ChatService chatService) {
         sessions.parallelStream()
-                .forEach(session -> chatService.sendMessage(message, session));
+                .forEach(session -> chatService.sendMessage(session, message));
     }
 
     public String getRoomId() {
