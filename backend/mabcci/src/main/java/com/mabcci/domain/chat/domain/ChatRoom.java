@@ -25,4 +25,11 @@ public class ChatRoom {
         this.name = name;
     }
 
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
