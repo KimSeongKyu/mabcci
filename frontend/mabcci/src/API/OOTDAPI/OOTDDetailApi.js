@@ -33,3 +33,17 @@ export const OOTDCommentCreateApi = async () => {
     return {};
   }
 };
+
+export const OOTDCommentReadApi = async () => {
+  try {
+    const response = await axios.get(OOTDCommentReadUrl);
+    return {
+      status: response.status,
+      comments: response.comments,
+    };
+  } catch (response) {
+    return {
+      status: response.status,
+    };
+  }
+};

@@ -115,7 +115,7 @@ function OOTDWrite() {
 
       const res = await OOTDWriteApi(data);
       if (res.status === 204) {
-        history.push('/OOTD');
+        window.location.replace('/OOTD');
       } else {
         console.log(res.status);
       }
