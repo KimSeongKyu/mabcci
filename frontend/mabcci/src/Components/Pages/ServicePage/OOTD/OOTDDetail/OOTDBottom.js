@@ -16,9 +16,11 @@ export const SingleComment = props => {
           <div className="detail-comment-info-content">
             <p>{comment.memberNickname}</p>
             <p>{comment.createdDate}</p>
-            <button type="button" className="detail-comment-info-button">
-              답글달기
-            </button>
+            {depth === 0 ? (
+              <button type="button" className="detail-comment-info-button">
+                답글달기
+              </button>
+            ) : null}
             {comment.memberNickname === userInfo.nickname ? (
               <>
                 <button type="button" className="detail-comment-info-button">
@@ -63,7 +65,7 @@ const OOTDBottom = props => {
       comments: [
         {
           memberPicture: '대댓글 작성자 사진',
-          memberNickname: '대댓글 작성자 닉네임',
+          memberNickname: '썽',
           createdDate: '2021-07-29-시-분-초',
           modifiedDate: '2021-07-29-시-분-초',
           content: '대댓글 내용',
