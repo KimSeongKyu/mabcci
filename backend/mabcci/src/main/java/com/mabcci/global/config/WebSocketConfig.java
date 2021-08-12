@@ -1,29 +1,26 @@
 package com.mabcci.global.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.socket.WebSocketHandler;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
-import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
+import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
+import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 @Configuration
-@EnableWebSocket
-public class WebSocketConfig implements WebSocketConfigurer {
+@EnableWebSocketMessageBroker
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-    private final WebSocketHandler webSocketHandler;
-
-    public WebSocketConfig(final WebSocketHandler webSocketHandler) {
-        this.webSocketHandler = webSocketHandler;
+    // 받는 요청은 prefix 를 sub 으로 시작
+    // 발행 요청은 prefix 를 pub 으로 시작
+    @Override
+    public void configureMessageBroker(final MessageBrokerRegistry config) {
+        config.enableSimpleBroker("/sub");
+        config.setApplicationDestinationPrefixes("/pub");
     }
 
-    // 만들었던 웹 소켓 핸들러를 등록한다.
-    // 레지스트리에는 이미 여러 핸들러가 있고 우리가 작성한 핸들러를 목록에 추가하는 일이다.
-    // 멀티벨류맵으로 이루어져 있으며, 객체가 키 패스가 벨류이다.
     @Override
-    public void registerWebSocketHandlers(final WebSocketHandlerRegistry registry) {
-        // 웹소켓 핸들러와, 엔드포인트 입력
-        // CORS는 *로 지정을 한다.
-        registry.addHandler(webSocketHandler, "/ws/chat").setAllowedOrigins("*");
+    public void registerStompEndpoints(final StompEndpointRegistry registry) {
+        registry.addEndpoint("/ws-stomp").setAllowedOrigins("*").withSockJS();
     }
 
 }
