@@ -36,4 +36,24 @@ public final class OotdCommentResponse {
         this.modifiedDate = modifiedDate;
         this.content = content;
     }
+
+    public final String getMemberPicture() {
+        return memberPicture;
+    }
+
+    public final Nickname getMemberNickname() {
+        return memberNickname;
+    }
+
+    public final LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public final LocalDateTime getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public final String getContent() {
+        return content;
+    }
 }
