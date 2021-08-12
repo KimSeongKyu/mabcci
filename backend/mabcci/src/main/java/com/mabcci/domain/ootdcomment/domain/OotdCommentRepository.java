@@ -8,9 +8,10 @@ import java.util.List;
 
 public interface OotdCommentRepository extends JpaRepository<OotdComment, Long> {
 
-    @Query("SELECT o_c " +
+    @Query("SELECT DISTINCT o_c " +
             "FROM OotdComment o_c " +
             "JOIN FETCH o_c.ootd o " +
+            "JOIN FETCH o_c.member m " +
             "WHERE o.id = :id")
     List<OotdComment> findAllByOotdId(@Param("id") Long id);
 }
