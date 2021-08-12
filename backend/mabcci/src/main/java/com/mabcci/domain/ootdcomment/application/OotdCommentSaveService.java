@@ -31,6 +31,8 @@ public class OotdCommentSaveService {
         final Ootd ootd = getOotdByOotdId(ootdCommentSaveRequest.getOotdId());
         final OotdComment parentComment = getParentCommentByCommentId(ootdCommentSaveRequest.getParentCommentId());
 
+        validateParentCommentHasNoParent(parentComment);
+
         ootdCommentRepository.save(OotdComment.builder()
                 .member(member)
                 .ootd(ootd)
@@ -51,5 +53,12 @@ public class OotdCommentSaveService {
     private OotdComment getParentCommentByCommentId(final Long parentCommentId) {
         return ootdCommentRepository.findById(parentCommentId)
                 .orElse(null);
+    }
+
+    private void validateParentCommentHasNoParent(final OotdComment parentComment) {
+        if (parentComment.parentComment()
+                .isPresent()) {
+            throw new IllegalArgumentException();
+        }
     }
 }
