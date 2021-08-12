@@ -126,7 +126,6 @@
 
 @media screen and (max-width: 576px) {
   .chat-side {
-    display: block;
     width: 0;
     position: absolute;
     left: 0;

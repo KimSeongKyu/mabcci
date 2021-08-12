@@ -16,6 +16,7 @@ import { IoShirtOutline } from 'react-icons/io5';
 import LogoutApi from '../../API/AuthAPI/LogoutApi';
 import { Logout } from '../../Redux/Actions/LoginAction';
 import logo from '../../Asset/Images/logo.png';
+import NavCategory from '../../Redux/Actions/NavAction';
 
 function Nav() {
   const history = useHistory();
@@ -32,6 +33,7 @@ function Nav() {
   });
 
   const loginRedux = useSelector(state => state.LoginReducer);
+  const navCategory = useSelector(state => state.NavReducer);
 
   const [popover, setpopover] = useState(false);
 
@@ -39,10 +41,8 @@ function Nav() {
     setpopover(!popover);
   };
 
-  const [nowMenu, setNowMenu] = useState('');
-
   const selectMenu = e => {
-    setNowMenu(e.target.name);
+    dispatch(NavCategory(e.target.name));
   };
 
   const LogOut = () => {
@@ -54,7 +54,6 @@ function Nav() {
   const goMypage = () => {
     const myInfo = JSON.parse(localStorage.getItem('userInfo'));
     setpopover(false);
-    setNowMenu('mypage');
     history.push(`/mypage/${myInfo.nickname}`);
   };
 
@@ -69,7 +68,7 @@ function Nav() {
           {isLoggedin ? (
             <div className="navbar-web-icon">
               <Link to="/chat">
-                <AiOutlineMessage />
+                <AiOutlineMessage className="message" />
               </Link>
               <MdAccessAlarm />
               <MdAccountCircle className="mypage" onClick={openPopover} />
@@ -97,7 +96,7 @@ function Nav() {
               to="/home"
               onClick={selectMenu}
               name="home"
-              id={nowMenu === 'home' ? 'navbar-menu-link-selected' : null}
+              id={navCategory === 'home' ? 'navbar-menu-link-selected' : null}
             >
               Home
             </Link>
@@ -105,7 +104,7 @@ function Nav() {
               to="/OOTD"
               onClick={selectMenu}
               name="OOTD"
-              id={nowMenu === 'OOTD' ? 'navbar-menu-link-selected' : null}
+              id={navCategory === 'OOTD' ? 'navbar-menu-link-selected' : null}
             >
               OOTD
             </Link>
@@ -113,17 +112,11 @@ function Nav() {
               to="/styling"
               onClick={selectMenu}
               name="Styling"
-              id={nowMenu === 'Styling' ? 'navbar-menu-link-selected' : null}
+              id={
+                navCategory === 'Styling' ? 'navbar-menu-link-selected' : null
+              }
             >
               Styling
-            </Link>
-            <Link
-              to="/Community"
-              onClick={selectMenu}
-              name="Community"
-              id={nowMenu === 'Community' ? 'navbar-menu-link-selected' : null}
-            >
-              Community
             </Link>
           </div>
         </div>
