@@ -33,6 +33,11 @@ public final class OotdCommentResponse {
     private OotdCommentResponse() {
     }
 
+    public static OotdCommentResponse ofOotdCommentWithChildren(final OotdComment ootdComment, final List<OotdCommentResponse> comments) {
+        return new OotdCommentResponse(ootdComment.member().picture(), ootdComment.member().nickname(),
+                ootdComment.createdDate(), ootdComment.modifiedDate(), ootdComment.content(), comments);
+    }
+
     public OotdCommentResponse(final String memberPicture, final Nickname memberNickname,
                                final LocalDateTime createdDate, final LocalDateTime modifiedDate,
                                final String content, final List<OotdCommentResponse> comments) {
