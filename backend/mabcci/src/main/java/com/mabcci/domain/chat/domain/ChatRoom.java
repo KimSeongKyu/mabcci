@@ -1,11 +1,5 @@
 package com.mabcci.domain.chat.domain;
 
-import com.mabcci.domain.chat.service.ChatService;
-import lombok.Builder;
-import org.springframework.web.socket.WebSocketSession;
-
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 // 클라이언트들의 정보를 가지고 있다.

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Service
@@ -33,13 +34,12 @@ public class MemberUpdateService {
 
     @Transactional
     public void update(final Nickname originalNickName, final Gender gender, final String description, final Nickname nickname,
-                         final int height, final int weight, final int footSize, final BodyType bodyType,
-                         final Set<String> categories, final MultipartFile rawPicture) {
+                       final int height, final int weight, final int footSize, final BodyType bodyType,
+                       final Set<String> categories, final MultipartFile rawPicture) {
 
         final Member member = memberByNickName(originalNickName);
-        final Picture picture = picture(rawPicture);
         updateCategory(categories, member);
-        member.update(nickname, gender, description, height, weight, footSize, bodyType, picture.path());
+        updateMember(gender, description, nickname, height, weight, footSize, bodyType, rawPicture, member);
     }
 
     private Member memberByNickName(final Nickname nickname) {
@@ -64,6 +64,14 @@ public class MemberUpdateService {
     private Category findCategoryByCategoryName(final String categoryName) {
         return categoryRepository.findByCategoryName(categoryName)
                 .orElseThrow(IllegalArgumentException::new);
+    }
+
+    private void updateMember(final Gender gender, final String description, final Nickname nickname, final int height, final int weight, final int footSize, final BodyType bodyType, final MultipartFile rawPicture, final Member member) {
+        if(Objects.isNull(rawPicture) || rawPicture.isEmpty()) {
+            final Picture picture = picture(rawPicture);
+            member.update(nickname, gender, description, height, weight, footSize, bodyType, picture.path());
+        }
+        member.update(nickname, gender, description, height, weight, footSize, bodyType);
     }
 
 }

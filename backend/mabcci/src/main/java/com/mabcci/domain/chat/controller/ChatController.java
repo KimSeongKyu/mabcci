@@ -1,28 +1,26 @@
 package com.mabcci.domain.chat.controller;
 
-import com.mabcci.domain.chat.domain.ChatRoom;
-import com.mabcci.domain.chat.service.ChatService;
-import org.springframework.web.bind.annotation.*;
+import com.mabcci.domain.chat.domain.ChatMessage;
+import com.mabcci.domain.chat.domain.MessageType;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.stereotype.Controller;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 
-import java.util.List;
-
-@RestController
+@Controller
 public class ChatController {
 
-    private final ChatService chatService;
+    private final SimpMessageSendingOperations messagingTemplate;
 
-    public ChatController(final ChatService chatService) {
-        this.chatService = chatService;
+    public ChatController(final SimpMessageSendingOperations messagingTemplate) {
+        this.messagingTemplate = messagingTemplate;
     }
 
-    @PostMapping("/chat")
-    public ChatRoom createRoom(@RequestParam String name) {
-        return chatService.createRoom(name);
-    }
-
-    @GetMapping("/chat")
-    public List<ChatRoom> findAllRoom() {
-        return chatService.findAllRoom();
+    @MessageMapping("/chat/message")
+    public void message(ChatMessage message) {
+        if(MessageType.ENTER.equals(message.getType())) {
+            message.setMessage(message.getSender()+ "님이 입장하셨습니다.");
+        }
+        messagingTemplate.convertAndSend("/sub/chat/room" + message.getRoomId(), message);
     }
 
 }

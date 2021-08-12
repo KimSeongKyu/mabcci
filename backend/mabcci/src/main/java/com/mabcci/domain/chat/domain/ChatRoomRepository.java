@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import java.util.*;
+import java.util.stream.Collectors;
 
 // 우선 DB 연동없이 동작할 레포지토리 생성
 @Repository
