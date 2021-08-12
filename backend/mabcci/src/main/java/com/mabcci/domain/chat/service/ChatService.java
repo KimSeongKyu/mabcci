@@ -29,14 +29,17 @@ public class ChatService {
         chatRooms = new LinkedHashMap<>();
     }
 
+    // 모든 채팅방 조회
     public List<ChatRoom> findAllRoom() {
         return new ArrayList<>(chatRooms.values());
     }
 
+    // 채팅방 id로 하나 조회
     public ChatRoom findRoomById(String roomId) {
         return chatRooms.get(roomId);
     }
 
+    // 채팅방 생성 후 리스트에 넣기, 생성된 채팅방 반환
     public ChatRoom createRoom(String name) {
         String randomId = UUID.randomUUID().toString();
         ChatRoom chatRoom = ChatRoom.builder()
