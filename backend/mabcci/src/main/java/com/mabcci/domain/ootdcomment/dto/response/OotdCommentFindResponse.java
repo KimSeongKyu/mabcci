@@ -10,7 +10,7 @@ import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public final class OotdCommentResponse {
+public final class OotdCommentFindResponse {
 
     @NotBlank
     private String memberPicture;
@@ -28,19 +28,19 @@ public final class OotdCommentResponse {
     private String content;
 
     @NotNull
-    private List<OotdCommentResponse> comments;
+    private List<OotdCommentFindResponse> comments;
 
-    private OotdCommentResponse() {
+    private OotdCommentFindResponse() {
     }
 
-    public static OotdCommentResponse ofOotdCommentWithChildren(final OotdComment ootdComment, final List<OotdCommentResponse> comments) {
-        return new OotdCommentResponse(ootdComment.member().picture(), ootdComment.member().nickname(),
+    public static OotdCommentFindResponse ofOotdCommentWithChildren(final OotdComment ootdComment, final List<OotdCommentFindResponse> comments) {
+        return new OotdCommentFindResponse(ootdComment.member().picture(), ootdComment.member().nickname(),
                 ootdComment.createdDate(), ootdComment.modifiedDate(), ootdComment.content(), comments);
     }
 
-    public OotdCommentResponse(final String memberPicture, final Nickname memberNickname,
-                               final LocalDateTime createdDate, final LocalDateTime modifiedDate,
-                               final String content, final List<OotdCommentResponse> comments) {
+    public OotdCommentFindResponse(final String memberPicture, final Nickname memberNickname,
+                                   final LocalDateTime createdDate, final LocalDateTime modifiedDate,
+                                   final String content, final List<OotdCommentFindResponse> comments) {
         this.memberPicture = memberPicture;
         this.memberNickname = memberNickname;
         this.createdDate = createdDate;
@@ -69,7 +69,7 @@ public final class OotdCommentResponse {
         return content;
     }
 
-    public final List<OotdCommentResponse> getComments() {
+    public final List<OotdCommentFindResponse> getComments() {
         return comments;
     }
 }

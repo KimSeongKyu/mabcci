@@ -6,8 +6,8 @@ import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.domain.ootd.domain.Ootd;
 import com.mabcci.domain.ootdcomment.domain.OotdComment;
 import com.mabcci.domain.ootdcomment.domain.OotdCommentRepository;
-import com.mabcci.domain.ootdcomment.dto.response.OotdCommentListResponse;
-import com.mabcci.domain.ootdcomment.dto.response.OotdCommentResponse;
+import com.mabcci.domain.ootdcomment.dto.response.OotdCommentListFindResponse;
+import com.mabcci.domain.ootdcomment.dto.response.OotdCommentFindResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -84,12 +84,12 @@ class OotdCommentFindServiceTest {
         final String childCommentContent = "하위댓글";
         doReturn(ootdComments).when(ootdCommentRepository).findAllByOotdId(any());
 
-        final OotdCommentListResponse ootdCommentListResponse = ootdCommentFindService.findOotdComments(1L);
+        final OotdCommentListFindResponse ootdCommentListFindResponse = ootdCommentFindService.findOotdComments(1L);
 
         verify(ootdCommentRepository, times(1)).findAllByOotdId(any());
 
-        final List<OotdCommentResponse> parentCommentResponses = ootdCommentListResponse.getOotdCommentResponses();
-        final List<OotdCommentResponse> childrenCommentResponses = parentCommentResponses.get(0).getComments();
+        final List<OotdCommentFindResponse> parentCommentResponses = ootdCommentListFindResponse.getOotdCommentResponses();
+        final List<OotdCommentFindResponse> childrenCommentResponses = parentCommentResponses.get(0).getComments();
 
         assertAll(
                 () -> assertThat(parentCommentResponses.size()).isEqualTo(1),

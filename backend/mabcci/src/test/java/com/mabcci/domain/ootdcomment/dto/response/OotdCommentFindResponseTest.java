@@ -27,9 +27,9 @@ import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-public class OotdCommentResponseTest {
+public class OotdCommentFindResponseTest {
 
-    private OotdCommentResponse ootdCommentResponse;
+    private OotdCommentFindResponse ootdCommentFindResponse;
     private LocalDateTime now = LocalDateTime.now();
     private Member member;
     private Ootd ootd;
@@ -37,7 +37,7 @@ public class OotdCommentResponseTest {
 
     @BeforeEach
     void setUp() {
-        ootdCommentResponse = new OotdCommentResponse("testUrl", NICKNAME, now, now, "내용", new ArrayList<>());
+        ootdCommentFindResponse = new OotdCommentFindResponse("testUrl", NICKNAME, now, now, "내용", new ArrayList<>());
         member = Member.Builder()
                 .email(EMAIL)
                 .password(PASSWORD)
@@ -65,51 +65,51 @@ public class OotdCommentResponseTest {
                 .build();
     }
 
-    @DisplayName("OotdCommentResponse 인스턴스 생성 여부 테스트")
+    @DisplayName("OotdCommentFindResponse 인스턴스 생성 여부 테스트")
     @Test
     void initialize() {
         assertAll(
-                () -> assertThat(ootdCommentResponse).isNotNull(),
-                () -> assertThat(ootdCommentResponse).isExactlyInstanceOf(OotdCommentResponse.class)
+                () -> assertThat(ootdCommentFindResponse).isNotNull(),
+                () -> assertThat(ootdCommentFindResponse).isExactlyInstanceOf(OotdCommentFindResponse.class)
         );
     }
 
-    @DisplayName("OotdCommentResponse 클래스 스태틱 팩토리 메서드를 이용한 생성 테스트")
+    @DisplayName("OotdCommentFindResponse 클래스 스태틱 팩토리 메서드를 이용한 생성 테스트")
     @Test
     void static_factory_method_constructor_test() {
-        final OotdCommentResponse ootdCommentResponse =
-                OotdCommentResponse.ofOotdCommentWithChildren(ootdComment, Collections.emptyList());
+        final OotdCommentFindResponse ootdCommentFindResponse =
+                OotdCommentFindResponse.ofOotdCommentWithChildren(ootdComment, Collections.emptyList());
 
         assertAll(
-                () -> assertThat(ootdCommentResponse).isNotNull(),
-                () -> assertThat(ootdCommentResponse).isExactlyInstanceOf(OotdCommentResponse.class)
+                () -> assertThat(ootdCommentFindResponse).isNotNull(),
+                () -> assertThat(ootdCommentFindResponse).isExactlyInstanceOf(OotdCommentFindResponse.class)
         );
     }
 
-    @DisplayName("OotdCommentResponse 인스턴스 getter 메서드들 테스트")
+    @DisplayName("OotdCommentFindResponse 인스턴스 getter 메서드들 테스트")
     @Test
     void getter_test() {
         assertAll(
-                () -> assertThat(ootdCommentResponse.getMemberPicture()).isEqualTo("testUrl"),
-                () -> assertThat(ootdCommentResponse.getMemberNickname()).isEqualTo(NICKNAME),
-                () -> assertThat(ootdCommentResponse.getCreatedDate()).isEqualTo(now),
-                () -> assertThat(ootdCommentResponse.getModifiedDate()).isEqualTo(now),
-                () -> assertThat(ootdCommentResponse.getContent()).isEqualTo("내용"),
-                () -> assertThat(ootdCommentResponse.getComments()).isEmpty()
+                () -> assertThat(ootdCommentFindResponse.getMemberPicture()).isEqualTo("testUrl"),
+                () -> assertThat(ootdCommentFindResponse.getMemberNickname()).isEqualTo(NICKNAME),
+                () -> assertThat(ootdCommentFindResponse.getCreatedDate()).isEqualTo(now),
+                () -> assertThat(ootdCommentFindResponse.getModifiedDate()).isEqualTo(now),
+                () -> assertThat(ootdCommentFindResponse.getContent()).isEqualTo("내용"),
+                () -> assertThat(ootdCommentFindResponse.getComments()).isEmpty()
         );
     }
 
-    @DisplayName("OotdCommentResponse 인스턴스 프로퍼티 유효성 검증 테스트")
+    @DisplayName("OotdCommentFindResponse 인스턴스 프로퍼티 유효성 검증 테스트")
     @Test
     void validate_test() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        final OotdCommentResponse invalidResponse =
-                new OotdCommentResponse("", Nickname.of(null), LocalDateTime.MAX, LocalDateTime.MAX,
+        final OotdCommentFindResponse invalidResponse =
+                new OotdCommentFindResponse("", Nickname.of(null), LocalDateTime.MAX, LocalDateTime.MAX,
                         "", null);
 
-        final Set<ConstraintViolation<OotdCommentResponse>> invalidPropertiesOfValidResponse =
-                validator.validate(ootdCommentResponse);
-        final Set<ConstraintViolation<OotdCommentResponse>> invalidPropertiesOfInvalidResponse =
+        final Set<ConstraintViolation<OotdCommentFindResponse>> invalidPropertiesOfValidResponse =
+                validator.validate(ootdCommentFindResponse);
+        final Set<ConstraintViolation<OotdCommentFindResponse>> invalidPropertiesOfInvalidResponse =
                 validator.validate(invalidResponse);
 
         assertAll(

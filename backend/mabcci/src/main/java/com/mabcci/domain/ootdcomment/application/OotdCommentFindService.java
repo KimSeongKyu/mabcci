@@ -2,8 +2,8 @@ package com.mabcci.domain.ootdcomment.application;
 
 import com.mabcci.domain.ootdcomment.domain.OotdComment;
 import com.mabcci.domain.ootdcomment.domain.OotdCommentRepository;
-import com.mabcci.domain.ootdcomment.dto.response.OotdCommentListResponse;
-import com.mabcci.domain.ootdcomment.dto.response.OotdCommentResponse;
+import com.mabcci.domain.ootdcomment.dto.response.OotdCommentListFindResponse;
+import com.mabcci.domain.ootdcomment.dto.response.OotdCommentFindResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,30 +24,30 @@ public class OotdCommentFindService {
     }
 
     @Transactional
-    public OotdCommentListResponse findOotdComments(final Long id) {
+    public OotdCommentListFindResponse findOotdComments(final Long id) {
         final List<OotdComment> ootdComments = ootdCommentRepository.findAllByOotdId(id);
 
         final Map<Optional<OotdComment>, List<OotdComment>> childrenOotdCommentsMappedByParent = ootdComments.stream()
                 .collect(groupingBy(OotdComment::parentComment));
 
-        final List<OotdCommentResponse> childrenOotdCommentResponses =
+        final List<OotdCommentFindResponse> childrenOotdCommentFindRespons =
                 getOotdCommentResponses(childrenOotdCommentsMappedByParent, Collections.emptyList(), Optional::isPresent);
 
-        final List<OotdCommentResponse> parentOotdCommentResponses =
-                getOotdCommentResponses(childrenOotdCommentsMappedByParent, childrenOotdCommentResponses, Optional::isEmpty);
+        final List<OotdCommentFindResponse> parentOotdCommentFindRespons =
+                getOotdCommentResponses(childrenOotdCommentsMappedByParent, childrenOotdCommentFindRespons, Optional::isEmpty);
 
-        return new OotdCommentListResponse(parentOotdCommentResponses);
+        return new OotdCommentListFindResponse(parentOotdCommentFindRespons);
     }
 
-    private List<OotdCommentResponse> getOotdCommentResponses(final Map<Optional<OotdComment>, List<OotdComment>> childrenOotdCommentsMappedByParent,
-                                                              final List<OotdCommentResponse> childrenOotdCommentResponses,
-                                                              final Predicate<? super Optional> predicate) {
+    private List<OotdCommentFindResponse> getOotdCommentResponses(final Map<Optional<OotdComment>, List<OotdComment>> childrenOotdCommentsMappedByParent,
+                                                                  final List<OotdCommentFindResponse> childrenOotdCommentFindRespons,
+                                                                  final Predicate<? super Optional> predicate) {
         return childrenOotdCommentsMappedByParent.keySet()
                 .stream()
                 .filter(predicate)
                 .map(childrenOotdCommentsMappedByParent::get)
                 .flatMap(List::stream)
-                .map(ootdComment -> OotdCommentResponse.ofOotdCommentWithChildren(ootdComment, childrenOotdCommentResponses))
+                .map(ootdComment -> OotdCommentFindResponse.ofOotdCommentWithChildren(ootdComment, childrenOotdCommentFindRespons))
                 .collect(toList());
     }
 }
