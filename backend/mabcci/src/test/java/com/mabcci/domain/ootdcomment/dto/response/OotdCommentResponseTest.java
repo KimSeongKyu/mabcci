@@ -9,6 +9,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Set;
 
 import static com.mabcci.global.common.NicknameTest.NICKNAME;
@@ -22,7 +23,7 @@ public class OotdCommentResponseTest {
 
     @BeforeEach
     void setUp() {
-        ootdCommentResponse = new OotdCommentResponse("testUrl", NICKNAME, now, now, "내용");
+        ootdCommentResponse = new OotdCommentResponse("testUrl", NICKNAME, now, now, "내용", new ArrayList<>());
     }
 
     @DisplayName("OotdCommentResponse 인스턴스 생성 여부 테스트")
@@ -42,7 +43,8 @@ public class OotdCommentResponseTest {
                 () -> assertThat(ootdCommentResponse.getMemberNickname()).isEqualTo(NICKNAME),
                 () -> assertThat(ootdCommentResponse.getCreatedDate()).isEqualTo(now),
                 () -> assertThat(ootdCommentResponse.getModifiedDate()).isEqualTo(now),
-                () -> assertThat(ootdCommentResponse.getContent()).isEqualTo("내용")
+                () -> assertThat(ootdCommentResponse.getContent()).isEqualTo("내용"),
+                () -> assertThat(ootdCommentResponse.getComments()).isEmpty()
         );
     }
 
@@ -51,7 +53,8 @@ public class OotdCommentResponseTest {
     void validate_test() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         final OotdCommentResponse invalidResponse =
-                new OotdCommentResponse("", Nickname.of(null), LocalDateTime.MAX, LocalDateTime.MAX, "");
+                new OotdCommentResponse("", Nickname.of(null), LocalDateTime.MAX, LocalDateTime.MAX,
+                        "", null);
 
         final Set<ConstraintViolation<OotdCommentResponse>> invalidPropertiesOfValidResponse =
                 validator.validate(ootdCommentResponse);
@@ -60,7 +63,7 @@ public class OotdCommentResponseTest {
 
         assertAll(
                 () -> assertThat(invalidPropertiesOfValidResponse.size()).isEqualTo(0),
-                () -> assertThat(invalidPropertiesOfInvalidResponse.size()).isEqualTo(5)
+                () -> assertThat(invalidPropertiesOfInvalidResponse.size()).isEqualTo(6)
         );
     }
 }
