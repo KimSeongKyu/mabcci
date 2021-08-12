@@ -19,7 +19,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler { // 핸들러를
     protected void handleTextMessage(final WebSocketSession session, final TextMessage message) throws Exception {
         final String payload = message.getPayload();
         logger.info(payload);
-        TextMessage textMessage = new TextMessage("Welcome Chatting server");
+        TextMessage textMessage = new TextMessage("Mabcci 채팅 서버에 오신 것을 환영합니다.");
         session.sendMessage(textMessage);
     }
 
