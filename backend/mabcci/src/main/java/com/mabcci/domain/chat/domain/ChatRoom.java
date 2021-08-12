@@ -6,6 +6,7 @@ import org.springframework.web.socket.WebSocketSession;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 // 클라이언트들의 정보를 가지고 있다.
 // WebSocketSession 으로 부터 클라이언트의 정보를 얻으므로 이 리스트를 갖는다.
@@ -14,37 +15,14 @@ import java.util.Set;
 public class ChatRoom {
     private String roomId;
     private String name;
-    private Set<WebSocketSession> sessions = new HashSet<>();
 
-    @Builder
+    public static ChatRoom create(String name) {
+        return new ChatRoom(UUID.randomUUID().toString(), name);
+    }
+
     public ChatRoom(final String roomId, final String name) {
         this.roomId = roomId;
         this.name = name;
-    }
-
-    public void handleActions(final WebSocketSession session, final ChatMessage chatMessage, ChatService chatService) {
-        if(chatMessage.getType().equals(MessageType.ENTER)) {
-            sessions.add(session);
-            chatMessage.setMessage(chatMessage.getSender() + "님이 입장했습니다.");
-        }
-        sendMessage(chatMessage, chatService);
-    }
-
-    private <T> void sendMessage(T message, final ChatService chatService) {
-        sessions.stream()
-                .forEach(session -> chatService.sendMessage(session, message));
-    }
-
-    public String getRoomId() {
-        return roomId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Set<WebSocketSession> getSessions() {
-        return sessions;
     }
 
 }
