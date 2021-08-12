@@ -47,7 +47,7 @@ class OotdCommentControllerTest {
     @DisplayName("OotdCommentController 인스턴스 ootd 댓글 수정 API 테스트")
     @Test
     void update_ootd_comment_api_test() throws Exception {
-        final OotdCommentUpdateRequest ootdCommentUpdateRequest = new OotdCommentUpdateRequest("수정된 내용");
+        final OotdCommentUpdateRequest ootdCommentUpdateRequest = new OotdCommentUpdateRequest(NICKNAME, "수정된 내용");
 
         doNothing().when(ootdCommentUpdateService).updateOotdComment(any(), any());
 
