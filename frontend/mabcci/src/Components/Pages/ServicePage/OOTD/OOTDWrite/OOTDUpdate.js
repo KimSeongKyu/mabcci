@@ -84,11 +84,7 @@ function OOTDUpdate() {
   const submitOOTD = async () => {
     console.log(myOOTDInfo);
     const res = await OOTDUpdateApi(myOOTDInfo.id, myOOTDInfo);
-    if (res.status === 200) {
-      history.push(`/OOTD/${id}/${nickname}`);
-    } else {
-      console.log('Error');
-    }
+    window.location.replace(`/OOTD/${id}/${nickname}`);
   };
 
   return (

@@ -7,6 +7,7 @@ import { OOTDDetailApi } from '../../../../../API/OOTDAPI/OOTDDetailApi';
 import 'swiper/swiper.min.css';
 import 'swiper/components/pagination/pagination.min.css';
 import getUserInfo from '../../../../Common/getUserInfo';
+import OOTDDeleteApi from '../../../../../API/OOTDAPI/OOTDDeleteApi';
 
 const OOTDContentApi = () => {
   const history = useHistory();
@@ -57,12 +58,8 @@ const OOTDContentApi = () => {
   };
 
   const ootdDeleteHandler = () => {
-    const response = OOTDDetailApi(id);
-    console.log(response);
-    if (response.status === 200) {
-      history.push('/OOTD');
-      console.log('삭제 완료');
-    }
+    const response = OOTDDeleteApi(id);
+    window.location.replace('/OOTD');
   };
 
   const likeHandler = () => {
