@@ -1,5 +1,6 @@
 import { LoginUrl } from '../ApiUrl';
 import instance from '../index';
+import getUserInfo from '../../Components/Common/getUserInfo';
 
 const LoginApi = async userAuthInfo => {
   try {
@@ -10,9 +11,11 @@ const LoginApi = async userAuthInfo => {
 
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
+    const userInfo = getUserInfo();
 
     return {
       status: response.status,
+      userInfo,
     };
   } catch (response) {
     localStorage.removeItem('accessToken');

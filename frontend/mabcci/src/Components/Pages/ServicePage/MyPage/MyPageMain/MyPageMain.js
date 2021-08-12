@@ -55,16 +55,18 @@ function MyPageMain() {
         mobileMenu={mobileMenu}
         setMobileMenu={setMobileMenu}
       />
-      <MyPageMobileMenu
-        myInfo={myInfo}
-        setMyInfo={setMyInfo}
-        mobileMenu={mobileMenu}
-        setMobileMenu={setMobileMenu}
-        proposalBox={proposalBox}
-        setProposalBox={setProposalBox}
-        myPageUpdate={myPageUpdate}
-        setMyPageUpdate={setMyPageUpdate}
-      />
+      {myInfo ? (
+        <MyPageMobileMenu
+          myInfo={myInfo}
+          setMyInfo={setMyInfo}
+          mobileMenu={mobileMenu}
+          setMobileMenu={setMobileMenu}
+          proposalBox={proposalBox}
+          setProposalBox={setProposalBox}
+          myPageUpdate={myPageUpdate}
+          setMyPageUpdate={setMyPageUpdate}
+        />
+      ) : null}
       <div className="mypage-container">
         <button
           className="mypage-mobile-setting"

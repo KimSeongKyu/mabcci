@@ -17,6 +17,7 @@ import LogoutApi from '../../API/AuthAPI/LogoutApi';
 import { Logout } from '../../Redux/Actions/LoginAction';
 import logo from '../../Asset/Images/logo.png';
 import NavCategory from '../../Redux/Actions/NavAction';
+import getUserInfo from './getUserInfo';
 
 function Nav() {
   const history = useHistory();
@@ -52,7 +53,7 @@ function Nav() {
   };
 
   const goMypage = () => {
-    const myInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const myInfo = getUserInfo();
     setpopover(false);
     history.push(`/mypage/${myInfo.nickname}`);
   };

@@ -10,7 +10,6 @@ import 기본프로필 from '../../../../../Asset/Images/기본프로필.jpg'
 import { baseUrl } from '../../../../../API/ApiUrl';
 
 const MyPageProfile = props => {
-
   const [profile, setProfile] = useState(false)
 
   const clickProfile = () => {setProfile(!profile)}
@@ -59,7 +58,7 @@ const MyPageProfile = props => {
               ) : (
                 <p className="mypage-profile-bodysize-secret">secret</p>
               )}
-              {props.myInfo.height !== 0 ? (
+              {props.myInfo.footSize !== 0 ? (
                 <p>{props.myInfo.footSize}cm</p>
               ) : (
                 <p className="mypage-profile-bodysize-secret">secret</p>
@@ -69,7 +68,7 @@ const MyPageProfile = props => {
           {props.myInfo.picture !== null ? (
             <img src={baseUrl + props.myInfo.picture} alt="No image"></img>
           ) : (
-            <img src={기본프로필} alt="" onClick={clickProfile} />
+              <img src={기본프로필} alt="" onClick={clickProfile} />
           )}
         </div>
 

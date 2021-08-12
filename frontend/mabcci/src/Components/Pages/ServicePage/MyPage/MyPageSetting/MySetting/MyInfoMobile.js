@@ -4,21 +4,21 @@ import React from 'react';
 import { IoArrowBackCircle } from 'react-icons/io5';
 import './MySetting.css'
 import '../../../../AuthPage/Signup/Signup.css'
-import MAN직사각형 from '../../../../../../Asset/Images/MAN직사각형.png';
-import MAN사다리꼴형 from '../../../../../../Asset/Images/MAN사다리꼴형.png';
-import MAN역삼각형 from '../../../../../../Asset/Images/MAN역삼각형.png';
-import MAN타원형 from '../../../../../../Asset/Images/MAN타원형.png';
-import MAN삼각형 from '../../../../../../Asset/Images/MAN삼각형.png';
-import WOMAN직사각형 from '../../../../../../Asset/Images/WOMAN직사각형.png';
-import WOMAN사다리꼴형 from '../../../../../../Asset/Images/WOMAN사다리꼴형.png';
-import WOMAN역삼각형 from '../../../../../../Asset/Images/WOMAN역삼각형.png';
-import WOMAN타원형 from '../../../../../../Asset/Images/WOMAN타원형.png';
-import WOMAN삼각형 from '../../../../../../Asset/Images/WOMAN삼각형.png';
+import MAN_RECTANGLE from '../../../../../../Asset/Images/MAN_RECTANGLE.png';
+import MAN_TRAPEZOIDAL from '../../../../../../Asset/Images/MAN_TRAPEZOIDAL.png';
+import MAN_INVERTED_TRIANGLE from '../../../../../../Asset/Images/MAN_INVERTED_TRIANGLE.png';
+import MAN_OVAL from '../../../../../../Asset/Images/MAN_OVAL.png';
+import MAN_TRIANGLE from '../../../../../../Asset/Images/MAN_TRIANGLE.png';
+import WOMAN_RECTANGLE from '../../../../../../Asset/Images/WOMAN_RECTANGLE.png';
+import WOMAN_TRAPEZOIDAL from '../../../../../../Asset/Images/WOMAN_TRAPEZOIDAL.png';
+import WOMAN_INVERTED_TRIANGLE from '../../../../../../Asset/Images/WOMAN_INVERTED_TRIANGLE.png';
+import WOMAN_OVAL from '../../../../../../Asset/Images/WOMAN_OVAL.png';
+import WOMAN_TRIANGLE from '../../../../../../Asset/Images/WOMAN_TRIANGLE.png';
 import MypageUpdateApi from '../../../../../../API/MypageAPI/MyPageUpdateApi'
+import 기본프로필 from '../../../../../../Asset/Images/기본프로필.jpg';
+import { update } from 'lodash';
 
 const MyInfoMobile = props => {
-
-  console.log(props.myInfo)
 
   const goBack = () => {
     props.setMyPageUpdate('none');
@@ -27,44 +27,48 @@ const MyInfoMobile = props => {
 
   function changeUserInfo(e) {
     const { name, value } = e.target;
-    props.setMyInfo({
-      ...props.myInfo,
+    props.setMyUpdateInfo({
+      ...props.myUpdateInfo,
       [name]: value,
     });
   }
 
   const changeGender = (e) => {
-    props.setMyInfo({
-      ...props.myInfo,
+    props.setMyUpdateInfo({
+      ...props.myUpdateInfo,
       gender: e.target.name,
-    })
+    });
   }
 
   const changeBodyType = e => {
-    props.setMyInfo({
-      ...props.myInfo,
+    props.setMyUpdateInfo({
+      ...props.myUpdateInfo,
       bodyType: e.target.name,
     });
   };
 
   const submit = async () => {
-    const updateData = new FormData();
-    updateData.append('nickname', props.myInfo.nickname)
-    updateData.append('gender', props.myInfo.gender);
-    updateData.append('height', props.myInfo.height);
-    updateData.append('weight', props.myInfo.weight);
-    updateData.append('footSize', props.myInfo.footSize);
-    updateData.append('categories', props.myInfo.categories);
-    updateData.append('picture', props.myInfo.picture);
-    updateData.append('description', props.myInfo.description);
-    const res = await MypageUpdateApi(updateData, props.myInfo.nickname);
-    if (res.status === 200) {
-        props.setMyPageUpdate('none');
-        props.setMobileMenu(true);
-    } else {
-      console.log(res.status)
-      alert('닉네임을 확인하세요')
-    }
+    console.log(props.myUpdateInfo)
+    // const res = await MypageUpdateApi(
+    //   props.myUpdateInfo,
+    //   props.myInfo.nickname,
+    // );
+    // console.log(myUpdateInfo);
+    // if (res.status === 200) {
+    //     props.setMyPageUpdate('none');
+    //     props.setMobileMenu(true);
+    //     console.log()
+    // } else {
+    //   console.log(res.status)
+    //   alert('닉네임을 확인하세요')
+    // }
+  }
+
+  const updateProfile = e => {
+    props.setMyUpdateInfo({
+      ...props.myUpdateInfo,
+      picture: e.target.files[0],
+    });
   }
 
   return (
@@ -75,6 +79,11 @@ const MyInfoMobile = props => {
       {props.myPageUpdate === 'info' ? (
         <div className="mypage-mobile-menu mypage-mobile-update">
           <div className="mypage-mobile-menu-header">
+            <input
+              type="file"
+              accept=".jpg,.jpeg,.png"
+              onChange={updateProfile}
+            />
             <button
               type="submit"
               className="mypage-mobile-menu-btn"
@@ -89,7 +98,7 @@ const MyInfoMobile = props => {
               <h3>닉네임</h3>
               <input
                 type="text"
-                value={props.myInfo.nickname}
+                value={props.myUpdateInfo.nickname}
                 name="nickname"
                 onChange={changeUserInfo}
               />
@@ -100,7 +109,7 @@ const MyInfoMobile = props => {
                 <button
                   type="submit"
                   className={
-                    props.myInfo.gender === 'MAN'
+                    props.myUpdateInfo.gender === 'MAN'
                       ? 'mypage-mobile-gender-btn-select'
                       : 'mypage-mobile-gender-btn'
                   }
@@ -112,7 +121,7 @@ const MyInfoMobile = props => {
                 <button
                   type="submit"
                   className={
-                    props.myInfo.gender === 'WOMAN'
+                    props.myUpdateInfo.gender === 'WOMAN'
                       ? 'mypage-mobile-gender-btn-select'
                       : 'mypage-mobile-gender-btn'
                   }
@@ -126,8 +135,8 @@ const MyInfoMobile = props => {
             <div className="mypage-mobile-update-content">
               <h3>키(cm)</h3>
               <input
-                type="number"
-                value={props.myInfo.height}
+                type="text"
+                value={props.myUpdateInfo.height}
                 name="height"
                 onChange={changeUserInfo}
               />
@@ -135,8 +144,8 @@ const MyInfoMobile = props => {
             <div className="mypage-mobile-update-content">
               <h3>몸무게(kg)</h3>
               <input
-                type="number"
-                value={props.myInfo.weight}
+                type="text"
+                value={props.myUpdateInfo.weight}
                 name="weight"
                 onChange={changeUserInfo}
               />
@@ -144,83 +153,83 @@ const MyInfoMobile = props => {
             <div className="mypage-mobile-update-content">
               <h3>발(mm)</h3>
               <input
-                type="number"
-                value={props.myInfo.footSize}
+                type="text"
+                value={props.myUpdateInfo.footSize}
                 name="footSize"
                 onChange={changeUserInfo}
               />
             </div>
             <h3 className="mypage-bodytype-header">Body Type</h3>
-            {props.myInfo.gender === 'MAN' ? (
+            {props.myUpdateInfo.gender === 'MAN' ? (
               <div className="mypage-mobile-update-content">
                 <button
                   className={
-                    props.myInfo.bodyType === '역삼각형'
+                    props.myUpdateInfo.bodyType === 'INVERTED_TRIANGLE'
                       ? 'mypage-bodytype-btn mypage-bodytype-btn-select'
                       : 'mypage-bodytype-btn'
                   }
                 >
                   <img
-                    src={MAN역삼각형}
+                    src={MAN_INVERTED_TRIANGLE}
                     alt="하이"
                     onClick={changeBodyType}
-                    name="역삼각형"
+                    name="INVERTED_TRIANGLE"
                   />
                 </button>
                 <button
                   className={
-                    props.myInfo.bodyType === '삼각형'
+                    props.myUpdateInfo.bodyType === 'TRIANGLE'
                       ? 'mypage-bodytype-btn mypage-bodytype-btn-select'
                       : 'mypage-bodytype-btn'
                   }
                 >
                   <img
-                    src={MAN삼각형}
+                    src={MAN_TRIANGLE}
                     alt="하이"
                     onClick={changeBodyType}
-                    name="삼각형"
+                    name="TRIANGLE"
                   />
                 </button>
                 <button
                   className={
-                    props.myInfo.bodyType === '직사각형'
+                    props.myUpdateInfo.bodyType === 'RECTANGLE'
                       ? 'mypage-bodytype-btn mypage-bodytype-btn-select'
                       : 'mypage-bodytype-btn'
                   }
                 >
                   <img
-                    src={MAN직사각형}
+                    src={MAN_RECTANGLE}
                     alt="하이"
                     onClick={changeBodyType}
-                    name="직사각형"
+                    name="RECTANGLE"
                   />
                 </button>
                 <button
                   className={
-                    props.myInfo.bodyType === '타원형'
+                    props.myUpdateInfo.bodyType === 'OVAL'
                       ? 'mypage-bodytype-btn mypage-bodytype-btn-select'
                       : 'mypage-bodytype-btn'
                   }
                 >
                   <img
-                    src={MAN타원형}
+                    src={MAN_OVAL}
                     alt="하이"
                     onClick={changeBodyType}
-                    name="타원형"
+                    name="OVAL"
                   />
                 </button>
                 <button
                   className={
-                    props.myInfo.bodyType === '사다리꼴형'
+                    props.myUpdateInfo.bodyType === 'TRAPEZOIDAL'
                       ? 'mypage-bodytype-btn mypage-bodytype-btn-select'
                       : 'mypage-bodytype-btn'
                   }
                 >
                   <img
-                    src={MAN사다리꼴형}
+                    src={MAN_TRAPEZOIDAL}
                     alt="하이"
                     onClick={changeBodyType}
-                    name="사다리꼴형"
+                    name="TRAPEZOIDAL"
                   />
                 </button>
               </div>
@@ -228,72 +237,72 @@ const MyInfoMobile = props => {
               <div className="mypage-mobile-update-content">
                 <button
                   className={
-                    props.myInfo.bodyType === '역삼각형'
+                    props.myUpdateInfo.bodyType === 'INVERTED_TRIANGLE'
                       ? 'mypage-bodytype-btn mypage-bodytype-btn-select'
                       : 'mypage-bodytype-btn'
                   }
                 >
                   <img
-                    src={WOMAN역삼각형}
+                    src={WOMAN_INVERTED_TRIANGLE}
                     alt="하이"
                     onClick={changeBodyType}
-                    name="역삼각형"
+                    name="INVERTED_TRIANGLE"
                   />
                 </button>
                 <button
                   className={
-                    props.myInfo.bodyType === '삼각형'
+                    props.myUpdateInfo.bodyType === 'TRIANGLE'
                       ? 'mypage-bodytype-btn mypage-bodytype-btn-select'
                       : 'mypage-bodytype-btn'
                   }
                 >
                   <img
-                    src={WOMAN삼각형}
+                    src={WOMAN_TRIANGLE}
                     alt="하이"
                     onClick={changeBodyType}
-                    name="삼각형"
+                    name="TRIANGLE"
                   />
                 </button>
                 <button
                   className={
-                    props.myInfo.bodyType === '직사각형'
+                    props.myUpdateInfo.bodyType === 'RECTANGLE'
                       ? 'mypage-bodytype-btn mypage-bodytype-btn-select'
                       : 'mypage-bodytype-btn'
                   }
                 >
                   <img
-                    src={WOMAN직사각형}
+                    src={WOMAN_RECTANGLE}
                     alt="하이"
                     onClick={changeBodyType}
-                    name="직사각형"
+                    name="RECTANGLE"
                   />
                 </button>
                 <button
                   className={
-                    props.myInfo.bodyType === '타원형'
+                    props.myUpdateInfo.bodyType === 'OVAL'
                       ? 'mypage-bodytype-btn mypage-bodytype-btn-select'
                       : 'mypage-bodytype-btn'
                   }
                 >
                   <img
-                    src={WOMAN타원형}
+                    src={WOMAN_OVAL}
                     alt="하이"
                     onClick={changeBodyType}
-                    name="타원형"
+                    name="OVAL"
                   />
                 </button>
                 <button
                   className={
-                    props.myInfo.bodyType === '사다리꼴형'
+                    props.myUpdateInfo.bodyType === 'TRAPEZOIDAL'
                       ? 'mypage-bodytype-btn mypage-bodytype-btn-select'
                       : 'mypage-bodytype-btn'
                   }
                 >
                   <img
-                    src={WOMAN사다리꼴형}
+                    src={WOMAN_TRAPEZOIDAL}
                     alt="하이"
                     onClick={changeBodyType}
-                    name="사다리꼴형"
+                    name="TRAPEZOIDAL"
                   />
                 </button>
               </div>

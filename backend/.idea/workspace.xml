@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e7dd990f-9200-4032-9b56-1a04202b4ada" name="Changes" comment="" />
+    <list default="true" id="e7dd990f-9200-4032-9b56-1a04202b4ada" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mabcci/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/mabcci/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/mabcci/src/API/AuthAPI/LoginApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/mabcci/src/API/AuthAPI/LoginApi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/mabcci/src/Components/Common/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/mabcci/src/Components/Common/Navbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/mabcci/src/Components/Pages/ServicePage/MyPage/MyPageSetting/MySetting/MyInfoMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/mabcci/src/Components/Pages/ServicePage/MyPage/MyPageSetting/MySetting/MyInfoMobile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/mabcci/src/Components/Pages/ServicePage/MyPage/MyPageSetting/MySetting/MyPageMobileMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/mabcci/src/Components/Pages/ServicePage/MyPage/MyPageSetting/MySetting/MyPageMobileMenu.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,6 +44,9 @@
       <workItem from="1628661792808" duration="1000" />
       <workItem from="1628662044881" duration="9000" />
       <workItem from="1628692150305" duration="8000" />
+      <workItem from="1628742696255" duration="2000" />
+      <workItem from="1628743179923" duration="20000" />
+      <workItem from="1628745159511" duration="167000" />
     </task>
     <servers />
   </component>
