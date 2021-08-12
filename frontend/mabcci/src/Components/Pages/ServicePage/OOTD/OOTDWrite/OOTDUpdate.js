@@ -26,9 +26,6 @@ function OOTDUpdate() {
   const history = useHistory();
   const location = useLocation();
   const { id, nickname } = useParams();
-  const [user, setUser] = useState({
-    nickname,
-  });
   const [myOOTDInfo, setMyOOTDInfo] = useState({
     id,
     top: '',
@@ -88,7 +85,7 @@ function OOTDUpdate() {
     console.log(myOOTDInfo);
     const res = await OOTDUpdateApi(myOOTDInfo.id, myOOTDInfo);
     if (res.status === 200) {
-      history.push(`/OOTD/${myOOTDInfo.id}/${user.nickname}`);
+      history.push(`/OOTD/${id}/${nickname}`);
     } else {
       console.log('Error');
     }
