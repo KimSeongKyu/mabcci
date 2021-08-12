@@ -69,7 +69,7 @@ class OotdCommentUpdateServiceTest {
     @Test
     void update_ootd_comment_test() {
         final String updatedContent = "수정된 내용";
-        final OotdCommentUpdateRequest ootdCommentUpdateRequest = new OotdCommentUpdateRequest(updatedContent);
+        final OotdCommentUpdateRequest ootdCommentUpdateRequest = new OotdCommentUpdateRequest(NICKNAME, updatedContent);
         doReturn(Optional.of(ootdComment)).when(ootdCommentRepository).findById(any());
 
         ootdCommentUpdateService.updateOotdComment(1L, ootdCommentUpdateRequest);

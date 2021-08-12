@@ -21,7 +21,7 @@ public class OotdComment extends BaseTimeEntity {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ootd_comment_member_id")
+    @JoinColumn(name = "ootd_comment_member_id", nullable = false, updatable = false)
     private Member member;
 
     @NotNull
@@ -30,10 +30,10 @@ public class OotdComment extends BaseTimeEntity {
     private Ootd ootd;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ootd_comment_parent_comment_id")
+    @JoinColumn(name = "ootd_comment_parent_comment_id", updatable = false)
     private OotdComment parentComment;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "parentComment", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<OotdComment> childrenComments = new HashSet<>();
 
     @NotEmpty
