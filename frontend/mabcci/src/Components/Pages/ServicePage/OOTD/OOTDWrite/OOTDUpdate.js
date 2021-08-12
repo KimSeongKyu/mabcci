@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
-
+import { useLocation, useParams, useHistory } from 'react-router-dom';
 import './OOTDWrite.css';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -24,10 +23,14 @@ import InputTags from './InputTags';
 SwiperCore.use([Zoom, Navigation, Pagination]);
 
 function OOTDUpdate() {
+  const history = useHistory();
   const location = useLocation();
-
+  const { id, nickname } = useParams();
+  const [user, setUser] = useState({
+    nickname,
+  });
   const [myOOTDInfo, setMyOOTDInfo] = useState({
-    id: '',
+    id,
     top: '',
     bottom: '',
     shoes: '',
@@ -38,7 +41,7 @@ function OOTDUpdate() {
   });
 
   useEffect(async () => {
-    await setMyOOTDInfo({ ...myOOTDInfo, ...location.state.info });
+    await setMyOOTDInfo(location.state.info);
   }, []);
 
   const addImage = e => {
@@ -83,12 +86,11 @@ function OOTDUpdate() {
 
   const submitOOTD = async () => {
     console.log(myOOTDInfo);
-    const res = await OOTDUpdateApi(myOOTDInfo);
+    const res = await OOTDUpdateApi(myOOTDInfo.id, myOOTDInfo);
     if (res.status === 200) {
-      console.log('mock연동 성공');
-      console.log(res.info);
+      history.push(`/OOTD/${myOOTDInfo.id}/${user.nickname}`);
     } else {
-      console.log('mock연동 실패');
+      console.log('Error');
     }
   };
 

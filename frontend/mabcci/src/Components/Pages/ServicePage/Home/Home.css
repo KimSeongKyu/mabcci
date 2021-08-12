@@ -83,13 +83,6 @@
   filter: drop-shadow(5px 5px 4px rgba(0, 0, 0, 0.25));
 }
 
-/*
-.home-swiper-container {
-  width: 450px;
-  height: 370px;
-}
-*/
-
 .home-swiper-slide {
   width: 100%;
   height: 100%;
@@ -98,31 +91,8 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  /*align-items: center;*/
   width: 100%;
   height: 100%;
-
-  /*
-  text-align: center;
-  font-size: 18px;
-  background: transparent;*/
-
-  /* Center slide text vertically */
-  /*
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  flex-direction: column;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-  */
 }
 
 .home-swiper-slide > div {

@@ -1,8 +1,11 @@
 export const baseUrl = 'http://localhost:8080';
+
+/* AuthAPI Url */
 export const LoginUrl = '/auth/login';
 export const LogoutUrl = '/auth/logout';
 export const SignupUrl = '/api/members';
 
+/* OOTDAPI Url */
 export const OOTDWriteUrl = '/api/ootds';
 export const OOTDUpdateUrl = '/api/ootds/';
 export const OOTDDeleteUrl = '/api/ootds/';
@@ -16,6 +19,7 @@ export const OOTDCommentDeleteUrl = '/api/ootd/comments/';
 export const OOTDCommentReadUrl = '/api/ootd/comments';
 export const OOTDLikeUrl = '/api/ootd/';
 
+/* MabcciAPI Url */
 export const AllMabcciUrl = '/api/members/mabcci';
 export const PopularMabcciUrl = '/api/members/mabcci/popular';
 

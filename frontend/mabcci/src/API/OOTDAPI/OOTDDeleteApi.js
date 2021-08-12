@@ -1,9 +1,9 @@
-import { OOTDUpdateUrl } from '../ApiUrl';
+import { OOTDDeleteUrl } from '../ApiUrl';
 import instance from '../indexMock';
 
-const OOTDUpdateApi = async (id, myOOTDInfo) => {
+const OOTDDeleteApi = async (id, myOOTDInfo) => {
   try {
-    const response = await instance.put(`${OOTDUpdateUrl}/${id}`, myOOTDInfo);
+    const response = await instance.delete(`${OOTDDeleteUrl}/${id}`);
 
     return {
       status: response.status,
@@ -16,4 +16,4 @@ const OOTDUpdateApi = async (id, myOOTDInfo) => {
   }
 };
 
-export default OOTDUpdateApi;
+export default OOTDDeleteApi;

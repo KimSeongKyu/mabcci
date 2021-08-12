@@ -1,59 +1,126 @@
-import React, { useState } from 'react';
-import { AiOutlineHeart } from 'react-icons/ai';
+import React, { useState, useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination } from 'swiper/core';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { OOTDDetailApi } from '../../../../../API/OOTDAPI/OOTDDetailApi';
 import 'swiper/swiper.min.css';
 import 'swiper/components/pagination/pagination.min.css';
-import userphoto from './Images/userphoto.png';
-import ootdphoto from './Images/ootdphoto.jpg';
 
-SwiperCore.use([Pagination]);
+const OOTDContentApi = () => {
+  const history = useHistory();
+  const myInfo = JSON.parse(localStorage.getItem('userInfo'));
+  const { id, nickname } = useParams();
+  const [user, setUser] = useState({
+    nickname,
+    userphoto: '사진',
+  });
 
-const OOTDContent = () => {
   const [detail, setDetail] = useState({
-    id: '',
+    id,
     content: '',
     top: '',
     bottom: '',
     shoes: '',
     accessory: '',
-    picture: [ootdphoto, userphoto, ootdphoto],
+    picture: [],
     views: '',
-    hashtag: ['해쉬태그1', '해쉬태그2'],
+    hashtag: [],
     registeredTime: '',
     likeMembers: [],
   });
 
+  const [myLike, setMyLike] = useState(false);
+
+  useEffect(async () => {
+    const response = await OOTDDetailApi(id);
+    if (response.status === 200) {
+      setDetail({ ...detail, ...response.detail });
+    }
+  }, []);
+
+  const ootdUpdateHandler = () => {
+    const info = {
+      id: detail.id,
+      top: detail.top,
+      bottom: detail.bottom,
+      shoes: detail.shoes,
+      accessory: detail.accessory,
+      content: detail.content,
+      picture: detail.picture,
+      hashTag: detail.hashtag,
+    };
+
+    history.push({
+      pathname: `/OOTDUpdate/${detail.id}/${user.nickname}`,
+      state: { info },
+    });
+  };
+
+  const ootdDeleteHandler = () => {
+    const response = OOTDDetailApi(id);
+    if (response.status === 200) {
+      history.push('/OOTD');
+      console.log('삭제 완료');
+    }
+  };
+
+  const likeHandler = () => {
+    setMyLike(!myLike);
+  };
+
   return (
     <article className="detail-content">
       <section className="detail-info">
-        <div className="detail-info-photo">
-          <img src={userphoto} alt="UserImage" width="70" />
-        </div>
+        <div className="detail-info-photo">{user.userphoto}</div>
         <div className="detail-info-content">
-          <p>김고은</p>
-          <p>2021.07.29 views:50</p>
-          <button type="button">수정</button>
-          <button type="button">삭제</button>
+          <p>{user.nickname}</p>
+          <p>
+            {detail.registeredTime} views:{detail.views}
+          </p>
+          {myInfo.nickname === user.nickname ? (
+            <button type="button" onClick={ootdUpdateHandler}>
+              수정
+            </button>
+          ) : null}
+          {myInfo.nickname === user.nickname ? (
+            <button type="button" onClick={ootdDeleteHandler}>
+              삭제
+            </button>
+          ) : null}
         </div>
       </section>
       <section className="detail-ootd-photo">
         <Swiper pagination className="detail-swiper-container">
-          {detail.picture.map(picture => {
-            return (
-              <SwiperSlide className="detail-swiper-slide" key={picture}>
-                <img src={picture} alt="OotdPhoto" />
-              </SwiperSlide>
-            );
-          })}
+          {detail.picture.length === 0 &&
+            detail.picture.map(picture => {
+              return (
+                <SwiperSlide className="detail-swiper-slide" key={picture}>
+                  <img src={picture} alt="OotdPhoto" />
+                </SwiperSlide>
+              );
+            })}
         </Swiper>
       </section>
       <section className="detail-ootd">
         <div className="detail-ootd-like">
-          <AiOutlineHeart className="detail-ootd-heart" /> 23
+          {myLike ? (
+            <AiFillHeart
+              className="detail-ootd-heart"
+              size="20"
+              onClick={likeHandler}
+            />
+          ) : (
+            <AiOutlineHeart
+              className="detail-ootd-heart"
+              size="20"
+              onClick={likeHandler}
+            />
+          )}
+          {detail.likeMembers.length}
         </div>
         <div className="detail-ootd-content">
-          <p>오늘의 OOTD입니다.</p>
+          <p>{detail.content}</p>
         </div>
         <div className="detail-ootd-clothes">
           <div className="detail-ootd-clothes1">
@@ -63,10 +130,10 @@ const OOTDContent = () => {
             <p>Acc</p>
           </div>
           <div className="detail-ootd-clothes2">
-            <p>셔링 스퀘어 패드티</p>
-            <p>머메라인 밴딩 맥시 롱스커트</p>
-            <p>새틴 슬림 스틸레토힐</p>
-            <p>인터로킹 G 진주 귀걸이</p>
+            <p>{detail.top}</p>
+            <p>{detail.bottom}</p>
+            <p>{detail.shoes}</p>
+            <p>{detail.accessory}</p>
           </div>
         </div>
         <div className="detail-ootd-hashtag">
@@ -77,4 +144,4 @@ const OOTDContent = () => {
   );
 };
 
-export default OOTDContent;
+export default OOTDContentApi;
