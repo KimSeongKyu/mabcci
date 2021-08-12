@@ -77,18 +77,11 @@ class OotdCommentRepositoryTest {
     @DisplayName("OotdCommentRepository ootd의 댓글 리스트 조회 테스트")
     @Test
     void find_all_by_ootd_test() {
-        final OotdComment childOotdComment = OotdComment.builder()
-                .member(member)
-                .ootd(ootd)
-                .content("내용")
-                .parentComment(ootdComment)
-                .build();
-        testEntityManager.persist(childOotdComment);
-        final List<OotdComment> ootdComments = ootdCommentRepository.findAllByOotd(ootd);
+        final List<OotdComment> ootdComments = ootdCommentRepository.findAllByOotdId(ootd.id());
 
         assertAll(
-                () -> assertThat(ootdComments.size()).isEqualTo(2),
-                () -> assertThat(ootdComments).containsAll(List.of(ootdComment, childOotdComment))
+                () -> assertThat(ootdComments.size()).isEqualTo(1),
+                () -> assertThat(ootdComments.contains(ootdComment)).isTrue()
         );
     }
 
