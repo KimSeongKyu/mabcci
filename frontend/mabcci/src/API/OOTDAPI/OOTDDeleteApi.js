@@ -1,9 +1,9 @@
 import { OOTDDeleteUrl } from '../ApiUrl';
-import instance from '../indexMock';
+import instance from '../index';
 
 const OOTDDeleteApi = async id => {
   try {
-    const response = await instance.delete(`${OOTDDeleteUrl}/${id}`);
+    const response = await instance.delete(`${OOTDDeleteUrl}${id}`);
 
     return {
       status: response.status,
