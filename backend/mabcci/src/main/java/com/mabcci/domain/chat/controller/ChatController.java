@@ -2,10 +2,7 @@ package com.mabcci.domain.chat.controller;
 
 import com.mabcci.domain.chat.domain.ChatRoom;
 import com.mabcci.domain.chat.service.ChatService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 

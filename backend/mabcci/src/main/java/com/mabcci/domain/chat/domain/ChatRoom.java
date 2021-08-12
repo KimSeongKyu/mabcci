@@ -25,13 +25,13 @@ public class ChatRoom {
     public void handleActions(final WebSocketSession session, final ChatMessage chatMessage, ChatService chatService) {
         if(chatMessage.getType().equals(MessageType.ENTER)) {
             sessions.add(session);
-            chatMessage.setMessage(chatMessage.getSender() + "님이 입장했씁니다.");
+            chatMessage.setMessage(chatMessage.getSender() + "님이 입장했습니다.");
         }
         sendMessage(chatMessage, chatService);
     }
 
     private <T> void sendMessage(T message, final ChatService chatService) {
-        sessions.parallelStream()
+        sessions.stream()
                 .forEach(session -> chatService.sendMessage(session, message));
     }
 

@@ -1,5 +1,9 @@
 package com.mabcci.domain.chat.handler;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mabcci.domain.chat.domain.ChatMessage;
+import com.mabcci.domain.chat.domain.ChatRoom;
+import com.mabcci.domain.chat.service.ChatService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -10,7 +14,14 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 @Component
 public class WebSocketChatHandler extends TextWebSocketHandler { // 핸들러를 상속 받으면?
 
+    private final ObjectMapper objectMapper;
+    private final ChatService chatService;
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
+    public WebSocketChatHandler(final ObjectMapper objectMapper, final ChatService chatService) {
+        this.objectMapper = objectMapper;
+        this.chatService = chatService;
+    }
 
     // WebSocketChatHandler 은 서버(1): 클라이언트(N)의 요청을 처리하는 핸들러이다.
     // 즉 여러 클라이언트의 요청을 처리받고 응답을 주는 핸들러다.
@@ -19,8 +30,9 @@ public class WebSocketChatHandler extends TextWebSocketHandler { // 핸들러를
     protected void handleTextMessage(final WebSocketSession session, final TextMessage message) throws Exception {
         final String payload = message.getPayload();
         logger.info(payload);
-        TextMessage textMessage = new TextMessage("Mabcci 채팅 서버에 오신 것을 환영합니다.");
-        session.sendMessage(textMessage);
+        ChatMessage chatMessage = objectMapper.readValue(payload, ChatMessage.class);
+        ChatRoom room = chatService.findRoomById(chatMessage.getRoomId());
+        room.handleActions(session, chatMessage, chatService);
     }
 
 }
