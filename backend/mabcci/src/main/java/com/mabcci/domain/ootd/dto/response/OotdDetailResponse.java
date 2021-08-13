@@ -102,4 +102,56 @@ public final class OotdDetailResponse {
                 .map(Hashtag::name)
                 .collect(toList());
     }
+
+    public String memberPicture() {
+        return memberPicture;
+    }
+
+    public Nickname nickname() {
+        return nickname;
+    }
+
+    public LocalDateTime createdDate() {
+        return createdDate;
+    }
+
+    public LocalDateTime modifiedDate() {
+        return modifiedDate;
+    }
+
+    public Long views() {
+        return views;
+    }
+
+    public List<String> ootdPictures() {
+        return ootdPictures;
+    }
+
+    public Long likeCount() {
+        return likeCount;
+    }
+
+    public String content() {
+        return content;
+    }
+
+    public String top() {
+        return top;
+    }
+
+    public String bottom() {
+        return bottom;
+    }
+
+    public String shoes() {
+        return shoes;
+    }
+
+    public String accessory() {
+        return accessory;
+    }
+
+    public List<String> hashtags() {
+        return hashtags;
+    }
 }

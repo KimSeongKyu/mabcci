@@ -82,12 +82,13 @@ class OotdDetailResponseTest {
                 .member(member)
                 .ootd(ootd)
                 .build();
-        ootdDetailResponse = OotdDetailResponse.ofOotd(ootd);
 
         ReflectionTestUtils.setField(ootdLike, "status", true);
         ReflectionTestUtils.setField(ootd, "ootdLikes", List.of(ootdLike));
         ReflectionTestUtils.setField(ootd, "ootdPictures", ootdPictures);
         ReflectionTestUtils.setField(ootd, "ootdHashtags", ootdHashtags);
+
+        ootdDetailResponse = OotdDetailResponse.ofOotd(ootd);
     }
 
     @DisplayName("OotdDetailResponse 인스턴스 생성 여부 테스트")
