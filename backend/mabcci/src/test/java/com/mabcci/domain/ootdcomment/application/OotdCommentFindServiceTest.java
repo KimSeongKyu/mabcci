@@ -15,6 +15,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
 
@@ -74,6 +75,8 @@ class OotdCommentFindServiceTest {
                 .parentComment(parentComment)
                 .build();
         ootdComments = List.of(parentComment, childComment);
+        ReflectionTestUtils.setField(parentComment, "id", 1L);
+        ReflectionTestUtils.setField(childComment, "id", 2L);
     }
 
 
@@ -84,19 +87,18 @@ class OotdCommentFindServiceTest {
         final String childCommentContent = "하위댓글";
         doReturn(ootdComments).when(ootdCommentRepository).findAllByOotdId(any());
 
-        final OotdCommentListFindResponse ootdCommentListFindResponse = ootdCommentFindService.findOotdComments(1L);
+        final OotdCommentListFindResponse ootdCommentListFindResponse = ootdCommentFindService.findOotdComments(2L);
 
         verify(ootdCommentRepository, times(1)).findAllByOotdId(any());
 
-        final List<OotdCommentFindResponse> parentCommentResponses = ootdCommentListFindResponse.getOotdCommentResponses();
-        final List<OotdCommentFindResponse> childrenCommentResponses = parentCommentResponses.get(0).getComments();
+        final List<OotdCommentFindResponse> ootdCommentResponses = ootdCommentListFindResponse.getOotdCommentResponses();
+        final OotdCommentFindResponse parentOotdCommentResponse = ootdCommentResponses.get(0);
+        final OotdCommentFindResponse childOotdCommentResponse = ootdCommentResponses.get(1);
 
         assertAll(
-                () -> assertThat(parentCommentResponses.size()).isEqualTo(1),
-                () -> assertThat(parentCommentResponses.get(0).getContent()).isEqualTo(parentCommentContent),
-                () -> assertThat(childrenCommentResponses.size()).isEqualTo(1),
-                () -> assertThat(childrenCommentResponses.get(0).getContent()).isEqualTo(childCommentContent),
-                () -> assertThat(childrenCommentResponses.get(0).getComments()).isEmpty()
+                () -> assertThat(ootdCommentResponses.size()).isEqualTo(2),
+                () -> assertThat(parentOotdCommentResponse.getContent()).isEqualTo(parentCommentContent),
+                () -> assertThat(childOotdCommentResponse.getContent()).isEqualTo(childCommentContent)
         );
     }
 }

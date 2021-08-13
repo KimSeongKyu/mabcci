@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -25,9 +24,9 @@ class OotdCommentListFindResponseTest {
     @BeforeEach
     void setUp() {
         firstOotdCommentFindResponse = new OotdCommentFindResponse("testUrl1", Nickname.of("닉네임1"),
-                now(), now(), "내용1", new ArrayList<>());
+                now(), now(), "내용1", 1L, 0L);
         secondOotdCommentFindResponse = new OotdCommentFindResponse("testUrl2", Nickname.of("닉네임2"),
-                now(), now(), "내용2", new ArrayList<>());
+                now(), now(), "내용2", 2L, 1L);
         ootdCommentListFindResponse = new OotdCommentListFindResponse(List.of(firstOotdCommentFindResponse, secondOotdCommentFindResponse));
     }
 

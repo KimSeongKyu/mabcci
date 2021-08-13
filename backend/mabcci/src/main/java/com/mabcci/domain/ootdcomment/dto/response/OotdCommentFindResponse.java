@@ -4,11 +4,8 @@ import com.mabcci.domain.ootdcomment.domain.OotdComment;
 import com.mabcci.global.common.Nickname;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 public final class OotdCommentFindResponse {
 
@@ -27,26 +24,31 @@ public final class OotdCommentFindResponse {
     @NotBlank
     private String content;
 
-    @NotNull
-    private List<OotdCommentFindResponse> comments;
+    @Positive
+    private Long id;
+
+    @PositiveOrZero
+    private Long parentId;
 
     private OotdCommentFindResponse() {
     }
 
-    public static OotdCommentFindResponse ofOotdCommentWithChildren(final OotdComment ootdComment, final List<OotdCommentFindResponse> comments) {
+    public static OotdCommentFindResponse ofOotdComment(final OotdComment ootdComment) {
         return new OotdCommentFindResponse(ootdComment.member().picture(), ootdComment.member().nickname(),
-                ootdComment.createdDate(), ootdComment.modifiedDate(), ootdComment.content(), comments);
+                ootdComment.createdDate(), ootdComment.modifiedDate(), ootdComment.content(),
+                ootdComment.id(), ootdComment.parentComment().isPresent() ? ootdComment.parentComment().get().id() : 0L);
     }
 
     public OotdCommentFindResponse(final String memberPicture, final Nickname memberNickname,
                                    final LocalDateTime createdDate, final LocalDateTime modifiedDate,
-                                   final String content, final List<OotdCommentFindResponse> comments) {
+                                   final String content, final Long id, final Long parentId) {
         this.memberPicture = memberPicture;
         this.memberNickname = memberNickname;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
         this.content = content;
-        this.comments = comments;
+        this.id = id;
+        this.parentId = parentId;
     }
 
     public final String getMemberPicture() {
@@ -69,7 +71,11 @@ public final class OotdCommentFindResponse {
         return content;
     }
 
-    public final List<OotdCommentFindResponse> getComments() {
-        return comments;
+    public final Long getId() {
+        return id;
+    }
+
+    public final Long getParentId() {
+        return parentId;
     }
 }

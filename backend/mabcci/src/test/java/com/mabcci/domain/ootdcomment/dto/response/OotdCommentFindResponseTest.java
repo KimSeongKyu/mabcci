@@ -14,8 +14,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Set;
 
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
@@ -37,7 +35,7 @@ public class OotdCommentFindResponseTest {
 
     @BeforeEach
     void setUp() {
-        ootdCommentFindResponse = new OotdCommentFindResponse("testUrl", NICKNAME, now, now, "내용", new ArrayList<>());
+        ootdCommentFindResponse = new OotdCommentFindResponse("testUrl", NICKNAME, now, now, "내용", 1L, 0L);
         member = Member.Builder()
                 .email(EMAIL)
                 .password(PASSWORD)
@@ -78,7 +76,7 @@ public class OotdCommentFindResponseTest {
     @Test
     void static_factory_method_constructor_test() {
         final OotdCommentFindResponse ootdCommentFindResponse =
-                OotdCommentFindResponse.ofOotdCommentWithChildren(ootdComment, Collections.emptyList());
+                OotdCommentFindResponse.ofOotdComment(ootdComment);
 
         assertAll(
                 () -> assertThat(ootdCommentFindResponse).isNotNull(),
@@ -95,7 +93,8 @@ public class OotdCommentFindResponseTest {
                 () -> assertThat(ootdCommentFindResponse.getCreatedDate()).isEqualTo(now),
                 () -> assertThat(ootdCommentFindResponse.getModifiedDate()).isEqualTo(now),
                 () -> assertThat(ootdCommentFindResponse.getContent()).isEqualTo("내용"),
-                () -> assertThat(ootdCommentFindResponse.getComments()).isEmpty()
+                () -> assertThat(ootdCommentFindResponse.getId()).isEqualTo(1L),
+                () -> assertThat(ootdCommentFindResponse.getParentId()).isEqualTo(0L)
         );
     }
 
@@ -105,7 +104,7 @@ public class OotdCommentFindResponseTest {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         final OotdCommentFindResponse invalidResponse =
                 new OotdCommentFindResponse("", Nickname.of(null), LocalDateTime.MAX, LocalDateTime.MAX,
-                        "", null);
+                        "", 0L, -1L);
 
         final Set<ConstraintViolation<OotdCommentFindResponse>> invalidPropertiesOfValidResponse =
                 validator.validate(ootdCommentFindResponse);
@@ -114,7 +113,7 @@ public class OotdCommentFindResponseTest {
 
         assertAll(
                 () -> assertThat(invalidPropertiesOfValidResponse.size()).isEqualTo(0),
-                () -> assertThat(invalidPropertiesOfInvalidResponse.size()).isEqualTo(6)
+                () -> assertThat(invalidPropertiesOfInvalidResponse.size()).isEqualTo(7)
         );
     }
 }
