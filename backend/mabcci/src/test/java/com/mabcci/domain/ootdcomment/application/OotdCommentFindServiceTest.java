@@ -91,7 +91,7 @@ class OotdCommentFindServiceTest {
 
         verify(ootdCommentRepository, times(1)).findAllByOotdId(any());
 
-        final List<OotdCommentFindResponse> ootdCommentResponses = ootdCommentListFindResponse.getOotdCommentResponses();
+        final List<OotdCommentFindResponse> ootdCommentResponses = ootdCommentListFindResponse.comments();
         final OotdCommentFindResponse parentOotdCommentResponse = ootdCommentResponses.get(0);
         final OotdCommentFindResponse childOotdCommentResponse = ootdCommentResponses.get(1);
 

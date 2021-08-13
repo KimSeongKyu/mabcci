@@ -42,7 +42,7 @@ class OotdCommentListFindResponseTest {
     @DisplayName("OotdCommentFindListResponse 인스턴스 getter 메서드 테스트")
     @Test
     void getter_test() {
-        assertThat(ootdCommentListFindResponse.getOotdCommentResponses())
+        assertThat(ootdCommentListFindResponse.comments())
                 .containsAll(List.of(firstOotdCommentFindResponse, secondOotdCommentFindResponse));
     }
 
