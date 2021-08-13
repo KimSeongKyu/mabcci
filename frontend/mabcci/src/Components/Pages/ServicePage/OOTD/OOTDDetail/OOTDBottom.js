@@ -6,6 +6,13 @@ import userphoto from './Images/userphoto.png';
 
 export const SingleComment = props => {
   const { depth, comment, userInfo } = props;
+  const [replyComment, setReplyComment] = useState([]);
+
+  useEffect(() => {
+    // if (depth === 0) {
+    // }
+  });
+
   return (
     <div className="detail-singlecomment">
       <div className="detail-comment">
@@ -37,17 +44,19 @@ export const SingleComment = props => {
       </div>
       {depth === '0' ? (
         <div className="detail-reply-comment">
-          {comment.comments.length !== 0 &&
-            comment.comments.map(replyComment => {
-              return (
-                <SingleComment
-                  key={comment.createdDate}
-                  depth={depth + 1}
-                  comment={replyComment}
-                  userInfo={userInfo}
-                />
-              );
-            })}
+          {
+            // comment.comments.length !== 0 &&
+            //   comment.comments.map(replyComment => {
+            //     return (
+            //       <SingleComment
+            //         key={comment.createdDate}
+            //         depth={depth + 1}
+            //         comment={replyComment}
+            //         userInfo={userInfo}
+            //       />
+            //     );
+            //   })
+          }
         </div>
       ) : null}
     </div>
