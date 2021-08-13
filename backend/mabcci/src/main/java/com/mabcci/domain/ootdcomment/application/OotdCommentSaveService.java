@@ -11,6 +11,8 @@ import com.mabcci.global.common.Nickname;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
+
 @Service
 public class OotdCommentSaveService {
 
@@ -30,6 +32,10 @@ public class OotdCommentSaveService {
         final Member member = getMemberByNickname(ootdCommentSaveRequest.getNickname());
         final Ootd ootd = getOotdByOotdId(ootdCommentSaveRequest.getOotdId());
         final OotdComment parentComment = getParentCommentByCommentId(ootdCommentSaveRequest.getParentCommentId());
+
+        if(Objects.nonNull(parentComment)) {
+            validateParentCommentHasNoParent(parentComment);
+        }
 
         ootdCommentRepository.save(OotdComment.builder()
                 .member(member)
@@ -51,5 +57,12 @@ public class OotdCommentSaveService {
     private OotdComment getParentCommentByCommentId(final Long parentCommentId) {
         return ootdCommentRepository.findById(parentCommentId)
                 .orElse(null);
+    }
+
+    private void validateParentCommentHasNoParent(final OotdComment parentComment) {
+        if (parentComment.parentComment()
+                .isPresent()) {
+            throw new IllegalArgumentException();
+        }
     }
 }

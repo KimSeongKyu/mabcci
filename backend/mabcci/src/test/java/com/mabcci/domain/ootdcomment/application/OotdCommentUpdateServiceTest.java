@@ -7,6 +7,7 @@ import com.mabcci.domain.ootd.domain.Ootd;
 import com.mabcci.domain.ootdcomment.domain.OotdComment;
 import com.mabcci.domain.ootdcomment.domain.OotdCommentRepository;
 import com.mabcci.domain.ootdcomment.dto.request.OotdCommentUpdateRequest;
+import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Optional;
 
@@ -24,6 +26,7 @@ import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static com.mabcci.global.common.PasswordTest.PASSWORD;
 import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -76,5 +79,15 @@ class OotdCommentUpdateServiceTest {
 
         verify(ootdCommentRepository, times(1)).findById(any());
         assertThat(ootdComment.content()).isEqualTo(updatedContent);
+    }
+
+    @DisplayName("OotdCommentUpdateService 인스턴스 ootd 댓글 수정자가 댓글 작성자인지 검증 테스트")
+    @Test
+    void validate_member_is_ootd_comment_writer_test() {
+        final Nickname invalidNickname = Nickname.of("가짜 닉네임");
+
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() ->
+                ReflectionTestUtils.invokeMethod(ootdCommentUpdateService, "validateMemberIsOotdCommentWriter", ootdComment, invalidNickname)
+        );
     }
 }

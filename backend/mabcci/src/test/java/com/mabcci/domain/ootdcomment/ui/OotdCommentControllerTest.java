@@ -2,10 +2,12 @@ package com.mabcci.domain.ootdcomment.ui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mabcci.domain.ootdcomment.application.OotdCommentDeleteService;
+import com.mabcci.domain.ootdcomment.application.OotdCommentFindService;
 import com.mabcci.domain.ootdcomment.application.OotdCommentSaveService;
 import com.mabcci.domain.ootdcomment.application.OotdCommentUpdateService;
 import com.mabcci.domain.ootdcomment.dto.request.OotdCommentSaveRequest;
 import com.mabcci.domain.ootdcomment.dto.request.OotdCommentUpdateRequest;
+import com.mabcci.domain.ootdcomment.dto.response.OotdCommentListFindResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Collections;
+
 import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -26,6 +31,7 @@ class OotdCommentControllerTest {
     @Autowired private MockMvc mockMvc;
     @Autowired private ObjectMapper objectMapper;
     @MockBean private OotdCommentSaveService ootdCommentSaveService;
+    @MockBean private OotdCommentFindService ootdCommentFindService;
     @MockBean private OotdCommentUpdateService ootdCommentUpdateService;
     @MockBean private OotdCommentDeleteService ootdCommentDeleteService;
 
@@ -42,6 +48,20 @@ class OotdCommentControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
+    }
+
+    @DisplayName("OotdCommentController 인스턴스 ootd 댓글 리스트 조회 API 테스트")
+    @Test
+    void find_ootd_comments_api_test() throws Exception {
+        final OotdCommentListFindResponse ootdCommentListFindResponse =
+                new OotdCommentListFindResponse(Collections.emptyList());
+
+        doReturn(ootdCommentListFindResponse).when(ootdCommentFindService).findOotdComments(any());
+
+        mockMvc.perform(get("/api/ootd/comments/" + 1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @DisplayName("OotdCommentController 인스턴스 ootd 댓글 수정 API 테스트")
