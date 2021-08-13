@@ -41,6 +41,7 @@ public class OotdCommentSaveService {
         ootdCommentRepository.save(OotdComment.builder()
                 .member(member)
                 .ootd(ootd)
+                .content(ootdCommentSaveRequest.getContent())
                 .parentComment(parentComment)
                 .content(content)
                 .build());

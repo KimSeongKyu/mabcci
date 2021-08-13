@@ -8,6 +8,7 @@ import {
   OOTDAll,
   OOTDFiltering,
 } from '../../../../../Redux/Actions/OOTDAction';
+import getUserInfo from '../../../../Common/getUserInfo';
 
 const OOTDFeed = ({ page, searching, setPage, filtering, setFiltering }) => {
   const feeds = useSelector(state => state.OotdReducer.ootd);
@@ -39,7 +40,7 @@ const OOTDFeed = ({ page, searching, setPage, filtering, setFiltering }) => {
     setLoading(true);
 
     try {
-      const { nickname } = JSON.parse(localStorage.getItem('userInfo'));
+      const { nickname } = getUserInfo();
       const response = await OOTDFeedApi(filterState, page, nickname);
       const { totalPages, ootdList } = response.data;
       setMaxPage(totalPages);

@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { IoMdSend } from 'react-icons/io';
-import { OOTDCommentReadApi } from '../../../../../API/OOTDAPI/OOTDDetailApi';
+import {
+  OOTDCommentReadApi,
+  OOTDCommentCreateApi,
+} from '../../../../../API/OOTDAPI/OOTDDetailApi';
 import userphoto from './Images/userphoto.png';
 
 export const SingleComment = props => {
-  const { depth, comment, userInfo } = props;
-  // const [replyComment, setReplyComment] = useState([]);
-
-  useEffect(() => {
-    // if (depth === 0) {
-    // }
+  const { depth, comment, allComments, userInfo, commentWrite } = props;
+  const replyComments = allComments.filter(otherComment => {
+    return comment.id === otherComment.parentId;
   });
+  const [replyCotent, setReplyCotent] = useState('');
 
   return (
     <div className="detail-singlecomment">
@@ -44,13 +45,29 @@ export const SingleComment = props => {
       </div>
       {depth === '0' ? (
         <div className="detail-reply-comment">
-          {comment.comments.length !== 0 &&
-            comment.comments.map(replyComment => {
+          <div className="detail-reply-comment-write">
+            <input
+              className="detail-reply-comment-input"
+              type="text"
+              placeholder="댓글 쓰기"
+              onChange={e => {
+                setReplyCotent(e.target.value);
+              }}
+            />
+            <IoMdSend
+              className="detail-comment-send"
+              size="30"
+              onClick={() => commentWrite(replyCotent, comment.id)}
+            />
+          </div>
+          {replyComments.length !== 0 &&
+            replyComments.map(reply => {
               return (
                 <SingleComment
-                  key={comment.createdDate}
+                  key={reply.id}
                   depth={depth + 1}
-                  comment={replyComment}
+                  comment={reply}
+                  allComments={allComments}
                   userInfo={userInfo}
                 />
               );
@@ -63,67 +80,67 @@ export const SingleComment = props => {
 
 const OOTDBottom = props => {
   const { ootdId, userInfo } = props;
-  const [comments, setComments] = useState([
-    {
-      memberPicture: '작성자 사진',
-      memberNickname: '썽',
-      createdDate: '2021-07-29-시-분-초',
-      modifiedDate: '2021-07-29-시-분-초',
-      content:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
-      comments: [
-        {
-          memberPicture: '대댓글 작성자 사진',
-          memberNickname: '썽',
-          createdDate: '2021-07-29-시-분-초',
-          modifiedDate: '2021-07-29-시-분-초',
-          content: '대댓글 내용',
-          comments: [],
-        },
-        {
-          memberPicture: '대댓글 작성자 사진',
-          memberNickname: '대댓글 작성자 닉네임',
-          createdDate: '2021-07-29-시-분-초',
-          modifiedDate: '2021-07-29-시-분-초',
-          content: '대댓글 내용',
-          comments: [],
-        },
-      ],
-    },
-    {
-      memberPicture: '작성자 사진',
-      memberNickname: '썽',
-      createdDate: '2021-07-29-시-분-초',
-      modifiedDate: '2021-07-29-시-분-초',
-      content:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
-      comments: [
-        {
-          memberPicture: '대댓글 작성자 사진',
-          memberNickname: '대댓글 작성자 닉네임',
-          createdDate: '2021-07-29-시-분-초',
-          modifiedDate: '2021-07-29-시-분-초',
-          content: '대댓글 내용',
-          comments: [],
-        },
-        {
-          memberPicture: '대댓글 작성자 사진',
-          memberNickname: '대댓글 작성자 닉네임',
-          createdDate: '2021-07-29-시-분-초',
-          modifiedDate: '2021-07-29-시-분-초',
-          content: '대댓글 내용',
-          comments: [],
-        },
-      ],
-    },
-  ]);
+  // const [allComments, setAllComments] = useState([
+  //   {
+  //     memberPicture: '댓글 작성자',
+  //     memberNickname: '댓글 작성자 닉네임',
+  //     createdDate: '2021-07-27-시-분-초',
+  //     modifiedDate: '2021-07-27-시-분-초',
+  //     content: '댓글 내용',
+  //     id: '1',
+  //     parentId: '',
+  //   },
+  //   {
+  //     memberPicture: '대댓글 작성자',
+  //     memberNickname: '대댓글 작성자 닉네임',
+  //     createdDate: '2021-07-28-시-분-초',
+  //     modifiedDate: '2021-07-28-시-분-초',
+  //     content: '대댓글 내용',
+  //     id: '2',
+  //     parentId: '1',
+  //   },
+  //   {
+  //     memberPicture: '댓글 작성자',
+  //     memberNickname: '댓글 작성자 닉네임',
+  //     createdDate: '2021-07-27-시-분-초',
+  //     modifiedDate: '2021-07-27-시-분-초',
+  //     content: '댓글 내용',
+  //     id: '3',
+  //     parentId: '',
+  //   },
+  //   {
+  //     memberPicture: '댓글 작성자',
+  //     memberNickname: '댓글 작성자 닉네임',
+  //     createdDate: '2021-07-27-시-분-초',
+  //     modifiedDate: '2021-07-27-시-분-초',
+  //     content: '댓글 내용',
+  //     id: '4',
+  //     parentId: '1',
+  //   },
+  // ]);
+  const [allComments, setAllComments] = useState([]);
+  const comments = allComments.filter(comment => {
+    return comment.parentId === '';
+  });
+  const [commentCotent, setCommentCotent] = useState('');
 
   useEffect(async () => {
-    // const response = await OOTDCommentReadApi(ootdId);
-    // if (response.status === 200) {
-    //   setComments({ ...comments, ...response.comments });
-    // }
+    const response = await OOTDCommentReadApi(ootdId);
+    if (response.status === 200) {
+      setAllComments({ ...comments, ...response.comments });
+    }
   }, []);
+
+  const commentWrite = (content, parentCommentId) => {
+    const newComment = {
+      ootdId,
+      nickname: userInfo.nickname,
+      parentCommentId,
+      content,
+    };
+
+    console.log(newComment);
+  };
 
   return (
     <footer className="detail-bottom">
@@ -135,10 +152,12 @@ const OOTDBottom = props => {
           comments.map(comment => {
             return (
               <SingleComment
-                key={comment.createdDate}
+                key={comment.id}
                 depth="0"
                 comment={comment}
+                allComments={allComments}
                 userInfo={userInfo}
+                commentWrite={commentWrite}
               />
             );
           })}
@@ -148,8 +167,15 @@ const OOTDBottom = props => {
           className="detail-comment-input"
           type="text"
           placeholder="댓글 쓰기"
+          onChange={e => {
+            setCommentCotent(e.target.value);
+          }}
         />
-        <IoMdSend className="detail-comment-send" size="30" />
+        <IoMdSend
+          className="detail-comment-send"
+          size="30"
+          onClick={() => commentWrite(commentCotent, null)}
+        />
       </div>
     </footer>
   );

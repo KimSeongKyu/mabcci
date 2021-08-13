@@ -27,16 +27,16 @@ export const OOTDDetailApi = async id => {
 
 export const OOTDCommentCreateApi = async () => {
   try {
-    const response = await axios.get(OOTDCommentCreateUrl);
-    return {};
+    const response = await axios.post(OOTDCommentCreateUrl);
+    return response;
   } catch (response) {
-    return {};
+    return response;
   }
 };
 
-export const OOTDCommentReadApi = async () => {
+export const OOTDCommentReadApi = async id => {
   try {
-    const response = await axios.get(OOTDCommentReadUrl);
+    const response = await axios.get(`OOTDCommentReadUrl${id}`);
     return {
       status: response.status,
       comments: response.comments,
