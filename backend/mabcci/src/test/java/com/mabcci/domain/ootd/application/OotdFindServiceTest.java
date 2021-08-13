@@ -8,6 +8,7 @@ import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.domain.ootd.domain.Ootd;
 import com.mabcci.domain.ootd.domain.OotdFilter;
 import com.mabcci.domain.ootd.domain.OotdRepository;
+import com.mabcci.domain.ootd.dto.response.OotdDetailResponse;
 import com.mabcci.domain.ootd.dto.response.OotdListResponse;
 import com.mabcci.domain.ootd.dto.response.OotdResponse;
 import com.mabcci.domain.ootdLike.domain.OotdLike;
@@ -36,10 +37,11 @@ import static com.mabcci.global.common.EmailTest.EMAIL;
 import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static com.mabcci.global.common.PasswordTest.PASSWORD;
 import static com.mabcci.global.common.PhoneTest.PHONE;
+import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class OotdFindServiceTest {
@@ -102,6 +104,44 @@ class OotdFindServiceTest {
                 .build();
     }
 
+    @DisplayName("OotdFindService 인스턴스 ootd 상세 조회 테스트")
+    @Test
+    void find_ootd_detail_test() {
+        ReflectionTestUtils.setField(ootd, "id", 1L);
+        ReflectionTestUtils.setField(ootd, "ootdPictures", List.of(ootdPicture));
+        ReflectionTestUtils.setField(ootd, "ootdHashtags", ootdHashtags);
+        ReflectionTestUtils.setField(ootdLike, "status", true);
+        ReflectionTestUtils.setField(ootd, "ootdLikes", List.of(ootdLike));
+
+        doReturn(ootd).when(ootdRepository).findOotdDetailById(any());
+
+        final OotdDetailResponse ootdDetailResponse = ootdFindService.findOotdDetail(1L);
+
+        verify(ootdRepository, times(1)).findOotdDetailById(any());
+
+        final List<String> ootdPicturePaths = List.of(ootdPicture.path());
+        final List<String> hashtagNames = ootdHashtags.stream()
+                .map(OotdHashtag::hashtag)
+                .map(Hashtag::name)
+                .collect(toList());
+
+        assertAll(
+                () -> assertThat(ootdDetailResponse.memberPicture()).isEqualTo(PICTURE),
+                () -> assertThat(ootdDetailResponse.nickname()).isEqualTo(NICKNAME),
+                () -> assertThat(ootdDetailResponse.createdDate()).isEqualTo(ootd.createdDate()),
+                () -> assertThat(ootdDetailResponse.modifiedDate()).isEqualTo(ootd.modifiedDate()),
+                () -> assertThat(ootdDetailResponse.views()).isEqualTo(ootd.views()),
+                () -> assertThat(ootdDetailResponse.ootdPictures()).isEqualTo(ootdPicturePaths),
+                () -> assertThat(ootdDetailResponse.likeCount()).isEqualTo(1L),
+                () -> assertThat(ootdDetailResponse.content()).isEqualTo(ootd.content()),
+                () -> assertThat(ootdDetailResponse.top()).isEqualTo(ootd.top()),
+                () -> assertThat(ootdDetailResponse.bottom()).isEqualTo(ootd.bottom()),
+                () -> assertThat(ootdDetailResponse.shoes()).isEqualTo(ootd.shoes()),
+                () -> assertThat(ootdDetailResponse.accessory()).isEqualTo(ootd.accessory()),
+                () -> assertThat(ootdDetailResponse.hashtags()).isEqualTo(hashtagNames)
+        );
+    }
+
     @DisplayName("OotdFindService 인스턴스 ootd 리스트 조회 테스트")
     @Test
     void find_ootds_test() {
@@ -120,6 +160,9 @@ class OotdFindServiceTest {
                 .map(OotdHashtag::hashtag)
                 .map(Hashtag::name)
                 .collect(Collectors.toList());
+
+        verify(memberRepository, times(1)).findByNickName(any());
+        verify(ootdRepository, times(1)).findOotds(any());
 
         assertAll(
                 () -> assertThat(ootdResponse.getId()).isEqualTo(ootd.id()),
