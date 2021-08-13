@@ -37,7 +37,7 @@ public class OotdCommentController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/api/ootd/comments/{id}")
+    @GetMapping("/api/ootd/{id}/comments")
     public ResponseEntity findOotdComments(@Positive @PathVariable("id") final Long id) {
         return ResponseEntity.ok(ootdCommentFindService.findOotdComments(id));
     }

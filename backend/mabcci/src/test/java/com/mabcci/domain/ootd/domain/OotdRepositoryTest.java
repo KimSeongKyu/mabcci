@@ -147,6 +147,18 @@ class OotdRepositoryTest {
         assertThat(foundOotd.id()).isEqualTo(ootd.id());
     }
 
+    @DisplayName("OotdRepository ootd 상세 조회 테스트")
+    @Test
+    void find_ootd_detail_by_id_test() {
+        testEntityManager.persist(firstFollowingMember);
+        testEntityManager.persist(firstFollowingMemberOotd);
+        testEntityManager.persist(firstFollowingMemberOotdPicture);
+
+        final Ootd foundOotd = ootdRepository.findOotdDetailById(firstFollowingMemberOotd.id()).get();
+
+        assertThat(foundOotd.id()).isEqualTo(firstFollowingMemberOotd.id());
+    }
+
     @DisplayName("OotdRepository 팔로잉한 멤버의 ootd 리스트 조회 테스트")
     @Test
     void find_all_of_following_test() {
@@ -160,7 +172,7 @@ class OotdRepositoryTest {
         testEntityManager.persist(firstFollowingMemberOotdPicture);
         testEntityManager.persist(secondFollowingMemberOotdPicture);
 
-        Page<Ootd> ootdsOfFollowingMember = ootdRepository.findOotdsOfFollowing(member, PageRequest.of(0, 20));
+        final Page<Ootd> ootdsOfFollowingMember = ootdRepository.findOotdsOfFollowing(member, PageRequest.of(0, 20));
 
         assertThat(ootdsOfFollowingMember.toList().size()).isEqualTo(2);
     }
@@ -186,8 +198,8 @@ class OotdRepositoryTest {
                     .build());
         }
 
-        Page<Ootd> firstPageOotds = ootdRepository.findOotds(PageRequest.of(0, 20));
-        Page<Ootd> secondPageOotds = ootdRepository.findOotds(PageRequest.of(1, 20));
+        final Page<Ootd> firstPageOotds = ootdRepository.findOotds(PageRequest.of(0, 20));
+        final Page<Ootd> secondPageOotds = ootdRepository.findOotds(PageRequest.of(1, 20));
 
         assertAll(
                 () -> assertThat(firstPageOotds.getSize()).isEqualTo(20),

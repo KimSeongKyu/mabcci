@@ -58,7 +58,7 @@ class OotdCommentControllerTest {
 
         doReturn(ootdCommentListFindResponse).when(ootdCommentFindService).findOotdComments(any());
 
-        mockMvc.perform(get("/api/ootd/comments/" + 1)
+        mockMvc.perform(get("/api/ootd/{id}/comments/", 1)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
