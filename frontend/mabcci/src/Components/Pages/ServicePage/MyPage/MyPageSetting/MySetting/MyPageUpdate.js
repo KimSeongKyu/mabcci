@@ -2,6 +2,7 @@
 
 import React from 'react';
 import './MySetting.css';
+import '../../MyPageFollow/Follow.css'
 import MypageUpdateApi from '../../../../../../API/MypageAPI/MyPageUpdateApi';
 const MyPageUpdate = (props) => {
 

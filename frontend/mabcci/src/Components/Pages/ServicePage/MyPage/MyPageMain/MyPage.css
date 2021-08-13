@@ -36,6 +36,7 @@
   transition: all 1s;
   transform-style: preserve-3d;
   margin-left: 10%;
+  background-color: white;
 }
 
 /* .mypage-profile-inner:hover {
@@ -68,6 +69,7 @@
   text-align: center;
   display: flex;
   cursor: pointer;
+  background-color: white;
 }
 
 .mypage-profile-bodyinfo img {
@@ -275,6 +277,10 @@
 
   #mypage-web-nickname {
     display: none;
+  }
+
+  #mypage-mobile-category h5 {
+    margin-bottom: 10px;
   }
 
   .mypage-feed {

@@ -22,10 +22,10 @@ const MyPageProposalListMobile = props => {
 
   return (
     <>
-      <MyPageProposalReview
-        reviewBox={reviewBox}
-        setReviewBox={setReviewBox}
-      />
+      <MyPageProposalReview reviewBox={reviewBox} setReviewBox={setReviewBox} />
+      {props.proposalBox === true ? (
+        <div className="mypage-moblie-container" />
+      ) : null}
       {props.proposalBox === true ? (
         <div className="mypage-mobile-menu mypage-mobile-proposal">
           <div className="mypage-mobile-menu-header">

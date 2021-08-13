@@ -2,7 +2,6 @@
 
 import React from 'react';
 import './MyPage.css';
-import { useHistory } from 'react-router';
 import { useState } from 'react';
 import {AiOutlineSetting} from "react-icons/ai"
 import {CgFileDocument} from "react-icons/cg"
@@ -11,15 +10,13 @@ import 기본프로필 from '../../../../../Asset/Images/기본프로필.jpg'
 import { baseUrl } from '../../../../../API/ApiUrl';
 
 const MyPageProfile = props => {
-
-  const history = useHistory
-
   const [profile, setProfile] = useState(false)
 
   const clickProfile = () => {setProfile(!profile)}
   
   const openSetting = () => {
     props.setMyPageUpdate('setting');
+    props.setMobileMenu(true);
   };
 
    const clickFollow = (e) => {
@@ -61,8 +58,8 @@ const MyPageProfile = props => {
               ) : (
                 <p className="mypage-profile-bodysize-secret">secret</p>
               )}
-              {props.myInfo.height !== 0 ? (
-                <p>{props.myInfo.footSize}cm</p>
+              {props.myInfo.footSize !== 0 ? (
+                <p>{props.myInfo.footSize}mm</p>
               ) : (
                 <p className="mypage-profile-bodysize-secret">secret</p>
               )}
@@ -71,7 +68,7 @@ const MyPageProfile = props => {
           {props.myInfo.picture !== null ? (
             <img src={baseUrl + props.myInfo.picture} alt="No image"></img>
           ) : (
-            <img src={기본프로필} alt="" onClick={clickProfile} />
+              <img src={기본프로필} alt="" onClick={clickProfile} />
           )}
         </div>
 
@@ -100,7 +97,6 @@ const MyPageProfile = props => {
             </button>
           </div>
           <div id="mypage-mobile-category">
-            {/* {props.myInfo.categories} */}
             {props.myInfo.categories.map((category, idx) => (
               <h5 key={idx}>#{category}</h5>
             ))}
@@ -111,7 +107,7 @@ const MyPageProfile = props => {
       <div className="mypage-introduce-box">
         <p>Introduce</p>
 
-        {props.myInfo.description === null ? (
+        {props.myInfo.description == 'null' ? (
           <div className="mypage-introduce-box-null">No information❕</div>
         ) : (
           <div>{props.myInfo.description}</div>

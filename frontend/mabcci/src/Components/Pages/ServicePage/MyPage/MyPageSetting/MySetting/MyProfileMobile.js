@@ -12,6 +12,9 @@ const MyProfileMobile = props => {
   return (
     <>
       {props.myPageUpdate === 'profile' ? (
+        <div className="mypage-moblie-container" />
+      ) : null}
+      {props.myPageUpdate === 'profile' ? (
         <div className="mypage-mobile-menu mypage-mobile-update">
           <div className="mypage-mobile-menu-header">
             <button

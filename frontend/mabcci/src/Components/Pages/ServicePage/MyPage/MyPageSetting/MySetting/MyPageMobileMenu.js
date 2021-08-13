@@ -1,5 +1,5 @@
 /* eslint-disable */
-
+import { useParams } from 'react-router-dom';
 import React from 'react';
 import './MySetting.css';
 import { IoArrowBackCircle } from 'react-icons/io5';
@@ -9,13 +9,54 @@ import { Logout } from '../../../../../../Redux/Actions/LoginAction';
 import MyCategoryMobile from './MyCategoryMobile';
 import MyInfoMobile from './MyInfoMobile';
 import MyProfileMobile from './MyProfileMobile';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import MypageReadApi from '../../../../../../API/MypageAPI/MypageReadApi';
+
 
 const MyPageMobileMenu = props => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [myUpdateInfo, setMyUpdateInfo] = useState({})
+  const { nickname } = useParams();
 
-  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+  useEffect(async () => {
+    const res = await MypageReadApi(nickname);
+    setMyUpdateInfo({
+      ...myUpdateInfo,
+      nickname: res.myInfo.nickname,
+      gender: res.myInfo.gender,
+      height: res.myInfo.height,
+      weight: res.myInfo.weight,
+      footSize: res.myInfo.footSize,
+      bodyType: res.myInfo.bodyType,
+      categories: res.myInfo.categories,
+      picture: res.myInfo.picture,
+      description: res.myInfo.description,
+    });
+  }, []);
+
+  const updateData = new FormData();
+  updateData.append('gender', myUpdateInfo.gender);
+  updateData.append('nickname', myUpdateInfo.nickname);
+  
+  updateData.append('categories', myUpdateInfo.categories);
+  {
+    myUpdateInfo.height == []
+      ? updateData.append('height', 0)
+      : updateData.append('height', myUpdateInfo.height);
+  }
+  {
+    myUpdateInfo.weight == []
+      ? updateData.append('weight', 0)
+      : updateData.append('weight', myUpdateInfo.weight);
+  }
+  {
+    myUpdateInfo.footSize == []
+      ? updateData.append('footSize', 0)
+      : updateData.append('footSize', myUpdateInfo.footSize);
+  }
+  updateData.append('picture', myUpdateInfo.picture);
+  updateData.append('description', myUpdateInfo.description);
 
   const [myPageUpdate, setMyPageUpdate] = useState('none')
 
@@ -45,22 +86,29 @@ const MyPageMobileMenu = props => {
         myPageUpdate={props.myPageUpdate}
         setMyPageUpdate={props.setMyPageUpdate}
         setMobileMenu={props.setMobileMenu}
-        myInfo={props.myInfo}
+        myUpdateInfo={myUpdateInfo}
+        setMyUpdateInfo={setMyUpdateInfo}
         setMyInfo={props.setMyInfo}
+        myInfo={props.myInfo}
       />
       <MyInfoMobile
         myPageUpdate={props.myPageUpdate}
         setMyPageUpdate={props.setMyPageUpdate}
         setMobileMenu={props.setMobileMenu}
-        myInfo={props.myInfo}
+        myUpdateInfo={myUpdateInfo}
+        setMyUpdateInfo={setMyUpdateInfo}
+        updateData={updateData}
         setMyInfo={props.setMyInfo}
+        myInfo={props.myInfo}
       />
       <MyProfileMobile
         myPageUpdate={props.myPageUpdate}
         setMyPageUpdate={props.setMyPageUpdate}
         setMobileMenu={props.setMobileMenu}
-        myInfo={props.myInfo}
+        myUpdateInfo={myUpdateInfo}
+        setMyUpdateInfo={setMyUpdateInfo}
         setMyInfo={props.setMyInfo}
+        myInfo={props.myInfo}
       />
       {props.mobileMenu === true ? (
         <div className="mypage-moblie-container" />

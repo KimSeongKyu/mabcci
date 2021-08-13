@@ -46,17 +46,14 @@ function SignupForm() {
 
     const nowCategory = e.target.name;
 
-    let index = -2;
-    for (let i = 0; i < copyCategory.length; i += 1) {
-      if (copyCategory[i] === nowCategory) {
-        index = i;
-      }
-    }
-    if (index > -1) {
-      copyCategory.splice(index, 1);
-    } else {
+    const findResult = copyCategory.indexOf(nowCategory);
+
+    if (findResult === -1) {
       copyCategory.push(nowCategory);
+    } else {
+      copyCategory.splice(findResult, 1);
     }
+
     setUserInfo({
       ...userInfo,
       categories: copyCategory,

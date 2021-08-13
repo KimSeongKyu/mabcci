@@ -125,6 +125,7 @@
   justify-content: flex-start;
   align-items: center;
   border-bottom: solid 0.5px lightgray;
+  margin-bottom: 20px;
 }
 
 .mypage-mobile-menu-btn {
@@ -140,6 +141,12 @@
 .mypage-mobile-menu-btn:active {
   padding-top: 3px;
   padding-left: 3px;
+  box-shadow: none;
+}
+
+.mypage-bodytype-btn:active {
+  margin-left: 3px;
+  margin-top: 3px;
   box-shadow: none;
 }
 
@@ -161,10 +168,58 @@
   margin-top: 3px;
   box-shadow: none;
 }
+.mypage-bodytype-header {
+  text-align: center;
+  padding: 20px;
+}
+
+.mypage-bodytype-btn {
+  width: 16%;
+  height: 150px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: var(--main-color-4);
+  box-shadow: 3px 3px 3px grey;
+  position: relative;
+}
+
+.mypage-bodytype-btn-select {
+  background-color: var(--main-color-1);
+}
+
+.mypage-bodytype-btn img {
+  width: 80%;
+  height: 140px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.mypage-submit-btn {
+  transform: translateY(500%);
+  margin-top: 50px;
+  margin-bottom: 200px;
+  background-color: antiquewhite;
+  width: 100%;
+}
+
+.mypage-submit-btn:active {
+  padding-top: 1px;
+  padding-left: 1px;
+  box-shadow: none;
+}
 
 .mypage-mobile-proposal-box {
   width: 100%;
   margin-top: 10px;
+}
+
+.mypage-mobile-category {
+  margin-top: 50px;
+}
+
+.mypage-mobile-category p {
+  text-align: center;
 }
 
 @media screen and (min-width: 576px) {
