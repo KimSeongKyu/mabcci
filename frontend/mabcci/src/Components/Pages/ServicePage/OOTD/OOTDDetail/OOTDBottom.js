@@ -119,15 +119,20 @@ const OOTDBottom = props => {
   //   },
   // ]);
   const [allComments, setAllComments] = useState([]);
-  const comments = allComments.filter(comment => {
-    return comment.parentId === '';
-  });
+  const [comments, setComments] = useState([]);
   const [commentCotent, setCommentCotent] = useState('');
 
   useEffect(async () => {
     const response = await OOTDCommentReadApi(ootdId);
+
     if (response.status === 200) {
-      setAllComments({ ...comments, ...response.comments });
+      // const responseComment = response.comments.sort((a, b) => a.id > b.id);
+      setAllComments([...response.comments]);
+      setComments(
+        response.comments.filter(comment => {
+          return comment.parentId === 0;
+        }),
+      );
     }
   }, []);
 
@@ -174,7 +179,7 @@ const OOTDBottom = props => {
         <IoMdSend
           className="detail-comment-send"
           size="30"
-          onClick={() => commentWrite(commentCotent, null)}
+          onClick={() => commentWrite(commentCotent, 0)}
         />
       </div>
     </footer>

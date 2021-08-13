@@ -1,5 +1,5 @@
 import axios from 'axios';
-import instance from '../indexMockSeongae';
+import instance from '../index';
 
 import {
   OOTDDetailUrl,
@@ -27,7 +27,7 @@ export const OOTDDetailApi = async id => {
 
 export const OOTDCommentCreateApi = async () => {
   try {
-    const response = await axios.post(OOTDCommentCreateUrl);
+    const response = await instance.post(OOTDCommentCreateUrl);
     return response;
   } catch (response) {
     return response;
@@ -35,11 +35,12 @@ export const OOTDCommentCreateApi = async () => {
 };
 
 export const OOTDCommentReadApi = async id => {
+  console.log(`${OOTDCommentReadUrl}${id}`);
   try {
-    const response = await axios.get(`OOTDCommentReadUrl${id}`);
+    const response = await instance.get(`${OOTDCommentReadUrl}${id}`);
     return {
       status: response.status,
-      comments: response.comments,
+      comments: response.data.comments,
     };
   } catch (response) {
     return {
