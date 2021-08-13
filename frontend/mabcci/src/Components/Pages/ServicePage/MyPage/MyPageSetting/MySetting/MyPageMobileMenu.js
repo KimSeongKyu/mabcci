@@ -21,7 +21,6 @@ const MyPageMobileMenu = props => {
 
   useEffect(async () => {
     const res = await MypageReadApi(nickname);
-    console.log(res, '여기다앙아ㅏ')
     setMyUpdateInfo({
       ...myUpdateInfo,
       nickname: res.myInfo.nickname,
@@ -36,29 +35,28 @@ const MyPageMobileMenu = props => {
     });
   }, []);
 
-  // const updateData = new FormData();
-  // updateData.append('nickname', props.myUpdateInfo.nickname);
-  // updateData.append('gender', props.myUpdateInfo.gender);
-  // updateData.append('categories', props.myUpdateInfo.categories);
-  // {
-  //   props.myUpdateInfo.height == []
-  //     ? updateData.append('height', 0)
-  //     : updateData.append('height', props.myUpdateInfo.height);
-  // }
-  // {
-  //   props.myUpdateInfo.weight == []
-  //     ? updateData.append('weight', 0)
-  //     : updateData.append('weight', props.myUpdateInfo.weight);
-  // }
-  // {
-  //   props.myUpdateInfo.footSize == []
-  //     ? updateData.append('footSize', 0)
-  //     : updateData.append('footSize', props.myUpdateInfo.footSize);
-  // }
-  // updateData.append('picture', props.myUpdateInfo.picture);
-  // updateData.append('description', props.myUpdateInfo.description);
-
-  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+  const updateData = new FormData();
+  updateData.append('gender', myUpdateInfo.gender);
+  updateData.append('nickname', myUpdateInfo.nickname);
+  
+  updateData.append('categories', myUpdateInfo.categories);
+  {
+    myUpdateInfo.height == []
+      ? updateData.append('height', 0)
+      : updateData.append('height', myUpdateInfo.height);
+  }
+  {
+    myUpdateInfo.weight == []
+      ? updateData.append('weight', 0)
+      : updateData.append('weight', myUpdateInfo.weight);
+  }
+  {
+    myUpdateInfo.footSize == []
+      ? updateData.append('footSize', 0)
+      : updateData.append('footSize', myUpdateInfo.footSize);
+  }
+  updateData.append('picture', myUpdateInfo.picture);
+  updateData.append('description', myUpdateInfo.description);
 
   const [myPageUpdate, setMyPageUpdate] = useState('none')
 
@@ -90,6 +88,8 @@ const MyPageMobileMenu = props => {
         setMobileMenu={props.setMobileMenu}
         myUpdateInfo={myUpdateInfo}
         setMyUpdateInfo={setMyUpdateInfo}
+        setMyInfo={props.setMyInfo}
+        myInfo={props.myInfo}
       />
       <MyInfoMobile
         myPageUpdate={props.myPageUpdate}
@@ -97,6 +97,9 @@ const MyPageMobileMenu = props => {
         setMobileMenu={props.setMobileMenu}
         myUpdateInfo={myUpdateInfo}
         setMyUpdateInfo={setMyUpdateInfo}
+        updateData={updateData}
+        setMyInfo={props.setMyInfo}
+        myInfo={props.myInfo}
       />
       <MyProfileMobile
         myPageUpdate={props.myPageUpdate}
@@ -104,6 +107,8 @@ const MyPageMobileMenu = props => {
         setMobileMenu={props.setMobileMenu}
         myUpdateInfo={myUpdateInfo}
         setMyUpdateInfo={setMyUpdateInfo}
+        setMyInfo={props.setMyInfo}
+        myInfo={props.myInfo}
       />
       {props.mobileMenu === true ? (
         <div className="mypage-moblie-container" />

@@ -14,9 +14,8 @@ import WOMAN_TRAPEZOIDAL from '../../../../../../Asset/Images/WOMAN_TRAPEZOIDAL.
 import WOMAN_INVERTED_TRIANGLE from '../../../../../../Asset/Images/WOMAN_INVERTED_TRIANGLE.png';
 import WOMAN_OVAL from '../../../../../../Asset/Images/WOMAN_OVAL.png';
 import WOMAN_TRIANGLE from '../../../../../../Asset/Images/WOMAN_TRIANGLE.png';
-import MypageUpdateApi from '../../../../../../API/MypageAPI/MyPageUpdateApi'
-import 기본프로필 from '../../../../../../Asset/Images/기본프로필.jpg';
-import { update } from 'lodash';
+import MypageUpdateApi from '../../../../../../API/MypageAPI/MyPageUpdateApi';
+import MypageReadApi from '../../../../../../API/MypageAPI/MypageReadApi'
 
 const MyInfoMobile = props => {
 
@@ -48,20 +47,20 @@ const MyInfoMobile = props => {
   };
 
   const submit = async () => {
-    console.log(props.myUpdateInfo)
-    // const res = await MypageUpdateApi(
-    //   props.myUpdateInfo,
-    //   props.myInfo.nickname,
-    // );
-    // console.log(myUpdateInfo);
-    // if (res.status === 200) {
-    //     props.setMyPageUpdate('none');
-    //     props.setMobileMenu(true);
-    //     console.log()
-    // } else {
-    //   console.log(res.status)
-    //   alert('닉네임을 확인하세요')
-    // }
+    const res = await MypageUpdateApi(
+      props.updateData,
+      props.myUpdateInfo.nickname,
+    );
+    if (res.status === 200) {
+      const res = await MypageReadApi(props.myUpdateInfo.nickname);
+      props.setMyInfo(res.myInfo);
+      props.setMyPageUpdate('none');
+      props.setMobileMenu(true);
+        
+    } else {
+      console.log(res.status)
+      alert('닉네임을 확인하세요')
+    }
   }
 
   const updateProfile = e => {
@@ -136,6 +135,7 @@ const MyInfoMobile = props => {
               <h3>키(cm)</h3>
               <input
                 type="text"
+                maxLength="3"
                 value={props.myUpdateInfo.height}
                 name="height"
                 onChange={changeUserInfo}
@@ -145,6 +145,7 @@ const MyInfoMobile = props => {
               <h3>몸무게(kg)</h3>
               <input
                 type="text"
+                maxLength="3"
                 value={props.myUpdateInfo.weight}
                 name="weight"
                 onChange={changeUserInfo}
@@ -154,6 +155,7 @@ const MyInfoMobile = props => {
               <h3>발(mm)</h3>
               <input
                 type="text"
+                maxLength="3"
                 value={props.myUpdateInfo.footSize}
                 name="footSize"
                 onChange={changeUserInfo}

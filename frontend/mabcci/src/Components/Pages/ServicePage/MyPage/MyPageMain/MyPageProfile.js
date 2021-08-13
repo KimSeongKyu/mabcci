@@ -59,7 +59,7 @@ const MyPageProfile = props => {
                 <p className="mypage-profile-bodysize-secret">secret</p>
               )}
               {props.myInfo.footSize !== 0 ? (
-                <p>{props.myInfo.footSize}cm</p>
+                <p>{props.myInfo.footSize}mm</p>
               ) : (
                 <p className="mypage-profile-bodysize-secret">secret</p>
               )}
@@ -107,7 +107,7 @@ const MyPageProfile = props => {
       <div className="mypage-introduce-box">
         <p>Introduce</p>
 
-        {props.myInfo.description === null ? (
+        {props.myInfo.description == 'null' ? (
           <div className="mypage-introduce-box-null">No information❕</div>
         ) : (
           <div>{props.myInfo.description}</div>
