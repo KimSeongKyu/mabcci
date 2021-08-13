@@ -126,6 +126,7 @@ class OotdFindServiceTest {
                 .collect(toList());
 
         assertAll(
+                () -> assertThat(ootd.views()).isEqualTo(1L),
                 () -> assertThat(ootdDetailResponse.memberPicture()).isEqualTo(PICTURE),
                 () -> assertThat(ootdDetailResponse.nickname()).isEqualTo(NICKNAME),
                 () -> assertThat(ootdDetailResponse.createdDate()).isEqualTo(ootd.createdDate()),
