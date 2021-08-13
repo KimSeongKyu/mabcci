@@ -102,6 +102,226 @@
   flex-direction: column;
 }
 
+.welcome {
+  margin-top: 120px;
+  margin-bottom: 60px;
+  height: 50vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.welcome-comment {
+  padding-left: 50px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.welcome-comment p,
+.welcome-comment span {
+  opacity: 0;
+}
+
+.welcome-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--main-color-1);
+  font-family: 'Rozha One';
+  animation: showText 0.35s;
+  animation-fill-mode: both;
+}
+
+.welcome-sub-title {
+  animation: showText 0.35s;
+  animation-delay: 0.2s;
+  animation-fill-mode: both;
+}
+
+.circle-box {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  position: relative;
+}
+
+.circle {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  position: absolute;
+  animation: circleShow 0.5s;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  animation-fill-mode: both;
+}
+
+.circle:nth-child(1) {
+  border: 1px solid black;
+  animation-delay: 0s;
+}
+
+.circle:nth-child(2) {
+  background-color: var(--main-color-1);
+  left: 82px;
+  animation-delay: 0.1s;
+}
+
+.circle:nth-child(3) {
+  background-color: var(--main-color-2);
+  left: 164px;
+  animation-delay: 0.2s;
+}
+
+.welcome-image {
+  height: 60vh;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.welcome-image > div {
+  position: absolute;
+}
+
+.welcome-image > div:nth-child(1) {
+  left: 50px;
+  bottom: 50px;
+}
+
+.welcome-image > div:nth-child(2) {
+  right: 50px;
+  bottom: 50px;
+}
+
+.welcome-image-desc-box > div {
+  opacity: 0;
+}
+
+.welcome-image-desc-box > div > p {
+  color: white;
+  font-size: 1.2rem;
+}
+
+.welcome-image-desc-box span {
+  color: var(--main-color-1);
+  font-size: 2rem;
+}
+
+.welcome-image-desc {
+  animation: showText 1s;
+  animation-fill-mode: both;
+}
+
+.welcome-image:nth-child(1) {
+  background-image: url(../../../../Asset/Images/welcome-image-1.jpg);
+  background-size: cover;
+  margin-right: 50px;
+  animation: showImageRight 1s;
+  animation-fill-mode: both;
+}
+
+.welcome-image:nth-child(2) {
+  background-image: url(../../../../Asset/Images/welcome-image-2.jpg);
+  background-size: cover;
+  margin-left: 50px;
+  margin-bottom: 100px;
+  animation: showImageLeft 1s;
+  animation-fill-mode: both;
+}
+
+.welcome-bottom {
+  border-top: 1px solid var(--main-color-2);
+  margin: 0 50px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.developer-box {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 70px;
+}
+
+.developer:nth-child(1) {
+  width: 40px;
+  height: 40px;
+  background-image: url(../../../../Asset/Images/우.png);
+  background-size: cover;
+}
+.developer:nth-child(2) {
+  width: 40px;
+  height: 40px;
+  background-image: url(../../../../Asset/Images/짱.png);
+  background-size: cover;
+}
+.developer:nth-child(3) {
+  width: 40px;
+  height: 40px;
+  background-image: url(../../../../Asset/Images/썽.png);
+  background-size: cover;
+}
+.developer:nth-child(4) {
+  width: 40px;
+  height: 40px;
+  background-image: url(../../../../Asset/Images/젠.jpg);
+  background-size: cover;
+}
+.developer:nth-child(5) {
+  width: 40px;
+  height: 40px;
+  background-image: url(../../../../Asset/Images/하족.png);
+  background-size: cover;
+}
+
+@keyframes circleShow {
+  from {
+    opacity: 0;
+    transform: translateX(-86px) scale(0.5);
+    background-color: black;
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes showText {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes showImageRight {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes showImageLeft {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
 /* 웹 */
 @media screen and (min-width: 577px) {
   .home-mobile-header {
