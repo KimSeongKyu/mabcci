@@ -33,14 +33,16 @@ public class OotdCommentSaveService {
         final Ootd ootd = getOotdByOotdId(ootdCommentSaveRequest.getOotdId());
         final OotdComment parentComment = getParentCommentByCommentId(ootdCommentSaveRequest.getParentCommentId());
 
-        if(Objects.nonNull(parentComment)) {
-            validateParentCommentHasNoParent(parentComment);
-        }
+        validateParentCommentHasNoParent(parentComment);
+        saveOotdComment(member, ootd, parentComment, ootdCommentSaveRequest.getContent());
+    }
 
+    private void saveOotdComment(final Member member, final Ootd ootd, final OotdComment parentComment, final String content) {
         ootdCommentRepository.save(OotdComment.builder()
                 .member(member)
                 .ootd(ootd)
                 .parentComment(parentComment)
+                .content(content)
                 .build());
     }
 
@@ -60,7 +62,7 @@ public class OotdCommentSaveService {
     }
 
     private void validateParentCommentHasNoParent(final OotdComment parentComment) {
-        if (parentComment.parentComment()
+        if (Objects.nonNull(parentComment) && parentComment.parentComment()
                 .isPresent()) {
             throw new IllegalArgumentException();
         }
