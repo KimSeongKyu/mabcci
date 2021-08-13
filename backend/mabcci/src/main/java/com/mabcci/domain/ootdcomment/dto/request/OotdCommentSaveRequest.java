@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 public final class OotdCommentSaveRequest {
 
@@ -17,7 +18,7 @@ public final class OotdCommentSaveRequest {
     @NotNull
     private Nickname nickname;
 
-    @Positive
+    @PositiveOrZero
     private Long parentCommentId;
 
     @NotEmpty
