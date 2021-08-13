@@ -41,9 +41,11 @@ public class OotdFindService {
         return new OotdListResponse(ootdResponses, totalPages);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public OotdDetailResponse findOotdDetail(final Long id) {
-        return OotdDetailResponse.ofOotd(getOotdById(id));
+        final Ootd ootd = getOotdById(id);
+        ootd.increaseViews();
+        return OotdDetailResponse.ofOotd(ootd);
     }
 
     private Ootd getOotdById(final Long id) {
