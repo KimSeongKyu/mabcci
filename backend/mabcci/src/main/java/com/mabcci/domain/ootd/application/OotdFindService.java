@@ -5,6 +5,7 @@ import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.ootd.domain.Ootd;
 import com.mabcci.domain.ootd.domain.OotdFilter;
 import com.mabcci.domain.ootd.domain.OotdRepository;
+import com.mabcci.domain.ootd.dto.response.OotdDetailResponse;
 import com.mabcci.domain.ootd.dto.response.OotdListResponse;
 import com.mabcci.domain.ootd.dto.response.OotdResponse;
 import com.mabcci.global.common.Nickname;
@@ -38,6 +39,16 @@ public class OotdFindService {
         final List<OotdResponse> ootdResponses = getOotdResponses(ootds);
 
         return new OotdListResponse(ootdResponses, totalPages);
+    }
+
+    @Transactional(readOnly = true)
+    public OotdDetailResponse findOotdDetail(final Long id) {
+        return OotdDetailResponse.ofOotd(getOotdById(id));
+    }
+
+    private Ootd getOotdById(final Long id) {
+        return ootdRepository.findOotdDetailById(id)
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     private Member getMemberByNickname(final Nickname nickname) {

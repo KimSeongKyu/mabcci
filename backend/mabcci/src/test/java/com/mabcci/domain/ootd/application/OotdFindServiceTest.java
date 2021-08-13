@@ -113,7 +113,7 @@ class OotdFindServiceTest {
         ReflectionTestUtils.setField(ootdLike, "status", true);
         ReflectionTestUtils.setField(ootd, "ootdLikes", List.of(ootdLike));
 
-        doReturn(ootd).when(ootdRepository).findOotdDetailById(any());
+        doReturn(Optional.of(ootd)).when(ootdRepository).findOotdDetailById(any());
 
         final OotdDetailResponse ootdDetailResponse = ootdFindService.findOotdDetail(1L);
 
