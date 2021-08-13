@@ -7,15 +7,15 @@ import org.springframework.data.domain.Pageable;
 public enum OotdFilter {
 
     ALL() {
-        public Page<Ootd> findOotds(final OotdRepository ootdRepository, final Member member, final Pageable pageable) {
+        public Page<Ootd> getFilteredOotds(final OotdRepository ootdRepository, final Member member, final Pageable pageable) {
             return ootdRepository.findOotds(pageable);
         }
     },
     FOLLOWING() {
-        public Page<Ootd> findOotds(final OotdRepository ootdRepository, final Member member, final Pageable pageable) {
+        public Page<Ootd> getFilteredOotds(final OotdRepository ootdRepository, final Member member, final Pageable pageable) {
             return ootdRepository.findOotdsOfFollowing(member, pageable);
         }
     };
 
-    public abstract Page<Ootd> findOotds(final OotdRepository ootdRepository, final Member member, final Pageable pageable);
+    public abstract Page<Ootd> getFilteredOotds(final OotdRepository ootdRepository, final Member member, final Pageable pageable);
 }

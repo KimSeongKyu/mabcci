@@ -4,7 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
-import com.mabcci.domain.ootd.application.OotdService;
+import com.mabcci.domain.ootd.application.OotdDeleteService;
+import com.mabcci.domain.ootd.application.OotdFindService;
+import com.mabcci.domain.ootd.application.OotdSaveService;
+import com.mabcci.domain.ootd.application.OotdUpdateService;
 import com.mabcci.domain.ootd.domain.Ootd;
 import com.mabcci.domain.ootd.dto.request.OotdUpdateRequest;
 import com.mabcci.domain.ootd.dto.response.OotdListResponse;
@@ -37,7 +40,10 @@ class OotdControllerTest {
 
     @Autowired private MockMvc mockMvc;
     @Autowired private ObjectMapper objectMapper;
-    @MockBean private OotdService ootdService;
+    @MockBean private OotdSaveService ootdSaveService;
+    @MockBean private OotdFindService ootdFindService;
+    @MockBean private OotdUpdateService ootdUpdateService;
+    @MockBean private OotdDeleteService ootdDeleteService;
 
     private Member member;
     private Ootd ootd;
@@ -54,7 +60,6 @@ class OotdControllerTest {
                 .picture(PICTURE)
                 .memberRole(MemberRole.USER)
                 .build();
-
         ootd = Ootd.builder()
                 .member(member)
                 .content("content")
@@ -69,8 +74,6 @@ class OotdControllerTest {
     @DisplayName("OotdController 인스턴스 ootd 등록 테스트")
     @Test
     void register_ootd_test() throws Exception {
-        doNothing().when(ootdService).saveOotdAndPicturesAndHashtags(any());
-
         final MockMultipartFile picture1 = new MockMultipartFile(
                 "picture1", "pngPicture.png",
                 MediaType.MULTIPART_FORM_DATA_VALUE, "testPngPicture".getBytes());
@@ -91,6 +94,8 @@ class OotdControllerTest {
                         "\"hashtags\": [\"해시태그1\", \"해시태그2\"]" +
                         "}").getBytes());
 
+        doNothing().when(ootdSaveService).saveOotdAndPicturesAndHashtags(any());
+
         mockMvc.perform(multipart("/api/ootds")
                 .file("pictures", picture1.getBytes())
                 .file("pictures", picture2.getBytes())
@@ -106,7 +111,7 @@ class OotdControllerTest {
     void find_filtered_ootd_list_test() throws Exception {
         final OotdListResponse ootdListResponse = new OotdListResponse(new ArrayList<>(), 1);
 
-        doReturn(ootdListResponse).when(ootdService).findOotds(any(), any(), any());
+        doReturn(ootdListResponse).when(ootdFindService).findOotds(any(), any(), any());
 
         mockMvc.perform(get("/api/ootds/{nickname}", "닉네임")
                 .param("filter", "all")
@@ -120,9 +125,10 @@ class OotdControllerTest {
     @DisplayName("OotdController 인스턴스 ootd 수정 테스트")
     @Test
     void update_ootd_test() throws Exception {
-        doNothing().when(ootdService).updateOotd(any(), any());
         final OotdUpdateRequest ootdUpdateRequest =
                 new OotdUpdateRequest("내용", "상의", "하의", "신발", "악세사리");
+
+        doNothing().when(ootdUpdateService).updateOotd(any(), any());
 
         mockMvc.perform(put("/api/ootds/" + 1L)
                 .content(objectMapper.writeValueAsString(ootdUpdateRequest))
@@ -134,7 +140,7 @@ class OotdControllerTest {
     @DisplayName("OotdController 인스턴스 ootd 삭제 테스트")
     @Test
     void delete_ootd_test() throws Exception {
-        doNothing().when(ootdService).deleteOotd(any());
+        doNothing().when(ootdDeleteService).deleteOotdById(any());
 
         mockMvc.perform(delete("/api/ootds/" + 1L)
                 .contentType(MediaType.APPLICATION_JSON)
