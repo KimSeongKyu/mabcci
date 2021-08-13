@@ -129,7 +129,7 @@ class OotdControllerTest {
 
         doReturn(ootdDetailResponse).when(ootdFindService).findOotdDetail(any());
 
-        mockMvc.perform(get("/api/ootds/{id}", 1)
+        mockMvc.perform(get("/api/ootds/{id}/detail", 1)
                 .content(objectMapper.writeValueAsString(ootdDetailResponse))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))

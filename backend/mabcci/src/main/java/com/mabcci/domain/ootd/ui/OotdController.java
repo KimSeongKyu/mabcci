@@ -37,6 +37,11 @@ public class OotdController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/api/ootds/{id}/detail")
+    public ResponseEntity findOotdDetail(@NotNull @Positive @PathVariable("id") final Long id) {
+        return ResponseEntity.ok(ootdFindService.findOotdDetail(id));
+    }
+
     @GetMapping("/api/ootds/{nickname}")
     public ResponseEntity findFilteredOotdList(@NotBlank @PathVariable("nickname") final Nickname nickname,
                                                @NotBlank @RequestParam("filter") final OotdFilter ootdFilter,
