@@ -48,7 +48,7 @@ class OotdCommentSaveRequestTest {
     @Test
     void validate_test() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        final OotdCommentSaveRequest invalidRequest = new OotdCommentSaveRequest(0L, Nickname.of(""), 0L, "");
+        final OotdCommentSaveRequest invalidRequest = new OotdCommentSaveRequest(0L, Nickname.of(""), -1L, "");
 
         final Set<ConstraintViolation<OotdCommentSaveRequest>> invalidPropertiesOfValidRequest =
                 validator.validate(ootdCommentSaveRequest);
