@@ -9,8 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface OotdRepository extends JpaRepository<Ootd, Long> {
 
-    @Query(
-    value = "SELECT DISTINCT o " +
+    @Query(value = "SELECT DISTINCT o " +
             "FROM Ootd o " +
             "JOIN FETCH o.member m " +
             "JOIN FETCH m.followings f " +
@@ -19,15 +18,15 @@ public interface OotdRepository extends JpaRepository<Ootd, Long> {
             "LEFT OUTER JOIN o.ootdHashtags o_h " +
             "LEFT OUTER JOIN o_h.hashtag h " +
             "WHERE f.follower = :member",
-    countQuery = "SELECT count(o) " +
-            "FROM Ootd o " +
-            "JOIN o.member m " +
-            "JOIN m.followings f " +
-            "LEFT OUTER JOIN o.ootdLikes o_l " +
-            "JOIN o.ootdPictures p " +
-            "LEFT OUTER JOIN o.ootdHashtags o_h " +
-            "LEFT OUTER JOIN o_h.hashtag h " +
-            "WHERE f.follower = :member")
+            countQuery = "SELECT count(o) " +
+                    "FROM Ootd o " +
+                    "JOIN o.member m " +
+                    "JOIN m.followings f " +
+                    "LEFT OUTER JOIN o.ootdLikes o_l " +
+                    "JOIN o.ootdPictures p " +
+                    "LEFT OUTER JOIN o.ootdHashtags o_h " +
+                    "LEFT OUTER JOIN o_h.hashtag h " +
+                    "WHERE f.follower = :member")
     Page<Ootd> findOotdsOfFollowing(@Param("member") Member member, Pageable pageable);
 
     @Query(value = "SELECT DISTINCT o " +
