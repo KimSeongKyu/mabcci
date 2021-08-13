@@ -9,12 +9,19 @@ import com.mabcci.domain.ootdLike.domain.OotdLike;
 import com.mabcci.domain.ootdhashtag.domain.OotdHashtag;
 import com.mabcci.domain.ootdpicture.domain.OotdPicture;
 import com.mabcci.domain.picture.domain.Picture;
+import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
@@ -87,6 +94,8 @@ class OotdDetailResponseTest {
         ReflectionTestUtils.setField(ootd, "ootdLikes", List.of(ootdLike));
         ReflectionTestUtils.setField(ootd, "ootdPictures", ootdPictures);
         ReflectionTestUtils.setField(ootd, "ootdHashtags", ootdHashtags);
+        ReflectionTestUtils.setField(ootd, "createdDate", LocalDateTime.now());
+        ReflectionTestUtils.setField(ootd, "modifiedDate", LocalDateTime.now());
 
         ootdDetailResponse = OotdDetailResponse.ofOotd(ootd);
     }
@@ -125,6 +134,25 @@ class OotdDetailResponseTest {
                 () -> assertThat(ootdDetailResponse.shoes()).isEqualTo(ootd.shoes()),
                 () -> assertThat(ootdDetailResponse.accessory()).isEqualTo(ootd.accessory()),
                 () -> assertThat(ootdDetailResponse.hashtags()).isEqualTo(hashtagNames)
+        );
+    }
+
+    @DisplayName("OotdDetailResponse 인스턴스 프로퍼티 유효성 검증 테스트")
+    @Test
+    void validate_test() {
+        final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        final OotdDetailResponse invalidResponse = new OotdDetailResponse("", Nickname.of(""),
+                LocalDateTime.MAX, LocalDateTime.MAX, -1L, Collections.emptyList(), -1L,
+                "", null, null, null, null, null);
+
+        final Set<ConstraintViolation<OotdDetailResponse>> invalidPropertiesOfValidResponse =
+                validator.validate(ootdDetailResponse);
+        final Set<ConstraintViolation<OotdDetailResponse>> invalidPropertiesOfInvalidResponse =
+                validator.validate(invalidResponse);
+
+        assertAll(
+                () -> assertThat(invalidPropertiesOfValidResponse.size()).isEqualTo(0),
+                () -> assertThat(invalidPropertiesOfInvalidResponse.size()).isEqualTo(9)
         );
     }
 }
