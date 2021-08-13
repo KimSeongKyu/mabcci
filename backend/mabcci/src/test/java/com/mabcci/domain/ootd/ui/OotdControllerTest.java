@@ -10,7 +10,9 @@ import com.mabcci.domain.ootd.application.OotdSaveService;
 import com.mabcci.domain.ootd.application.OotdUpdateService;
 import com.mabcci.domain.ootd.domain.Ootd;
 import com.mabcci.domain.ootd.dto.request.OotdUpdateRequest;
+import com.mabcci.domain.ootd.dto.response.OotdDetailResponse;
 import com.mabcci.domain.ootd.dto.response.OotdListResponse;
+import com.mabcci.domain.ootdpicture.domain.OotdPicture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,9 +21,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
@@ -38,12 +42,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(OotdController.class)
 class OotdControllerTest {
 
-    @Autowired private MockMvc mockMvc;
-    @Autowired private ObjectMapper objectMapper;
-    @MockBean private OotdSaveService ootdSaveService;
-    @MockBean private OotdFindService ootdFindService;
-    @MockBean private OotdUpdateService ootdUpdateService;
-    @MockBean private OotdDeleteService ootdDeleteService;
+    @Autowired
+    private MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper objectMapper;
+    @MockBean
+    private OotdSaveService ootdSaveService;
+    @MockBean
+    private OotdFindService ootdFindService;
+    @MockBean
+    private OotdUpdateService ootdUpdateService;
+    @MockBean
+    private OotdDeleteService ootdDeleteService;
 
     private Member member;
     private Ootd ootd;
@@ -71,7 +81,7 @@ class OotdControllerTest {
                 .build();
     }
 
-    @DisplayName("OotdController 인스턴스 ootd 등록 테스트")
+    @DisplayName("OotdController 인스턴스 ootd 등록 API 테스트")
     @Test
     void register_ootd_test() throws Exception {
         final MockMultipartFile picture1 = new MockMultipartFile(
@@ -106,7 +116,27 @@ class OotdControllerTest {
                 .andExpect(status().isNoContent());
     }
 
-    @DisplayName("OotdController 인스턴스 필터링된 ootd 리스트 조회 테스트")
+    @DisplayName("OotdController 인스턴스 ootd 상세 조회 API 테스트")
+    @Test
+    void find_ootd_detail_test() throws Exception {
+        final OotdPicture ootdPicture = OotdPicture.builder()
+                        .ootd(ootd)
+                        .url("testUrl")
+                        .fileName("testFileName")
+                        .build();
+        ReflectionTestUtils.setField(ootd, "ootdPictures", List.of(ootdPicture));
+        final OotdDetailResponse ootdDetailResponse = OotdDetailResponse.ofOotd(ootd);
+
+        doReturn(ootdDetailResponse).when(ootdFindService).findOotdDetail(any());
+
+        mockMvc.perform(get("/api/ootds/{id}", 1)
+                .content(objectMapper.writeValueAsString(ootdDetailResponse))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("OotdController 인스턴스 필터링된 ootd 리스트 조회 API 테스트")
     @Test
     void find_filtered_ootd_list_test() throws Exception {
         final OotdListResponse ootdListResponse = new OotdListResponse(new ArrayList<>(), 1);
@@ -122,7 +152,7 @@ class OotdControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @DisplayName("OotdController 인스턴스 ootd 수정 테스트")
+    @DisplayName("OotdController 인스턴스 ootd 수정 API 테스트")
     @Test
     void update_ootd_test() throws Exception {
         final OotdUpdateRequest ootdUpdateRequest =
@@ -137,7 +167,7 @@ class OotdControllerTest {
                 .andExpect(status().isNoContent());
     }
 
-    @DisplayName("OotdController 인스턴스 ootd 삭제 테스트")
+    @DisplayName("OotdController 인스턴스 ootd 삭제 API 테스트")
     @Test
     void delete_ootd_test() throws Exception {
         doNothing().when(ootdDeleteService).deleteOotdById(any());
