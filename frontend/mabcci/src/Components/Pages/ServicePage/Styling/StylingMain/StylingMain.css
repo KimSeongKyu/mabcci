@@ -5,11 +5,10 @@
   padding-top: 3%;
   padding-left: 5%;
   max-width: 100vw;
-  background-color: var(--main-color-1);
 }
 
 .styling-title > h3 {
-  color: var(--main-color-4);
+  color: var(--main-color-1);
   margin-top: 20px;
 }
 
@@ -20,7 +19,7 @@
   margin-top: 20px;
   margin-bottom: 30px;
   background-color: transparent;
-  border-color: var(--main-color-4);
+  border-color: rgb(224, 224, 224);
 }
 
 .styling-search-send {
@@ -127,4 +126,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+@media screen and (max-width: 576px) {
+  .styling-header {
+    background-color: var(--main-color-1);
+  }
+  .styling-title > h3 {
+    color: var(--main-color-3);
+  }
 }

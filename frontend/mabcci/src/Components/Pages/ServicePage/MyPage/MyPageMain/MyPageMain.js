@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { HiMenu } from 'react-icons/hi';
+import NavCategory from '../../../../../Redux/Actions/NavAction';
 import MabcciReview from './MabcciReview';
 import MyPageFeed from './MyPageFeed';
 import MyPageProfile from './MyPageProfile';
@@ -16,6 +18,8 @@ import MyPageUpdate from '../MyPageSetting/MySetting/MyPageUpdate';
 function MyPageMain() {
   const { nickname } = useParams();
 
+  const dispatch = useDispatch();
+
   const [myInfo, setMyInfo] = useState({});
 
   const [followBox, setFollowBox] = useState('none');
@@ -29,6 +33,7 @@ function MyPageMain() {
   const [myPageUpdate, setMyPageUpdate] = useState('none');
 
   useEffect(async () => {
+    dispatch(NavCategory('mypage'));
     const res = await MypageReadApi(nickname);
     setMyInfo(res.myInfo);
   }, []);
