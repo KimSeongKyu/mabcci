@@ -25,6 +25,8 @@ import java.util.Set;
 @DynamicInsert
 public class Ootd extends BaseTimeEntity {
 
+    private final static Long ONE = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ootd_id")
@@ -138,6 +140,11 @@ public class Ootd extends BaseTimeEntity {
         this.shoes = ootdUpdateRequest.getShoes();
         this.accessory = ootdUpdateRequest.getAccessory();
 
+        return this;
+    }
+
+    public Ootd increaseViews() {
+        views = Long.sum(views, ONE);
         return this;
     }
 
