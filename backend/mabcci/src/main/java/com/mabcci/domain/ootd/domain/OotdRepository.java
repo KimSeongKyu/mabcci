@@ -7,6 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+import java.util.Optional;
+
 public interface OotdRepository extends JpaRepository<Ootd, Long> {
 
     @Query(value = "SELECT DISTINCT o " +
@@ -44,4 +47,14 @@ public interface OotdRepository extends JpaRepository<Ootd, Long> {
                     "LEFT OUTER JOIN o.ootdHashtags o_h " +
                     "LEFT OUTER JOIN o_h.hashtag h")
     Page<Ootd> findOotds(Pageable pageable);
+
+    @Query("SELECT DISTINCT o " +
+            "FROM Ootd o " +
+            "JOIN FETCH o.member m " +
+            "LEFT OUTER JOIN o.ootdLikes o_l " +
+            "JOIN o.ootdPictures p " +
+            "LEFT OUTER JOIN o.ootdHashtags o_h " +
+            "LEFT OUTER JOIN o_h.hashtag h " +
+            "WHERE o.id = :id")
+    Optional<Ootd> findOotdDetailById(@Param("id") Long id);
 }
