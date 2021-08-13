@@ -109,6 +109,13 @@ public class OotdTest {
         );
     }
 
+    @DisplayName("ootd 인스턴스 조회수 증가 테스트")
+    @Test
+    void increase_views_test() {
+        ootd = ootd.increaseViews();
+        assertThat(ootd.views()).isEqualTo(1L);
+    }
+
     @DisplayName("Ootd 인스턴스의 프로퍼티 유효성 검증 테스트")
     @Test
     void validate_test() {
