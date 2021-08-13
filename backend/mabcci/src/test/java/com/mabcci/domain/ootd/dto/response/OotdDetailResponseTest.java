@@ -8,6 +8,7 @@ import com.mabcci.domain.ootd.domain.Ootd;
 import com.mabcci.domain.ootdLike.domain.OotdLike;
 import com.mabcci.domain.ootdhashtag.domain.OotdHashtag;
 import com.mabcci.domain.ootdpicture.domain.OotdPicture;
+import com.mabcci.domain.picture.domain.Picture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ import static com.mabcci.global.common.EmailTest.EMAIL;
 import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static com.mabcci.global.common.PasswordTest.PASSWORD;
 import static com.mabcci.global.common.PhoneTest.PHONE;
+import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -82,17 +84,46 @@ class OotdDetailResponseTest {
                 .build();
         ootdDetailResponse = OotdDetailResponse.ofOotd(ootd);
 
+        ReflectionTestUtils.setField(ootdLike, "status", true);
         ReflectionTestUtils.setField(ootd, "ootdLikes", List.of(ootdLike));
         ReflectionTestUtils.setField(ootd, "ootdPictures", ootdPictures);
         ReflectionTestUtils.setField(ootd, "ootdHashtags", ootdHashtags);
     }
 
-    @DisplayName("OotdDetailResponse 인스턴스 생성 여부 테스트 작성")
+    @DisplayName("OotdDetailResponse 인스턴스 생성 여부 테스트")
     @Test
     void Initialize() {
         assertAll(
                 () -> assertThat(ootdDetailResponse).isNotNull(),
                 () -> assertThat(ootdDetailResponse).isExactlyInstanceOf(OotdDetailResponse.class)
+        );
+    }
+
+    @DisplayName("OotdDetailResponse 인스턴스 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        final List<String> ootdPicturePaths = ootdPictures.stream()
+                .map(Picture::path)
+                .collect(toList());
+        final List<String> hashtagNames = ootdHashtags.stream()
+                .map(OotdHashtag::hashtag)
+                .map(Hashtag::name)
+                .collect(toList());
+
+        assertAll(
+                () -> assertThat(ootdDetailResponse.memberPicture()).isEqualTo(PICTURE),
+                () -> assertThat(ootdDetailResponse.nickname()).isEqualTo(NICKNAME),
+                () -> assertThat(ootdDetailResponse.createdDate()).isEqualTo(ootd.createdDate()),
+                () -> assertThat(ootdDetailResponse.modifiedDate()).isEqualTo(ootd.modifiedDate()),
+                () -> assertThat(ootdDetailResponse.views()).isEqualTo(ootd.views()),
+                () -> assertThat(ootdDetailResponse.ootdPictures()).isEqualTo(ootdPicturePaths),
+                () -> assertThat(ootdDetailResponse.likeCount()).isEqualTo(1L),
+                () -> assertThat(ootdDetailResponse.content()).isEqualTo(ootd.content()),
+                () -> assertThat(ootdDetailResponse.top()).isEqualTo(ootd.top()),
+                () -> assertThat(ootdDetailResponse.bottom()).isEqualTo(ootd.bottom()),
+                () -> assertThat(ootdDetailResponse.shoes()).isEqualTo(ootd.shoes()),
+                () -> assertThat(ootdDetailResponse.accessory()).isEqualTo(ootd.accessory()),
+                () -> assertThat(ootdDetailResponse.hashtags()).isEqualTo(hashtagNames)
         );
     }
 }
