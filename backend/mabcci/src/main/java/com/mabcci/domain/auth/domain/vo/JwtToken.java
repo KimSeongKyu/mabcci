@@ -18,7 +18,7 @@ public class JwtToken implements Serializable {
     protected JwtToken() {
     }
 
-    private JwtToken(final String jwtToken) {
+    public JwtToken(final String jwtToken) {
         this.jwtToken = jwtToken;
     }
 

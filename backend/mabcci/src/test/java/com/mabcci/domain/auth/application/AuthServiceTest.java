@@ -40,7 +40,7 @@ class AuthServiceTest {
     @Mock private Member member;
     @Mock private JwtUtil jwtUtil;
 
-    @DisplayName("AuthService 인스턴스 로그인 기능 성공 테스트")
+    @DisplayName("AuthService 인스턴스 로그인 성공 테스트")
     @Test
     void login_success_test() {
         final JwtToken accessToken = JwtToken.of("test.access.token");
@@ -62,19 +62,19 @@ class AuthServiceTest {
         verify(refreshTokenRepository, times(1)).save(any());
 
         assertAll(
-                () -> assertThat(loginResponse.getAccessToken()).isEqualTo(accessToken),
-                () -> assertThat(loginResponse.getRefreshToken()).isEqualTo(refreshToken)
+                () -> assertThat(loginResponse.accessToken()).isEqualTo(accessToken),
+                () -> assertThat(loginResponse.refreshToken()).isEqualTo(refreshToken)
         );
     }
 
-    @DisplayName("AuthService 인스턴스 로그인 기능 실패 테스트")
+    @DisplayName("AuthService 인스턴스 로그인 실패 테스트")
     @Test
     void login_fail_test() {
         final LoginRequest loginRequest = new LoginRequest(Email.of(Strings.EMPTY), PASSWORD);
         assertThatExceptionOfType(MemberNotFoundException.class).isThrownBy(() -> authService.login(loginRequest));
     }
 
-    @DisplayName("AuthService 인스턴스 로그아웃 기능 성공 테스트")
+    @DisplayName("AuthService 인스턴스 로그아웃 성공 테스트")
     @Test
     void logout_success_test() {
         final RefreshToken refreshToken = RefreshToken.builder()
@@ -90,7 +90,7 @@ class AuthServiceTest {
         verify(refreshTokenRepository, times(1)).delete(any());
     }
 
-    @DisplayName("AuthService 인스턴스 로그아웃 기능 실패 테스트")
+    @DisplayName("AuthService 인스턴스 로그아웃 실패 테스트")
     @Test
     void logout_fail_test() {
         assertThatExceptionOfType(NotLoginMemberException.class).isThrownBy(() -> authService.logout(new LogoutRequest(EMAIL)));
