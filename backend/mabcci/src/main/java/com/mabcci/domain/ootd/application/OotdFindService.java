@@ -60,7 +60,7 @@ public class OotdFindService {
 
     private List<OotdResponse> getOotdResponses(final List<Ootd> ootds) {
         return ootds.stream()
-                .map(OotdResponse::new)
+                .map(OotdResponse::ofOotd)
                 .collect(toList());
     }
 }

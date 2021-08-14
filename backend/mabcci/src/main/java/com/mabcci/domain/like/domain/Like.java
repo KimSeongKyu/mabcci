@@ -27,12 +27,10 @@ public class Like extends BaseTimeEntity {
         this.member = member;
     }
 
-    @JsonValue
     public Boolean status() {
         return status;
     }
 
-    @JsonValue
     public Member member() {
         return member;
     }

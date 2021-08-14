@@ -4,6 +4,7 @@ import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.domain.ootd.dto.request.OotdUpdateRequest;
+import com.mabcci.domain.ootdLike.domain.OotdLike;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import java.util.List;
 import java.util.Set;
 
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
@@ -71,7 +73,7 @@ public class OotdTest {
         );
     }
 
-    @DisplayName("Ootd 인스턴스의 getter 메서드들 테스트")
+    @DisplayName("Ootd 인스턴스 getter 메서드들 테스트")
     @Test
     void getter_test() {
         ReflectionTestUtils.setField(ootd, "id", 1L);
@@ -88,7 +90,7 @@ public class OotdTest {
         );
     }
 
-    @DisplayName("Ootd 인스턴스의 수정 테스트")
+    @DisplayName("Ootd 인스턴스 수정 테스트")
     @Test
     void update_test() {
         ReflectionTestUtils.setField(ootd, "id", 1L);
@@ -109,6 +111,19 @@ public class OotdTest {
         );
     }
 
+    @DisplayName("Ootd 인스턴스 좋아요 수 반환 테스트")
+    @Test
+    void like_count_test() {
+        final OotdLike ootdLike = OotdLike.builder()
+                .member(member)
+                .ootd(ootd)
+                .build();
+        ReflectionTestUtils.setField(ootdLike, "status", true);
+        ReflectionTestUtils.setField(ootd, "ootdLikes", List.of(ootdLike));
+
+        assertThat(ootd.likeCount()).isEqualTo(1L);
+    }
+
     @DisplayName("ootd 인스턴스 조회수 증가 테스트")
     @Test
     void increase_views_test() {
@@ -116,22 +131,20 @@ public class OotdTest {
         assertThat(ootd.views()).isEqualTo(1L);
     }
 
-    @DisplayName("Ootd 인스턴스의 프로퍼티 유효성 검증 테스트")
+    @DisplayName("Ootd 인스턴스 프로퍼티 유효성 검증 테스트")
     @Test
     void validate_test() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         final Ootd invalidOotd = Ootd.builder()
                 .views(-1L)
                 .build();
-        final int invalidPropertyCountOfValidOotd = 0;
-        final int invalidPropertyCountOfInvalidOotd = 3;
 
         Set<ConstraintViolation<Ootd>> validationOfValidOotd = validator.validate(ootd);
         Set<ConstraintViolation<Ootd>> validationOfInvalidOotd = validator.validate(invalidOotd);
 
         assertAll(
-                () -> assertThat(validationOfValidOotd.size()).isEqualTo(invalidPropertyCountOfValidOotd),
-                () -> assertThat(validationOfInvalidOotd.size()).isEqualTo(invalidPropertyCountOfInvalidOotd)
+                () -> assertThat(validationOfValidOotd.size()).isEqualTo(0),
+                () -> assertThat(validationOfInvalidOotd.size()).isEqualTo(3)
         );
     }
 }

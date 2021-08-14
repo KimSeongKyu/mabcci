@@ -1,7 +1,6 @@
 package com.mabcci.domain.ootd.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.mabcci.domain.BaseTimeEntity;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.ootd.dto.request.OotdUpdateRequest;
@@ -9,7 +8,6 @@ import com.mabcci.domain.ootdLike.domain.OotdLike;
 import com.mabcci.domain.ootdcategory.domain.OotdCategory;
 import com.mabcci.domain.ootdhashtag.domain.OotdHashtag;
 import com.mabcci.domain.ootdpicture.domain.OotdPicture;
-import com.mabcci.domain.picture.domain.Picture;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -134,11 +132,11 @@ public class Ootd extends BaseTimeEntity {
     }
 
     public Ootd update(final OotdUpdateRequest ootdUpdateRequest) {
-        this.content = ootdUpdateRequest.getContent();
-        this.top = ootdUpdateRequest.getTop();
-        this.bottom = ootdUpdateRequest.getBottom();
-        this.shoes = ootdUpdateRequest.getShoes();
-        this.accessory = ootdUpdateRequest.getAccessory();
+        this.content = ootdUpdateRequest.content();
+        this.top = ootdUpdateRequest.top();
+        this.bottom = ootdUpdateRequest.bottom();
+        this.shoes = ootdUpdateRequest.shoes();
+        this.accessory = ootdUpdateRequest.accessory();
 
         return this;
     }
@@ -146,6 +144,12 @@ public class Ootd extends BaseTimeEntity {
     public Ootd increaseViews() {
         views = Long.sum(views, ONE);
         return this;
+    }
+
+    public Long likeCount() {
+        return ootdLikes.stream()
+                .filter(OotdLike::status)
+                .count();
     }
 
     public static class OotdBuilder {

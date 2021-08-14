@@ -8,11 +8,10 @@ import java.util.List;
 
 public final class OotdListResponse {
 
-    @NotEmpty
-    @JsonProperty("ootdList")
+    @NotEmpty @JsonProperty("ootdList")
     private List<OotdResponse> ootdResponses;
 
-    @PositiveOrZero
+    @PositiveOrZero @JsonProperty("totalPages")
     private int totalPages;
 
     private OotdListResponse() {
@@ -23,11 +22,11 @@ public final class OotdListResponse {
         this.totalPages = totalPages;
     }
 
-    public final List<OotdResponse> getOotdResponses() {
+    public final List<OotdResponse> ootdResponses() {
         return ootdResponses;
     }
 
-    public final int getTotalPages() {
+    public final int totalPages() {
         return totalPages;
     }
 }

@@ -156,7 +156,7 @@ class OotdFindServiceTest {
         doReturn(new PageImpl<>(List.of(ootd))).when(ootdRepository).findOotds(any());
 
         final OotdListResponse ootdListResponse = ootdFindService.findOotds(NICKNAME, OotdFilter.ALL, PageRequest.of(0, 20));
-        final OotdResponse ootdResponse = ootdListResponse.getOotdResponses().get(0);
+        final OotdResponse ootdResponse = ootdListResponse.ootdResponses().get(0);
         final List<String> hashtagNames = ootdHashtags.stream()
                 .map(OotdHashtag::hashtag)
                 .map(Hashtag::name)
@@ -166,11 +166,11 @@ class OotdFindServiceTest {
         verify(ootdRepository, times(1)).findOotds(any());
 
         assertAll(
-                () -> assertThat(ootdResponse.getId()).isEqualTo(ootd.id()),
-                () -> assertThat(ootdResponse.getNickname()).isEqualTo(NICKNAME),
-                () -> assertThat(ootdResponse.getPicture()).isEqualTo(ootdPicture.path()),
-                () -> assertThat(ootdResponse.getHashtags()).isEqualTo(hashtagNames),
-                () -> assertThat(ootdResponse.getLikeCount()).isEqualTo(1L)
+                () -> assertThat(ootdResponse.id()).isEqualTo(ootd.id()),
+                () -> assertThat(ootdResponse.nickname()).isEqualTo(NICKNAME),
+                () -> assertThat(ootdResponse.picture()).isEqualTo(ootdPicture.path()),
+                () -> assertThat(ootdResponse.hashtags()).isEqualTo(hashtagNames),
+                () -> assertThat(ootdResponse.likeCount()).isEqualTo(1L)
         );
     }
 }

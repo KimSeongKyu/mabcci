@@ -42,18 +42,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(OotdController.class)
 class OotdControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-    @Autowired
-    private ObjectMapper objectMapper;
-    @MockBean
-    private OotdSaveService ootdSaveService;
-    @MockBean
-    private OotdFindService ootdFindService;
-    @MockBean
-    private OotdUpdateService ootdUpdateService;
-    @MockBean
-    private OotdDeleteService ootdDeleteService;
+    @Autowired private MockMvc mockMvc;
+    @Autowired private ObjectMapper objectMapper;
+    @MockBean private OotdSaveService ootdSaveService;
+    @MockBean private OotdFindService ootdFindService;
+    @MockBean private OotdUpdateService ootdUpdateService;
+    @MockBean private OotdDeleteService ootdDeleteService;
 
     private Member member;
     private Ootd ootd;

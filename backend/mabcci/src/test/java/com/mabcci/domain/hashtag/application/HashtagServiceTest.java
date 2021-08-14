@@ -22,10 +22,8 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class HashtagServiceTest {
 
-    @Mock
-    private HashtagRepository hashtagRepository;
-    @InjectMocks
-    private HashtagService hashtagService;
+    @InjectMocks private HashtagService hashtagService;
+    @Mock private HashtagRepository hashtagRepository;
 
     private Hashtag hashtag;
 
@@ -41,6 +39,7 @@ public class HashtagServiceTest {
     void save_hashtags_test() {
         doReturn(Optional.empty()).when(hashtagRepository).findByName(any());
         doReturn(hashtag).when(hashtagRepository).save(any());
+
         final HashtagSaveResponse hashtagSaveResponse = hashtagService.saveHashtags(HASHTAG_SAVE_REQUEST);
         final int numberOfRequestNames = HASHTAG_SAVE_REQUEST.names().size();
 
