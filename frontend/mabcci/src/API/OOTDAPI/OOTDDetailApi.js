@@ -25,9 +25,9 @@ export const OOTDDetailApi = async id => {
   }
 };
 
-export const OOTDCommentCreateApi = async () => {
+export const OOTDCommentCreateApi = async newComment => {
   try {
-    const response = await instance.post(OOTDCommentCreateUrl);
+    const response = await instance.post(OOTDCommentCreateUrl, newComment);
     return response;
   } catch (response) {
     return response;
@@ -35,7 +35,6 @@ export const OOTDCommentCreateApi = async () => {
 };
 
 export const OOTDCommentReadApi = async id => {
-  console.log(`${OOTDCommentReadUrl}${id}`);
   try {
     const response = await instance.get(`${OOTDCommentReadUrl}${id}`);
     return {
@@ -46,5 +45,27 @@ export const OOTDCommentReadApi = async id => {
     return {
       status: response.status,
     };
+  }
+};
+
+export const OOTDCommentUpdateApi = async (id, updateComment) => {
+  try {
+    console.log(updateComment);
+    const response = await instance.put(
+      `${OOTDCommentUpdateUrl}${id}`,
+      updateComment,
+    );
+    return response;
+  } catch (response) {
+    return response;
+  }
+};
+
+export const OOTDCommentDeleteApi = async id => {
+  try {
+    const response = await instance.delete(`${OOTDCommentDeleteUrl}${id}`);
+    return response;
+  } catch (response) {
+    return response;
   }
 };

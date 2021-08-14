@@ -4,15 +4,20 @@ import { IoMdSend } from 'react-icons/io';
 import {
   OOTDCommentReadApi,
   OOTDCommentCreateApi,
+  OOTDCommentDeleteApi,
+  OOTDCommentUpdateApi,
 } from '../../../../../API/OOTDAPI/OOTDDetailApi';
 import userphoto from './Images/userphoto.png';
 
 export const SingleComment = props => {
-  const { depth, comment, allComments, userInfo, commentWrite } = props;
+  const { depth, comment, allComments, userInfo } = props;
+  const { commentWrite, commentDelete, commentUpdate } = props;
   const replyComments = allComments.filter(otherComment => {
     return comment.id === otherComment.parentId;
   });
   const [replyCotent, setReplyCotent] = useState('');
+  const [updateContent, setUpdateContent] = useState(comment.content);
+  const [updateToggle, setUpdateToggle] = useState(false);
 
   return (
     <div className="detail-singlecomment">
@@ -21,27 +26,56 @@ export const SingleComment = props => {
           <div className="detail-comment-info-photo">
             {comment.memberPicture}
           </div>
-          <div className="detail-comment-info-content">
-            <p>{comment.memberNickname}</p>
-            <p>{comment.createdDate}</p>
-            {depth === '0' ? (
-              <button type="button" className="detail-comment-info-button">
-                답글
-              </button>
-            ) : null}
-            {comment.memberNickname === userInfo.nickname ? (
-              <>
+          {updateToggle ? null : (
+            <div className="detail-comment-info-content">
+              <p>{comment.memberNickname}</p>
+              <p>{comment.createdDate}</p>
+              {depth === '0' ? (
                 <button type="button" className="detail-comment-info-button">
-                  수정
+                  답글
                 </button>
-                <button type="button" className="detail-comment-info-button">
-                  삭제
-                </button>
-              </>
-            ) : null}
-          </div>
+              ) : null}
+              {comment.memberNickname === userInfo.nickname ? (
+                <>
+                  <button
+                    type="button"
+                    className="detail-comment-info-button"
+                    onClick={() => setUpdateToggle(true)}
+                  >
+                    수정
+                  </button>
+                  <button
+                    type="button"
+                    className="detail-comment-info-button"
+                    onClick={() => commentDelete(comment.id)}
+                  >
+                    삭제
+                  </button>
+                </>
+              ) : null}
+            </div>
+          )}
         </div>
-        <div className="detail-comment-content">{comment.content}</div>
+        {updateToggle ? (
+          <div className="detail-comment-updateContent">
+            <input
+              type="text"
+              value={updateContent}
+              onChange={e => setUpdateContent(e.target.value)}
+            />
+            <button
+              type="button"
+              onClick={() => {
+                commentUpdate(comment.id, userInfo.nickname, updateContent);
+                setUpdateToggle(false);
+              }}
+            >
+              저장
+            </button>
+          </div>
+        ) : (
+          <div className="detail-comment-content">{comment.content}</div>
+        )}
       </div>
       {depth === '0' ? (
         <div className="detail-reply-comment">
@@ -50,14 +84,24 @@ export const SingleComment = props => {
               className="detail-reply-comment-input"
               type="text"
               placeholder="댓글 쓰기"
+              value={replyCotent}
               onChange={e => {
                 setReplyCotent(e.target.value);
+              }}
+              onKeyPress={e => {
+                if (e.key === 'Enter') {
+                  commentWrite(replyCotent, comment.id);
+                  setReplyCotent('');
+                }
               }}
             />
             <IoMdSend
               className="detail-comment-send"
               size="30"
-              onClick={() => commentWrite(replyCotent, comment.id)}
+              onClick={() => {
+                commentWrite(replyCotent, comment.id);
+                setReplyCotent('');
+              }}
             />
           </div>
           {replyComments.length !== 0 &&
@@ -66,9 +110,12 @@ export const SingleComment = props => {
                 <SingleComment
                   key={reply.id}
                   depth={depth + 1}
+                  userInfo={userInfo}
                   comment={reply}
                   allComments={allComments}
-                  userInfo={userInfo}
+                  commentWrite={commentWrite}
+                  commentDelete={commentDelete}
+                  commentUpdate={commentUpdate}
                 />
               );
             })}
@@ -80,53 +127,14 @@ export const SingleComment = props => {
 
 const OOTDBottom = props => {
   const { ootdId, userInfo } = props;
-  // const [allComments, setAllComments] = useState([
-  //   {
-  //     memberPicture: '댓글 작성자',
-  //     memberNickname: '댓글 작성자 닉네임',
-  //     createdDate: '2021-07-27-시-분-초',
-  //     modifiedDate: '2021-07-27-시-분-초',
-  //     content: '댓글 내용',
-  //     id: '1',
-  //     parentId: '',
-  //   },
-  //   {
-  //     memberPicture: '대댓글 작성자',
-  //     memberNickname: '대댓글 작성자 닉네임',
-  //     createdDate: '2021-07-28-시-분-초',
-  //     modifiedDate: '2021-07-28-시-분-초',
-  //     content: '대댓글 내용',
-  //     id: '2',
-  //     parentId: '1',
-  //   },
-  //   {
-  //     memberPicture: '댓글 작성자',
-  //     memberNickname: '댓글 작성자 닉네임',
-  //     createdDate: '2021-07-27-시-분-초',
-  //     modifiedDate: '2021-07-27-시-분-초',
-  //     content: '댓글 내용',
-  //     id: '3',
-  //     parentId: '',
-  //   },
-  //   {
-  //     memberPicture: '댓글 작성자',
-  //     memberNickname: '댓글 작성자 닉네임',
-  //     createdDate: '2021-07-27-시-분-초',
-  //     modifiedDate: '2021-07-27-시-분-초',
-  //     content: '댓글 내용',
-  //     id: '4',
-  //     parentId: '1',
-  //   },
-  // ]);
   const [allComments, setAllComments] = useState([]);
   const [comments, setComments] = useState([]);
   const [commentCotent, setCommentCotent] = useState('');
 
-  useEffect(async () => {
+  const commentRead = async () => {
     const response = await OOTDCommentReadApi(ootdId);
 
     if (response.status === 200) {
-      // const responseComment = response.comments.sort((a, b) => a.id > b.id);
       setAllComments([...response.comments]);
       setComments(
         response.comments.filter(comment => {
@@ -134,9 +142,13 @@ const OOTDBottom = props => {
         }),
       );
     }
+  };
+
+  useEffect(async () => {
+    await commentRead();
   }, []);
 
-  const commentWrite = (content, parentCommentId) => {
+  const commentWrite = async (content, parentCommentId) => {
     const newComment = {
       ootdId,
       nickname: userInfo.nickname,
@@ -144,7 +156,23 @@ const OOTDBottom = props => {
       content,
     };
 
-    console.log(newComment);
+    await OOTDCommentCreateApi(newComment);
+    await commentRead();
+  };
+
+  const commentUpdate = async (commentId, nickname, content) => {
+    const updateComment = {
+      nickname,
+      content,
+    };
+
+    await OOTDCommentUpdateApi(commentId, updateComment);
+    await commentRead();
+  };
+
+  const commentDelete = async commentId => {
+    await OOTDCommentDeleteApi(commentId);
+    await commentRead();
   };
 
   return (
@@ -159,10 +187,12 @@ const OOTDBottom = props => {
               <SingleComment
                 key={comment.id}
                 depth="0"
+                userInfo={userInfo}
                 comment={comment}
                 allComments={allComments}
-                userInfo={userInfo}
                 commentWrite={commentWrite}
+                commentDelete={commentDelete}
+                commentUpdate={commentUpdate}
               />
             );
           })}
@@ -172,14 +202,24 @@ const OOTDBottom = props => {
           className="detail-comment-input"
           type="text"
           placeholder="댓글 쓰기"
+          value={commentCotent}
           onChange={e => {
             setCommentCotent(e.target.value);
+          }}
+          onKeyPress={e => {
+            if (e.key === 'Enter') {
+              commentWrite(commentCotent, 0);
+              setCommentCotent('');
+            }
           }}
         />
         <IoMdSend
           className="detail-comment-send"
           size="30"
-          onClick={() => commentWrite(commentCotent, 0)}
+          onClick={() => {
+            commentWrite(commentCotent, 0);
+            setCommentCotent('');
+          }}
         />
       </div>
     </footer>
