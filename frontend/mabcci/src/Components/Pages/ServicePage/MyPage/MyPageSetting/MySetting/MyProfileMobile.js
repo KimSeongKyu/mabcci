@@ -8,7 +8,9 @@ import { baseUrl } from '../../../../../../API/ApiUrl';
 import MypageReadApi from '../../../../../../API/MypageAPI/MypageReadApi';
 import MypageUpdateApi from '../../../../../../API/MypageAPI/MyPageUpdateApi';
 
+
 const MyProfileMobile = props => {
+
   const goBack = () => {
     props.setMyPageUpdate('none');
     props.setMobileMenu(true);

@@ -13,8 +13,10 @@ import { useState, useEffect } from 'react';
 import MypageReadApi from '../../../../../../API/MypageAPI/MypageReadApi';
 import { baseUrl } from '../../../../../../API/ApiUrl';
 import MyPageUpdate from './MyPageUpdate';
+import getUserInfo from '../../../../../Common/getUserInfo';
 
 const MyPageMobileMenu = props => {
+  const userInfo = getUserInfo();
   const dispatch = useDispatch();
   const history = useHistory();
   const [myUpdateInfo, setMyUpdateInfo] = useState({})

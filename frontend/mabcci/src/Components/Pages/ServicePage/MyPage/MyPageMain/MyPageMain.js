@@ -13,11 +13,13 @@ import MyChatList from '../MyPageSetting/MyChatList/MyChatList';
 import MyProposalList from '../MyPageSetting/MyProposal/MyProposalList';
 import MyProposalListMobile from '../MyPageSetting/MyProposal/MyProposalListMobile';
 import MyPageMobileMenu from '../MyPageSetting/MySetting/MyPageMobileMenu';
-import MyPageUpdate from '../MyPageSetting/MySetting/MyPageUpdate';
+import getUserInfo from '../../../../Common/getUserInfo';
 import { baseUrl } from '../../../../../API/ApiUrl';
 
 function MyPageMain() {
   const { nickname } = useParams();
+
+  const userInfo = getUserInfo();
 
   const dispatch = useDispatch();
 
@@ -61,7 +63,7 @@ function MyPageMain() {
         mobileMenu={mobileMenu}
         setMobileMenu={setMobileMenu}
       />
-      {myInfo ? (
+      {myInfo.categories ? (
         <MyPageMobileMenu
           myInfo={myInfo}
           setMyInfo={setMyInfo}
@@ -74,13 +76,16 @@ function MyPageMain() {
         />
       ) : null}
       <div className="mypage-container">
-        <button
-          className="mypage-mobile-setting"
-          type="submit"
-          onClick={goToMobileMenu}
-        >
-          <HiMenu />
-        </button>
+        {userInfo.nickname === myInfo.nickname ? (
+          <button
+            className="mypage-mobile-setting"
+            type="submit"
+            onClick={goToMobileMenu}
+          >
+            <HiMenu />
+          </button>
+        ) : null}
+
         {myInfo.categories ? (
           <MyPageProfile
             myInfo={myInfo}
@@ -95,8 +100,8 @@ function MyPageMain() {
             setMobileMenu={setMobileMenu}
           />
         ) : null}
+        {myInfo.role === 'MABCCI' ? <MabcciReview /> : null}
         {myInfo.ootds ? <MyPageFeed myInfo={myInfo} /> : null}
-        <MabcciReview />
       </div>
     </div>
   );
