@@ -1,6 +1,5 @@
 package com.mabcci.domain.like.domain;
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.mabcci.domain.BaseTimeEntity;
 import com.mabcci.domain.member.domain.Member;
 import org.hibernate.annotations.ColumnDefault;
@@ -12,7 +11,7 @@ import javax.validation.constraints.NotNull;
 public class Like extends BaseTimeEntity {
 
     @Column(name = "like_status")
-    @ColumnDefault("0")
+    @ColumnDefault("1")
     private Boolean status;
 
     @NotNull

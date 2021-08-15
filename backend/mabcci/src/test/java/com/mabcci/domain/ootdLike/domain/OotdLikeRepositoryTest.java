@@ -68,14 +68,4 @@ class OotdLikeRepositoryTest {
                 () -> assertThat(ootdLikeRepository).isInstanceOf(OotdLikeRepository.class)
         );
     }
-
-    @DisplayName("OotdLikeRepository ootd의 좋아요 수를 반환하는 기능 테스트")
-    @Test
-    void count_by_ootd_test() {
-        testEntityManager.persist(member);
-        testEntityManager.persist(ootd);
-        testEntityManager.persist(ootdLike);
-
-        assertThat(ootdLikeRepository.countByOotd(ootd)).isEqualTo(1L);
-    }
 }
