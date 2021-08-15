@@ -110,7 +110,7 @@
 }
 
 .detail-comment {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
 }
@@ -118,11 +118,11 @@
 .detail-comment-info {
   display: flex;
   flex-direction: row;
-  margin-bottom: 2%;
+  margin-bottom: 10px;
 }
 
 .detail-comment-info-photo {
-  margin-right: 2%;
+  margin-right: 10px;
   filter: drop-shadow(5px 5px 4px rgba(0, 0, 0, 0.25));
 }
 
@@ -184,6 +184,10 @@
 
 .detail-comment-send {
   cursor: pointer;
+}
+
+.detail-comment-content {
+  margin-left: 60px;
 }
 
 .detail-swiper-container {
