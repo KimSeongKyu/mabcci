@@ -95,7 +95,7 @@ export const SingleComment = props => {
               <input
                 className="detail-reply-comment-input"
                 type="text"
-                placeholder="댓글 쓰기"
+                placeholder="답글 쓰기"
                 value={replyCotent}
                 onChange={e => {
                   setReplyCotent(e.target.value);

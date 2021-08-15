@@ -90,6 +90,10 @@
   margin-top: 5%;
 }
 
+.detail-singlecomment {
+  margin-bottom: 20px;
+}
+
 .detail-comments-title {
   margin-left: 10px;
 }
@@ -145,15 +149,24 @@
 }
 
 .detail-reply {
-  margin: 0px 0px 50px 60px;
+  margin: 0px 0px 40px 60px;
 }
 
 .detail-reply-comment-write {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .detail-reply-toggle {
   margin-bottom: 15px;
+  background-color: var(--main-color-4);
+  cursor: pointer;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.detail-reply-toggle:hover {
+  color: var(--main-color-1);
+  opacity: 1;
 }
 
 .detail-comment-write {
