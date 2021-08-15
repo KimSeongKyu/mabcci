@@ -16,7 +16,7 @@ export const OOTDMyPageListUrl = '';
 export const OOTDCommentCreateUrl = '/api/ootd/comments';
 export const OOTDCommentUpdateUrl = '/api/ootd/comments/';
 export const OOTDCommentDeleteUrl = '/api/ootd/comments/';
-export const OOTDCommentReadUrl = '/api/ootd/comments';
+export const OOTDCommentReadUrl = '/api/ootd/comments/';
 export const OOTDLikeUrl = '/api/ootd/';
 
 /* MabcciAPI Url */

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import instance from '../indexMockSeongae';
+import instance from '../index';
 
 import {
   OOTDDetailUrl,
@@ -25,11 +25,47 @@ export const OOTDDetailApi = async id => {
   }
 };
 
-export const OOTDCommentCreateApi = async () => {
+export const OOTDCommentCreateApi = async newComment => {
   try {
-    const response = await axios.get(OOTDCommentCreateUrl);
-    return {};
+    const response = await instance.post(OOTDCommentCreateUrl, newComment);
+    return response;
   } catch (response) {
-    return {};
+    return response;
+  }
+};
+
+export const OOTDCommentReadApi = async id => {
+  try {
+    const response = await instance.get(`${OOTDCommentReadUrl}${id}`);
+    return {
+      status: response.status,
+      comments: response.data.comments,
+    };
+  } catch (response) {
+    return {
+      status: response.status,
+    };
+  }
+};
+
+export const OOTDCommentUpdateApi = async (id, updateComment) => {
+  try {
+    console.log(updateComment);
+    const response = await instance.put(
+      `${OOTDCommentUpdateUrl}${id}`,
+      updateComment,
+    );
+    return response;
+  } catch (response) {
+    return response;
+  }
+};
+
+export const OOTDCommentDeleteApi = async id => {
+  try {
+    const response = await instance.delete(`${OOTDCommentDeleteUrl}${id}`);
+    return response;
+  } catch (response) {
+    return response;
   }
 };

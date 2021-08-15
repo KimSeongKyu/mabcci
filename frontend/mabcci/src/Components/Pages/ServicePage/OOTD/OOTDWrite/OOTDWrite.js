@@ -21,6 +21,7 @@ import { FaShoppingBag } from 'react-icons/fa';
 import OOTDWriteApi from '../../../../../API/OOTDAPI/OOTDWriteApi';
 
 import InputTags from './InputTags';
+import getUserInfo from '../../../../Common/getUserInfo';
 
 SwiperCore.use([Zoom, Navigation, Pagination]);
 
@@ -40,7 +41,7 @@ function OOTDWrite() {
   });
 
   useEffect(() => {
-    const myInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const myInfo = getUserInfo();
     setMyOOTDInfo({
       ...myOOTDInfo,
       nickname: myInfo.nickname,
@@ -115,7 +116,7 @@ function OOTDWrite() {
 
       const res = await OOTDWriteApi(data);
       if (res.status === 204) {
-        history.push('/OOTD');
+        window.location.replace('/OOTD');
       } else {
         console.log(res.status);
       }

@@ -9,7 +9,7 @@ import 'swiper/components/pagination/pagination.min.css';
 import getUserInfo from '../../../../Common/getUserInfo';
 import OOTDDeleteApi from '../../../../../API/OOTDAPI/OOTDDeleteApi';
 
-const OOTDContentApi = () => {
+const OOTDContent = () => {
   const history = useHistory();
   const myInfo = getUserInfo();
   const { id, nickname } = useParams();
@@ -33,7 +33,7 @@ const OOTDContentApi = () => {
   const [myLike, setMyLike] = useState(false);
 
   useEffect(async () => {
-    const response = await OOTDDetailApi(id);
+    const response = await OOTDDetailApi(detail.id);
     if (response.status === 200) {
       setDetail({ ...detail, ...response.detail });
     }
@@ -58,7 +58,7 @@ const OOTDContentApi = () => {
   };
 
   const ootdDeleteHandler = () => {
-    const response = OOTDDeleteApi(id);
+    const response = OOTDDeleteApi(detail.id);
     window.location.replace('/OOTD');
   };
 
@@ -144,4 +144,4 @@ const OOTDContentApi = () => {
   );
 };
 
-export default OOTDContentApi;
+export default OOTDContent;

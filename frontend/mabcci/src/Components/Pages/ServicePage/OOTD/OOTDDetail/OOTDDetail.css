@@ -90,6 +90,10 @@
   margin-top: 5%;
 }
 
+.detail-singlecomment {
+  margin-bottom: 20px;
+}
+
 .detail-comments-title {
   margin-left: 10px;
 }
@@ -106,6 +110,7 @@
 }
 
 .detail-comment {
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
 }
@@ -113,15 +118,24 @@
 .detail-comment-info {
   display: flex;
   flex-direction: row;
-  margin-bottom: 2%;
+  margin-bottom: 10px;
 }
 
 .detail-comment-info-photo {
-  margin-right: 2%;
+  margin-right: 10px;
   filter: drop-shadow(5px 5px 4px rgba(0, 0, 0, 0.25));
 }
 
-.detail-comment-info-content > button {
+.detail-comment-info-namedate {
+  display: flex;
+  flex-direction: row;
+}
+
+.detail-comment-info-namedate > p {
+  color: rgb(109, 105, 105);
+}
+
+.detail-comment-info-button {
   margin-right: 10px;
   background-color: var(--main-color-4);
   cursor: pointer;
@@ -129,7 +143,44 @@
   transition: 0.3s;
 }
 
-.detail-comment-info-content > button:hover {
+.detail-comment-info-button:hover {
+  color: var(--main-color-1);
+  opacity: 1;
+}
+
+.detail-reply {
+  margin: 0px 0px 30px 60px;
+}
+
+.detail-reply-comment-write {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.detail-reply-comment-input {
+  width: 85%;
+}
+
+.detail-comment-send {
+  color: var(--main-color-1);
+  cursor: pointer;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.detail-comment-send:hover {
+  opacity: 1;
+}
+
+.detail-reply-toggle {
+  margin-bottom: 15px;
+  background-color: var(--main-color-4);
+  cursor: pointer;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.detail-reply-toggle:hover {
   color: var(--main-color-1);
   opacity: 1;
 }
@@ -149,6 +200,10 @@
 
 .detail-comment-send {
   cursor: pointer;
+}
+
+.detail-comment-content {
+  margin-left: 60px;
 }
 
 .detail-swiper-container {
