@@ -16,6 +16,7 @@ export const SingleComment = props => {
     return comment.id === otherComment.parentId;
   });
   const [replyCotent, setReplyCotent] = useState('');
+  const [replyToggle, setReplyToggle] = useState(false);
   const [updateContent, setUpdateContent] = useState(comment.content);
   const [updateToggle, setUpdateToggle] = useState(false);
 
@@ -24,14 +25,18 @@ export const SingleComment = props => {
       <div className="detail-comment">
         <div className="detail-comment-info">
           <div className="detail-comment-info-photo">
-            {comment.memberPicture}
+            <img src={userphoto} alt="UserImage" width="70" />
           </div>
           {updateToggle ? null : (
             <div className="detail-comment-info-content">
               <p>{comment.memberNickname}</p>
               <p>{comment.createdDate}</p>
               {depth === '0' ? (
-                <button type="button" className="detail-comment-info-button">
+                <button
+                  type="button"
+                  className="detail-comment-info-button"
+                  onClick={() => setReplyToggle(!replyToggle)}
+                >
                   답글
                 </button>
               ) : null}
@@ -40,7 +45,7 @@ export const SingleComment = props => {
                   <button
                     type="button"
                     className="detail-comment-info-button"
-                    onClick={() => setUpdateToggle(true)}
+                    onClick={() => setUpdateToggle(!updateToggle)}
                   >
                     수정
                   </button>
@@ -67,7 +72,7 @@ export const SingleComment = props => {
               type="button"
               onClick={() => {
                 commentUpdate(comment.id, userInfo.nickname, updateContent);
-                setUpdateToggle(false);
+                setUpdateToggle(!updateToggle);
               }}
             >
               저장
@@ -78,47 +83,51 @@ export const SingleComment = props => {
         )}
       </div>
       {depth === '0' ? (
-        <div className="detail-reply-comment">
-          <div className="detail-reply-comment-write">
-            <input
-              className="detail-reply-comment-input"
-              type="text"
-              placeholder="댓글 쓰기"
-              value={replyCotent}
-              onChange={e => {
-                setReplyCotent(e.target.value);
-              }}
-              onKeyPress={e => {
-                if (e.key === 'Enter') {
+        <div className="detail-reply">
+          {replyToggle ? (
+            <div className="detail-reply-comment-write">
+              <input
+                className="detail-reply-comment-input"
+                type="text"
+                placeholder="댓글 쓰기"
+                value={replyCotent}
+                onChange={e => {
+                  setReplyCotent(e.target.value);
+                }}
+                onKeyPress={e => {
+                  if (e.key === 'Enter') {
+                    commentWrite(replyCotent, comment.id);
+                    setReplyCotent('');
+                  }
+                }}
+              />
+              <IoMdSend
+                className="detail-comment-send"
+                size="30"
+                onClick={() => {
                   commentWrite(replyCotent, comment.id);
                   setReplyCotent('');
-                }
-              }}
-            />
-            <IoMdSend
-              className="detail-comment-send"
-              size="30"
-              onClick={() => {
-                commentWrite(replyCotent, comment.id);
-                setReplyCotent('');
-              }}
-            />
+                }}
+              />
+            </div>
+          ) : null}
+          <div className="detail-reply-comment">
+            {replyComments.length !== 0 &&
+              replyComments.map(reply => {
+                return (
+                  <SingleComment
+                    key={reply.id}
+                    depth={depth + 1}
+                    userInfo={userInfo}
+                    comment={reply}
+                    allComments={allComments}
+                    commentWrite={commentWrite}
+                    commentDelete={commentDelete}
+                    commentUpdate={commentUpdate}
+                  />
+                );
+              })}
           </div>
-          {replyComments.length !== 0 &&
-            replyComments.map(reply => {
-              return (
-                <SingleComment
-                  key={reply.id}
-                  depth={depth + 1}
-                  userInfo={userInfo}
-                  comment={reply}
-                  allComments={allComments}
-                  commentWrite={commentWrite}
-                  commentDelete={commentDelete}
-                  commentUpdate={commentUpdate}
-                />
-              );
-            })}
         </div>
       ) : null}
     </div>

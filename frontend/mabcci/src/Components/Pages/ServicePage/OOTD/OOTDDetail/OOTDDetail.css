@@ -135,8 +135,12 @@
   opacity: 1;
 }
 
-.detail-reply-comment {
-  margin: 20px 60px 50px;
+.detail-reply {
+  margin: 20px 0px 50px 60px;
+}
+
+.detail-reply-comment-write {
+  margin-bottom: 30px;
 }
 
 .detail-comment-write {
