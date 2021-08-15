@@ -11,7 +11,8 @@ import MyInfoMobile from './MyInfoMobile';
 import MyProfileMobile from './MyProfileMobile';
 import { useState, useEffect } from 'react';
 import MypageReadApi from '../../../../../../API/MypageAPI/MypageReadApi';
-
+import { baseUrl } from '../../../../../../API/ApiUrl';
+import MyPageUpdate from './MyPageUpdate';
 
 const MyPageMobileMenu = props => {
   const dispatch = useDispatch();
@@ -30,7 +31,8 @@ const MyPageMobileMenu = props => {
       footSize: res.myInfo.footSize,
       bodyType: res.myInfo.bodyType,
       categories: res.myInfo.categories,
-      picture: res.myInfo.picture,
+      picture: baseUrl + res.myInfo.picture,
+      updatePicture: '',
       description: res.myInfo.description,
     });
   }, []);
@@ -55,7 +57,7 @@ const MyPageMobileMenu = props => {
       ? updateData.append('footSize', 0)
       : updateData.append('footSize', myUpdateInfo.footSize);
   }
-  updateData.append('picture', myUpdateInfo.picture);
+  updateData.append('picture', myUpdateInfo.updatePicture);
   updateData.append('description', myUpdateInfo.description);
 
   const [myPageUpdate, setMyPageUpdate] = useState('none')
@@ -82,14 +84,20 @@ const MyPageMobileMenu = props => {
 
   return (
     <>
+      <MyPageUpdate
+        myUpdateInfo={myUpdateInfo}
+        setMyUpdateInfo={setMyUpdateInfo}
+        updateData={updateData}
+        myPageUpdate={props.myPageUpdate}
+        setMyPageUpdate={props.setMyPageUpdate}
+      />
       <MyCategoryMobile
         myPageUpdate={props.myPageUpdate}
         setMyPageUpdate={props.setMyPageUpdate}
         setMobileMenu={props.setMobileMenu}
         myUpdateInfo={myUpdateInfo}
         setMyUpdateInfo={setMyUpdateInfo}
-        setMyInfo={props.setMyInfo}
-        myInfo={props.myInfo}
+        updateData={updateData}
       />
       <MyInfoMobile
         myPageUpdate={props.myPageUpdate}
@@ -98,8 +106,6 @@ const MyPageMobileMenu = props => {
         myUpdateInfo={myUpdateInfo}
         setMyUpdateInfo={setMyUpdateInfo}
         updateData={updateData}
-        setMyInfo={props.setMyInfo}
-        myInfo={props.myInfo}
       />
       <MyProfileMobile
         myPageUpdate={props.myPageUpdate}
@@ -107,8 +113,7 @@ const MyPageMobileMenu = props => {
         setMobileMenu={props.setMobileMenu}
         myUpdateInfo={myUpdateInfo}
         setMyUpdateInfo={setMyUpdateInfo}
-        setMyInfo={props.setMyInfo}
-        myInfo={props.myInfo}
+        updateData={updateData}
       />
       {props.mobileMenu === true ? (
         <div className="mypage-moblie-container" />

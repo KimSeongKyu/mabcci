@@ -35,13 +35,14 @@ const MyPageProfile = props => {
     <>
       <div className="mypage-profile-box">
         <div
+          onClick={clickProfile}
           className={
             profile === true
               ? 'mypage-profile-inner mypage-profile-inner-active'
               : 'mypage-profile-inner'
           }
         >
-          <div className="mypage-profile-bodyinfo" onClick={clickProfile}>
+          <div className="mypage-profile-bodyinfo">
             {props.myInfo.bodyType !== null ? (
               <img src={baseUrl + props.myInfo.bodyType} alt="No image"></img>
             ) : (
@@ -66,9 +67,9 @@ const MyPageProfile = props => {
             </div>
           </div>
           {props.myInfo.picture !== null ? (
-            <img src={baseUrl + props.myInfo.picture} alt="No image"></img>
+            <img src={props.myInfo.picture} alt="No image"></img>
           ) : (
-              <img src={기본프로필} alt="" onClick={clickProfile} />
+            <img src={기본프로필} alt="" onClick={clickProfile} />
           )}
         </div>
 
@@ -107,7 +108,8 @@ const MyPageProfile = props => {
       <div className="mypage-introduce-box">
         <p>Introduce</p>
 
-        {props.myInfo.description == 'null' ? (
+        {props.myInfo.description == 'null' ||
+        props.myInfo.description == null ? (
           <div className="mypage-introduce-box-null">No information❕</div>
         ) : (
           <div>{props.myInfo.description}</div>

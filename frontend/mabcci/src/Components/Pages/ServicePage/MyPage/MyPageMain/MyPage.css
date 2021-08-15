@@ -39,12 +39,9 @@
   background-color: white;
 }
 
-/* .mypage-profile-inner:hover {
-  transform: rotateY(180deg);
-} */
-
 .mypage-profile-inner-active {
   transform: rotateY(180deg);
+  cursor: pointer;
 }
 
 .mypage-profile-box img {

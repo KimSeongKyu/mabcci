@@ -14,6 +14,7 @@ import MyProposalList from '../MyPageSetting/MyProposal/MyProposalList';
 import MyProposalListMobile from '../MyPageSetting/MyProposal/MyProposalListMobile';
 import MyPageMobileMenu from '../MyPageSetting/MySetting/MyPageMobileMenu';
 import MyPageUpdate from '../MyPageSetting/MySetting/MyPageUpdate';
+import { baseUrl } from '../../../../../API/ApiUrl';
 
 function MyPageMain() {
   const { nickname } = useParams();
@@ -35,6 +36,7 @@ function MyPageMain() {
   useEffect(async () => {
     dispatch(NavCategory('mypage'));
     const res = await MypageReadApi(nickname);
+    res.myInfo.picture = baseUrl + res.myInfo.picture;
     setMyInfo(res.myInfo);
   }, []);
 
@@ -44,10 +46,6 @@ function MyPageMain() {
 
   return (
     <div className="mypage-entire">
-      <MyPageUpdate
-        myPageUpdate={myPageUpdate}
-        setMyPageUpdate={setMyPageUpdate}
-      />
       <FollowBox followBox={followBox} setFollowBox={setFollowBox} />
       <MyChatList chatBox={chatBox} setChatBox={setChatBox} />
       <MyProposalList

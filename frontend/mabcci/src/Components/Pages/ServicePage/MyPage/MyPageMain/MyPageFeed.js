@@ -11,9 +11,7 @@ const MyPageFeed = props => {
       <div className="mypage-feed-box">
         {props.myInfo.ootds.map((content, j) => (
           <div className="mypage-feed" key={j}>
-            <Link
-              to={`/OOTD/${props.myInfo.ootds[j].id}/${props.myInfo.nickname}`}
-            >
+            <Link to={`/OOTD/${props.myInfo.ootds[j].id}/${props.myInfo.nickname}`}>
               <div className="mypage-feed-overlay">
                 <p>좋아요 개수 보여주기?</p>
               </div>

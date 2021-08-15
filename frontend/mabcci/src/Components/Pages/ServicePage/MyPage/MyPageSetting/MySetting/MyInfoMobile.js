@@ -78,11 +78,6 @@ const MyInfoMobile = props => {
       {props.myPageUpdate === 'info' ? (
         <div className="mypage-mobile-menu mypage-mobile-update">
           <div className="mypage-mobile-menu-header">
-            <input
-              type="file"
-              accept=".jpg,.jpeg,.png"
-              onChange={updateProfile}
-            />
             <button
               type="submit"
               className="mypage-mobile-menu-btn"

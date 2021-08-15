@@ -16,8 +16,27 @@ const MyCategoryMobile = props => {
     props.setMobileMenu(true);
   };
 
-  const styleBtnClick = () => {
-    props.set 
+  const styleBtnClick = (e) => {
+    const copyCategory = [...props.myUpdateInfo.categories];
+
+    const nowCategory = e.target.name;
+
+    const findResult = copyCategory.indexOf(nowCategory);
+
+    if (findResult === -1) {
+      copyCategory.push(nowCategory);
+    } else {
+      copyCategory.splice(findResult, 1);
+    }
+    props.setMyUpdateInfo({
+      ...props.myUpdateInfo,
+      categories: copyCategory,
+    });
+  }
+  
+
+  const submit = () => {
+    console.log(props.myUpdateInfo);
   }
 
   return (
@@ -135,6 +154,9 @@ const MyCategoryMobile = props => {
               </div>
             </div>
           </div>
+          <button className="mypage-submit-btn mypage-category-submit-btn" type="submit" onClick={submit}>
+            저장
+          </button>
         </div>
       ) : null}
     </>

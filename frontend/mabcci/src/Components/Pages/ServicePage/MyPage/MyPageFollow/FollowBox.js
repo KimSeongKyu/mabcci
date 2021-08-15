@@ -18,7 +18,7 @@ const FollowBox = props => {
       ) : null}
 
       {props.followBox === '팔로워' ? (
-        <div className="mypage-modal-box">
+        <div className="mypage-follow-box">
           <div className="mypage-modal-box-header">
             <h5>팔로워</h5>
             <button
@@ -38,7 +38,7 @@ const FollowBox = props => {
       ) : null}
 
       {props.followBox === '팔로잉' ? (
-        <div className="mypage-modal-box">
+        <div className="mypage-follow-box">
           <div className="mypage-modal-box-header">
             <h5>팔로잉</h5>
             <button
