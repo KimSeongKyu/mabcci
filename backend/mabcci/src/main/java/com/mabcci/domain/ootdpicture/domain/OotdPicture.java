@@ -1,6 +1,5 @@
 package com.mabcci.domain.ootdpicture.domain;
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.mabcci.domain.ootd.domain.Ootd;
 import com.mabcci.domain.picture.domain.Picture;
 
@@ -32,22 +31,18 @@ public class OotdPicture extends Picture {
         return new OotdPictureBuilder();
     }
 
-    @JsonValue
     public Long id() {
         return id;
     }
 
-    @JsonValue
     public Ootd ootd() {
         return ootd;
     }
 
-    @JsonValue
     public String url() {
         return super.url();
     }
 
-    @JsonValue
     public String fileName() {
         return super.fileName();
     }

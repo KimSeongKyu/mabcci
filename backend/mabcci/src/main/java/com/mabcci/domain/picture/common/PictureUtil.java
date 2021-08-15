@@ -75,7 +75,6 @@ public class PictureUtil {
     }
 
     public String makeFileExtension(final String contentType) {
-        System.out.println("contentType: "+ contentType);
         if (contentType.contains(MediaType.IMAGE_PNG_VALUE)) {
             return PNG_FILE_EXTENSION;
         }
