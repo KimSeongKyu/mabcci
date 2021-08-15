@@ -44,7 +44,7 @@ const MyPageProfile = props => {
         >
           <div className="mypage-profile-bodyinfo">
             {props.myInfo.bodyType !== null ? (
-              <img src={baseUrl + props.myInfo.bodyType} alt="No image"></img>
+              <img src={props.myInfo.gender + '_' + props.myInfo.bodyType} alt="No image"></img>
             ) : (
               <div className="mypage-profile-bodysize-noimage">No Type</div>
             )}
@@ -109,7 +109,7 @@ const MyPageProfile = props => {
         <p>Introduce</p>
 
         {props.myInfo.description == 'null' ||
-        props.myInfo.description == null ? (
+        props.myInfo.description == '' ? (
           <div className="mypage-introduce-box-null">No information❕</div>
         ) : (
           <div>{props.myInfo.description}</div>

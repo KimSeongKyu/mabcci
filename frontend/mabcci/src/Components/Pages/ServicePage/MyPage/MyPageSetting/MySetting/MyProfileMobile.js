@@ -4,6 +4,9 @@ import React from 'react';
 import { IoArrowBackCircle } from 'react-icons/io5';
 import 기본프로필 from '../../../../../../Asset/Images/기본프로필.jpg'
 import { BsXCircle } from "react-icons/bs";
+import { baseUrl } from '../../../../../../API/ApiUrl';
+import MypageReadApi from '../../../../../../API/MypageAPI/MypageReadApi';
+import MypageUpdateApi from '../../../../../../API/MypageAPI/MyPageUpdateApi';
 
 const MyProfileMobile = props => {
   const goBack = () => {
@@ -36,9 +39,24 @@ const MyProfileMobile = props => {
     });
   }
 
-  const submit = () => {
-    console.log(props.myUpdateInfo);
-  }
+  const submit = async () => {
+    const res = await MypageUpdateApi(
+      props.updateData,
+      props.myUpdateInfo.nickname,
+    );
+    if (res.status === 200) {
+      const res = await MypageReadApi(props.myUpdateInfo.nickname);
+      if (res.myInfo.picture !== null) {
+        res.myInfo.picture = baseUrl + res.myInfo.picture;
+      }
+      props.setMyInfo(res.myInfo);
+      props.setMyPageUpdate('none');
+      props.setMobileMenu(true);
+    } else {
+      console.log(res.status);
+      alert('닉네임을 확인하세요');
+    }
+  };
 
   return (
     <>

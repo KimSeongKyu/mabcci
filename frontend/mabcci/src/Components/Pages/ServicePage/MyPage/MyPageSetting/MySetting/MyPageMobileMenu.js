@@ -22,6 +22,9 @@ const MyPageMobileMenu = props => {
 
   useEffect(async () => {
     const res = await MypageReadApi(nickname);
+    if (res.myInfo.picture !== null) {
+      res.myInfo.picture = baseUrl + res.myInfo.picture;
+    }
     setMyUpdateInfo({
       ...myUpdateInfo,
       nickname: res.myInfo.nickname,
@@ -31,7 +34,7 @@ const MyPageMobileMenu = props => {
       footSize: res.myInfo.footSize,
       bodyType: res.myInfo.bodyType,
       categories: res.myInfo.categories,
-      picture: baseUrl + res.myInfo.picture,
+      picture: res.myInfo.picture,
       updatePicture: '',
       description: res.myInfo.description,
     });
@@ -90,6 +93,9 @@ const MyPageMobileMenu = props => {
         updateData={updateData}
         myPageUpdate={props.myPageUpdate}
         setMyPageUpdate={props.setMyPageUpdate}
+        myInfo={props.myInfo}
+        setMyInfo={props.setMyInfo}
+        setMobileMenu={props.setMobileMenu}
       />
       <MyCategoryMobile
         myPageUpdate={props.myPageUpdate}
@@ -98,6 +104,8 @@ const MyPageMobileMenu = props => {
         myUpdateInfo={myUpdateInfo}
         setMyUpdateInfo={setMyUpdateInfo}
         updateData={updateData}
+        myInfo={props.myInfo}
+        setMyInfo={props.setMyInfo}
       />
       <MyInfoMobile
         myPageUpdate={props.myPageUpdate}
@@ -106,6 +114,8 @@ const MyPageMobileMenu = props => {
         myUpdateInfo={myUpdateInfo}
         setMyUpdateInfo={setMyUpdateInfo}
         updateData={updateData}
+        myInfo={props.myInfo}
+        setMyInfo={props.setMyInfo}
       />
       <MyProfileMobile
         myPageUpdate={props.myPageUpdate}
@@ -114,6 +124,8 @@ const MyPageMobileMenu = props => {
         myUpdateInfo={myUpdateInfo}
         setMyUpdateInfo={setMyUpdateInfo}
         updateData={updateData}
+        myInfo={props.myInfo}
+        setMyInfo={props.setMyInfo}
       />
       {props.mobileMenu === true ? (
         <div className="mypage-moblie-container" />

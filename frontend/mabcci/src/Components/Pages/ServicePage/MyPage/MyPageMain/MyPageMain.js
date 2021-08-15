@@ -36,8 +36,11 @@ function MyPageMain() {
   useEffect(async () => {
     dispatch(NavCategory('mypage'));
     const res = await MypageReadApi(nickname);
-    res.myInfo.picture = baseUrl + res.myInfo.picture;
+    if (res.myInfo.picture !== null) {
+      res.myInfo.picture = baseUrl + res.myInfo.picture;
+    }
     setMyInfo(res.myInfo);
+    console.log(res);
   }, []);
 
   const goToMobileMenu = () => {

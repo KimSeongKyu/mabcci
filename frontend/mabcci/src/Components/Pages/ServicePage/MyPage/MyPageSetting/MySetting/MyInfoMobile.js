@@ -16,6 +16,7 @@ import WOMAN_OVAL from '../../../../../../Asset/Images/WOMAN_OVAL.png';
 import WOMAN_TRIANGLE from '../../../../../../Asset/Images/WOMAN_TRIANGLE.png';
 import MypageUpdateApi from '../../../../../../API/MypageAPI/MyPageUpdateApi';
 import MypageReadApi from '../../../../../../API/MypageAPI/MypageReadApi'
+import { baseUrl } from '../../../../../../API/ApiUrl';
 
 const MyInfoMobile = props => {
 
@@ -53,6 +54,9 @@ const MyInfoMobile = props => {
     );
     if (res.status === 200) {
       const res = await MypageReadApi(props.myUpdateInfo.nickname);
+      if (res.myInfo.picture !== null) {
+        res.myInfo.picture = baseUrl + res.myInfo.picture;
+      }
       props.setMyInfo(res.myInfo);
       props.setMyPageUpdate('none');
       props.setMobileMenu(true);
@@ -61,13 +65,6 @@ const MyInfoMobile = props => {
       console.log(res.status)
       alert('닉네임을 확인하세요')
     }
-  }
-
-  const updateProfile = e => {
-    props.setMyUpdateInfo({
-      ...props.myUpdateInfo,
-      picture: e.target.files[0],
-    });
   }
 
   return (
