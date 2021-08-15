@@ -29,12 +29,12 @@ public class OotdCommentSaveService {
 
     @Transactional
     public void saveOotdComment(final OotdCommentSaveRequest ootdCommentSaveRequest) {
-        final Member member = getMemberByNickname(ootdCommentSaveRequest.getNickname());
-        final Ootd ootd = getOotdByOotdId(ootdCommentSaveRequest.getOotdId());
-        final OotdComment parentComment = getParentCommentByCommentId(ootdCommentSaveRequest.getParentCommentId());
+        final Member member = getMemberByNickname(ootdCommentSaveRequest.nickname());
+        final Ootd ootd = getOotdByOotdId(ootdCommentSaveRequest.ootdId());
+        final OotdComment parentComment = getParentCommentByCommentId(ootdCommentSaveRequest.parentCommentId());
 
         validateParentCommentHasNoParent(parentComment);
-        saveOotdComment(member, ootd, parentComment, ootdCommentSaveRequest.getContent());
+        saveOotdComment(member, ootd, parentComment, ootdCommentSaveRequest.content());
     }
 
     private void saveOotdComment(final Member member, final Ootd ootd, final OotdComment parentComment, final String content) {

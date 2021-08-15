@@ -1,5 +1,6 @@
 package com.mabcci.domain.ootdcomment.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mabcci.global.common.Nickname;
 
 import javax.validation.Valid;
@@ -8,11 +9,10 @@ import javax.validation.constraints.NotNull;
 
 public final class OotdCommentUpdateRequest {
 
-    @Valid
-    @NotNull
+    @Valid @NotNull @JsonProperty("nickname")
     private Nickname nickname;
 
-    @NotEmpty
+    @NotEmpty @JsonProperty("content")
     private String content;
 
     private OotdCommentUpdateRequest() {
@@ -23,11 +23,11 @@ public final class OotdCommentUpdateRequest {
         this.content = content;
     }
 
-    public final Nickname getNickname() {
+    public final Nickname nickname() {
         return nickname;
     }
 
-    public final String getContent() {
+    public final String content() {
         return content;
     }
 }

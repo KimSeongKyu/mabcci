@@ -97,8 +97,8 @@ class OotdCommentFindServiceTest {
 
         assertAll(
                 () -> assertThat(ootdCommentResponses.size()).isEqualTo(2),
-                () -> assertThat(parentOotdCommentResponse.getContent()).isEqualTo(parentCommentContent),
-                () -> assertThat(childOotdCommentResponse.getContent()).isEqualTo(childCommentContent)
+                () -> assertThat(parentOotdCommentResponse.content()).isEqualTo(parentCommentContent),
+                () -> assertThat(childOotdCommentResponse.content()).isEqualTo(childCommentContent)
         );
     }
 }

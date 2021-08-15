@@ -37,10 +37,10 @@ class OotdCommentSaveRequestTest {
     @Test
     void getter_test() {
         assertAll(
-                () -> assertThat(ootdCommentSaveRequest.getOotdId()).isEqualTo(1L),
-                () -> assertThat(ootdCommentSaveRequest.getNickname()).isEqualTo(NICKNAME),
-                () -> assertThat(ootdCommentSaveRequest.getParentCommentId()).isNull(),
-                () -> assertThat(ootdCommentSaveRequest.getContent()).isEqualTo("내용")
+                () -> assertThat(ootdCommentSaveRequest.ootdId()).isEqualTo(1L),
+                () -> assertThat(ootdCommentSaveRequest.nickname()).isEqualTo(NICKNAME),
+                () -> assertThat(ootdCommentSaveRequest.parentCommentId()).isNull(),
+                () -> assertThat(ootdCommentSaveRequest.content()).isEqualTo("내용")
         );
     }
 
