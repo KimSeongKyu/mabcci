@@ -7,6 +7,7 @@ import com.mabcci.domain.ootd.domain.Ootd;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
@@ -68,6 +69,17 @@ class OotdLikeTest {
         assertAll(
                 () -> assertThat(ootdLike).isNotNull(),
                 () -> assertThat(ootdLike).isInstanceOf(OotdLike.class)
+        );
+    }
+
+    @DisplayName("OotdLike 인스턴스 getter 메서드 테스트")
+    @Test
+    void getter_test() {
+        ReflectionTestUtils.setField(ootdLike, "id", 1L);
+
+        assertAll(
+                () -> assertThat(ootdLike.id()).isEqualTo(1L),
+                () -> assertThat(ootdLike.ootd()).isEqualTo(ootd)
         );
     }
 }
