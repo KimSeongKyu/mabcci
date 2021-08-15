@@ -9,6 +9,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+
+import java.util.Set;
+
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
 import static com.mabcci.global.common.EmailTest.EMAIL;
@@ -80,6 +86,23 @@ class OotdLikeTest {
         assertAll(
                 () -> assertThat(ootdLike.id()).isEqualTo(1L),
                 () -> assertThat(ootdLike.ootd()).isEqualTo(ootd)
+        );
+    }
+
+    @DisplayName("OotdLike 인스턴스 프로퍼티 유효성 검증 테스트")
+    @Test
+    void validate_test() {
+        final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        final OotdLike invalidOotdLike = new OotdLike();
+
+        final Set<ConstraintViolation<OotdLike>> invalidPropertiesOfValidOotdLike =
+                validator.validate(ootdLike);
+        final Set<ConstraintViolation<OotdLike>> invalidPropertiesOfInvalidOotdLike =
+                validator.validate(invalidOotdLike);
+
+        assertAll(
+                () -> assertThat(invalidPropertiesOfValidOotdLike.size()).isEqualTo(0),
+                () -> assertThat(invalidPropertiesOfInvalidOotdLike.size()).isEqualTo(2)
         );
     }
 }
