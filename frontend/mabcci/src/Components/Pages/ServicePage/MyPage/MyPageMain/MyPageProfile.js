@@ -125,7 +125,8 @@ const MyPageProfile = props => {
                 <button type="submit" onClick={unFollow} id="mypage-follow-btn">
                   팔로우취소
                 </button>
-                {props.myInfo.role === 'MABCCI' ? (
+                {props.myInfo.role === 'MABCCI' &&
+                userInfo.nickname !== props.myInfo.nickname ? (
                   <button type="submit" id="mypage-mabcci-styling-btn">
                     Styling 신청
                   </button>
@@ -148,7 +149,8 @@ const MyPageProfile = props => {
                   >
                     팔로우취소
                   </button>
-                  {props.myInfo.role === 'MABCCI' ? (
+                  {props.myInfo.role === 'MABCCI' &&
+                  userInfo.nickname !== props.myInfo.nickname ? (
                     <button type="submit" id="mypage-mabcci-styling-btn">
                       Styling 신청
                     </button>
