@@ -26,13 +26,15 @@ export const SingleComment = props => {
       <div className="detail-comment">
         <div className="detail-comment-info">
           <div className="detail-comment-info-photo">
-            <img src={userphoto} alt="UserImage" width="70" />
+            <img src={userphoto} alt="UserImage" width="48" />
           </div>
 
           {updateToggle ? null : (
             <div className="detail-comment-info-content">
-              <p>{comment.memberNickname}</p>
-              <p>{comment.createdDate}</p>
+              <div className="detail-comment-info-namedate">
+                <h5>{comment.memberNickname} &nbsp; </h5>
+                <p>{comment.createdDate.slice(0, 10)}</p>
+              </div>
               {depth === '0' ? (
                 <button
                   type="button"

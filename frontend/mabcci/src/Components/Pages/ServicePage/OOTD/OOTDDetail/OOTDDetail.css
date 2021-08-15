@@ -106,7 +106,7 @@
 }
 
 .detail-comment {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   display: flex;
   flex-direction: column;
 }
@@ -120,6 +120,15 @@
 .detail-comment-info-photo {
   margin-right: 2%;
   filter: drop-shadow(5px 5px 4px rgba(0, 0, 0, 0.25));
+}
+
+.detail-comment-info-namedate {
+  display: flex;
+  flex-direction: row;
+}
+
+.detail-comment-info-namedate > p {
+  color: rgb(109, 105, 105);
 }
 
 .detail-comment-info-button {
@@ -136,7 +145,7 @@
 }
 
 .detail-reply {
-  margin: 20px 0px 50px 60px;
+  margin: 0px 0px 50px 60px;
 }
 
 .detail-reply-comment-write {
