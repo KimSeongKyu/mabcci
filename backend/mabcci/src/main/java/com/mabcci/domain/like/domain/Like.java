@@ -33,4 +33,9 @@ public class Like extends BaseTimeEntity {
     public Member member() {
         return member;
     }
+
+    public Like updateStatus() {
+        status = !status;
+        return this;
+    }
 }
