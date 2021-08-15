@@ -34,6 +34,14 @@ public class OotdLike extends Like {
         return new OotdLikeBuilder();
     }
 
+    public Long id() {
+        return id;
+    }
+
+    public Ootd ootd() {
+        return ootd;
+    }
+
     public static class OotdLikeBuilder {
         private Member member;
         private Ootd ootd;
