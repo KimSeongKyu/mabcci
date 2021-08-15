@@ -143,6 +143,10 @@
   margin-bottom: 30px;
 }
 
+.detail-reply-toggle {
+  margin-bottom: 15px;
+}
+
 .detail-comment-write {
   position: relative;
   margin-left: 10%;

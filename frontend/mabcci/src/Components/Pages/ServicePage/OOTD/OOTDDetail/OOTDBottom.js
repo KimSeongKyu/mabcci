@@ -16,7 +16,8 @@ export const SingleComment = props => {
     return comment.id === otherComment.parentId;
   });
   const [replyCotent, setReplyCotent] = useState('');
-  const [replyToggle, setReplyToggle] = useState(false);
+  const [replyWriteToggle, setReplyWriteToggle] = useState(false);
+  const [replyReadToggle, setReplyReadToggle] = useState(false);
   const [updateContent, setUpdateContent] = useState(comment.content);
   const [updateToggle, setUpdateToggle] = useState(false);
 
@@ -27,6 +28,7 @@ export const SingleComment = props => {
           <div className="detail-comment-info-photo">
             <img src={userphoto} alt="UserImage" width="70" />
           </div>
+
           {updateToggle ? null : (
             <div className="detail-comment-info-content">
               <p>{comment.memberNickname}</p>
@@ -35,7 +37,7 @@ export const SingleComment = props => {
                 <button
                   type="button"
                   className="detail-comment-info-button"
-                  onClick={() => setReplyToggle(!replyToggle)}
+                  onClick={() => setReplyWriteToggle(!replyWriteToggle)}
                 >
                   답글
                 </button>
@@ -61,6 +63,7 @@ export const SingleComment = props => {
             </div>
           )}
         </div>
+
         {updateToggle ? (
           <div className="detail-comment-updateContent">
             <input
@@ -82,9 +85,10 @@ export const SingleComment = props => {
           <div className="detail-comment-content">{comment.content}</div>
         )}
       </div>
+
       {depth === '0' ? (
         <div className="detail-reply">
-          {replyToggle ? (
+          {replyWriteToggle ? (
             <div className="detail-reply-comment-write">
               <input
                 className="detail-reply-comment-input"
@@ -94,12 +98,6 @@ export const SingleComment = props => {
                 onChange={e => {
                   setReplyCotent(e.target.value);
                 }}
-                onKeyPress={e => {
-                  if (e.key === 'Enter') {
-                    commentWrite(replyCotent, comment.id);
-                    setReplyCotent('');
-                  }
-                }}
               />
               <IoMdSend
                 className="detail-comment-send"
@@ -107,13 +105,38 @@ export const SingleComment = props => {
                 onClick={() => {
                   commentWrite(replyCotent, comment.id);
                   setReplyCotent('');
+                  setReplyWriteToggle(false);
+                  setReplyReadToggle(true);
                 }}
               />
             </div>
           ) : null}
-          <div className="detail-reply-comment">
-            {replyComments.length !== 0 &&
-              replyComments.map(reply => {
+
+          {replyComments.length !== 0 && (
+            <div>
+              {replyReadToggle ? (
+                <button
+                  type="button"
+                  className="detail-reply-toggle"
+                  onClick={() => setReplyReadToggle(false)}
+                >
+                  ▲ 답글 {replyComments.length}개 숨기기
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="detail-reply-toggle"
+                  onClick={() => setReplyReadToggle(true)}
+                >
+                  ▼ 답글 {replyComments.length}개 보기
+                </button>
+              )}
+            </div>
+          )}
+
+          {replyComments.length !== 0 && replyReadToggle && (
+            <div className="detail-reply-comment">
+              {replyComments.map(reply => {
                 return (
                   <SingleComment
                     key={reply.id}
@@ -127,7 +150,8 @@ export const SingleComment = props => {
                   />
                 );
               })}
-          </div>
+            </div>
+          )}
         </div>
       ) : null}
     </div>
@@ -214,12 +238,6 @@ const OOTDBottom = props => {
           value={commentCotent}
           onChange={e => {
             setCommentCotent(e.target.value);
-          }}
-          onKeyPress={e => {
-            if (e.key === 'Enter') {
-              commentWrite(commentCotent, 0);
-              setCommentCotent('');
-            }
           }}
         />
         <IoMdSend
