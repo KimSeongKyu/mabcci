@@ -72,6 +72,14 @@ class OotdLikeRepositoryTest {
         );
     }
 
+    @DisplayName("OotdLikeRepository ootd 좋아요 생성 테스트")
+    @Test
+    void save_test() {
+        final OotdLike savedOotdLike = ootdLikeRepository.save(ootdLike);
+
+        assertThat(savedOotdLike.id()).isEqualTo(ootdLike.id());
+    }
+
     @DisplayName("OotdLikeRepository ootd와 member로 ootd 좋아요 조회 테스트")
     @Test
     void find_by_ootd_and_member_test() {
