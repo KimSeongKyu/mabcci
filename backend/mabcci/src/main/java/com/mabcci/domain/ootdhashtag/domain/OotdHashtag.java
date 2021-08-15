@@ -1,6 +1,5 @@
 package com.mabcci.domain.ootdhashtag.domain;
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.mabcci.domain.BaseTimeEntity;
 import com.mabcci.domain.hashtag.domain.Hashtag;
 import com.mabcci.domain.ootd.domain.Ootd;
@@ -38,17 +37,14 @@ public class OotdHashtag extends BaseTimeEntity {
         return new OotdHashtagBuilder();
     }
 
-    @JsonValue
     public Long id() {
         return id;
     }
 
-    @JsonValue
     public Ootd ootd() {
         return ootd;
     }
 
-    @JsonValue
     public Hashtag hashtag() {
         return hashtag;
     }
