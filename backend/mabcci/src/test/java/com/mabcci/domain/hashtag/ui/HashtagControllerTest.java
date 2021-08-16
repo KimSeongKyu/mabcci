@@ -1,7 +1,7 @@
 package com.mabcci.domain.hashtag.ui;
 
-import com.mabcci.domain.hashtag.application.HashtagService;
-import com.mabcci.domain.hashtag.dto.HashtagFindByNicknameContainsResponse;
+import com.mabcci.domain.hashtag.application.HashtagFindService;
+import com.mabcci.domain.hashtag.dto.response.HashtagsFindByNameContainsResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +21,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class HashtagControllerTest {
 
     @Autowired private MockMvc mockMvc;
-    @MockBean private HashtagService hashtagService;
+    @MockBean private HashtagFindService hashtagFindService;
 
     @DisplayName("HashtagController 인스턴스 키워드를 이름에 포함한 해시태그 리스트 검색 API 테스트")
     @Test
     void find_by_name_contains_api_test() throws Exception {
-        final HashtagFindByNicknameContainsResponse hashtagFindByNicknameContainsResponse =
-                new HashtagFindByNicknameContainsResponse(Collections.emptyList());
+        final HashtagsFindByNameContainsResponse hashtagsFindByNameContainsResponse =
+                new HashtagsFindByNameContainsResponse(Collections.emptyList());
 
-        doReturn(hashtagFindByNicknameContainsResponse).when(hashtagService).findByNameContains(any());
+        doReturn(hashtagsFindByNameContainsResponse).when(hashtagFindService).findByNameContains(any());
 
         mockMvc.perform(get("/api/hashtags/search?hashtag={hashtag}", "해시태그")
                 .contentType(MediaType.APPLICATION_JSON)

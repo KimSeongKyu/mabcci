@@ -1,7 +1,7 @@
 package com.mabcci.domain.hashtag.ui;
 
-import com.mabcci.domain.hashtag.application.HashtagService;
-import com.mabcci.domain.hashtag.dto.HashtagFindByNicknameContainsResponse;
+import com.mabcci.domain.hashtag.application.HashtagFindService;
+import com.mabcci.domain.hashtag.dto.response.HashtagsFindByNameContainsResponse;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HashtagController {
 
-    private final HashtagService hashtagService;
+    private final HashtagFindService hashtagFindService;
 
-    public HashtagController(final HashtagService hashtagService) {
-        this.hashtagService = hashtagService;
+    public HashtagController(final HashtagFindService hashtagFindService) {
+        this.hashtagFindService = hashtagFindService;
     }
 
     @GetMapping("/api/hashtags/search")
-    public HashtagFindByNicknameContainsResponse findHashtagNamesContains(final String hashtag) {
-        return hashtagService.findByNameContains(hashtag);
+    public HashtagsFindByNameContainsResponse findHashtagNamesContains(final String hashtag) {
+        return hashtagFindService.findByNameContains(hashtag);
     }
 }

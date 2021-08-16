@@ -57,7 +57,7 @@ class MemberFindByNicknameContainsResponseTest {
     void getter_test() {
         assertAll(
                 () -> assertThat(memberFindByNickNameContainsResponse.nickname()).isEqualTo(NICKNAME),
-                () -> assertThat(memberFindByNickNameContainsResponse.picture()).isEqualTo("testMemberPicture")
+                () -> assertThat(memberFindByNickNameContainsResponse.picture()).isEqualTo(PICTURE)
         );
     }
 

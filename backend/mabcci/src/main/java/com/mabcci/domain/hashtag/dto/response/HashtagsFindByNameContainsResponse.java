@@ -1,16 +1,19 @@
-package com.mabcci.domain.hashtag.dto;
+package com.mabcci.domain.hashtag.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public final class HashtagFindByNicknameContainsResponse {
+public final class HashtagsFindByNameContainsResponse {
 
     @NotNull @JsonProperty("hashtags")
     private List<String> hashtags;
 
-    public HashtagFindByNicknameContainsResponse(final List<String> hashtags) {
+    private HashtagsFindByNameContainsResponse() {
+    }
+
+    public HashtagsFindByNameContainsResponse(final List<String> hashtags) {
         this.hashtags = hashtags;
     }
 
