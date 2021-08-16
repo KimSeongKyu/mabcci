@@ -1,15 +1,24 @@
 package com.mabcci.domain.ootd.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotEmpty;
 
 public final class OotdUpdateRequest {
 
-    @NotEmpty
+    @NotEmpty @JsonProperty("content")
     private String content;
 
+    @JsonProperty("top")
     private String top;
+
+    @JsonProperty("bottom")
     private String bottom;
+
+    @JsonProperty("shoes")
     private String shoes;
+
+    @JsonProperty("accessory")
     private String accessory;
 
     private OotdUpdateRequest() {
@@ -24,23 +33,23 @@ public final class OotdUpdateRequest {
         this.accessory = accessory;
     }
 
-    public String getContent() {
+    public String content() {
         return content;
     }
 
-    public String getTop() {
+    public String top() {
         return top;
     }
 
-    public String getBottom() {
+    public String bottom() {
         return bottom;
     }
 
-    public String getShoes() {
+    public String shoes() {
         return shoes;
     }
 
-    public String getAccessory() {
+    public String accessory() {
         return accessory;
     }
 }

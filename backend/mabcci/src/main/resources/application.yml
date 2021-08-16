@@ -1,4 +1,5 @@
+secret:
+  key: "ssafy mabcci team kim kim joe lim choi"
 spring:
   profiles:
-    active: test
-
+    active: local

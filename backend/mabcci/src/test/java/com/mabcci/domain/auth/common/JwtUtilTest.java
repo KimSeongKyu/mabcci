@@ -13,9 +13,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.security.Key;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -31,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class JwtUtilTest {
 
     private Member member;
+    private JwtUtil jwtUtil;
 
     static Stream<Arguments> provide_claim_types_for_create_claim_test() {
         return Stream.of(
@@ -46,6 +49,7 @@ class JwtUtilTest {
 
     @BeforeEach
     void setUp() {
+        jwtUtil = new JwtUtil();
         member = Member.Builder()
                 .email(EMAIL)
                 .password(PASSWORD)
@@ -56,64 +60,80 @@ class JwtUtilTest {
                 .picture(PICTURE)
                 .memberRole(MemberRole.USER)
                 .build();
+        ReflectionTestUtils.setField(jwtUtil, "secretKey", "test secret key for jwt token util test");
     }
 
     @DisplayName("JwtUtil 인스턴스 생성 여부 테스트")
     @Test
     void initialize() {
-        final JwtUtil jwtUtil = new JwtUtil();
-
         assertAll(
                 () -> assertThat(jwtUtil).isNotNull(),
                 () -> assertThat(jwtUtil).isExactlyInstanceOf(JwtUtil.class)
         );
     }
 
-    @DisplayName("JwtUtil 인스턴스 claim 생성 기능 테스트")
+    @DisplayName("JwtUtil 인스턴스 claim 생성 테스트")
     @ParameterizedTest(name = "{index}. Claim Type: {0} | keys: {1}")
     @MethodSource("provide_claim_types_for_create_claim_test")
     void create_claim_test(final ClaimType claimType, final String[] expectedKeys) {
-        final JwtUtil jwtUtil = new JwtUtil();
-        final Map<String, Object> claim = jwtUtil.createClaim(claimType);
+        final Map<String, Object> claim = ReflectionTestUtils.invokeMethod(jwtUtil, "createClaim", claimType);
 
         assertThat(claim.keySet()).contains(expectedKeys);
     }
 
-    @DisplayName("JwtUtil 인스턴스 payload 생성 기능 테스트")
+    @DisplayName("JwtUtil 인스턴스 payload 설정 테스트")
+    @Test
+    void set_payload_test() {
+        final Map<String, Object> payLoad = new HashMap<>();
+
+        ReflectionTestUtils.invokeMethod(jwtUtil, "setPayloads", JwtTokenType.ACCESS_TOKEN, member, payLoad);
+
+        assertThat(payLoad.size()).isEqualTo(6);
+    }
+
+
+    @DisplayName("JwtUtil 인스턴스 payload 생성 테스트")
     @ParameterizedTest(name = "{index}. Token Type: {0}")
     @MethodSource("provide_token_types_for_tests_about_token")
     void create_payload_test(final JwtTokenType jwtTokenType) {
-        final JwtUtil jwtUtil = new JwtUtil();
         final String[] expectedKeys = new String[]{"iss", "sub", "aud", "exp", "nbf", "iat", "email", "nickname", "role"};
-        final Map<String, Object> payload = jwtUtil.createPayload(jwtTokenType, member);
+
+        final Map<String, Object> payload = ReflectionTestUtils.invokeMethod(jwtUtil, "createPayload", jwtTokenType, member);
 
         assertThat(payload.keySet()).contains(expectedKeys);
     }
 
-    @DisplayName("JwtUtil 인스턴스 secretKey 생성 기능 테스트")
+    @DisplayName("JwtUtil 인스턴스 secretKey 생성 테스트")
     @Test
     void create_secret_key_test() {
-        final JwtUtil jwtUtil = new JwtUtil();
-        final Key key = jwtUtil.createSecretKey();
+        final Key key = ReflectionTestUtils.invokeMethod(jwtUtil, "createSecretKey");
 
         assertThat(key.getAlgorithm()).isEqualTo(SignatureAlgorithm.HS256.getJcaName());
     }
 
-    @DisplayName("JwtUtil 인스턴스 token 생성 기능 테스트")
+    @DisplayName("JwtUtil 인스턴스 jwtToken의 문자열 값 생성 테스트")
+    @ParameterizedTest(name = "{index}. Token Type: {0}")
+    @MethodSource("provide_token_types_for_tests_about_token")
+    void get_jwt_token_value_test(final JwtTokenType jwtTokenType) {
+        final String jwtTokenValue = ReflectionTestUtils.invokeMethod(jwtUtil, "getJwtTokenValue", jwtTokenType, member);
+
+        Arrays.stream(jwtTokenValue.split("."))
+                .forEach(jwtTokenValueSplitByComma -> assertThat(jwtTokenValueSplitByComma).isBase64());
+    }
+
+    @DisplayName("JwtUtil 인스턴스 token 생성 테스트")
     @ParameterizedTest(name = "{index}. Token Type: {0}")
     @MethodSource("provide_token_types_for_tests_about_token")
     void create_token_test(final JwtTokenType jwtTokenType) {
-        final JwtUtil jwtUtil = new JwtUtil();
         final JwtToken jwtToken = jwtUtil.createToken(jwtTokenType, member);
 
         Arrays.stream(jwtToken.jwtToken().split("."))
                 .forEach(jwtTokenSplitByComma -> assertThat(jwtTokenSplitByComma).isBase64());
     }
 
-    @DisplayName("JwtUtil 인스턴스 token 유효성 검증 기능 테스트")
+    @DisplayName("JwtUtil 인스턴스 token 유효성 검증 테스트")
     @Test
-    void is_valid_token_test() {
-        final JwtUtil jwtUtil = new JwtUtil();
+    void is_valid_token_test() throws InterruptedException {
         final JwtToken accessToken = jwtUtil.createToken(JwtTokenType.ACCESS_TOKEN, member);
         final JwtToken refreshToken = jwtUtil.createToken(JwtTokenType.REFRESH_TOKEN, member);
         final JwtToken invalidToken = JwtToken.of("invalid.test.token");

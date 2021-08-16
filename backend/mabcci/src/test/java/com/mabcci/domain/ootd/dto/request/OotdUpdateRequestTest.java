@@ -34,11 +34,11 @@ public class OotdUpdateRequestTest {
     @Test
     void getter_test() {
         assertAll(
-                () -> assertThat(ootdUpdateRequest.getContent()).isEqualTo("내용"),
-                () -> assertThat(ootdUpdateRequest.getTop()).isEqualTo("상의"),
-                () -> assertThat(ootdUpdateRequest.getBottom()).isEqualTo("하의"),
-                () -> assertThat(ootdUpdateRequest.getShoes()).isEqualTo("신발"),
-                () -> assertThat(ootdUpdateRequest.getAccessory()).isEqualTo("악세사리")
+                () -> assertThat(ootdUpdateRequest.content()).isEqualTo("내용"),
+                () -> assertThat(ootdUpdateRequest.top()).isEqualTo("상의"),
+                () -> assertThat(ootdUpdateRequest.bottom()).isEqualTo("하의"),
+                () -> assertThat(ootdUpdateRequest.shoes()).isEqualTo("신발"),
+                () -> assertThat(ootdUpdateRequest.accessory()).isEqualTo("악세사리")
         );
     }
 

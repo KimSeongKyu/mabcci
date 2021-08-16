@@ -16,19 +16,14 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class HashtagSaveRequestTest {
 
-    public static final HashtagSaveRequest HASHTAG_SAVE_REQUEST =
-            new HashtagSaveRequest(new ArrayList<>(List.of(
-                    "해시태그1", "해시태그2"
-            )));
+    public static final HashtagSaveRequest HASHTAG_SAVE_REQUEST = new HashtagSaveRequest(List.of("해시태그1", "해시태그2"));
 
-    private List<String> names;
     private HashtagSaveRequest hashtagSaveRequest;
+    private List<String> names;
 
     @BeforeEach
     void setUp() {
-        names = new ArrayList<>(List.of(
-                "해시태그1", "해시태그2"
-        ));
+        names = List.of("해시태그1", "해시태그2");
         hashtagSaveRequest = new HashtagSaveRequest(names);
     }
 

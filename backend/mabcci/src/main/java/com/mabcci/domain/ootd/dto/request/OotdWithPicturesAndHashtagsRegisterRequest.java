@@ -1,5 +1,6 @@
 package com.mabcci.domain.ootd.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mabcci.global.common.Nickname;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,22 +12,32 @@ import java.util.List;
 
 public final class OotdWithPicturesAndHashtagsRegisterRequest {
 
-    @Valid
+    @Valid @JsonProperty("nickname")
     private Nickname nickname;
 
+    @JsonProperty("content")
     private String content;
+
+    @JsonProperty("top")
     private String top;
+
+    @JsonProperty("bottom")
     private String bottom;
+
+    @JsonProperty("shoes")
     private String shoes;
+
+    @JsonProperty("accessory")
     private String accessory;
 
-    @NotEmpty
+    @NotEmpty @JsonProperty("pictures")
     private List<MultipartFile> pictures;
 
+    @JsonProperty("hashtags")
     private List<String> hashtags;
 
 
-    public OotdWithPicturesAndHashtagsRegisterRequest(@Valid final Nickname nickname, final String content, final String top,
+    public OotdWithPicturesAndHashtagsRegisterRequest(final Nickname nickname, final String content, final String top,
                                                       final String bottom, final String shoes, final String accessory,
                                                       final List<MultipartFile> pictures, final List<String> hashtags) {
         this.nickname = nickname;
@@ -39,35 +50,35 @@ public final class OotdWithPicturesAndHashtagsRegisterRequest {
         this.hashtags = hashtags;
     }
 
-    public final Nickname getNickname() {
+    public final Nickname nickname() {
         return nickname;
     }
 
-    public final String getContent() {
+    public final String content() {
         return content;
     }
 
-    public final String getTop() {
+    public final String top() {
         return top;
     }
 
-    public final String getBottom() {
+    public final String bottom() {
         return bottom;
     }
 
-    public final String getShoes() {
+    public final String shoes() {
         return shoes;
     }
 
-    public final String getAccessory() {
+    public final String accessory() {
         return accessory;
     }
 
-    public final List<MultipartFile> getPictures() {
+    public final List<MultipartFile> pictures() {
         return pictures;
     }
 
-    public final List<String> getHashtags() {
+    public final List<String> hashtags() {
         return hashtags;
     }
 }

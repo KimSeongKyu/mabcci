@@ -74,7 +74,7 @@ class OotdResponseTest {
         ReflectionTestUtils.setField(ootd, "ootdHashtags", ootdHashtags);
         ReflectionTestUtils.setField(ootdLikes.get(0), "status", true);
         ReflectionTestUtils.setField(ootd, "ootdLikes", ootdLikes);
-        ootdResponse = new OotdResponse(ootd);
+        ootdResponse = OotdResponse.ofOotd(ootd);
     }
 
     @DisplayName("OotdResponse 인스턴스 생성 여부 테스트")
@@ -84,6 +84,22 @@ class OotdResponseTest {
                 () -> assertThat(ootdResponse).isNotNull(),
                 () -> assertThat(ootdResponse).isExactlyInstanceOf(OotdResponse.class)
         );
+    }
+
+    @DisplayName("OotdResponse 인스턴스 ootd의 대표 사진 경로 반환 테스트")
+    @Test
+    void get_representative_ootd_picture_path_test() {
+       final String representativeOotdPicturePath =
+               ReflectionTestUtils.invokeMethod(ootdResponse, "getRepresentativeOotdPicturePath", ootd);
+       assertThat(representativeOotdPicturePath).isEqualTo(ootdPictures.get(0).path());
+    }
+
+    @DisplayName("OotdResponse 인스턴스 ootd 해시태그를 해시태그 이름으로 매핑 테스트")
+    @Test
+    void map_ootd_hashtags_to_hastag_names_test() {
+        final List<String> hashtagNames =
+                ReflectionTestUtils.invokeMethod(ootdResponse, "mapOotdHashtagsToHashtagNames", ootd);
+        assertThat(hashtagNames).isEqualTo(List.of("해시태그"));
     }
 
     @DisplayName("OotdResponse 인스턴스 getter 메서드들 테스트")
@@ -96,11 +112,11 @@ class OotdResponseTest {
                 .collect(Collectors.toList());
 
         assertAll(
-                () -> assertThat(ootdResponse.getId()).isEqualTo(ootd.id()),
-                () -> assertThat(ootdResponse.getNickname()).isEqualTo(NICKNAME),
-                () -> assertThat(ootdResponse.getPicture()).isEqualTo(picturePath),
-                () -> assertThat(ootdResponse.getHashtags()).isEqualTo(hashtagNames),
-                () -> assertThat(ootdResponse.getLikeCount()).isEqualTo(1L)
+                () -> assertThat(ootdResponse.id()).isEqualTo(ootd.id()),
+                () -> assertThat(ootdResponse.nickname()).isEqualTo(NICKNAME),
+                () -> assertThat(ootdResponse.picture()).isEqualTo(picturePath),
+                () -> assertThat(ootdResponse.hashtags()).isEqualTo(hashtagNames),
+                () -> assertThat(ootdResponse.likeCount()).isEqualTo(1L)
         );
     }
 }

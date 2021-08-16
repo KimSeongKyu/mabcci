@@ -29,12 +29,10 @@ public class Hashtag extends BaseTimeEntity {
         return new HashtagBuilder();
     }
 
-    @JsonValue
     public Long id() {
         return id;
     }
 
-    @JsonValue
     public String name() {
         return name;
     }

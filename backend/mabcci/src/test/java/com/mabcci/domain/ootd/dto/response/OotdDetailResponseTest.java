@@ -97,7 +97,7 @@ class OotdDetailResponseTest {
         ReflectionTestUtils.setField(ootd, "createdDate", LocalDateTime.now());
         ReflectionTestUtils.setField(ootd, "modifiedDate", LocalDateTime.now());
 
-        ootdDetailResponse = OotdDetailResponse.ofOotd(ootd);
+        ootdDetailResponse = OotdDetailResponse.ofOotdAndLikeStatus(ootd, true);
     }
 
     @DisplayName("OotdDetailResponse 인스턴스 생성 여부 테스트")
@@ -128,6 +128,7 @@ class OotdDetailResponseTest {
                 () -> assertThat(ootdDetailResponse.views()).isEqualTo(ootd.views()),
                 () -> assertThat(ootdDetailResponse.ootdPictures()).isEqualTo(ootdPicturePaths),
                 () -> assertThat(ootdDetailResponse.likeCount()).isEqualTo(1L),
+                () -> assertThat(ootdDetailResponse.likeStatus()).isEqualTo(true),
                 () -> assertThat(ootdDetailResponse.content()).isEqualTo(ootd.content()),
                 () -> assertThat(ootdDetailResponse.top()).isEqualTo(ootd.top()),
                 () -> assertThat(ootdDetailResponse.bottom()).isEqualTo(ootd.bottom()),
@@ -142,7 +143,7 @@ class OotdDetailResponseTest {
     void validate_test() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         final OotdDetailResponse invalidResponse = new OotdDetailResponse("", Nickname.of(""),
-                LocalDateTime.MAX, LocalDateTime.MAX, -1L, Collections.emptyList(), -1L,
+                LocalDateTime.MAX, LocalDateTime.MAX, -1L, Collections.emptyList(), -1L, null,
                 "", null, null, null, null, null);
 
         final Set<ConstraintViolation<OotdDetailResponse>> invalidPropertiesOfValidResponse =
@@ -152,7 +153,7 @@ class OotdDetailResponseTest {
 
         assertAll(
                 () -> assertThat(invalidPropertiesOfValidResponse.size()).isEqualTo(0),
-                () -> assertThat(invalidPropertiesOfInvalidResponse.size()).isEqualTo(9)
+                () -> assertThat(invalidPropertiesOfInvalidResponse.size()).isEqualTo(10)
         );
     }
 }

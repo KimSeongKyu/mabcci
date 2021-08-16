@@ -19,8 +19,8 @@ public class OotdCommentUpdateService {
     @Transactional
     public void updateOotdComment(final Long id, final OotdCommentUpdateRequest ootdCommentUpdateRequest) {
         final OotdComment ootdComment = getOotdCommentById(id);
-        validateMemberIsOotdCommentWriter(ootdComment, ootdCommentUpdateRequest.getNickname());
-        ootdComment.update(ootdCommentUpdateRequest.getContent());
+        validateMemberIsOotdCommentWriter(ootdComment, ootdCommentUpdateRequest.nickname());
+        ootdComment.update(ootdCommentUpdateRequest.content());
     }
 
     private OotdComment getOotdCommentById(final Long id) {

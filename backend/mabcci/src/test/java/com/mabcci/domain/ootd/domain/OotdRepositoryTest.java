@@ -79,7 +79,6 @@ class OotdRepositoryTest {
                 .follower(member)
                 .following(secondFollowingMember)
                 .build();
-
         ootd = Ootd.builder()
                 .member(member)
                 .content("content")

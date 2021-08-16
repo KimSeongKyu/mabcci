@@ -38,6 +38,9 @@ public final class OotdDetailResponse {
     @PositiveOrZero @NotNull @JsonProperty("likeCount")
     private Long likeCount;
 
+    @NotNull @JsonProperty("likeStatus")
+    private Boolean likeStatus;
+
     @NotBlank @JsonProperty("content")
     private String content;
 
@@ -56,15 +59,15 @@ public final class OotdDetailResponse {
     @NotNull @JsonProperty("hashtags")
     private List<String> hashtags;
 
-    public final static OotdDetailResponse ofOotd(final Ootd ootd) {
+    public final static OotdDetailResponse ofOotdAndLikeStatus(final Ootd ootd, final Boolean likeStatus) {
         return new OotdDetailResponse(ootd.member().picture(), ootd.member().nickname(), ootd.createdDate(), ootd.modifiedDate(),
-                ootd.views(), mapOotdToOotdPicturePaths(ootd), countLikes(ootd), ootd.content(), ootd.top(), ootd.bottom(), ootd.shoes(),
+                ootd.views(), mapOotdToOotdPicturePaths(ootd), countLikes(ootd), likeStatus, ootd.content(), ootd.top(), ootd.bottom(), ootd.shoes(),
                 ootd.accessory(), mapOotdToOotdHashtagNames(ootd));
     }
 
     public OotdDetailResponse(final String memberPicture, final Nickname nickname, final LocalDateTime createdDate,
                               final LocalDateTime modifiedDate, final Long views, final List<String> ootdPictures,
-                              final Long likeCount, final String content, final String top, final String bottom,
+                              final Long likeCount, final Boolean likeStatus, final String content, final String top, final String bottom,
                               final String shoes, final String accessory, final List<String> hashtags) {
         this.memberPicture = memberPicture;
         this.nickname = nickname;
@@ -73,6 +76,7 @@ public final class OotdDetailResponse {
         this.views = views;
         this.ootdPictures = ootdPictures;
         this.likeCount = likeCount;
+        this.likeStatus = likeStatus;
         this.content = content;
         this.top = top;
         this.bottom = bottom;
@@ -129,6 +133,10 @@ public final class OotdDetailResponse {
 
     public Long likeCount() {
         return likeCount;
+    }
+
+    public Boolean likeStatus() {
+        return likeStatus;
     }
 
     public String content() {

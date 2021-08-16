@@ -22,14 +22,14 @@ class HashtagSaveResponseTest {
 
     @BeforeEach
     void setUp() {
-        hashtags = new ArrayList<>(List.of(
+        hashtags = List.of(
                 Hashtag.builder()
                         .name("해시태그1")
                         .build(),
                 Hashtag.builder()
                         .name("해시태그2")
                         .build()
-        ));
+        );
         hashtagSaveResponse = new HashtagSaveResponse(hashtags);
     }
 

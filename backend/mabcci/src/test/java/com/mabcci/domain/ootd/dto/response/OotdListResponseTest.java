@@ -5,7 +5,6 @@ import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.domain.ootd.domain.Ootd;
 import com.mabcci.domain.ootdpicture.domain.OotdPicture;
-import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -61,7 +60,7 @@ class OotdListResponseTest {
                         .url("testUrl")
                         .fileName("testFileName")
                         .build()));
-        ootdResponses = new ArrayList<>(List.of(new OotdResponse(ootd)));
+        ootdResponses = List.of(OotdResponse.ofOotd(ootd));
         ootdListResponse = new OotdListResponse(ootdResponses, 1);
     }
 
@@ -78,8 +77,8 @@ class OotdListResponseTest {
     @Test
     void getter_test() {
         assertAll(
-                () -> assertThat(ootdListResponse.getOotdResponses()).isEqualTo(ootdResponses),
-                () -> assertThat(ootdListResponse.getTotalPages()).isEqualTo(1L)
+                () -> assertThat(ootdListResponse.ootdResponses()).isEqualTo(ootdResponses),
+                () -> assertThat(ootdListResponse.totalPages()).isEqualTo(1L)
         );
     }
 

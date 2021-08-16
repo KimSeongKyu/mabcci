@@ -47,14 +47,14 @@ public class OotdSaveService {
 
     @Transactional
     public void saveOotdAndPicturesAndHashtags(final OotdWithPicturesAndHashtagsRegisterRequest request) {
-        final Member member = findByNickName(request.getNickname());
+        final Member member = findByNickName(request.nickname());
         final Ootd ootd = saveOotd(request, member);
 
         final String directoryName = pictureUtil.makeDirectory(PictureType.OOTD);
-        final List<Picture> pictures = savePictures(request.getPictures(), directoryName);
+        final List<Picture> pictures = savePictures(request.pictures(), directoryName);
         saveOotdPictures(ootd, pictures);
 
-        final List<Hashtag> hashtags = saveHashtags(request.getHashtags());
+        final List<Hashtag> hashtags = saveHashtags(request.hashtags());
         saveOotdHashtags(ootd, hashtags);
     }
 
@@ -70,11 +70,11 @@ public class OotdSaveService {
     private Ootd buildOotd(final OotdWithPicturesAndHashtagsRegisterRequest request, final Member member) {
         return Ootd.builder()
                 .member(member)
-                .content(request.getContent())
-                .top(request.getTop())
-                .bottom(request.getBottom())
-                .shoes(request.getShoes())
-                .accessory(request.getAccessory())
+                .content(request.content())
+                .top(request.top())
+                .bottom(request.bottom())
+                .shoes(request.shoes())
+                .accessory(request.accessory())
                 .build();
     }
 

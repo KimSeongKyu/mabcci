@@ -35,8 +35,8 @@ class OotdCommentUpdateRequestTest {
     @Test
     void getter_test() {
         assertAll(
-                () -> assertThat(ootdCommentUpdateRequest.getNickname()).isEqualTo(NICKNAME),
-                () -> assertThat(ootdCommentUpdateRequest.getContent()).isEqualTo("수정된 내용")
+                () -> assertThat(ootdCommentUpdateRequest.nickname()).isEqualTo(NICKNAME),
+                () -> assertThat(ootdCommentUpdateRequest.content()).isEqualTo("수정된 내용")
         );
     }
 

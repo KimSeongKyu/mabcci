@@ -1,5 +1,6 @@
 package com.mabcci.domain.ootdcomment.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mabcci.domain.ootdcomment.domain.OotdComment;
 import com.mabcci.global.common.Nickname;
 
@@ -9,25 +10,25 @@ import java.time.LocalDateTime;
 
 public final class OotdCommentFindResponse {
 
-    @NotBlank
+    @NotBlank @JsonProperty("memberPicture")
     private String memberPicture;
 
-    @Valid @NotNull
+    @Valid @NotNull @JsonProperty("memberNickname")
     private Nickname memberNickname;
 
-    @NotNull @PastOrPresent
+    @NotNull @PastOrPresent @JsonProperty("createdDate")
     private LocalDateTime createdDate;
 
-    @NotNull @PastOrPresent
+    @NotNull @PastOrPresent @JsonProperty("modifiedDate")
     private LocalDateTime modifiedDate;
 
-    @NotBlank
+    @NotBlank @JsonProperty("content")
     private String content;
 
-    @Positive
+    @Positive @JsonProperty("id")
     private Long id;
 
-    @PositiveOrZero
+    @PositiveOrZero @JsonProperty("parentId")
     private Long parentId;
 
     private OotdCommentFindResponse() {
@@ -51,31 +52,31 @@ public final class OotdCommentFindResponse {
         this.parentId = parentId;
     }
 
-    public final String getMemberPicture() {
+    public final String memberPicture() {
         return memberPicture;
     }
 
-    public final Nickname getMemberNickname() {
+    public final Nickname memberNickname() {
         return memberNickname;
     }
 
-    public final LocalDateTime getCreatedDate() {
+    public final LocalDateTime createdDate() {
         return createdDate;
     }
 
-    public final LocalDateTime getModifiedDate() {
+    public final LocalDateTime modifiedDate() {
         return modifiedDate;
     }
 
-    public final String getContent() {
+    public final String content() {
         return content;
     }
 
-    public final Long getId() {
+    public final Long id() {
         return id;
     }
 
-    public final Long getParentId() {
+    public final Long parentId() {
         return parentId;
     }
 }

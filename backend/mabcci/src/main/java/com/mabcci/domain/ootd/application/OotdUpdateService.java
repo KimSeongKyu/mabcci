@@ -17,8 +17,12 @@ public class OotdUpdateService {
 
     @Transactional
     public void updateOotd(final Long id, final OotdUpdateRequest ootdUpdateRequest) {
-        final Ootd ootd = ootdRepository.findById(id)
-                .orElseThrow(IllegalArgumentException::new);
+        final Ootd ootd = getOotdById(id);
         ootd.update(ootdUpdateRequest);
+    }
+
+    private Ootd getOotdById(final Long id) {
+        return ootdRepository.findById(id)
+                .orElseThrow(IllegalArgumentException::new);
     }
 }

@@ -58,6 +58,9 @@ class OotdLikeRepositoryTest {
                 .member(member)
                 .ootd(ootd)
                 .build();
+        testEntityManager.persist(member);
+        testEntityManager.persist(ootd);
+        testEntityManager.persist(ootdLike);
     }
 
     @DisplayName("OotdLikeRepository 구현체 존재 여부 테스트")
@@ -69,13 +72,19 @@ class OotdLikeRepositoryTest {
         );
     }
 
-    @DisplayName("OotdLikeRepository ootd의 좋아요 수를 반환하는 기능 테스트")
+    @DisplayName("OotdLikeRepository ootd 좋아요 생성 테스트")
     @Test
-    void count_by_ootd_test() {
-        testEntityManager.persist(member);
-        testEntityManager.persist(ootd);
-        testEntityManager.persist(ootdLike);
+    void save_test() {
+        final OotdLike savedOotdLike = ootdLikeRepository.save(ootdLike);
 
-        assertThat(ootdLikeRepository.countByOotd(ootd)).isEqualTo(1L);
+        assertThat(savedOotdLike.id()).isEqualTo(ootdLike.id());
+    }
+
+    @DisplayName("OotdLikeRepository ootd와 member로 ootd 좋아요 조회 테스트")
+    @Test
+    void find_by_ootd_and_member_test() {
+        final OotdLike foundOotdLike = ootdLikeRepository.findByOotdAndNickname(ootd.id(), NICKNAME).get();
+
+        assertThat(foundOotdLike.id()).isEqualTo(ootdLike.id());
     }
 }

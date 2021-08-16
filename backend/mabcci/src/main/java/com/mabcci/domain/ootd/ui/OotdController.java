@@ -1,6 +1,9 @@
 package com.mabcci.domain.ootd.ui;
 
-import com.mabcci.domain.ootd.application.*;
+import com.mabcci.domain.ootd.application.OotdDeleteService;
+import com.mabcci.domain.ootd.application.OotdFindService;
+import com.mabcci.domain.ootd.application.OotdSaveService;
+import com.mabcci.domain.ootd.application.OotdUpdateService;
 import com.mabcci.domain.ootd.domain.OotdFilter;
 import com.mabcci.domain.ootd.dto.request.OotdUpdateRequest;
 import com.mabcci.domain.ootd.dto.request.OotdWithPicturesAndHashtagsRegisterRequest;
@@ -37,9 +40,10 @@ public class OotdController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/api/ootds/{id}/detail")
-    public ResponseEntity findOotdDetail(@NotNull @Positive @PathVariable("id") final Long id) {
-        return ResponseEntity.ok(ootdFindService.findOotdDetail(id));
+    @GetMapping("/api/ootds/{id}/detail/{nickname}")
+    public ResponseEntity findOotdDetail(@NotNull @Positive @PathVariable("id") final Long id,
+                                         @Valid @NotNull @PathVariable("nickname") final Nickname nickname) {
+        return ResponseEntity.ok(ootdFindService.findOotdDetail(id, nickname));
     }
 
     @GetMapping("/api/ootds/{nickname}")

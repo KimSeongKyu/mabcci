@@ -88,13 +88,13 @@ public class OotdCommentFindResponseTest {
     @Test
     void getter_test() {
         assertAll(
-                () -> assertThat(ootdCommentFindResponse.getMemberPicture()).isEqualTo("testUrl"),
-                () -> assertThat(ootdCommentFindResponse.getMemberNickname()).isEqualTo(NICKNAME),
-                () -> assertThat(ootdCommentFindResponse.getCreatedDate()).isEqualTo(now),
-                () -> assertThat(ootdCommentFindResponse.getModifiedDate()).isEqualTo(now),
-                () -> assertThat(ootdCommentFindResponse.getContent()).isEqualTo("내용"),
-                () -> assertThat(ootdCommentFindResponse.getId()).isEqualTo(1L),
-                () -> assertThat(ootdCommentFindResponse.getParentId()).isEqualTo(0L)
+                () -> assertThat(ootdCommentFindResponse.memberPicture()).isEqualTo("testUrl"),
+                () -> assertThat(ootdCommentFindResponse.memberNickname()).isEqualTo(NICKNAME),
+                () -> assertThat(ootdCommentFindResponse.createdDate()).isEqualTo(now),
+                () -> assertThat(ootdCommentFindResponse.modifiedDate()).isEqualTo(now),
+                () -> assertThat(ootdCommentFindResponse.content()).isEqualTo("내용"),
+                () -> assertThat(ootdCommentFindResponse.id()).isEqualTo(1L),
+                () -> assertThat(ootdCommentFindResponse.parentId()).isEqualTo(0L)
         );
     }
 
