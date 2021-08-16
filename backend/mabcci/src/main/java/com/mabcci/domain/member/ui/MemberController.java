@@ -69,6 +69,11 @@ public class MemberController {
         return ResponseEntity.ok().body(response);
     }
 
+    @GetMapping("/api/members/search")
+    public ResponseEntity<MemberFindByNicknameContainsResponses> findMemberByNicknameContains(@Valid @RequestParam final Nickname nickname) {
+        return ResponseEntity.ok().body(memberFindService.findByNicknameContains(nickname));
+    }
+
     @GetMapping("/api/members")
     public ResponseEntity<List<MemberListResponse>> findAllMember() {
         final List<MemberListResponse> members = memberFindService.findAll();
