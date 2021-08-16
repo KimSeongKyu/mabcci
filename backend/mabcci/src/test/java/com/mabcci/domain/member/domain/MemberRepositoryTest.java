@@ -80,7 +80,7 @@ class MemberRepositoryTest {
 
     @DisplayName("MemberRepository findByNickname 기능 테스트")
     @Test
-    void findByNickname_test() {
+    void find_by_nickname_test() {
         testEntityManager.persist(member);
         final Member findMember = memberRepository.findByNickName(member.nickname()).get();
 
@@ -90,7 +90,7 @@ class MemberRepositoryTest {
 
     @DisplayName("MemberRepository findByNickname 기능 실패 테스트")
     @Test
-    void findByNickname_fail_test() {
+    void find_by_nickname_fail_test() {
         final Nickname nickname = Nickname.of("invalidNickName");
 
         testEntityManager.persist(member);
@@ -101,7 +101,7 @@ class MemberRepositoryTest {
 
     @DisplayName(value = "MemberRepository findByEmailAndPassword 기능 테스트")
     @Test
-    public void findByEmailAndPassword_test() {
+    public void find_by_email_and_password_test() {
         testEntityManager.persist(member);
 
         final Member findMember = memberRepository.findByEmailAndPassword(EMAIL, PASSWORD).get();
@@ -111,7 +111,7 @@ class MemberRepositoryTest {
 
     @DisplayName(value = "MemberRepository findByEmailAndPassword 기능 실패 테스트")
     @Test
-    public void findByEmailAndPassword_fail_test() {
+    public void find_by_email_and_password_fail_test() {
         testEntityManager.persist(member);
         final Optional<Member> findMember = memberRepository.findByEmailAndPassword(of(EMPTY), PASSWORD);
 
@@ -120,7 +120,7 @@ class MemberRepositoryTest {
 
     @DisplayName("MemberRepository findAll 기능 테스트")
     @Test
-    void findAll_test() {
+    void find_all_test() {
         testEntityManager.persist(member);
         final List<Member> members = memberRepository.findAll();
 
