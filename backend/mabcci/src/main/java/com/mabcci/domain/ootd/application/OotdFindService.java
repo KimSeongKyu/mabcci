@@ -73,7 +73,7 @@ public class OotdFindService {
                 .collect(toList());
     }
 
-    public OotdListResponse findOotdsByHashtag(final String hashtagName, final OotdFilter ootdFilter, final Pageable pageable) {
+    public OotdListResponse findOotdsByKeyword(final String hashtagName, final OotdFilter ootdFilter, final Pageable pageable) {
         final Page<Ootd> pageOotds = ootdFilter.getFilteredOotds(ootdRepository, hashtagName, pageable);
         final int totalPages = pageOotds.getTotalPages();
 

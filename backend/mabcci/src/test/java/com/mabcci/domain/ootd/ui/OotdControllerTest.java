@@ -146,6 +146,23 @@ class OotdControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @DisplayName("OotdController 인스턴스 검색어 기반 ootd 리스트 검색 API 테스트")
+    @Test
+    void search_ootd_list_by_keyword_test() throws Exception {
+        final OotdListResponse ootdListResponse = new OotdListResponse(new ArrayList<>(), 1);
+
+        doReturn(ootdListResponse).when(ootdFindService).findOotdsByKeyword(any(), any(), any());
+
+        mockMvc.perform(get("/api/ootds")
+                .param("search", "해시태그")
+                .param("filter", "HASHTAG")
+                .param("size", "20")
+                .param("page", "0")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
     @DisplayName("OotdController 인스턴스 ootd 수정 API 테스트")
     @Test
     void update_ootd_test() throws Exception {

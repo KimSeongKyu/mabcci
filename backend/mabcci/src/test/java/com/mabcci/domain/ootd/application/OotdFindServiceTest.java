@@ -185,7 +185,7 @@ class OotdFindServiceTest {
 
         doReturn(new PageImpl<>(List.of(ootd))).when(ootdRepository).findOotdsByHashtagName(any(), any());
 
-        final OotdListResponse ootdListResponse = ootdFindService.findOotdsByHashtag("해시태그", OotdFilter.HASHTAG, PageRequest.of(0, 20));
+        final OotdListResponse ootdListResponse = ootdFindService.findOotdsByKeyword("해시태그", OotdFilter.HASHTAG, PageRequest.of(0, 20));
         final OotdResponse ootdResponse = ootdListResponse.ootdResponses().get(0);
 
         verify(ootdRepository, times(1)).findOotdsByHashtagName(any(), any());
