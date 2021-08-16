@@ -13,4 +13,8 @@ public final class HashtagFindByNicknameContainsResponse {
     public HashtagFindByNicknameContainsResponse(final List<String> hashtags) {
         this.hashtags = hashtags;
     }
+
+    public final List<String> hashtags() {
+        return hashtags;
+    }
 }
