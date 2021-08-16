@@ -3,6 +3,8 @@ package com.mabcci.domain.member.application;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.domain.MemberRole;
+import com.mabcci.domain.member.dto.response.MemberFindByNicknameContainsResponse;
+import com.mabcci.domain.member.dto.response.MemberFindByNicknameContainsResponses;
 import com.mabcci.domain.member.dto.response.MemberListResponse;
 import com.mabcci.domain.member.exception.MemberNotFoundException;
 import com.mabcci.global.common.Nickname;
@@ -41,4 +43,12 @@ public class MemberFindService {
                 .collect(Collectors.toList());
     }
 
+    public MemberFindByNicknameContainsResponses findByNicknameContains(final Nickname nickname) {
+        return new MemberFindByNicknameContainsResponses(
+                memberRepository.findByNicknameContains(nickname.nickname())
+                .stream()
+                .map(MemberFindByNicknameContainsResponse::ofMember)
+                .collect(Collectors.toList())
+        );
+    }
 }

@@ -91,7 +91,7 @@ public class MemberFindServiceTest {
                 memberFindByNicknameContainsResponses.members().get(0);
 
         verify(memberRepository, times(1)).findByNicknameContains(any());
-        assertThat(memberFindByNicknameContainsResponse.nickname()).isEqualTo(NICKNAME.nickname());
+        assertThat(memberFindByNicknameContainsResponse.nickname()).isEqualTo(NICKNAME);
         assertThat(memberFindByNicknameContainsResponse.picture()).isEqualTo(PICTURE);
     }
 
