@@ -2,6 +2,7 @@ package com.mabcci.domain.hashtag.application;
 
 import com.mabcci.domain.hashtag.domain.Hashtag;
 import com.mabcci.domain.hashtag.domain.HashtagRepository;
+import com.mabcci.domain.hashtag.dto.HashtagFindByNicknameContainsResponse;
 import com.mabcci.domain.hashtag.dto.HashtagSaveRequest;
 import com.mabcci.domain.hashtag.dto.HashtagSaveResponse;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -47,4 +47,14 @@ public class HashtagService {
                 .build();
     }
 
+    public HashtagFindByNicknameContainsResponse findByNameContains(final String hashtagName) {
+        return new HashtagFindByNicknameContainsResponse(getHashtagNames(hashtagName));
+    }
+
+    private List<String> getHashtagNames(final String hashtagName) {
+        return hashtagRepository.findByNameContains(hashtagName)
+                .stream()
+                .map(Hashtag::name)
+                .collect(toList());
+    }
 }
