@@ -13,7 +13,7 @@ const MyPageFeed = props => {
           <div className="mypage-feed" key={j}>
             <Link to={`/OOTD/${props.myInfo.ootds[j].id}/${props.myInfo.nickname}`}>
               <div className="mypage-feed-overlay">
-                <p>좋아요 개수 보여주기?</p>
+                {/* <p>좋아요 개수 보여주기?</p> */}
               </div>
             </Link>
             <img src={baseUrl + props.myInfo.ootds[j].image} alt="하이" />

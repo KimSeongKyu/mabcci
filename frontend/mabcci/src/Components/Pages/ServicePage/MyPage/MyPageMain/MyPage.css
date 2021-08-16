@@ -25,7 +25,6 @@
 .mypage-profile-box {
   width: 80%;
   margin: auto;
-  margin-top: 50px;
   text-align: center;
   display: flex;
   justify-content: space-between;
@@ -37,15 +36,23 @@
   transform-style: preserve-3d;
   margin-left: 10%;
   background-color: white;
+  width: 150px;
+  height: 150px;
 }
 
 .mypage-profile-inner-active {
   transform: rotateY(180deg);
   cursor: pointer;
+  width: 150px;
+  height: 150px;
+}
+
+.mypage-picture-btn-box {
+  margin-top: 50px;
+  margin-left: 27%;
 }
 
 .mypage-picture-btn {
-  position: absolute;
   cursor: pointer;
 }
 
@@ -224,7 +231,7 @@
 
 .mypage-feed-overlay {
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
   width: 100%;
   height: 100%;
   border-radius: 10px;
@@ -258,32 +265,29 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .mypage-picture-btn-box {
+    margin-left: 28%;
+  }
+}
+
 @media screen and (max-width: 576px) {
   .mypage-profile-box {
     flex-direction: column;
     margin-bottom: 0;
-    margin-top: 0;
+  }
+
+  .mypage-profile-inner {
+    margin: auto;
+  }
+
+  .mypage-picture-btn-box {
+    margin-left: 48%;
   }
 
   .mypage-profile-box div {
     margin-bottom: 20px;
     justify-content: space-evenly;
-  }
-
-  .mypage-profile-box img {
-    width: 35%;
-    margin-bottom: 0;
-  }
-
-  .mypage-profile-inner {
-    margin-left: 0;
-    margin-top: 50px;
-  }
-
-  .mypage-profile-bodyinfo {
-    width: 35%;
-    height: 100%;
-    margin-left: 32.5%;
   }
 
   .mypage-profile-bodyinfo img {

@@ -10,7 +10,7 @@ import {CgFileDocument} from "react-icons/cg"
 import {AiOutlineMessage} from 'react-icons/ai'
 import 기본프로필 from '../../../../../Asset/Images/기본프로필.jpg'
 import getUserInfo from '../../../../Common/getUserInfo';
-import { BsArrowRepeat } from 'react-icons/bs'
+import { MdReplay } from 'react-icons/md';
 
 const MyPageProfile = props => {
   const [profile, setProfile] = useState(false)
@@ -56,6 +56,9 @@ const MyPageProfile = props => {
 
   return (
     <>
+      <div className="mypage-profile-box mypage-picture-btn-box">
+        <MdReplay className="mypage-picture-btn" onClick={clickProfile} />
+      </div>
       <div className="mypage-profile-box">
         <div
           onClick={clickProfile}
@@ -98,7 +101,6 @@ const MyPageProfile = props => {
           ) : (
             <img src={기본프로필} alt="" onClick={clickProfile} />
           )}
-          <BsArrowRepeat className="mypage-picture-btn" />
         </div>
 
         <div className="mypage-info-box">
