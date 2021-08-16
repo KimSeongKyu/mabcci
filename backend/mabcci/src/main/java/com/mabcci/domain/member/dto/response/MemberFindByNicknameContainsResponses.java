@@ -13,4 +13,8 @@ public final class MemberFindByNicknameContainsResponses {
     public MemberFindByNicknameContainsResponses(final List<MemberFindByNicknameContainsResponse> memberFindByNicknameContainsResponse) {
         this.memberFindByNicknameContainsResponses = memberFindByNicknameContainsResponse;
     }
+
+    public final List<MemberFindByNicknameContainsResponse> members() {
+        return memberFindByNicknameContainsResponses;
+    }
 }
