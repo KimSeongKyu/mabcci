@@ -3,39 +3,45 @@ import { useParams, useHistory } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination } from 'swiper/core';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-import { OOTDDetailApi } from '../../../../../API/OOTDAPI/OOTDDetailApi';
+import { baseUrl } from '../../../../../API/ApiUrl';
+import {
+  OOTDDetailApi,
+  OOTDLikeApi,
+} from '../../../../../API/OOTDAPI/OOTDDetailApi';
 import 'swiper/swiper.min.css';
 import 'swiper/components/pagination/pagination.min.css';
 import getUserInfo from '../../../../Common/getUserInfo';
 import OOTDDeleteApi from '../../../../../API/OOTDAPI/OOTDDeleteApi';
 
-const OOTDContent = () => {
+const OOTDContent = props => {
   const history = useHistory();
-  const myInfo = getUserInfo();
-  const { id, nickname } = useParams();
-  const [user, setUser] = useState({
-    nickname,
-    userphoto: '사진',
+  const { ootdId, writerNickname, userInfo } = props;
+  const [writer, setWriter] = useState({
+    nickname: writerNickname,
+    memberPicture: '',
   });
   const [detail, setDetail] = useState({
-    id,
+    id: ootdId,
     content: '',
     top: '',
     bottom: '',
     shoes: '',
     accessory: '',
-    picture: [],
+    ootdPictures: [],
     views: '',
     hashtag: [],
     registeredTime: '',
-    likeMembers: [],
+    likeCount: '',
+    likeStatus: '',
   });
-  const [myLike, setMyLike] = useState(false);
+  const [myLike, setMyLike] = useState();
 
   useEffect(async () => {
-    const response = await OOTDDetailApi(detail.id);
+    const response = await OOTDDetailApi(detail.id, userInfo.nickname);
     if (response.status === 200) {
       setDetail({ ...detail, ...response.detail });
+      setWriter({ ...writer, memberPicture: response.detail.memberPicture });
+      setMyLike(response.detail.likeStatus);
     }
   }, []);
 
@@ -47,40 +53,47 @@ const OOTDContent = () => {
       shoes: detail.shoes,
       accessory: detail.accessory,
       content: detail.content,
-      picture: detail.picture,
+      picture: detail.ootdPictures,
       hashTag: detail.hashtag,
     };
 
     history.push({
-      pathname: `/OOTDUpdate/${detail.id}/${user.nickname}`,
+      pathname: `/OOTDUpdate/${detail.id}/${writer.nickname}`,
       state: { info },
     });
   };
 
-  const ootdDeleteHandler = () => {
-    const response = OOTDDeleteApi(detail.id);
+  const ootdDeleteHandler = async () => {
+    const response = await OOTDDeleteApi(detail.id);
     window.location.replace('/OOTD');
   };
 
-  const likeHandler = () => {
+  const likeHandler = async () => {
+    const responseLike = await OOTDLikeApi(detail.id, userInfo.nickname);
+    const responseDetail = await OOTDDetailApi(detail.id, userInfo.nickname);
     setMyLike(!myLike);
+    if (responseDetail.status === 200) {
+      setDetail({ ...detail, likeCount: responseDetail.detail.likeCount });
+    }
   };
 
   return (
     <article className="detail-content">
       <section className="detail-info">
-        <div className="detail-info-photo">{user.userphoto}</div>
+        <div className="detail-info-photo">
+          <img src={writer.memberPicture} alt="UserPicture" width="70" />
+        </div>
         <div className="detail-info-content">
-          <p>{user.nickname}</p>
+          <p>{writer.nickname}</p>
           <p>
             {detail.registeredTime} views:{detail.views}
           </p>
-          {myInfo.nickname === user.nickname ? (
+          {userInfo.nickname === writer.nickname ? (
             <button type="button" onClick={ootdUpdateHandler}>
               수정
             </button>
           ) : null}
-          {myInfo.nickname === user.nickname ? (
+          {userInfo.nickname === writer.nickname ? (
             <button type="button" onClick={ootdDeleteHandler}>
               삭제
             </button>
@@ -89,14 +102,13 @@ const OOTDContent = () => {
       </section>
       <section className="detail-ootd-photo">
         <Swiper pagination className="detail-swiper-container">
-          {detail.picture.length === 0 &&
-            detail.picture.map(picture => {
-              return (
-                <SwiperSlide className="detail-swiper-slide" key={picture}>
-                  <img src={picture} alt="OotdPhoto" />
-                </SwiperSlide>
-              );
-            })}
+          {detail.ootdPictures.map(picture => {
+            return (
+              <SwiperSlide className="detail-swiper-slide" key={picture}>
+                <img src={baseUrl + picture} alt="OotdPhoto" />
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       </section>
       <section className="detail-ootd">
@@ -114,7 +126,7 @@ const OOTDContent = () => {
               onClick={likeHandler}
             />
           )}
-          {detail.likeMembers.length}
+          {detail.likeCount}
         </div>
         <div className="detail-ootd-content">
           <p>{detail.content}</p>

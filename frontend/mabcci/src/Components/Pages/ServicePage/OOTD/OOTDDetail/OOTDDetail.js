@@ -13,6 +13,7 @@ const OOTDDetail = () => {
   return (
     <div className="container detail-container">
       <OOTDHeader />
+      <OOTDContent ootdId={id} writerNickname={nickname} userInfo={userInfo} />
       <OOTDBottom ootdId={id} writerNickname={nickname} userInfo={userInfo} />
     </div>
   );

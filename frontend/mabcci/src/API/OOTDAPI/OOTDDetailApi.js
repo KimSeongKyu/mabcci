@@ -10,9 +10,11 @@ import {
   OOTDLikeUrl,
 } from '../ApiUrl';
 
-export const OOTDDetailApi = async id => {
+export const OOTDDetailApi = async (id, nickname) => {
   try {
-    const response = await instance.get(`${OOTDDetailUrl}${id}`);
+    const response = await instance.get(
+      `${OOTDDetailUrl}${id}/detail/${nickname}`,
+    );
 
     return {
       status: response.status,
@@ -36,7 +38,7 @@ export const OOTDCommentCreateApi = async newComment => {
 
 export const OOTDCommentReadApi = async id => {
   try {
-    const response = await instance.get(`${OOTDCommentReadUrl}${id}`);
+    const response = await instance.get(`${OOTDCommentReadUrl}${id}/comments`);
     return {
       status: response.status,
       comments: response.data.comments,
@@ -50,7 +52,6 @@ export const OOTDCommentReadApi = async id => {
 
 export const OOTDCommentUpdateApi = async (id, updateComment) => {
   try {
-    console.log(updateComment);
     const response = await instance.put(
       `${OOTDCommentUpdateUrl}${id}`,
       updateComment,
@@ -64,6 +65,17 @@ export const OOTDCommentUpdateApi = async (id, updateComment) => {
 export const OOTDCommentDeleteApi = async id => {
   try {
     const response = await instance.delete(`${OOTDCommentDeleteUrl}${id}`);
+    return response;
+  } catch (response) {
+    return response;
+  }
+};
+
+export const OOTDLikeApi = async (id, nickname) => {
+  try {
+    const response = await instance.post(
+      `${OOTDLikeUrl}${id}/like/${nickname}`,
+    );
     return response;
   } catch (response) {
     return response;
