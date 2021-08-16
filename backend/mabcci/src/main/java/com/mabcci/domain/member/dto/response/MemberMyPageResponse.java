@@ -56,12 +56,12 @@ public final class MemberMyPageResponse {
     public static final MemberMyPageResponse ofMember(final Member member) {
         final Set<String> categories = mapToStringCategoryNames(member);
         final MemberSpecs memberSpecs = member.memberSpecs();
-        final Set<Follow> followers = member.followers();
-        final Set<Follow> following = member.followings();
+        final Set<Follow> myFollowings = member.followers();
+        final Set<Follow> myFollowers = member.followings();
         final Set<OotdMyPageResponse> ootds = mapToOotdMyPageResponseSet(member);
         return new MemberMyPageResponse(member.nickname(), member.gender(), member.memberRole(), member.picture(), member.description(),
                 memberSpecs.height(), memberSpecs.weight(), memberSpecs.footSize(), memberSpecs.bodyType(),
-                categories, followers.size(), following.size(), ootds);
+                categories, myFollowers.size(), myFollowings.size(), ootds);
     }
 
     private static final Set<String> mapToStringCategoryNames(final Member member) {
