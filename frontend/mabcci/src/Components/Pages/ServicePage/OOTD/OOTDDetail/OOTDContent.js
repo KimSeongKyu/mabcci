@@ -10,16 +10,15 @@ import 'swiper/components/pagination/pagination.min.css';
 import getUserInfo from '../../../../Common/getUserInfo';
 import OOTDDeleteApi from '../../../../../API/OOTDAPI/OOTDDeleteApi';
 
-const OOTDContent = () => {
+const OOTDContent = props => {
   const history = useHistory();
-  const myInfo = getUserInfo();
-  const { id, nickname } = useParams();
-  const [user, setUser] = useState({
-    nickname,
+  const { ootdId, writerNickname, userInfo } = props;
+  const [writer, setWriter] = useState({
+    nickname: writerNickname,
     memberPicture: '',
   });
   const [detail, setDetail] = useState({
-    id,
+    id: ootdId,
     content: '',
     top: '',
     bottom: '',
@@ -29,15 +28,17 @@ const OOTDContent = () => {
     views: '',
     hashtag: [],
     registeredTime: '',
-    likeMembers: [],
+    likeCount: '',
+    likeStatus: '',
   });
-  const [myLike, setMyLike] = useState(false);
+  const [myLike, setMyLike] = useState();
 
   useEffect(async () => {
     const response = await OOTDDetailApi(detail.id);
     if (response.status === 200) {
       setDetail({ ...detail, ...response.detail });
-      setUser({ ...user, memberPicture: response.memberPicture });
+      setWriter({ ...writer, memberPicture: response.memberPicture });
+      setMyLike(response.likeStatus);
     }
   }, []);
 
@@ -54,7 +55,7 @@ const OOTDContent = () => {
     };
 
     history.push({
-      pathname: `/OOTDUpdate/${detail.id}/${user.nickname}`,
+      pathname: `/OOTDUpdate/${detail.id}/${writer.nickname}`,
       state: { info },
     });
   };
@@ -72,19 +73,19 @@ const OOTDContent = () => {
     <article className="detail-content">
       <section className="detail-info">
         <div className="detail-info-photo">
-          <img src={user.memberPicture} alt="UserPicture" width="70" />
+          <img src={writer.memberPicture} alt="UserPicture" width="70" />
         </div>
         <div className="detail-info-content">
-          <p>{user.nickname}</p>
+          <p>{writer.nickname}</p>
           <p>
             {detail.registeredTime} views:{detail.views}
           </p>
-          {myInfo.nickname === user.nickname ? (
+          {userInfo.nickname === writer.nickname ? (
             <button type="button" onClick={ootdUpdateHandler}>
               수정
             </button>
           ) : null}
-          {myInfo.nickname === user.nickname ? (
+          {userInfo.nickname === writer.nickname ? (
             <button type="button" onClick={ootdDeleteHandler}>
               삭제
             </button>
@@ -117,7 +118,7 @@ const OOTDContent = () => {
               onClick={likeHandler}
             />
           )}
-          {detail.likeMembers.length}
+          {detail.likeCount}
         </div>
         <div className="detail-ootd-content">
           <p>{detail.content}</p>
