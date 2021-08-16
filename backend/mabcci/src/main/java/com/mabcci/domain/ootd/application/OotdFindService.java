@@ -11,6 +11,7 @@ import com.mabcci.domain.ootd.dto.response.OotdResponse;
 import com.mabcci.domain.ootdLike.domain.OotdLike;
 import com.mabcci.global.common.Nickname;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,10 +37,8 @@ public class OotdFindService {
         final Member member = getMemberByNickname(nickname);
         final Page<Ootd> ootdPages = ootdFilter.getFilteredOotds(ootdRepository, member, pageable);
         final int totalPages = ootdPages.getTotalPages();
-        final List<Ootd> ootds = ootdPages.toList();
-        final List<OotdResponse> ootdResponses = getOotdResponses(ootds);
 
-        return new OotdListResponse(ootdResponses, totalPages);
+        return new OotdListResponse(getOotdResponses(ootdPages.toList()), totalPages);
     }
 
     @Transactional
@@ -72,5 +71,12 @@ public class OotdFindService {
         return ootds.stream()
                 .map(OotdResponse::ofOotd)
                 .collect(toList());
+    }
+
+    public OotdListResponse findOotdsByHashtag(final String hashtagName, final OotdFilter ootdFilter, final Pageable pageable) {
+        final Page<Ootd> pageOotds = ootdFilter.getFilteredOotds(ootdRepository, hashtagName, pageable);
+        final int totalPages = pageOotds.getTotalPages();
+
+        return new OotdListResponse(getOotdResponses(pageOotds.toList()), totalPages);
     }
 }
