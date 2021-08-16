@@ -14,6 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Optional;
 
@@ -23,6 +24,7 @@ import static com.mabcci.global.common.EmailTest.EMAIL;
 import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static com.mabcci.global.common.PasswordTest.PASSWORD;
 import static com.mabcci.global.common.PhoneTest.PHONE;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -66,7 +68,7 @@ public class OotdLikeSaveAndUpdateServiceTest {
 
     @DisplayName("OotdLikeSaveAndUpdateService 인스턴스 좋아요 생성 테스트")
     @Test
-    void save_or_update_ootd_like_test() {
+    void save_ootd_like_test() {
         doReturn(Optional.empty()).when(ootdLikeRepository).findByOotdAndNickname(any(), any());
         doReturn(Optional.of(member)).when(memberRepository).findByNickName(any());
         doReturn(ootdLike).when(ootdLikeRepository).save(any());
@@ -78,4 +80,16 @@ public class OotdLikeSaveAndUpdateServiceTest {
         verify(ootdLikeRepository, times(1)).save(any());
     }
 
+    @DisplayName("OotdLikeSaveAndUpdateService 인스턴스 좋아요 상태 변경 테스트")
+    @Test
+    void update_ootd_like_test() {
+        ReflectionTestUtils.setField(ootdLike, "status", true);
+        doReturn(Optional.of(ootdLike)).when(ootdLikeRepository).findByOotdAndNickname(any(), any());
+
+        ootdLikeSaveAndUpdateService.saveOrUpdateOotdLike(ootd, NICKNAME);
+
+        verify(ootdLikeRepository, times(1)).findByOotdAndNickname(any(), any());
+
+        assertThat(ootdLike.status()).isFalse();
+    }
 }
