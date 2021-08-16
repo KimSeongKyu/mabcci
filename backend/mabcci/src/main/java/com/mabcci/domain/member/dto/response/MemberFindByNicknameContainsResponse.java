@@ -18,4 +18,12 @@ public final class MemberFindByNicknameContainsResponse {
         this.nickname = nickname;
         this.picture = picture;
     }
+
+    public final Nickname nickname() {
+        return nickname;
+    }
+
+    public final String picture() {
+        return picture;
+    }
 }
