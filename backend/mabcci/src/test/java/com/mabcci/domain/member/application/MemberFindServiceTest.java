@@ -2,6 +2,8 @@ package com.mabcci.domain.member.application;
 
 import com.mabcci.domain.category.domain.Category;
 import com.mabcci.domain.member.domain.*;
+import com.mabcci.domain.member.dto.response.MemberFindByNicknameContainsResponse;
+import com.mabcci.domain.member.dto.response.MemberFindByNicknameContainsResponses;
 import com.mabcci.domain.member.dto.response.MemberListResponse;
 import com.mabcci.domain.member.dto.response.MemberFindByNickNameResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +20,7 @@ import static com.mabcci.domain.member.domain.Gender.MAN;
 import static com.mabcci.domain.member.domain.MemberRole.USER;
 import static com.mabcci.domain.member.domain.MemberSpecsTest.*;
 import static com.mabcci.domain.member.domain.MemberSpecsTest.BODY_TYPE;
+import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
 import static com.mabcci.global.common.EmailTest.EMAIL;
 import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static com.mabcci.global.common.PasswordTest.PASSWORD;
@@ -26,6 +29,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class MemberFindServiceTest {
@@ -52,6 +57,7 @@ public class MemberFindServiceTest {
                 .password(PASSWORD)
                 .nickname(NICKNAME)
                 .phone(PHONE)
+                .picture(PICTURE)
                 .gender(MAN)
                 .memberRole(USER)
                 .memberSpecs(memberSpecs)
@@ -74,6 +80,20 @@ public class MemberFindServiceTest {
         );
     }
 
+    @DisplayName("MemberFindService 인스턴스 findByNicknameContains() 기능 테스트")
+    @Test
+    void find_by_nickname_contains_test() {
+        given(memberRepository.findByNicknameContains(any())).willReturn(List.of(member));
+        final MemberFindByNicknameContainsResponses memberFindByNicknameContainsResponses =
+                memberFindService.findByNicknameContains(NICKNAME);
+
+        final MemberFindByNicknameContainsResponse memberFindByNicknameContainsResponse =
+                memberFindByNicknameContainsResponses.members().get(0);
+
+        verify(memberRepository, times(1)).findByNicknameContains(any());
+        assertThat(memberFindByNicknameContainsResponse.nickname()).isEqualTo(NICKNAME.nickname());
+        assertThat(memberFindByNicknameContainsResponse.picture()).isEqualTo(PICTURE);
+    }
 
     @DisplayName("MemberService 인스턴스 findAll() 기능 테스트")
     @Test
