@@ -53,6 +53,13 @@ public class OotdController {
         return ResponseEntity.ok(ootdFindService.findOotds(nickname, ootdFilter, pageable));
     }
 
+    @GetMapping("/api/ootds")
+    public ResponseEntity findOotdListByKeyword(@NotNull @RequestParam("search") final String keyword,
+                                                @NotBlank @RequestParam("filter") final OotdFilter ootdFilter,
+                                                @NotNull final Pageable pageable) {
+        return ResponseEntity.ok(ootdFindService.findOotdsByKeyword(keyword, ootdFilter, pageable));
+    }
+
     @PutMapping("/api/ootds/{id}")
     public ResponseEntity updateOotd(@Positive @PathVariable("id") final Long id,
                                      @Valid @NotNull @RequestBody final OotdUpdateRequest ootdUpdateRequest) {
