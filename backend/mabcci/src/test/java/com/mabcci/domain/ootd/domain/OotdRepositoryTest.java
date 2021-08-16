@@ -252,6 +252,38 @@ class OotdRepositoryTest {
         );
     }
 
+    @DisplayName("OotdRepository 닉네임으로 ootd 리스트 조회 테스트")
+    @Test
+    void find_ootds_by_nickname_test() {
+        testEntityManager.persist(member);
+        for (int i = 0; i < 21; i++) {
+            final Ootd ootd = Ootd.builder()
+                    .member(member)
+                    .content("content")
+                    .top("top")
+                    .bottom("bottom")
+                    .shoes("shoes")
+                    .accessory("accessory")
+                    .build();
+            testEntityManager.persist(ootd);
+            testEntityManager.persist(OotdPicture.builder()
+                    .ootd(ootd)
+                    .url("testUrl")
+                    .fileName("testFileName")
+                    .build());
+        }
+
+        final Page<Ootd> firstPageOotds = ootdRepository.findOotdsByNickname(NICKNAME, PageRequest.of(0, 20));
+        final Page<Ootd> secondPageOotds = ootdRepository.findOotdsByNickname(NICKNAME, PageRequest.of(1, 20));
+
+        assertAll(
+                () -> assertThat(firstPageOotds.getSize()).isEqualTo(20),
+                () -> assertThat(firstPageOotds.toList().size()).isEqualTo(20),
+                () -> assertThat(secondPageOotds.toList().size()).isEqualTo(1),
+                () -> assertThat(firstPageOotds.getTotalPages()).isEqualTo(2)
+        );
+    }
+
     @DisplayName("OotdRepository ootd 삭제 테스트")
     @Test
     void delete_test() {
