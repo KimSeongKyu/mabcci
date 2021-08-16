@@ -173,4 +173,29 @@ class OotdFindServiceTest {
                 () -> assertThat(ootdResponse.likeCount()).isEqualTo(1L)
         );
     }
+
+    @DisplayName("OotdFindService 인스턴스 해시태그로 ootd 리스트 검색 테스트")
+    @Test
+    void find_ootds_by_hashtag_test() {
+        ReflectionTestUtils.setField(ootd, "id", 1L);
+        ReflectionTestUtils.setField(ootd, "ootdPictures", List.of(ootdPicture));
+        ReflectionTestUtils.setField(ootd, "ootdHashtags", ootdHashtags);
+        ReflectionTestUtils.setField(ootdLike, "status", true);
+        ReflectionTestUtils.setField(ootd, "ootdLikes", List.of(ootdLike));
+
+        doReturn(new PageImpl<>(List.of(ootd))).when(ootdRepository).findOotdsByHashtag(any());
+
+        final OotdListResponse ootdListResponse = ootdFindService.findOotdsByHashtag(OotdFilter.HASHTAG, PageRequest.of(0, 20));
+        final OotdResponse ootdResponse = ootdListResponse.ootdResponses().get(0);
+
+        verify(ootdRepository, times(1)).findOotdsByHashtag(any());
+
+        assertAll(
+                () -> assertThat(ootdResponse.id()).isEqualTo(ootd.id()),
+                () -> assertThat(ootdResponse.nickname()).isEqualTo(NICKNAME),
+                () -> assertThat(ootdResponse.picture()).isEqualTo(ootdPicture.path()),
+                () -> assertThat(ootdResponse.hashtags()).contains(firstHashtag.name()),
+                () -> assertThat(ootdResponse.likeCount()).isEqualTo(1L)
+        );
+    }
 }
