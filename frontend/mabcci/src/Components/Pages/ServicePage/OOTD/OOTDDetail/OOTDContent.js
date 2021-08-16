@@ -4,7 +4,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination } from 'swiper/core';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { baseUrl } from '../../../../../API/ApiUrl';
-import { OOTDDetailApi } from '../../../../../API/OOTDAPI/OOTDDetailApi';
+import {
+  OOTDDetailApi,
+  OOTDLikeApi,
+} from '../../../../../API/OOTDAPI/OOTDDetailApi';
 import 'swiper/swiper.min.css';
 import 'swiper/components/pagination/pagination.min.css';
 import getUserInfo from '../../../../Common/getUserInfo';
@@ -34,11 +37,11 @@ const OOTDContent = props => {
   const [myLike, setMyLike] = useState();
 
   useEffect(async () => {
-    const response = await OOTDDetailApi(detail.id);
+    const response = await OOTDDetailApi(detail.id, userInfo.nickname);
     if (response.status === 200) {
       setDetail({ ...detail, ...response.detail });
-      setWriter({ ...writer, memberPicture: response.memberPicture });
-      setMyLike(response.likeStatus);
+      setWriter({ ...writer, memberPicture: response.detail.memberPicture });
+      setMyLike(response.detail.likeStatus);
     }
   }, []);
 
@@ -60,13 +63,18 @@ const OOTDContent = props => {
     });
   };
 
-  const ootdDeleteHandler = () => {
-    const response = OOTDDeleteApi(detail.id);
+  const ootdDeleteHandler = async () => {
+    const response = await OOTDDeleteApi(detail.id);
     window.location.replace('/OOTD');
   };
 
-  const likeHandler = () => {
+  const likeHandler = async () => {
+    const responseLike = await OOTDLikeApi(detail.id, userInfo.nickname);
+    const responseDetail = await OOTDDetailApi(detail.id, userInfo.nickname);
     setMyLike(!myLike);
+    if (responseDetail.status === 200) {
+      setDetail({ ...detail, likeCount: responseDetail.detail.likeCount });
+    }
   };
 
   return (
