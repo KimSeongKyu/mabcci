@@ -37,6 +37,8 @@ const MyPageUpdate = (props) => {
   }
 
   const submit = async () => {
+    console.log(props.myUpdateInfo);
+    console.log(props.updateData);
     const res = await MypageUpdateApi(
       props.updateData,
       props.myUpdateInfo.nickname,

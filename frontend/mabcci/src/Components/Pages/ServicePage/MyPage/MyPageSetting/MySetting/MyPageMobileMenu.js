@@ -37,7 +37,7 @@ const MyPageMobileMenu = props => {
       bodyType: res.myInfo.bodyType,
       categories: res.myInfo.categories,
       picture: res.myInfo.picture,
-      updatePicture: '',
+      updatePicture: null,
       description: res.myInfo.description,
     });
   }, []);

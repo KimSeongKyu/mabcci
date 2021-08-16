@@ -84,7 +84,7 @@ const MyPageProfile = props => {
                 <p className="mypage-profile-bodysize-secret">secret</p>
               )}
               {props.myInfo.weight !== 0 ? (
-                <p>{props.myInfo.height}cm</p>
+                <p>{props.myInfo.weight}kg</p>
               ) : (
                 <p className="mypage-profile-bodysize-secret">secret</p>
               )}

@@ -41,10 +41,6 @@ public class OotdCommentSaveService {
         ootdCommentRepository.save(OotdComment.builder()
                 .member(member)
                 .ootd(ootd)
-<<<<<<< HEAD
-=======
-                .content(ootdCommentSaveRequest.getContent())
->>>>>>> 6196e3c ([S05P13C107-28] [FE-jhs9497] feat: mypage 팔로워/팔로잉 리스트기능 추가)
                 .parentComment(parentComment)
                 .content(content)
                 .build());
