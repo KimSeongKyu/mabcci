@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination } from 'swiper/core';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { baseUrl } from '../../../../../API/ApiUrl';
 import { OOTDDetailApi } from '../../../../../API/OOTDAPI/OOTDDetailApi';
 import 'swiper/swiper.min.css';
 import 'swiper/components/pagination/pagination.min.css';
@@ -15,7 +16,7 @@ const OOTDContent = () => {
   const { id, nickname } = useParams();
   const [user, setUser] = useState({
     nickname,
-    userphoto: '사진',
+    memberPicture: '',
   });
   const [detail, setDetail] = useState({
     id,
@@ -24,7 +25,7 @@ const OOTDContent = () => {
     bottom: '',
     shoes: '',
     accessory: '',
-    picture: [],
+    ootdPictures: [],
     views: '',
     hashtag: [],
     registeredTime: '',
@@ -36,6 +37,7 @@ const OOTDContent = () => {
     const response = await OOTDDetailApi(detail.id);
     if (response.status === 200) {
       setDetail({ ...detail, ...response.detail });
+      setUser({ ...user, memberPicture: response.memberPicture });
     }
   }, []);
 
@@ -47,7 +49,7 @@ const OOTDContent = () => {
       shoes: detail.shoes,
       accessory: detail.accessory,
       content: detail.content,
-      picture: detail.picture,
+      picture: detail.ootdPictures,
       hashTag: detail.hashtag,
     };
 
@@ -69,7 +71,9 @@ const OOTDContent = () => {
   return (
     <article className="detail-content">
       <section className="detail-info">
-        <div className="detail-info-photo">{user.userphoto}</div>
+        <div className="detail-info-photo">
+          <img src={user.memberPicture} alt="UserPicture" width="70" />
+        </div>
         <div className="detail-info-content">
           <p>{user.nickname}</p>
           <p>
@@ -89,14 +93,13 @@ const OOTDContent = () => {
       </section>
       <section className="detail-ootd-photo">
         <Swiper pagination className="detail-swiper-container">
-          {detail.picture.length === 0 &&
-            detail.picture.map(picture => {
-              return (
-                <SwiperSlide className="detail-swiper-slide" key={picture}>
-                  <img src={picture} alt="OotdPhoto" />
-                </SwiperSlide>
-              );
-            })}
+          {detail.ootdPictures.map(picture => {
+            return (
+              <SwiperSlide className="detail-swiper-slide" key={picture}>
+                <img src={baseUrl + picture} alt="OotdPhoto" />
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       </section>
       <section className="detail-ootd">

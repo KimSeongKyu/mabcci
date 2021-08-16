@@ -12,7 +12,7 @@ import {
 
 export const OOTDDetailApi = async id => {
   try {
-    const response = await instance.get(`${OOTDDetailUrl}${id}`);
+    const response = await instance.get(`${OOTDDetailUrl}${id}/detail`);
 
     return {
       status: response.status,
@@ -36,7 +36,7 @@ export const OOTDCommentCreateApi = async newComment => {
 
 export const OOTDCommentReadApi = async id => {
   try {
-    const response = await instance.get(`${OOTDCommentReadUrl}${id}`);
+    const response = await instance.get(`${OOTDCommentReadUrl}${id}/comments`);
     return {
       status: response.status,
       comments: response.data.comments,
