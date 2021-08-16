@@ -1,6 +1,7 @@
 package com.mabcci.domain.member.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mabcci.domain.member.domain.Member;
 import com.mabcci.global.common.Nickname;
 
 import javax.validation.Valid;
@@ -13,6 +14,10 @@ public final class MemberFindByNicknameContainsResponse {
 
     @JsonProperty("picture")
     private String picture;
+
+    public final static MemberFindByNicknameContainsResponse ofMember(final Member member) {
+        return new MemberFindByNicknameContainsResponse(member.nickname(), member.picture());
+    }
 
     public MemberFindByNicknameContainsResponse(final Nickname nickname, final String picture) {
         this.nickname = nickname;
