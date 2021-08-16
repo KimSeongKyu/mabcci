@@ -1,5 +1,5 @@
 logging.level:
-  root: info
+  root: debug
   org.hibernate.SQL: debug
 spring:
   h2:
@@ -18,7 +18,9 @@ spring:
       hibernate:
         default_batch_fetch_size: 1000
         format_sql: true
-
+  redis:
+    host: localhost
+    port: 6379
 path:
   upload: "/images"
   resource: "file:///images/mabcci/images/local"
