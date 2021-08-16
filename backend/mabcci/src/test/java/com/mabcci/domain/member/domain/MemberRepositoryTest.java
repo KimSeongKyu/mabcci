@@ -88,6 +88,15 @@ class MemberRepositoryTest {
 
     }
 
+    @DisplayName("MemberRepository findByNicknameContains 기능 테스트")
+    @Test
+    void find_by_nickname_contains_test() {
+        testEntityManager.persist(member);
+        final List<Member> foundMembers = memberRepository.findByNicknameContains(NICKNAME);
+
+        assertThat(foundMembers.size()).isEqualTo(1);
+    }
+
     @DisplayName("MemberRepository findByNickname 기능 실패 테스트")
     @Test
     void find_by_nickname_fail_test() {
