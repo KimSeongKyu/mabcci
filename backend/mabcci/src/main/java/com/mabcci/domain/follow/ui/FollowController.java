@@ -1,24 +1,44 @@
 package com.mabcci.domain.follow.ui;
 
+import com.mabcci.domain.follow.application.FollowFindService;
 import com.mabcci.domain.follow.application.FollowService;
 import com.mabcci.domain.follow.application.UnFollowService;
 import com.mabcci.domain.follow.dto.FollowRequest;
+import com.mabcci.domain.follow.dto.FollowResponse;
 import com.mabcci.domain.follow.dto.UnFollowRequest;
+import com.mabcci.global.common.Nickname;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.List;
+
+@CrossOrigin(originPatterns = "http://localhost:*")
 @RestController
 public class FollowController {
 
+    private final FollowFindService followFindService;
     private final FollowService followService;
     private final UnFollowService unFollowService;
 
-    public FollowController(final FollowService followService, final UnFollowService unFollowService) {
+    public FollowController(final FollowFindService followFindService,
+                            final FollowService followService,
+                            final UnFollowService unFollowService) {
+        this.followFindService = followFindService;
         this.followService = followService;
         this.unFollowService = unFollowService;
+    }
+
+    @GetMapping("/api/{nickname}/follower")
+    public ResponseEntity<?> findFollower(@Valid @RequestBody final Nickname nickname) {
+        final List<FollowResponse> followResponses = followFindService.myFollower(nickname);
+        return ResponseEntity.ok().body(followResponses);
+    }
+
+    @GetMapping("/api/{nickname}/following")
+    public ResponseEntity<?> findFollowing(@Valid @RequestBody final Nickname nickname) {
+        final List<FollowResponse> followResponses = followFindService.myFollowing(nickname);
+        return ResponseEntity.ok().body(followResponses);
     }
 
     @PostMapping("/api/follow")

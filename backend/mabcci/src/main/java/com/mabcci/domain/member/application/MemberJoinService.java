@@ -6,6 +6,7 @@ import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.domain.MemberSpecs;
 import com.mabcci.domain.membercategory.domain.MemberCategory;
+import com.mabcci.domain.picture.common.PictureUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

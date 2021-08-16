@@ -56,6 +56,12 @@ public class MemberController {
         return ResponseEntity.ok().body(response);
     }
 
+    @GetMapping("/api/members/check/{nickname}")
+    public ResponseEntity<Boolean> isExistNickname(@Valid @PathVariable final Nickname nickname) {
+        boolean existNickname = memberFindService.isExistNickname(nickname);
+        return ResponseEntity.ok().body(existNickname);
+    }
+
     @GetMapping("/api/members/{nickname}")
     public ResponseEntity<MemberFindByNickNameResponse> findMemberByNickname(@Valid @PathVariable final Nickname nickname) {
         final Member member = memberFindService.findByNickname(nickname);

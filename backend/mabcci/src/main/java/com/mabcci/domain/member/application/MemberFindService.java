@@ -27,6 +27,10 @@ public class MemberFindService {
                 .orElseThrow(MemberNotFoundException::new);
     }
 
+    public boolean isExistNickname(final Nickname nickname) {
+        return memberRepository.findByNickName(nickname).isPresent();
+    }
+
     public List<Member> findByMemberRole(final MemberRole memberRole) {
         return memberRepository.findAllByMemberRole(memberRole);
     }

@@ -2,11 +2,15 @@ package com.mabcci.domain.follow.application;
 
 import com.mabcci.domain.follow.domain.Follow;
 import com.mabcci.domain.follow.domain.FollowRepository;
+import com.mabcci.domain.follow.dto.FollowResponse;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.global.common.Nickname;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FollowService {
