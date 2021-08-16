@@ -19,6 +19,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
+
 @Service
 public class OotdFindService {
 
@@ -36,10 +37,8 @@ public class OotdFindService {
         final Member member = getMemberByNickname(nickname);
         final Page<Ootd> ootdPages = ootdFilter.getFilteredOotds(ootdRepository, member, pageable);
         final int totalPages = ootdPages.getTotalPages();
-        final List<Ootd> ootds = ootdPages.toList();
-        final List<OotdResponse> ootdResponses = getOotdResponses(ootds);
 
-        return new OotdListResponse(ootdResponses, totalPages);
+        return new OotdListResponse(getOotdResponses(ootdPages.toList()), totalPages);
     }
 
     @Transactional
@@ -72,5 +71,13 @@ public class OotdFindService {
         return ootds.stream()
                 .map(OotdResponse::ofOotd)
                 .collect(toList());
+    }
+
+    @Transactional(readOnly = true)
+    public OotdListResponse findOotdsByKeyword(final String keyword, final OotdFilter ootdFilter, final Pageable pageable) {
+        final Page<Ootd> pageOotds = ootdFilter.getFilteredOotdsByKeyword(ootdRepository, keyword, pageable);
+        final int totalPages = pageOotds.getTotalPages();
+
+        return new OotdListResponse(getOotdResponses(pageOotds.toList()), totalPages);
     }
 }

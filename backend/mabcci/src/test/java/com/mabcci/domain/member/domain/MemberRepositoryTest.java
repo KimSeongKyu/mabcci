@@ -2,7 +2,6 @@ package com.mabcci.domain.member.domain;
 
 import com.mabcci.domain.category.domain.Category;
 import com.mabcci.domain.member.application.MemberFindServiceTest;
-import com.mabcci.domain.membercategory.domain.MemberCategory;
 import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -80,7 +79,7 @@ class MemberRepositoryTest {
 
     @DisplayName("MemberRepository findByNickname 기능 테스트")
     @Test
-    void findByNickname_test() {
+    void find_by_nickname_test() {
         testEntityManager.persist(member);
         final Member findMember = memberRepository.findByNickName(member.nickname()).get();
 
@@ -88,9 +87,18 @@ class MemberRepositoryTest {
 
     }
 
+    @DisplayName("MemberRepository findByNicknameContains 기능 테스트")
+    @Test
+    void find_by_nickname_contains_test() {
+        testEntityManager.persist(member);
+        final List<Member> foundMembers = memberRepository.findByNicknameContains(NICKNAME.nickname());
+
+        assertThat(foundMembers.size()).isEqualTo(1);
+    }
+
     @DisplayName("MemberRepository findByNickname 기능 실패 테스트")
     @Test
-    void findByNickname_fail_test() {
+    void find_by_nickname_fail_test() {
         final Nickname nickname = Nickname.of("invalidNickName");
 
         testEntityManager.persist(member);
@@ -101,7 +109,7 @@ class MemberRepositoryTest {
 
     @DisplayName(value = "MemberRepository findByEmailAndPassword 기능 테스트")
     @Test
-    public void findByEmailAndPassword_test() {
+    public void find_by_email_and_password_test() {
         testEntityManager.persist(member);
 
         final Member findMember = memberRepository.findByEmailAndPassword(EMAIL, PASSWORD).get();
@@ -111,7 +119,7 @@ class MemberRepositoryTest {
 
     @DisplayName(value = "MemberRepository findByEmailAndPassword 기능 실패 테스트")
     @Test
-    public void findByEmailAndPassword_fail_test() {
+    public void find_by_email_and_password_fail_test() {
         testEntityManager.persist(member);
         final Optional<Member> findMember = memberRepository.findByEmailAndPassword(of(EMPTY), PASSWORD);
 
@@ -120,7 +128,7 @@ class MemberRepositoryTest {
 
     @DisplayName("MemberRepository findAll 기능 테스트")
     @Test
-    void findAll_test() {
+    void find_all_test() {
         testEntityManager.persist(member);
         final List<Member> members = memberRepository.findAll();
 

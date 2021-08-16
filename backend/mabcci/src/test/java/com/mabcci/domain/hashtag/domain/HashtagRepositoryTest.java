@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -59,5 +60,14 @@ class HashtagRepositoryTest {
                 () -> assertThat(foundHashtag).isNotEmpty(),
                 () -> assertThat(foundHashtag.get().id()).isEqualTo(hashtag.id())
         );
+    }
+
+    @DisplayName("HashtagRepository findByNameContains 기능 테스트")
+    @Test
+    void find_by_name_contains_test() {
+        testEntityManager.persist(hashtag);
+        final List<Hashtag> foundHashtags = hashtagRepository.findByNameContains(hashtag.name());
+
+        assertThat(foundHashtags.size()).isEqualTo(1);
     }
 }

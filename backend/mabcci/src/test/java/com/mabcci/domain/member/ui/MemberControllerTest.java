@@ -13,6 +13,7 @@ import com.mabcci.domain.member.domain.MemberSpecs;
 import com.mabcci.domain.member.dto.request.MemberDeleteRequest;
 import com.mabcci.domain.member.dto.request.MemberJoinRequest;
 import com.mabcci.domain.member.dto.request.MemberUpdateRequest;
+import com.mabcci.domain.member.dto.response.MemberFindByNicknameContainsResponses;
 import com.mabcci.domain.member.dto.response.MemberMyPageResponse;
 import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,6 +30,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -98,6 +100,20 @@ class MemberControllerTest {
         mvc.perform(post("/api/members")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(joinRequestDtoString))
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("MemberController findByNicknameContains() 메서드 테스트")
+    @Test
+    public void find_by_nickname_contains_test() throws Exception {
+        final MemberFindByNicknameContainsResponses memberFindByNicknameContainsResponses =
+                new MemberFindByNicknameContainsResponses(Collections.emptyList());
+        given(memberFindService.findByNicknameContains(any())).willReturn(memberFindByNicknameContainsResponses);
+
+        mvc.perform(get("/api/members/search?nickname={nickname}", NICKNAME)
+                .content(objectMapper.writeValueAsString(memberFindByNicknameContainsResponses))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 

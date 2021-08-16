@@ -25,4 +25,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Optional<Member> findByEmailAndPassword(Email email, Password password);
 
+    @Query(value = "SELECT * FROM member m WHERE m.member_nickname LIKE %:nickname%", nativeQuery = true)
+    List<Member> findByNicknameContains(@Param("nickname") String nickname);
 }
