@@ -1,7 +1,9 @@
 package com.mabcci.domain.ootd.domain;
 
 import com.mabcci.domain.follow.domain.Follow;
+import com.mabcci.domain.hashtag.domain.Hashtag;
 import com.mabcci.domain.member.domain.Member;
+import com.mabcci.domain.ootdhashtag.domain.OotdHashtag;
 import com.mabcci.domain.ootdpicture.domain.OotdPicture;
 import com.mabcci.global.common.Email;
 import com.mabcci.global.common.Nickname;
@@ -44,6 +46,7 @@ class OotdRepositoryTest {
     private Ootd secondFollowingMemberOotd;
     private OotdPicture firstFollowingMemberOotdPicture;
     private OotdPicture secondFollowingMemberOotdPicture;
+    private Hashtag hashtag;
 
     @BeforeEach
     void setUp() {
@@ -112,6 +115,9 @@ class OotdRepositoryTest {
                 .url("secondTestUrl")
                 .fileName("secondTestFileName")
                 .ootd(secondFollowingMemberOotd)
+                .build();
+        hashtag = Hashtag.builder()
+                .name("해시태그")
                 .build();
     }
 
@@ -199,6 +205,44 @@ class OotdRepositoryTest {
 
         final Page<Ootd> firstPageOotds = ootdRepository.findOotds(PageRequest.of(0, 20));
         final Page<Ootd> secondPageOotds = ootdRepository.findOotds(PageRequest.of(1, 20));
+
+        assertAll(
+                () -> assertThat(firstPageOotds.getSize()).isEqualTo(20),
+                () -> assertThat(firstPageOotds.toList().size()).isEqualTo(20),
+                () -> assertThat(secondPageOotds.toList().size()).isEqualTo(1),
+                () -> assertThat(firstPageOotds.getTotalPages()).isEqualTo(2)
+        );
+    }
+
+    @DisplayName("OotdRepository 해시태그로 ootd 리스트 조회 테스트")
+    @Test
+    void find_ootds_by_hashtag_test() {
+        testEntityManager.persist(member);
+        testEntityManager.persist(hashtag);
+        for (int i = 0; i < 21; i++) {
+            final Ootd ootd = Ootd.builder()
+                    .member(member)
+                    .content("content")
+                    .top("top")
+                    .bottom("bottom")
+                    .shoes("shoes")
+                    .accessory("accessory")
+                    .build();
+            final OotdHashtag ootdHashtag = OotdHashtag.builder()
+                    .ootd(ootd)
+                    .hashtag(hashtag)
+                    .build();
+            testEntityManager.persist(ootd);
+            testEntityManager.persist(OotdPicture.builder()
+                    .ootd(ootd)
+                    .url("testUrl")
+                    .fileName("testFileName")
+                    .build());
+            testEntityManager.persist(ootdHashtag);
+        }
+
+        final Page<Ootd> firstPageOotds = ootdRepository.findOotdsByHashtagName("해시태그", PageRequest.of(0, 20));
+        final Page<Ootd> secondPageOotds = ootdRepository.findOotdsByHashtagName("해시태그", PageRequest.of(1, 20));
 
         assertAll(
                 () -> assertThat(firstPageOotds.getSize()).isEqualTo(20),
