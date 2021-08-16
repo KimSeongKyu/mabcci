@@ -2,7 +2,6 @@ package com.mabcci.domain.member.domain;
 
 import com.mabcci.domain.category.domain.Category;
 import com.mabcci.domain.member.application.MemberFindServiceTest;
-import com.mabcci.domain.membercategory.domain.MemberCategory;
 import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -92,7 +91,7 @@ class MemberRepositoryTest {
     @Test
     void find_by_nickname_contains_test() {
         testEntityManager.persist(member);
-        final List<Member> foundMembers = memberRepository.findByNicknameContains(NICKNAME);
+        final List<Member> foundMembers = memberRepository.findByNicknameContains(NICKNAME.nickname());
 
         assertThat(foundMembers.size()).isEqualTo(1);
     }
