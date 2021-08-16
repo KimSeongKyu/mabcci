@@ -174,9 +174,9 @@ class OotdFindServiceTest {
         );
     }
 
-    @DisplayName("OotdFindService 인스턴스 해시태그로 ootd 리스트 검색 테스트")
+    @DisplayName("OotdFindService 인스턴스 ootd 리스트 검색 테스트")
     @Test
-    void find_ootds_by_hashtag_test() {
+    void find_ootds_by_keyword_test() {
         ReflectionTestUtils.setField(ootd, "id", 1L);
         ReflectionTestUtils.setField(ootd, "ootdPictures", List.of(ootdPicture));
         ReflectionTestUtils.setField(ootd, "ootdHashtags", ootdHashtags);
