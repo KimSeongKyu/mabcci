@@ -1,7 +1,9 @@
 package com.mabcci.domain.ootd.domain;
 
 import com.mabcci.domain.member.domain.Member;
+import com.mabcci.global.common.Nickname;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -63,4 +65,14 @@ public interface OotdRepository extends JpaRepository<Ootd, Long> {
             "JOIN o_h.hashtag h " +
             "WHERE h.name = :hashtagName")
     Page<Ootd> findOotdsByHashtagName(@Param("hashtagName") String hashtagName, Pageable pageable);
+
+    @Query(value = "SELECT DISTINCT o " +
+            "FROM Ootd o " +
+            "JOIN FETCH o.member m " +
+            "WHERE m.nickname = :nickname",
+            countQuery = "SELECT count(o) " +
+                    "FROM Ootd o " +
+                    "JOIN o.member m " +
+                    "WHERE m.nickname = :nickname")
+    Page<Ootd> findOotdsByNickname(@Param("nickname") Nickname nickname, Pageable pageable);
 }
