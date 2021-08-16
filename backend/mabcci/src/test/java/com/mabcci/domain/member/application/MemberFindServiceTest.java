@@ -61,7 +61,7 @@ public class MemberFindServiceTest {
 
     @DisplayName("MemberFindService 인스턴스 findByNickname() 기능 테스트")
     @Test
-    void findByNickname_test() {
+    void find_by_nickname_test() {
         given(memberRepository.findByNickName(any())).willReturn(Optional.ofNullable(member));
         final Member findMember = memberFindService.findByNickname(member.nickname());
         final MemberFindByNickNameResponse memberFindByNickNameResponse = MemberFindByNickNameResponse.ofMember(findMember);
@@ -74,9 +74,10 @@ public class MemberFindServiceTest {
         );
     }
 
+
     @DisplayName("MemberService 인스턴스 findAll() 기능 테스트")
     @Test
-    void findAll_test() {
+    void find_all_test() {
         final List list = new ArrayList(Arrays.asList(member));
         given(memberRepository.findAll()).willReturn((list));
         final List<MemberListResponse> memberListResponses = memberFindService.findAll();
