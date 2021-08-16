@@ -115,7 +115,7 @@ class OotdFindServiceTest {
 
         doReturn(Optional.of(ootd)).when(ootdRepository).findOotdDetailById(any());
 
-        final OotdDetailResponse ootdDetailResponse = ootdFindService.findOotdDetail(1L);
+        final OotdDetailResponse ootdDetailResponse = ootdFindService.findOotdDetail(1L, NICKNAME);
 
         verify(ootdRepository, times(1)).findOotdDetailById(any());
 

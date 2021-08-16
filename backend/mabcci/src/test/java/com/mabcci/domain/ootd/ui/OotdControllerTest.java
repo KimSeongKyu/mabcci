@@ -119,11 +119,11 @@ class OotdControllerTest {
                         .fileName("testFileName")
                         .build();
         ReflectionTestUtils.setField(ootd, "ootdPictures", List.of(ootdPicture));
-        final OotdDetailResponse ootdDetailResponse = OotdDetailResponse.ofOotd(ootd);
+        final OotdDetailResponse ootdDetailResponse = OotdDetailResponse.ofOotdAndLikeStatus(ootd, true);
 
-        doReturn(ootdDetailResponse).when(ootdFindService).findOotdDetail(any());
+        doReturn(ootdDetailResponse).when(ootdFindService).findOotdDetail(any(), any());
 
-        mockMvc.perform(get("/api/ootds/{id}/detail", 1)
+        mockMvc.perform(get("/api/ootds/{id}/detail/{nickname}", 1, "nickname")
                 .content(objectMapper.writeValueAsString(ootdDetailResponse))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))

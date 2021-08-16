@@ -8,6 +8,7 @@ import com.mabcci.domain.ootd.domain.OotdRepository;
 import com.mabcci.domain.ootd.dto.response.OotdDetailResponse;
 import com.mabcci.domain.ootd.dto.response.OotdListResponse;
 import com.mabcci.domain.ootd.dto.response.OotdResponse;
+import com.mabcci.domain.ootdLike.domain.OotdLike;
 import com.mabcci.global.common.Nickname;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,10 +43,19 @@ public class OotdFindService {
     }
 
     @Transactional
-    public OotdDetailResponse findOotdDetail(final Long id) {
+    public OotdDetailResponse findOotdDetail(final Long id, final Nickname nickname) {
         final Ootd ootd = getOotdById(id);
         ootd.increaseViews();
-        return OotdDetailResponse.ofOotd(ootd);
+        return OotdDetailResponse.ofOotdAndLikeStatus(ootd, isLikedOotd(ootd, nickname));
+    }
+
+    private boolean isLikedOotd(final Ootd ootd, final Nickname nickname) {
+        return ootd.ootdLikes()
+                .stream()
+                .filter(OotdLike::status)
+                .map(OotdLike::member)
+                .map(Member::nickname)
+                .anyMatch(LikedMemberNickname -> LikedMemberNickname.equals(nickname));
     }
 
     private Ootd getOotdById(final Long id) {
