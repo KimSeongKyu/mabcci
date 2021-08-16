@@ -183,12 +183,12 @@ class OotdFindServiceTest {
         ReflectionTestUtils.setField(ootdLike, "status", true);
         ReflectionTestUtils.setField(ootd, "ootdLikes", List.of(ootdLike));
 
-        doReturn(new PageImpl<>(List.of(ootd))).when(ootdRepository).findOotdsByHashtag(any());
+        doReturn(new PageImpl<>(List.of(ootd))).when(ootdRepository).findOotdsByHashtagName(any(), any());
 
-        final OotdListResponse ootdListResponse = ootdFindService.findOotdsByHashtag(OotdFilter.HASHTAG, PageRequest.of(0, 20));
+        final OotdListResponse ootdListResponse = ootdFindService.findOotdsByHashtag("해시태그", OotdFilter.HASHTAG, PageRequest.of(0, 20));
         final OotdResponse ootdResponse = ootdListResponse.ootdResponses().get(0);
 
-        verify(ootdRepository, times(1)).findOotdsByHashtag(any());
+        verify(ootdRepository, times(1)).findOotdsByHashtagName(any(), any());
 
         assertAll(
                 () -> assertThat(ootdResponse.id()).isEqualTo(ootd.id()),
