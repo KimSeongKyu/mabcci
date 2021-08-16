@@ -26,4 +26,13 @@ class MemberFindByNicknameContainsResponseTest {
                         .isExactlyInstanceOf(MemberFindByNicknameContainsResponse.class)
         );
     }
+
+    @DisplayName("MemberFindByNickNameContainsResponse 인스턴스 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        assertAll(
+                () -> assertThat(memberFindByNickNameContainsResponse.nickname()).isEqualTo(NICKNAME),
+                () -> assertThat(memberFindByNickNameContainsResponse.picture()).isEqualTo("testMemberPicture")
+        );
+    }
 }
