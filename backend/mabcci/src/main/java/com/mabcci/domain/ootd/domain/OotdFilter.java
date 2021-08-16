@@ -11,7 +11,7 @@ public enum OotdFilter {
         public Page<Ootd> getFilteredOotds(final OotdRepository ootdRepository, final Member member, final Pageable pageable) {
             return ootdRepository.findOotds(pageable);
         }
-        public Page<Ootd> getFilteredOotds(final OotdRepository ootdRepository, final String name, final Pageable pageable) {
+        public Page<Ootd> getFilteredOotdsByKeyword(final OotdRepository ootdRepository, final String name, final Pageable pageable) {
             return Page.empty();
         }
     },
@@ -19,7 +19,7 @@ public enum OotdFilter {
         public Page<Ootd> getFilteredOotds(final OotdRepository ootdRepository, final Member member, final Pageable pageable) {
             return ootdRepository.findOotdsOfFollowing(member, pageable);
         }
-        public Page<Ootd> getFilteredOotds(final OotdRepository ootdRepository, final String name, final Pageable pageable) {
+        public Page<Ootd> getFilteredOotdsByKeyword(final OotdRepository ootdRepository, final String name, final Pageable pageable) {
             return Page.empty();
         }
     },
@@ -27,7 +27,7 @@ public enum OotdFilter {
         public Page<Ootd> getFilteredOotds(final OotdRepository ootdRepository, final Member member, final Pageable pageable) {
             return Page.empty();
         }
-        public Page<Ootd> getFilteredOotds(final OotdRepository ootdRepository, final String hashtagName, final Pageable pageable) {
+        public Page<Ootd> getFilteredOotdsByKeyword(final OotdRepository ootdRepository, final String hashtagName, final Pageable pageable) {
             return ootdRepository.findOotdsByHashtagName(hashtagName, pageable);
         }
     },
@@ -35,12 +35,12 @@ public enum OotdFilter {
         public Page<Ootd> getFilteredOotds(final OotdRepository ootdRepository, final Member member, final Pageable pageable) {
             return Page.empty();
         }
-        public Page<Ootd> getFilteredOotds(final OotdRepository ootdRepository, final String nickname, final Pageable pageable) {
+        public Page<Ootd> getFilteredOotdsByKeyword(final OotdRepository ootdRepository, final String nickname, final Pageable pageable) {
             return ootdRepository.findOotdsByNickname(Nickname.of(nickname), pageable);
         }
     }
     ;
 
     public abstract Page<Ootd> getFilteredOotds(final OotdRepository ootdRepository, final Member member, final Pageable pageable);
-    public abstract Page<Ootd> getFilteredOotds(final OotdRepository ootdRepository, final String name, final Pageable pageable);
+    public abstract Page<Ootd> getFilteredOotdsByKeyword(final OotdRepository ootdRepository, final String keyword, final Pageable pageable);
 }

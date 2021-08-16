@@ -11,7 +11,6 @@ import com.mabcci.domain.ootd.dto.response.OotdResponse;
 import com.mabcci.domain.ootdLike.domain.OotdLike;
 import com.mabcci.global.common.Nickname;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
+
 
 @Service
 public class OotdFindService {
@@ -73,8 +73,9 @@ public class OotdFindService {
                 .collect(toList());
     }
 
-    public OotdListResponse findOotdsByKeyword(final String hashtagName, final OotdFilter ootdFilter, final Pageable pageable) {
-        final Page<Ootd> pageOotds = ootdFilter.getFilteredOotds(ootdRepository, hashtagName, pageable);
+    @Transactional(readOnly = true)
+    public OotdListResponse findOotdsByKeyword(final String keyword, final OotdFilter ootdFilter, final Pageable pageable) {
+        final Page<Ootd> pageOotds = ootdFilter.getFilteredOotdsByKeyword(ootdRepository, keyword, pageable);
         final int totalPages = pageOotds.getTotalPages();
 
         return new OotdListResponse(getOotdResponses(pageOotds.toList()), totalPages);
