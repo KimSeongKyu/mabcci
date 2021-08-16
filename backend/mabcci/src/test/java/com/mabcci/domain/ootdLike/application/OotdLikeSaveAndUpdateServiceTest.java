@@ -5,6 +5,7 @@ import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.domain.ootd.domain.Ootd;
+import com.mabcci.domain.ootd.domain.OotdRepository;
 import com.mabcci.domain.ootdLike.domain.OotdLike;
 import com.mabcci.domain.ootdLike.domain.OotdLikeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,6 +35,7 @@ public class OotdLikeSaveAndUpdateServiceTest {
     @InjectMocks private OotdLikeSaveAndUpdateService ootdLikeSaveAndUpdateService;
     @Mock private OotdLikeRepository ootdLikeRepository;
     @Mock private MemberRepository memberRepository;
+    @Mock private OotdRepository ootdRepository;
 
     private Member member;
     private Ootd ootd;
@@ -70,12 +72,14 @@ public class OotdLikeSaveAndUpdateServiceTest {
     @Test
     void save_ootd_like_test() {
         doReturn(Optional.empty()).when(ootdLikeRepository).findByOotdAndNickname(any(), any());
+        doReturn(Optional.of(ootd)).when(ootdRepository).findById(any());
         doReturn(Optional.of(member)).when(memberRepository).findByNickName(any());
         doReturn(ootdLike).when(ootdLikeRepository).save(any());
 
-        ootdLikeSaveAndUpdateService.saveOrUpdateOotdLike(ootd, NICKNAME);
+        ootdLikeSaveAndUpdateService.saveOrUpdateOotdLike(ootd.id(), NICKNAME);
 
         verify(ootdLikeRepository, times(1)).findByOotdAndNickname(any(), any());
+        verify(ootdRepository, times(1)).findById(any());
         verify(memberRepository, times(1)).findByNickName(any());
         verify(ootdLikeRepository, times(1)).save(any());
     }
@@ -86,7 +90,7 @@ public class OotdLikeSaveAndUpdateServiceTest {
         ReflectionTestUtils.setField(ootdLike, "status", true);
         doReturn(Optional.of(ootdLike)).when(ootdLikeRepository).findByOotdAndNickname(any(), any());
 
-        ootdLikeSaveAndUpdateService.saveOrUpdateOotdLike(ootd, NICKNAME);
+        ootdLikeSaveAndUpdateService.saveOrUpdateOotdLike(ootd.id(), NICKNAME);
 
         verify(ootdLikeRepository, times(1)).findByOotdAndNickname(any(), any());
 

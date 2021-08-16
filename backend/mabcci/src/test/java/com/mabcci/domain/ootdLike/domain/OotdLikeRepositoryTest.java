@@ -83,7 +83,7 @@ class OotdLikeRepositoryTest {
     @DisplayName("OotdLikeRepository ootd와 member로 ootd 좋아요 조회 테스트")
     @Test
     void find_by_ootd_and_member_test() {
-        final OotdLike foundOotdLike = ootdLikeRepository.findByOotdAndNickname(ootd, NICKNAME).get();
+        final OotdLike foundOotdLike = ootdLikeRepository.findByOotdAndNickname(ootd.id(), NICKNAME).get();
 
         assertThat(foundOotdLike.id()).isEqualTo(ootdLike.id());
     }

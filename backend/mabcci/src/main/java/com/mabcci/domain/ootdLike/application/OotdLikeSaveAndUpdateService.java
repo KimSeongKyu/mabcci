@@ -3,6 +3,7 @@ package com.mabcci.domain.ootdLike.application;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.ootd.domain.Ootd;
+import com.mabcci.domain.ootd.domain.OotdRepository;
 import com.mabcci.domain.ootdLike.domain.OotdLike;
 import com.mabcci.domain.ootdLike.domain.OotdLikeRepository;
 import com.mabcci.global.common.Nickname;
@@ -16,27 +17,34 @@ public class OotdLikeSaveAndUpdateService {
 
     private final OotdLikeRepository ootdLikeRepository;
     private final MemberRepository memberRepository;
+    private final OotdRepository ootdRepository;
 
-    public OotdLikeSaveAndUpdateService(final OotdLikeRepository ootdLikeRepository, final MemberRepository memberRepository) {
+    public OotdLikeSaveAndUpdateService(final OotdLikeRepository ootdLikeRepository, final MemberRepository memberRepository,
+                                        final OotdRepository ootdRepository) {
         this.ootdLikeRepository = ootdLikeRepository;
         this.memberRepository = memberRepository;
+        this.ootdRepository = ootdRepository;
     }
 
     @Transactional
-    public void saveOrUpdateOotdLike(final Ootd ootd, final Nickname nickname) {
-        final Optional<OotdLike> ootdLike = saveOrGetOotdLikeByOotdAndNickname(ootd, nickname);
+    public void saveOrUpdateOotdLike(final Long ootdId, final Nickname nickname) {
+        final Optional<OotdLike> ootdLike = saveOrGetOotdLikeByOotdIdAndNickname(ootdId, nickname);
         if(ootdLike.isPresent()) {
             ootdLike.get().updateStatus();
         }
     }
 
-    private Optional<OotdLike> saveOrGetOotdLikeByOotdAndNickname(final Ootd ootd, final Nickname nickname) {
-        return ootdLikeRepository.findByOotdAndNickname(ootd, nickname)
+    private Optional<OotdLike> saveOrGetOotdLikeByOotdIdAndNickname(final Long ootdId, final Nickname nickname) {
+        return ootdLikeRepository.findByOotdAndNickname(ootdId, nickname)
                 .or(() -> {
-                    final Member member = getMemberByNickname(nickname);
-                    saveOotdLike(ootd, member);
+                    saveOotdLike(getOotdById(ootdId), getMemberByNickname(nickname));
                     return Optional.empty();
                 });
+    }
+
+    private Ootd getOotdById(final Long id) {
+        return ootdRepository.findById(id)
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     private Member getMemberByNickname(final Nickname nickname) {
