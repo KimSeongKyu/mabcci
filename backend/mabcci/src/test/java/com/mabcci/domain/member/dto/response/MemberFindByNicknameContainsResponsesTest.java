@@ -30,6 +30,12 @@ class MemberFindByNicknameContainsResponsesTest {
                 () -> assertThat(memberFindByNicknameContainsResponses)
                         .isExactlyInstanceOf(MemberFindByNicknameContainsResponses.class)
         );
+    }
 
+    @DisplayName("MemberFindByNicknameContainsResponses 인스턴스 getter 메서드 테스트")
+    @Test
+    void getter_test() {
+        assertThat(memberFindByNicknameContainsResponses.members())
+                .isEqualTo(List.of(memberFindByNicknameContainsResponse));
     }
 }
