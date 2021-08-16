@@ -205,9 +205,13 @@ public class Member extends BaseTimeEntity {
         }
     }
 
-    public void update(final Nickname nickName, final Gender gender, final String description,
+    public void update(final Nickname nickname, final Gender gender, final String description, final int height, final int weight, final int footSize, final BodyType bodyType) {
+        update(nickname, gender, description, height, weight, footSize, bodyType, this.picture);
+    }
+
+    public void update(final Nickname nickname, final Gender gender, final String description,
                          int height, int weight, int footSize, BodyType bodyType, final String picture) {
-        this.nickname = nickName;
+        this.nickname = nickname;
         this.gender = gender;
         this.description = description;
         this.picture = picture;

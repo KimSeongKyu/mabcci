@@ -1,6 +1,7 @@
 package com.mabcci.domain.follow.ui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mabcci.domain.follow.application.FollowFindService;
 import com.mabcci.domain.follow.application.FollowService;
 import com.mabcci.domain.follow.application.UnFollowService;
 import com.mabcci.domain.follow.dto.FollowRequest;
@@ -29,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(MockitoExtension.class)
 class FollowControllerTest {
 
+    @Mock private FollowFindService followFindService;
     @Mock private FollowService followService;
     @Mock private UnFollowService unFollowService;
     @InjectMocks private FollowController followController;
@@ -44,7 +46,7 @@ class FollowControllerTest {
     @DisplayName("FollowController 인스턴스 생성 여부 테스트")
     @Test
     void constructor_test() {
-        final FollowController followController = new FollowController(followService, unFollowService);
+        final FollowController followController = new FollowController(followFindService, followService, unFollowService);
 
         assertAll(
                 () -> assertThat(followController).isNotNull(),
