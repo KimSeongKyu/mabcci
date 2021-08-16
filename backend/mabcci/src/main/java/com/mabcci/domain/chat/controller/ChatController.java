@@ -5,7 +5,9 @@ import com.mabcci.domain.chat.pubsub.RedisPublisher;
 import com.mabcci.domain.chat.repo.ChatRoomRepository;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin(origins = "*", allowCredentials = "true", allowedHeaders = "*", exposedHeaders = "If-Match")
 @Controller
 public class ChatController {
 

@@ -30,13 +30,13 @@ public class FollowController {
     }
 
     @GetMapping("/api/{nickname}/follower")
-    public ResponseEntity<?> findFollower(@Valid @RequestBody final Nickname nickname) {
+    public ResponseEntity<?> findFollower(@Valid @PathVariable final Nickname nickname) {
         final List<FollowResponse> followResponses = followFindService.myFollower(nickname);
         return ResponseEntity.ok().body(followResponses);
     }
 
     @GetMapping("/api/{nickname}/following")
-    public ResponseEntity<?> findFollowing(@Valid @RequestBody final Nickname nickname) {
+    public ResponseEntity<?> findFollowing(@Valid @PathVariable Nickname nickname) {
         final List<FollowResponse> followResponses = followFindService.myFollowing(nickname);
         return ResponseEntity.ok().body(followResponses);
     }
