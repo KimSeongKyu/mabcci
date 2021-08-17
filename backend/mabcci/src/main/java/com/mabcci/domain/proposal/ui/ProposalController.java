@@ -29,6 +29,7 @@ public class ProposalController {
 
     @PostMapping("/api/proposals")
     public ResponseEntity saveProposal(@Valid final ProposalSaveRequest proposalSaveRequest) {
+        System.out.println(proposalSaveRequest);
         proposalSaveService.saveProposal(proposalSaveRequest);
         return ResponseEntity.noContent().build();
     }

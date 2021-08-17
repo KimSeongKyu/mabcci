@@ -17,6 +17,7 @@ import { GiArmoredPants, GiConverseShoe } from 'react-icons/gi';
 import { FaShoppingBag } from 'react-icons/fa';
 
 import OOTDUpdateApi from '../../../../../API/OOTDAPI/OOTDUpdateApi';
+import { baseUrl } from '../../../../../API/ApiUrl';
 
 import InputTags from './InputTags';
 
@@ -28,11 +29,11 @@ function OOTDUpdate() {
   const { id, nickname } = useParams();
   const [myOOTDInfo, setMyOOTDInfo] = useState({
     id,
-    top: '',
-    bottom: '',
-    shoes: '',
-    accessory: '',
-    content: '',
+    top: null,
+    bottom: null,
+    shoes: null,
+    accessory: null,
+    content: null,
     picture: [],
     hashTag: [],
   });
@@ -111,7 +112,7 @@ function OOTDUpdate() {
             return (
               <SwiperSlide key={image}>
                 <div className="swiper-zoom-container">
-                  <img src={image} alt="사진을 추가해주세요" />
+                  <img src={baseUrl + image} alt="사진을 추가해주세요" />
                   <button
                     type="submit"
                     onClick={removeImage}

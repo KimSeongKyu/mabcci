@@ -10,7 +10,6 @@ import {
 } from '../../../../../API/OOTDAPI/OOTDDetailApi';
 import 'swiper/swiper.min.css';
 import 'swiper/components/pagination/pagination.min.css';
-import getUserInfo from '../../../../Common/getUserInfo';
 import OOTDDeleteApi from '../../../../../API/OOTDAPI/OOTDDeleteApi';
 
 const OOTDContent = props => {
@@ -18,7 +17,7 @@ const OOTDContent = props => {
   const { ootdId, writerNickname, userInfo } = props;
   const [writer, setWriter] = useState({
     nickname: writerNickname,
-    memberPicture: '',
+    memberPicture: null,
   });
   const [detail, setDetail] = useState({
     id: ootdId,

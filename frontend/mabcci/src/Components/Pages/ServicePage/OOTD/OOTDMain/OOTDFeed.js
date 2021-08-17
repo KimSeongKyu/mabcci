@@ -12,7 +12,6 @@ import {
   OOTDAll,
   OOTDFiltering,
 } from '../../../../../Redux/Actions/OOTDAction';
-import getUserInfo from '../../../../Common/getUserInfo';
 
 const OOTDFeed = ({ page, searching, setPage, filtering, setFiltering }) => {
   const feeds = useSelector(state => state.OotdReducer.ootd);

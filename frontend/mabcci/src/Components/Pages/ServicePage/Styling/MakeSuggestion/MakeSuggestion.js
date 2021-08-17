@@ -12,12 +12,14 @@ import { GrGallery } from 'react-icons/gr';
 import { IoShirt } from 'react-icons/io5';
 import { GiArmoredPants, GiConverseShoe } from 'react-icons/gi';
 import { FaShoppingBag } from 'react-icons/fa';
-import { IconBase } from 'react-icons/lib';
+
+import getUserInfo from '../../../../Common/getUserInfo';
+import SuggestionWriteApi from '../../../../../API/SuggestionAPI/SuggestionWriteApi';
 
 SwiperCore.use([Zoom, Navigation]);
 
 const imageProcess = (cloth, clothImage, addImage, removeImage) => {
-  return clothImage.length !== 0 ? (
+  return clothImage[0] ? (
     <div className="makeSuggestion-swiper-container">
       <img src={clothImage[0]} alt="사진을 추가해주세요" />
       <button
@@ -51,16 +53,16 @@ const imageProcess = (cloth, clothImage, addImage, removeImage) => {
 };
 
 const MakeSuggestion = () => {
-  const clothes = ['top', 'bottom', 'shoes', 'acc'];
+  const clothes = ['top', 'bottom', 'shoes', 'accessory'];
   const clothIcon = [IoShirt, GiArmoredPants, GiConverseShoe, FaShoppingBag];
   const [suggestion, setSuggestion] = useState({
-    memberId: '',
-    mabcciId: '',
+    targetMemberNickname: '썽',
+    mabcciNickname: '젠킨스',
     description: '',
-    top: [] /* [ImageURL, originImageURL] */,
-    bottom: [],
-    shoes: [],
-    acc: [],
+    top: [null, new Blob()] /* [ImageURL, originImageURL] */,
+    bottom: [null, new Blob()],
+    shoes: [null, new Blob()],
+    accessory: [null, new Blob()],
   });
   const [curSilde, setCurSlide] = useState(0);
 
@@ -93,8 +95,17 @@ const MakeSuggestion = () => {
     });
   };
 
-  const submitSuggention = () => {
-    console.log(suggestion);
+  const submitSuggention = async () => {
+    const data = new FormData();
+    data.append('targetMemberNickname', suggestion.targetMemberNickname);
+    data.append('mabcciNickname', suggestion.mabcciNickname);
+    data.append('description', suggestion.description);
+    data.append('top', suggestion.top[1]);
+    data.append('bottom', suggestion.bottom[1]);
+    data.append('shoes', suggestion.shoes[1]);
+    data.append('accessory', suggestion.accessory[1]);
+
+    const response = await SuggestionWriteApi(data);
   };
 
   return (

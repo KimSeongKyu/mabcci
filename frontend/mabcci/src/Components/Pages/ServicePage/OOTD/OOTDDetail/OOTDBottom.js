@@ -169,20 +169,19 @@ const OOTDBottom = props => {
   const [commentCotent, setCommentCotent] = useState('');
 
   const commentRead = async () => {
-    const response = await OOTDCommentReadApi(ootdId);
-
-    if (response.status === 200) {
-      setAllComments([...response.comments]);
-      setComments(
-        response.comments.filter(comment => {
-          return comment.parentId === 0;
-        }),
-      );
-    }
+    // const response = await OOTDCommentReadApi(ootdId);
+    // if (response.status === 200) {
+    //   setAllComments([...response.comments]);
+    //   setComments(
+    //     response.comments.filter(comment => {
+    //       return comment.parentId === 0;
+    //     }),
+    //   );
+    // }
   };
 
   useEffect(async () => {
-    await commentRead();
+    // await commentRead();
   }, []);
 
   const commentWrite = async (content, parentCommentId) => {
@@ -193,8 +192,8 @@ const OOTDBottom = props => {
       content,
     };
 
-    await OOTDCommentCreateApi(newComment);
-    await commentRead();
+    // await OOTDCommentCreateApi(newComment);
+    // await commentRead();
   };
 
   const commentUpdate = async (commentId, nickname, content) => {
@@ -203,13 +202,13 @@ const OOTDBottom = props => {
       content,
     };
 
-    await OOTDCommentUpdateApi(commentId, updateComment);
-    await commentRead();
+    // await OOTDCommentUpdateApi(commentId, updateComment);
+    // await commentRead();
   };
 
   const commentDelete = async commentId => {
-    await OOTDCommentDeleteApi(commentId);
-    await commentRead();
+    // await OOTDCommentDeleteApi(commentId);
+    // await commentRead();
   };
 
   return (
