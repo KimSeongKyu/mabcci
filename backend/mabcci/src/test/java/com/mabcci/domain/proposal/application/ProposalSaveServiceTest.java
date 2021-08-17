@@ -89,7 +89,7 @@ class ProposalSaveServiceTest {
         doReturn(Optional.of(targetMember), Optional.of(mabcci)).when(memberRepository).findByNickName(any());
         doReturn("testDirectory").when(pictureUtil).makeDirectory(any());
         doReturn(topPicture, bottomPicture).when(pictureUtil).savePicture(any(), any());
-        doReturn(Optional.of(proposal)).when(proposalRepository).save(any());
+        doReturn(proposal).when(proposalRepository).save(any());
 
         final ProposalSaveRequest proposalSaveRequest = new ProposalSaveRequest(NICKNAME, Nickname.of("mabcci"), topFile, bottomFile, null, null, null);
 
