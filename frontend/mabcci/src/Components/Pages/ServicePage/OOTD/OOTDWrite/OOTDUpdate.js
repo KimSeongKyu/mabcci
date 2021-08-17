@@ -29,11 +29,11 @@ function OOTDUpdate() {
   const { id, nickname } = useParams();
   const [myOOTDInfo, setMyOOTDInfo] = useState({
     id,
-    top: '',
-    bottom: '',
-    shoes: '',
-    accessory: '',
-    content: '',
+    top: null,
+    bottom: null,
+    shoes: null,
+    accessory: null,
+    content: null,
     picture: [],
     hashTag: [],
   });
