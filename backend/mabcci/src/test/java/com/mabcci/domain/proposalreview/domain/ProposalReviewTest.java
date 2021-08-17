@@ -73,4 +73,14 @@ class ProposalReviewTest {
         );
     }
 
+    @DisplayName("ProposalReview 인스턴스 디폴트 생성자를 이용한 생성 테스트")
+    @Test
+    void default_constructor_test() {
+        final ProposalReview proposalReview = new ProposalReview();
+
+        assertAll(
+                () -> assertThat(proposalReview).isNotNull(),
+                () -> assertThat(proposalReview).isExactlyInstanceOf(ProposalReview.class)
+        );
+    }
 }
