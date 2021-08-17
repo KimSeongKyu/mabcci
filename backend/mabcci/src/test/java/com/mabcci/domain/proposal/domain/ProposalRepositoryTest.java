@@ -107,4 +107,13 @@ class ProposalRepositoryTest {
 
         assertThat(proposals).contains(proposal);
     }
+
+    @DisplayName("ProposalRepository 제안서 상세 조회 테스트")
+    @Test
+    void find_by_id_test() {
+        testEntityManager.persist(proposal);
+        final Proposal foundProposal = proposalRepository.findById(proposal.id()).get();
+
+        assertThat(foundProposal.id()).isEqualTo(proposal.id());
+    }
 }
