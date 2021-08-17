@@ -25,4 +25,18 @@ class ProposalSaveRequestTest {
                 () -> assertThat(proposalSaveRequest).isExactlyInstanceOf(ProposalSaveRequest.class)
         );
     }
+
+    @DisplayName("ProposalSaveRequest 인스턴스 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        assertAll(
+                () -> assertThat(proposalSaveRequest.targetMemberId()).isEqualTo(1L),
+                () -> assertThat(proposalSaveRequest.mabcciId()).isEqualTo(2L),
+                () -> assertThat(proposalSaveRequest.top()).isEqualTo(PICTURE_FILES.get(0)),
+                () -> assertThat(proposalSaveRequest.bottom()).isNull(),
+                () -> assertThat(proposalSaveRequest.shoes()).isNull(),
+                () -> assertThat(proposalSaveRequest.accessory()).isNull(),
+                () -> assertThat(proposalSaveRequest.description()).isNull()
+        );
+    }
 }
