@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
+import static com.mabcci.domain.picture.common.PictureUtilTest.PICTURE_FILES;
 import static com.mabcci.global.common.EmailTest.EMAIL;
 import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static com.mabcci.global.common.PasswordTest.PASSWORD;
@@ -79,6 +80,20 @@ class ProposalDetailFindResponseTest {
         assertAll(
                 () -> assertThat(proposalDetailFindResponse).isNotNull(),
                 () -> assertThat(proposalDetailFindResponse).isExactlyInstanceOf(ProposalDetailFindResponse.class)
+        );
+    }
+
+    @DisplayName("ProposalDetailFindResponse 인스턴스 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        assertAll(
+                () -> assertThat(proposalDetailFindResponse.targetMemberNickname()).isEqualTo(targetMember.nickname()),
+                () -> assertThat(proposalDetailFindResponse.mabcciNickname()).isEqualTo(mabcci.nickname()),
+                () -> assertThat(proposalDetailFindResponse.top()).isEqualTo(proposal.top()),
+                () -> assertThat(proposalDetailFindResponse.bottom()).isEqualTo(proposal.bottom()),
+                () -> assertThat(proposalDetailFindResponse.shoes()).isEqualTo(proposal.shoes()),
+                () -> assertThat(proposalDetailFindResponse.accessory()).isEqualTo(proposal.accessory()),
+                () -> assertThat(proposalDetailFindResponse.description()).isEqualTo(proposal.description())
         );
     }
 }
