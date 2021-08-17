@@ -25,4 +25,16 @@ public final class ProposalReviewSaveRequest {
         this.starRating = starRating;
         this.content = content;
     }
+
+    public Long id() {
+        return id;
+    }
+
+    public StarRating starRating() {
+        return starRating;
+    }
+
+    public String content() {
+        return content;
+    }
 }
