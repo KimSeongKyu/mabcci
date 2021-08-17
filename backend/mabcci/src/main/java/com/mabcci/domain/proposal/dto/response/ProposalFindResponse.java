@@ -1,6 +1,8 @@
 package com.mabcci.domain.proposal.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mabcci.domain.member.domain.Member;
+import com.mabcci.domain.proposal.domain.Proposal;
 import com.mabcci.global.common.Nickname;
 
 import javax.validation.Valid;
@@ -20,6 +22,10 @@ public final class ProposalFindResponse {
     private LocalDateTime createdDate;
 
     private ProposalFindResponse() {
+    }
+
+    public final static ProposalFindResponse ofProposalAndMember(final Proposal proposal, final Member member) {
+        return new ProposalFindResponse(member.picture(), member.nickname(), proposal.createdDate());
     }
 
     public ProposalFindResponse(final String picture, final Nickname nickname, final LocalDateTime createdDate) {

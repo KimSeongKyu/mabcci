@@ -4,6 +4,7 @@ import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.domain.proposal.domain.Proposal;
+import com.mabcci.domain.proposal.domain.ProposalFilter;
 import com.mabcci.domain.proposal.domain.ProposalRepository;
 import com.mabcci.domain.proposal.dto.response.ProposalFindResponse;
 import com.mabcci.domain.proposal.dto.response.ProposalFindResponses;
@@ -79,7 +80,7 @@ class ProposalFindServiceTest {
     void find_suggested_proposals_test() {
         doReturn(List.of(proposal)).when(proposalRepository).findAllByMabcciNickname(any());
 
-        final ProposalFindResponses proposalFindResponses = proposalFindService.findProposals(any(), any());
+        final ProposalFindResponses proposalFindResponses = proposalFindService.findProposals(ProposalFilter.SUGGESTED, NICKNAME);
         final ProposalFindResponse proposalFindResponse = proposalFindResponses.proposals().get(0);
 
         verify(proposalRepository, times(1)).findAllByMabcciNickname(any());
