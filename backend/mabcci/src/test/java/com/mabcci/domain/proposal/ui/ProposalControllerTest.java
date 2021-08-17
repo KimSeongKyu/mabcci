@@ -1,5 +1,6 @@
 package com.mabcci.domain.proposal.ui;
 
+import com.mabcci.domain.proposal.application.ProposalDeleteService;
 import com.mabcci.domain.proposal.application.ProposalFindService;
 import com.mabcci.domain.proposal.application.ProposalSaveService;
 import com.mabcci.domain.proposal.domain.ProposalFilter;
@@ -24,8 +25,7 @@ import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ProposalController.class)
@@ -34,6 +34,7 @@ class ProposalControllerTest {
     @Autowired private MockMvc mockMvc;
     @MockBean private ProposalSaveService proposalSaveService;
     @MockBean private ProposalFindService proposalFindService;
+    @MockBean private ProposalDeleteService proposalDeleteService;
 
     @DisplayName("ProposalController 인스턴스 제안서 저장 API 테스트")
     @Test
@@ -95,5 +96,16 @@ class ProposalControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    @DisplayName("ProposalController 인스턴스 제안서 삭제 API 테스트")
+    @Test
+    void delete_proposal_api_test() throws Exception {
+        doNothing().when(proposalDeleteService).deleteProposalById(any());
+
+        mockMvc.perform(delete("/api/proposals/{id}", 1L)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
     }
 }
