@@ -42,5 +42,33 @@ public final class ProposalSaveRequest {
         this.accessory = accessory;
         this.description = description;
     }
+
+    public Long targetMemberId() {
+        return targetMemberId;
+    }
+
+    public Long mabcciId() {
+        return mabcciId;
+    }
+
+    public MultipartFile top() {
+        return top;
+    }
+
+    public MultipartFile bottom() {
+        return bottom;
+    }
+
+    public MultipartFile shoes() {
+        return shoes;
+    }
+
+    public MultipartFile accessory() {
+        return accessory;
+    }
+
+    public String description() {
+        return description;
+    }
 }
 
