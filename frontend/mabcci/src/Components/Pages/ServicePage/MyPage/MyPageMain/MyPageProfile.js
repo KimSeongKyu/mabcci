@@ -2,7 +2,7 @@
 
 import React from 'react';
 import './MyPage.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import FollowApi from '../../../../../API/MypageAPI/FollowApi';
 import UnFollowApi from '../../../../../API/MypageAPI/UnFollowApi';
 import {AiOutlineSetting} from "react-icons/ai"
@@ -11,12 +11,27 @@ import {AiOutlineMessage} from 'react-icons/ai'
 import 기본프로필 from '../../../../../Asset/Images/기본프로필.jpg'
 import getUserInfo from '../../../../Common/getUserInfo';
 import { MdReplay } from 'react-icons/md';
+import FollowerListApi from '../../../../../API/MypageAPI/FollowerListApi'
 
 const MyPageProfile = props => {
-
   const [profile, setProfile] = useState(false)
 
   const userInfo = getUserInfo();
+
+  const [isFollower, setIsFollower] = useState()
+
+  const follower = {
+    follower: props.myInfo.nickname,
+  };
+
+  useEffect(async() => {
+    const followerRes = await FollowerListApi(props.myInfo.nickname, follower);
+    followerRes.data.map(follower => {
+      if(userInfo.nickname == follower.name) {
+        setIsFollower(true);
+      }
+    })
+  })
 
   const clickProfile = () => {
     setProfile(!profile)
@@ -45,7 +60,14 @@ const MyPageProfile = props => {
        follower: userInfo.nickname,
      };
      const res = await FollowApi(followMembers);
-     console.log(res);
+     if (res.status == 200) {
+      const nowCount = props.myInfo.follower;
+      props.setMyInfo({
+        ...props.myInfo,
+        follower: nowCount + 1
+      })
+      setIsFollower(true);
+     }
    }
 
    const unFollow = async () => {
@@ -54,8 +76,14 @@ const MyPageProfile = props => {
        follower: userInfo.nickname,
      };
      const res = await UnFollowApi(deleteFollowMembers);
-     console.log(res);
-     console.log(res.res)
+     if (res.status == 200) {
+      const nowCount = props.myInfo.follower;
+      props.setMyInfo({
+        ...props.myInfo,
+        follower: nowCount - 1,
+      });
+      setIsFollower(false);
+     }
    };
 
   return (
@@ -74,7 +102,8 @@ const MyPageProfile = props => {
         >
           <div className="mypage-profile-bodyinfo">
             {props.myInfo.bodyType == 'none' ||
-            props.myInfo.bodyType == 'NONE' ? (
+            props.myInfo.bodyType == 'NONE' ||
+            props.myInfo.bodyType == null ? (
               <div className="mypage-profile-bodysize-noimage">No Type</div>
             ) : (
               <img
@@ -129,12 +158,19 @@ const MyPageProfile = props => {
               </div>
             ) : (
               <div>
-                <button type="submit" onClick={follow} id="mypage-follow-btn">
-                  팔로우
-                </button>
-                <button type="submit" onClick={unFollow} id="mypage-follow-btn">
-                  팔로우취소
-                </button>
+                {isFollower === true ? (
+                  <button
+                    type="submit"
+                    onClick={unFollow}
+                    id="mypage-follow-btn"
+                  >
+                    팔로우취소
+                  </button>
+                ) : (
+                  <button type="submit" onClick={follow} id="mypage-follow-btn">
+                    팔로우
+                  </button>
+                )}
                 {props.myInfo.role === 'MABCCI' &&
                 userInfo.nickname !== props.myInfo.nickname ? (
                   <button type="submit" id="mypage-mabcci-styling-btn">
@@ -149,16 +185,23 @@ const MyPageProfile = props => {
               <h3>{props.myInfo.nickname}</h3>
               {userInfo.nickname === props.myInfo.nickname ? null : (
                 <div>
-                  <button type="submit" onClick={follow} id="mypage-follow-btn">
-                    팔로우
-                  </button>
-                  <button
-                    type="submit"
-                    onClick={unFollow}
-                    id="mypage-follow-btn"
-                  >
-                    팔로우취소
-                  </button>
+                  {isFollower === true ? (
+                    <button
+                      type="submit"
+                      onClick={unFollow}
+                      id="mypage-follow-btn"
+                    >
+                      팔로우취소
+                    </button>
+                  ) : (
+                    <button
+                      type="submit"
+                      onClick={follow}
+                      id="mypage-follow-btn"
+                    >
+                      팔로우
+                    </button>
+                  )}
                   {props.myInfo.role === 'MABCCI' &&
                   userInfo.nickname !== props.myInfo.nickname ? (
                     <button type="submit" id="mypage-mabcci-styling-btn">

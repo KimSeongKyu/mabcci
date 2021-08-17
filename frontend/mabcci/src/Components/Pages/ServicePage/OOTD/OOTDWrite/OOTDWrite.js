@@ -124,7 +124,6 @@ function OOTDWrite() {
 
   return (
     <div className="OOTDWrite-container">
-      {/* <OOTDWrite hashTag={myOOTDInfo.hashTag} /> */}
 
       <h5>OOTD Write</h5>
 

@@ -8,6 +8,7 @@ import {
   OOTDCommentUpdateApi,
 } from '../../../../../API/OOTDAPI/OOTDDetailApi';
 import { baseUrl } from '../../../../../API/ApiUrl';
+import 기본프로필 from '../../../../../Asset/Images/기본프로필.jpg';
 
 export const SingleComment = props => {
   const { depth, comment, allComments, userInfo } = props;
@@ -26,7 +27,16 @@ export const SingleComment = props => {
       <div className="detail-comment">
         <div className="detail-comment-info">
           <div className="detail-comment-info-photo">
-            <img src={baseUrl + comment.memberPicture} alt="UserImage" />
+            <Link to={`/mypage/${comment.memberNickname}`}>
+              <img
+                src={
+                  comment.memberPicture !== null
+                    ? baseUrl + comment.memberPicture
+                    : 기본프로필
+                }
+                alt="UserImage"
+              />
+            </Link>
           </div>
 
           {updateToggle ? null : (

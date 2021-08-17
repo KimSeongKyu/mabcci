@@ -128,25 +128,16 @@ function Nav() {
         <Link to="/home">
           <div className="navbar-mobile-btn">
             <AiOutlineHome />
-            <p name="home">HOME</p>
           </div>
         </Link>
         <Link to="/OOTD">
           <div className="navbar-mobile-btn">
             <BsImages />
-            <p>OOTD</p>
           </div>
         </Link>
         <Link to="/styling">
           <div className="navbar-mobile-btn">
             <IoShirtOutline />
-            <p>스타일링</p>
-          </div>
-        </Link>
-        <Link to="/community">
-          <div className="navbar-mobile-btn">
-            <FaRegComments />
-            <p>커뮤니티</p>
           </div>
         </Link>
         <button
@@ -156,7 +147,6 @@ function Nav() {
           type="submit"
         >
           <FiUser />
-          <p>내 정보</p>
         </button>
       </div>
     </div>

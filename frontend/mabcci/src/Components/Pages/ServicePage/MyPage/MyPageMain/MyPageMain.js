@@ -42,7 +42,6 @@ function MyPageMain() {
       res.myInfo.picture = baseUrl + res.myInfo.picture;
     }
     setMyInfo(res.myInfo);
-    console.log(res);
   }, [nickname]);
 
   const goToMobileMenu = () => {
@@ -97,6 +96,7 @@ function MyPageMain() {
         {myInfo.categories ? (
           <MyPageProfile
             myInfo={myInfo}
+            setMyInfo={setMyInfo}
             followBox={followBox}
             setFollowBox={setFollowBox}
             chatBox={chatBox}
