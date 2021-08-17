@@ -3,6 +3,7 @@ import './Suggestion.css';
 import SuggestionHeader from './SuggestionHeader';
 import SuggestionItem from './SuggestionItem';
 import SuggestionComment from './SuggestionComment';
+import SuggestionFooter from './SuggestionFooter';
 
 const Suggestion = () => {
   return (
@@ -10,6 +11,7 @@ const Suggestion = () => {
       <SuggestionHeader />
       <SuggestionItem />
       <SuggestionComment />
+      <SuggestionFooter />
     </div>
   );
 };

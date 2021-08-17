@@ -5,7 +5,7 @@ const SuggestionFooter = () => {
     <footer className="suggesion-footer">
       <div className="suggesion-user">
         <h4>For</h4>
-        <h2>젠킨스 USER</h2>
+        <h2>젠킨스</h2>
       </div>
     </footer>
   );
