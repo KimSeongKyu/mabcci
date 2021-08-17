@@ -8,6 +8,7 @@ import 아메카지 from '../../../../../Asset/Images/아메카지옷.png';
 import 오피스 from '../../../../../Asset/Images/오피스옷.png';
 import 캐쥬얼 from '../../../../../Asset/Images/캐쥬얼옷.png';
 import 포멀 from '../../../../../Asset/Images/포멀옷.png';
+import { baseUrl } from '../../../../../API/ApiUrl';
 import userphoto from './Images/userphoto.png';
 
 const MabcciSearch = () => {
@@ -143,7 +144,7 @@ const MabcciSearch = () => {
               >
                 <img
                   className="styling-mabcci-photo"
-                  src={mabcci.picture}
+                  src={baseUrl + mabcci.picture}
                   alt="mabcciPhoto"
                   width="100"
                 />
