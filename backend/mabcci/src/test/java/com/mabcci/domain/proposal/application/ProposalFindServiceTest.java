@@ -40,6 +40,7 @@ class ProposalFindServiceTest {
 
     private Member targetMember;
     private Member mabcci;
+    private Nickname mabcciNickname;
     private Proposal proposal;
 
     @BeforeEach
@@ -54,10 +55,11 @@ class ProposalFindServiceTest {
                 .picture(PICTURE)
                 .memberRole(MemberRole.USER)
                 .build();
+        mabcciNickname = Nickname.of("mabcci");
         mabcci = Member.Builder()
                 .email(Email.of("mabcci@example.com"))
                 .password(PASSWORD)
-                .nickname(Nickname.of("mabcci"))
+                .nickname(mabcciNickname)
                 .phone(Phone.of("010-2345-6789"))
                 .gender(Gender.MAN)
                 .description(DESCRIPTION)
@@ -87,6 +89,20 @@ class ProposalFindServiceTest {
         assertAll(
                 () -> assertThat(proposalFindResponse.picture()).isEqualTo(PICTURE),
                 () -> assertThat(proposalFindResponse.nickname()).isEqualTo(NICKNAME)
+        );
+    }
+    @DisplayName("ProposalFindService 인스턴스 맵씨들이 나에게 제안한 제안서 리스트 조회 테스트")
+    @Test
+    void find_received_proposals_test() {
+        doReturn(List.of(proposal)).when(proposalRepository).findAllByTargetMemberNickname(any());
+
+        final ProposalFindResponses proposalFindResponses = proposalFindService.findProposals(ProposalFilter.RECEIVED, mabcciNickname);
+        final ProposalFindResponse proposalFindResponse = proposalFindResponses.proposals().get(0);
+
+        verify(proposalRepository, times(1)).findAllByTargetMemberNickname(any());
+        assertAll(
+                () -> assertThat(proposalFindResponse.picture()).isEqualTo(PICTURE),
+                () -> assertThat(proposalFindResponse.nickname()).isEqualTo(mabcciNickname)
         );
     }
 
