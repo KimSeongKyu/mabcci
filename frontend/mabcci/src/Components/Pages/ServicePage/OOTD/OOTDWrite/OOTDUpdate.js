@@ -18,8 +18,6 @@ import { FaShoppingBag } from 'react-icons/fa';
 import OOTDUpdateApi from '../../../../../API/OOTDAPI/OOTDUpdateApi';
 import { baseUrl } from '../../../../../API/ApiUrl';
 
-import { baseUrl } from '../../../../../API/ApiUrl';
-
 SwiperCore.use([Zoom, Navigation, Pagination]);
 
 function OOTDUpdate() {
