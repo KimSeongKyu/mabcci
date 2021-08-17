@@ -65,7 +65,7 @@
   backface-visibility: hidden;
   cursor: pointer;
   border: solid 0.1px var(--main-color-1);
-  padding: 1px;
+  padding: 2px;
 }
 
 .mypage-profile-bodyinfo {
@@ -257,6 +257,10 @@
 
 .mypage-feed-overlay:hover {
   opacity: 1;
+}
+
+#mypage-mobile-nickname {
+  margin-bottom: 0px;
 }
 
 @media screen and (min-width: 576px) {

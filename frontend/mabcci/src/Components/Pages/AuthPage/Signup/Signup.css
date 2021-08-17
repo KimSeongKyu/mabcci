@@ -62,6 +62,10 @@
   border-radius: 10px;
 }
 
+#signup-nickname-check-btn {
+  background-color: var(--main-color-1);
+}
+
 .signup-nickname-check-box button:hover {
   background-color: var(--main-color-1);
 }

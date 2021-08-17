@@ -1,7 +1,10 @@
+/* eslint-disable */
+
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import SignupApi from '../../../../API/AuthAPI/SignupApi';
+import CheckNicknameApi from '../../../../API/AuthAPI/CheckNicknameApi';
 import { LoginAuto } from '../../../../Redux/Actions/LoginAction';
 import 미니멀 from '../../../../Asset/Images/미니멀.png';
 import 스트릿 from '../../../../Asset/Images/스트릿.png';
@@ -25,6 +28,27 @@ function SignupForm() {
     gender: '',
     categories: [],
   });
+
+  const [isUniqueNickname, setIsUniqueNickname] = useState(false);
+
+  const checkUniqueNickname = async () => {
+    const res = await CheckNicknameApi(userInfo.nickname);
+    if (res.data === true) {
+      alert('중복된 닉네임입니다');
+    } else {
+      alert('사용가능한 닉네임입니다');
+      setIsUniqueNickname(true);
+    }
+  };
+
+  function changeNickname(e) {
+    const { name, value } = e.target;
+    setUserInfo({
+      ...userInfo,
+      [name]: value,
+    });
+    setIsUniqueNickname(false);
+  }
 
   function changeUserInfo(e) {
     const { name, value } = e.target;
@@ -81,6 +105,7 @@ function SignupForm() {
       history.push('/desc');
     } else {
       console.log(response.status);
+      alert('무언가가 잘못되었다... 이메일 중복인가?')
     }
   };
 
@@ -125,7 +150,8 @@ function SignupForm() {
       isPhoneNumber() === false ||
       isSamePassword() === false ||
       isCorrectPassword() === false ||
-      isNickname() === false
+      isNickname() === false ||
+      isUniqueNickname === false
     ) {
       return false;
     }
@@ -150,9 +176,18 @@ function SignupForm() {
             type="text"
             placeholder="Nickname"
             name="nickname"
-            onChange={changeUserInfo}
+            maxLength="10"
+            onChange={changeNickname}
           />
-          <button type="submit">중복확인</button>
+          {isUniqueNickname === false ? (
+            <button type="submit" onClick={checkUniqueNickname}>
+              중복확인
+            </button>
+          ) : (
+            <button type="submit" id="signup-nickname-check-btn">
+              확인완료
+            </button>
+          )}
         </div>
         {isNickname() === false ? (
           <p className="signup-warnning-nickname">
