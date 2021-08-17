@@ -1,34 +1,36 @@
 package com.mabcci.domain.chat.controller;
 
+import com.mabcci.domain.auth.common.JwtUtil;
 import com.mabcci.domain.chat.model.ChatMessage;
-import com.mabcci.domain.chat.pubsub.RedisPublisher;
 import com.mabcci.domain.chat.repo.ChatRoomRepository;
+import com.mabcci.domain.chat.service.ChatService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
-@CrossOrigin(origins = "*", allowCredentials = "true", allowedHeaders = "*", exposedHeaders = "If-Match")
 @Controller
 public class ChatController {
 
-    private final RedisPublisher redisPublisher;
     private final ChatRoomRepository chatRoomRepository;
+    private final ChatService chatService;
+    private final JwtUtil jwtUtil;
 
-    public ChatController(final RedisPublisher redisPublisher, final ChatRoomRepository chatRoomRepository) {
-        this.redisPublisher = redisPublisher;
+
+    public ChatController(final ChatRoomRepository chatRoomRepository,
+                          final ChatService chatService, final JwtUtil jwtUtil) {
         this.chatRoomRepository = chatRoomRepository;
+        this.chatService = chatService;
+        this.jwtUtil = jwtUtil;
     }
 
-    /**
-     * websocket "/pub/chat/message"로 들어오는 메시징을 처리한다.
-     */
     @MessageMapping("/chat/message")
-    public void message(ChatMessage message) {
-        if (ChatMessage.MessageType.ENTER.equals(message.getType())) {
-            chatRoomRepository.enterChatRoom(message.getRoomId());
-            message.setMessage(message.getSender() + "님이 입장하셨습니다.");
-        }
-        // Websocket에 발행된 메시지를 redis로 발행한다(publish)
-        redisPublisher.publish(chatRoomRepository.getTopic(message.getRoomId()), message);
+    public void message(ChatMessage message, @Header("token") String token) {
+        String nickname = jwtUtil.nickname(token);
+        message.setSender(nickname);
+        message.setUserCount(chatRoomRepository.getUserCount(message.getRoomId()));
+        chatService.sendChatMessage(message);
     }
+
 }

@@ -5,6 +5,9 @@ import com.mabcci.domain.auth.domain.vo.ClaimType;
 import com.mabcci.domain.auth.domain.vo.JwtToken;
 import com.mabcci.domain.auth.domain.vo.JwtTokenType;
 import com.mabcci.domain.member.domain.Member;
+import com.mabcci.global.common.Nickname;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -69,13 +72,24 @@ public class JwtUtil {
 
     public boolean isValidToken(final JwtToken jwtToken) {
         try {
-            Jwts.parserBuilder()
-                    .setSigningKey(createSecretKey())
-                    .build()
-                    .parseClaimsJws(jwtToken.jwtToken());
+            getClaimsJws(jwtToken.jwtToken());
             return true;
         } catch (Exception e) {
             return false;
         }
     }
+
+    public String nickname(final String accessToken) {
+        final Claims claims = getClaimsJws(accessToken).getBody();
+        final Nickname nickname = claims.get(Claim.NICKNAME_KEY, Nickname.class);
+        return nickname.nickname();
+    }
+
+    private Jws<Claims> getClaimsJws(final String accessToken) {
+        return Jwts.parserBuilder()
+                .setSigningKey(createSecretKey())
+                .build()
+                .parseClaimsJws(accessToken);
+    }
+
 }
