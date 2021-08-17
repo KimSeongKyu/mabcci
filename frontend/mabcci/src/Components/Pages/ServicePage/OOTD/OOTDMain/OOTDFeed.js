@@ -2,7 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Masonry from 'react-masonry-css';
-import OOTDFeedApi from '../../../../../API/OOTDAPI/OOTDMainApi';
+import {
+  OOTDFeedApi,
+  SearchListApi,
+} from '../../../../../API/OOTDAPI/OOTDMainApi';
+import getUserInfo from '../../../../Common/getUserInfo';
 import { baseUrl } from '../../../../../API/ApiUrl';
 import {
   OOTDAll,
@@ -15,7 +19,8 @@ const OOTDFeed = ({ page, searching, setPage, filtering, setFiltering }) => {
   const filterState = useSelector(state => state.OotdReducer.filter);
   const [loading, setLoading] = useState(false);
   const [maxPage, setMaxPage] = useState(0);
-  const [searchCategory, setSearchCategory] = useState('tag');
+  const [keyword, setKeyword] = useState('');
+  const [searchCategory, setSearchCategory] = useState('hashtag');
   const dispatch = useDispatch();
   const fetchMoreTrigger = useRef(null);
   const breakpointColumnsObj = {
@@ -73,6 +78,12 @@ const OOTDFeed = ({ page, searching, setPage, filtering, setFiltering }) => {
     setSearchCategory(categoryName);
   };
 
+  const onSearchKeywordList = async e => {
+    const word = e.target.value;
+    setKeyword(word);
+    const response = await SearchListApi(word, searchCategory);
+  };
+
   const showFeeds = () => {
     return feeds.map(
       ({ id, nickname, picture, hashtags, likeCount }, index) => {
@@ -102,13 +113,15 @@ const OOTDFeed = ({ page, searching, setPage, filtering, setFiltering }) => {
         <input
           type="text"
           placeholder="해시태그 혹은 사용자 이름으로 검색하세요."
+          value={keyword}
+          onChange={onSearchKeywordList}
         />
         <div className="ootd-search-category">
           <h5>
             <button
               type="button"
-              className={`${searchCategory === 'tag' ? 'active' : ''}`}
-              name="tag"
+              className={`${searchCategory === 'hashtag' ? 'active' : ''}`}
+              name="hashtag"
               onClick={onCheckSearchCategory}
             >
               해시태그
@@ -117,8 +130,8 @@ const OOTDFeed = ({ page, searching, setPage, filtering, setFiltering }) => {
           <h5>
             <button
               type="button"
-              className={`${searchCategory === 'user' ? 'active' : ''}`}
-              name="user"
+              className={`${searchCategory === 'member' ? 'active' : ''}`}
+              name="member"
               onClick={onCheckSearchCategory}
             >
               사용자

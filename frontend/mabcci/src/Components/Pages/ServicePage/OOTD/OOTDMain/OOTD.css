@@ -29,6 +29,7 @@
 
 .ootd-feeds {
   position: relative;
+  min-height: 500px;
 }
 
 .ootd-search {

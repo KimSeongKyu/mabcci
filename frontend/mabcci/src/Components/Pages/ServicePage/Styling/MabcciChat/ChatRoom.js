@@ -1,5 +1,7 @@
 import React from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
+import { FaLocationArrow } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const ChatRoom = ({ setChatMenu, chatMenu }) => {
   const menuToggle = () => {
@@ -50,11 +52,33 @@ const ChatRoom = ({ setChatMenu, chatMenu }) => {
                 omnis possimus ut tempora at harum eum adipisci consequuntur ad
                 sint illo.
               </p>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Molestiae, sapiente quidem. Eum officiis et sequi? Enim, ab rem
+                omnis possimus ut tempora at harum eum adipisci consequuntur ad
+                sint illo.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Molestiae, sapiente quidem. Eum officiis et sequi? Enim, ab rem
+                omnis possimus ut tempora at harum eum adipisci consequuntur ad
+                sint illo.
+              </p>
             </div>
           </div>
         </div>
         <div className="chat-input">
+          <Link to="/makesuggestion" className="link-suggest">
+            <button type="button" className="btn-suggest">
+              <p>최종제안서 보내기</p>
+            </button>
+          </Link>
           <input type="text" />
+          <div className="btn-chat">
+            <button type="button">
+              <FaLocationArrow />
+            </button>
+          </div>
         </div>
       </section>
     </div>
