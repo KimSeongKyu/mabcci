@@ -25,4 +25,14 @@ class ProposalReviewSaveRequestTest {
                 () -> assertThat(proposalReviewSaveRequest).isExactlyInstanceOf(ProposalReviewSaveRequest.class)
         );
     }
+
+    @DisplayName("ProposalReviewSaveRequest 인스턴스 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        assertAll(
+                () -> assertThat(proposalReviewSaveRequest.id()).isEqualTo(1L),
+                () -> assertThat(proposalReviewSaveRequest.starRating()).isEqualTo(StarRating.ZERO),
+                () -> assertThat(proposalReviewSaveRequest.content()).isEqualTo("내용")
+        );
+    }
 }
