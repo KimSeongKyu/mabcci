@@ -1,5 +1,6 @@
 package com.mabcci.domain.proposal.dto;
 
+import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,10 +18,13 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class ProposalSaveRequestTest {
 
     private ProposalSaveRequest proposalSaveRequest;
+    private Nickname targetMemeberNickname = Nickname.of("targetMemeber");
+    private Nickname mabcciNickname = Nickname.of("mabcci");
 
     @BeforeEach
     void setUp() {
-        proposalSaveRequest = new ProposalSaveRequest(1L, 2L, PICTURE_FILES.get(0), null, null, null, null);
+
+        proposalSaveRequest = new ProposalSaveRequest(targetMemeberNickname, mabcciNickname, PICTURE_FILES.get(0), null, null, null, null);
     }
 
     @DisplayName("ProposalSaveRequest 인스턴스 생성 여부 테스트")
@@ -36,8 +40,8 @@ class ProposalSaveRequestTest {
     @Test
     void getter_test() {
         assertAll(
-                () -> assertThat(proposalSaveRequest.targetMemberId()).isEqualTo(1L),
-                () -> assertThat(proposalSaveRequest.mabcciId()).isEqualTo(2L),
+                () -> assertThat(proposalSaveRequest.targetMemberNickname()).isEqualTo(targetMemeberNickname),
+                () -> assertThat(proposalSaveRequest.mabcciNickname()).isEqualTo(mabcciNickname),
                 () -> assertThat(proposalSaveRequest.top()).isEqualTo(PICTURE_FILES.get(0)),
                 () -> assertThat(proposalSaveRequest.bottom()).isNull(),
                 () -> assertThat(proposalSaveRequest.shoes()).isNull(),
@@ -51,7 +55,7 @@ class ProposalSaveRequestTest {
     void validate_test() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         final ProposalSaveRequest invalidRequest =
-                new ProposalSaveRequest(0L, -1L, null, null, null, null, null);
+                new ProposalSaveRequest(targetMemeberNickname, mabcciNickname, null, null, null, null, null);
 
         final Set<ConstraintViolation<ProposalSaveRequest>> invalidPropertiesOfValidRequest =
                 validator.validate(proposalSaveRequest);

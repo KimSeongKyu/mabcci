@@ -1,18 +1,18 @@
 package com.mabcci.domain.proposal.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mabcci.global.common.Nickname;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
 public final class ProposalSaveRequest {
 
-    @NotNull @Positive @JsonProperty("targetMemberId")
-    private Long targetMemberId;
+    @NotNull @JsonProperty("targetMemberNickname")
+    private Nickname targetMemberNickname;
 
-    @NotNull @Positive @JsonProperty("mabcciId")
-    private Long mabcciId;
+    @NotNull @JsonProperty("mabcciNickname")
+    private Nickname mabcciNickname;
 
     @JsonProperty("top")
     private MultipartFile top;
@@ -32,10 +32,10 @@ public final class ProposalSaveRequest {
     private ProposalSaveRequest() {
     }
 
-    public ProposalSaveRequest(final Long targetMemberId, final Long mabcciId, final MultipartFile top, final MultipartFile bottom,
+    public ProposalSaveRequest(final Nickname targetMemberNickname, final Nickname mabcciNickname, final MultipartFile top, final MultipartFile bottom,
                                final MultipartFile shoes, final MultipartFile accessory, final String description) {
-        this.targetMemberId = targetMemberId;
-        this.mabcciId = mabcciId;
+        this.targetMemberNickname = targetMemberNickname;
+        this.mabcciNickname = mabcciNickname;
         this.top = top;
         this.bottom = bottom;
         this.shoes = shoes;
@@ -43,31 +43,31 @@ public final class ProposalSaveRequest {
         this.description = description;
     }
 
-    public Long targetMemberId() {
-        return targetMemberId;
+    public final Nickname targetMemberNickname() {
+        return targetMemberNickname;
     }
 
-    public Long mabcciId() {
-        return mabcciId;
+    public final Nickname mabcciNickname() {
+        return mabcciNickname;
     }
 
-    public MultipartFile top() {
+    public final MultipartFile top() {
         return top;
     }
 
-    public MultipartFile bottom() {
+    public final MultipartFile bottom() {
         return bottom;
     }
 
-    public MultipartFile shoes() {
+    public final MultipartFile shoes() {
         return shoes;
     }
 
-    public MultipartFile accessory() {
+    public final MultipartFile accessory() {
         return accessory;
     }
 
-    public String description() {
+    public final String description() {
         return description;
     }
 }
