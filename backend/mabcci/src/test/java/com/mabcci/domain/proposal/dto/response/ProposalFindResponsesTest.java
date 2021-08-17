@@ -20,7 +20,7 @@ class ProposalFindResponsesTest {
     @BeforeEach
     void setUp() {
         proposalFindResponse = new ProposalFindResponse(PICTURE, NICKNAME, LocalDateTime.now());
-        proposalFindResponses = new ProposalFindResponse(List.of(proposalFindResponse));
+        proposalFindResponses = new ProposalFindResponses(List.of(proposalFindResponse));
     }
 
     @DisplayName("ProposalFindResponses 인스턴스 생성 여부 테스트")
