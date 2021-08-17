@@ -11,6 +11,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+
+import java.util.Set;
+
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
 import static com.mabcci.global.common.EmailTest.EMAIL;
@@ -95,6 +101,23 @@ class ProposalReviewTest {
                 () -> assertThat(proposalReview.proposal()).isEqualTo(proposal),
                 () -> assertThat(proposalReview.starRating()).isEqualTo(StarRating.ZERO),
                 () -> assertThat(proposalReview.content()).isEqualTo("내용")
+        );
+    }
+
+    @DisplayName("ProposalReview 인스턴스 프로퍼티 유효성 검증 테스트")
+    @Test
+    void validate_test() {
+        final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        final ProposalReview invalidProposalReview = new ProposalReview();
+
+        final Set<ConstraintViolation<ProposalReview>> invalidPropertiesOfValidProposalReview =
+                validator.validate(proposalReview);
+        final Set<ConstraintViolation<ProposalReview>> invalidPropertiesOfInvalidProposalReview =
+                validator.validate(invalidProposalReview);
+
+        assertAll(
+                () -> assertThat(invalidPropertiesOfValidProposalReview.size()).isEqualTo(0),
+                () -> assertThat(invalidPropertiesOfInvalidProposalReview.size()).isEqualTo(2)
         );
     }
 }
