@@ -1,4 +1,4 @@
-package com.mabcci.domain.proposal.dto;
+package com.mabcci.domain.proposal.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mabcci.global.common.Nickname;
