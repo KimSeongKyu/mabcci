@@ -48,7 +48,8 @@ function Nav() {
   };
 
   const LogOut = () => {
-    localStorage.clear();
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     dispatch(Logout());
     history.push('/intro');
   };

@@ -19,7 +19,7 @@ import OOTDWrite from './Components/Pages/ServicePage/OOTD/OOTDWrite/OOTDWrite';
 import StylingMain from './Components/Pages/ServicePage/Styling/StylingMain/StylingMain';
 import OOTDUpdate from './Components/Pages/ServicePage/OOTD/OOTDWrite/OOTDUpdate';
 import MakeSuggestion from './Components/Pages/ServicePage/Styling/MakeSuggestion/MakeSuggestion';
-
+import Suggestion from './Components/Pages/ServicePage/Styling/Suggestion/Suggestion';
 // Pages - AuthPage
 import Login from './Components/Pages/AuthPage/Login/Login';
 import Signup from './Components/Pages/AuthPage/Signup/Signup';
@@ -66,6 +66,7 @@ function App() {
         <Route exact path="/OOTDUpdate/:id/:nickname" component={OOTDUpdate} />
         <Route exact path="/chat" component={MabcciChat} />
         <Route exact path="/makeSuggestion" component={MakeSuggestion} />
+        <Route exact path="/Suggestion" component={Suggestion} />
       </Switch>
     </div>
   );

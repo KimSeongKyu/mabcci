@@ -31,8 +31,8 @@ const LoginReducer = (state = initialState, { type, payload }) => {
       };
     case LOGOUT:
       return {
-        ...state,
         isLoggedIn: false,
+        userInfo: null,
       };
     case LOGIN_AUTO:
       return {

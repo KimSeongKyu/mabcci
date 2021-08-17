@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@900&display=swap');
+
+.suggesion-header {
+  margin-top: 50px;
+  margin-bottom: 80px;
+}
+
+.suggesion-mabcci > h2 {
+  font-family: 'Noto Sans KR', sans-serif;
+  color: rgb(85, 85, 85);
+}
+
+.suggesion-mabcci > h4 {
+  font-family: 'Noto Sans KR', sans-serif;
+  color: var(--main-color-1);
+}
+
+.suggestion-item {
+  margin: 0 auto;
+  margin-bottom: 100px;
+  display: grid;
+  grid-template-rows: [row-first] 200px [row-second] 200px;
+  grid-template-columns: [col-first] 200px [col-second] 200px;
+  grid-template-areas:
+    'top bottom'
+    'shoes acc';
+  gap: 1vw;
+}
+
+.suggestion-cloth {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+
+  /* 모서리 */
+  border-radius: 20px;
+  border: 0.2rem solid #fff;
+  padding: 0.4em;
+  box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 0.5rem var(--main-color-1),
+    0 0 0.3rem var(--main-color-2), 0 0 0.3rem var(--main-color-2),
+    inset 0 0 0.5rem var(--main-color-3);
+}
+
+.suggestion-top {
+  /* Grid */
+  grid-area: top;
+  animation: slide-tl 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation-delay: 0s;
+}
+
+.suggestion-bottom {
+  /* Grid */
+  grid-area: bottom;
+  animation: slide-tr 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation-delay: 0.5s;
+}
+
+.suggestion-shoes {
+  /* Grid */
+  grid-area: shoes;
+  animation: slide-bl 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation-delay: 1s;
+}
+
+.suggestion-acc {
+  /* Grid */
+  grid-area: acc;
+  animation: slide-br 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation-delay: 1.5s;
+}
+
+@keyframes slide-tl {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  100% {
+    transform: translateY(-25px) translateX(-25px);
+  }
+}
+
+@keyframes slide-tr {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  100% {
+    transform: translateY(-25px) translateX(25px);
+  }
+}
+
+@keyframes slide-bl {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  100% {
+    transform: translateY(25px) translateX(-25px);
+  }
+}
+
+@keyframes slide-br {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  100% {
+    transform: translateY(25px) translateX(25px);
+  }
+}
+
+.suggestion-comment {
+  margin-bottom: 100px;
+}
+
+@media screen and (min-width: 576px) {
+  .suggestion-container {
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
+    height: fit-content;
+    box-shadow: 2px 1px 10px 1px rgba(0, 0, 0, 0.1);
+  }
+}
