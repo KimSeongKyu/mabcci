@@ -23,13 +23,17 @@
   justify-content: space-between;
   align-items: center;
   width: 100px;
-  font-size: large;
+  font-size: x-large;
   font-weight: 600;
   position: absolute;
-  bottom: 70%;
-  left: 85%;
+  bottom: 65%;
+  left: 80%;
   margin: auto;
   cursor: pointer;
+}
+
+.message {
+  margin-bottom: 5px;
 }
 
 .navbar-popover-box {
@@ -117,6 +121,9 @@
   text-align: center;
   cursor: pointer;
   background-color: white;
+  padding: 10px;
+  padding-top: 5px;
+  font-size: x-large;
 }
 
 .navbar-mobile-btn:hover {
