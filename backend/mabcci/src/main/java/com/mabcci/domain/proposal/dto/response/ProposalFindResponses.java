@@ -16,4 +16,8 @@ public final class ProposalFindResponses {
     public ProposalFindResponses(final List<ProposalFindResponse> proposalFindResponses) {
         this.proposalFindResponses = proposalFindResponses;
     }
+
+    public final List<ProposalFindResponse> proposals() {
+        return proposalFindResponses;
+    }
 }
