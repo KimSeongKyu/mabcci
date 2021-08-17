@@ -30,4 +30,14 @@ class ProposalFindResponseTest {
                 () -> assertThat(proposalFindResponse).isExactlyInstanceOf(ProposalFindResponse.class)
         );
     }
+
+    @DisplayName("ProposalFindResponse 인스턴스 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        assertAll(
+                () -> assertThat(proposalFindResponse.picture()).isEqualTo(PICTURE),
+                () -> assertThat(proposalFindResponse.nickname()).isEqualTo(NICKNAME),
+                () -> assertThat(proposalFindResponse.createdDate()).isEqualTo(now)
+        );
+    }
 }
