@@ -47,4 +47,31 @@ public final class ProposalDetailFindResponse {
         this.description = description;
     }
 
+    public Nickname targetMemberNickname() {
+        return targetMemberNickname;
+    }
+
+    public Nickname mabcciNickname() {
+        return mabcciNickname;
+    }
+
+    public String top() {
+        return top;
+    }
+
+    public String bottom() {
+        return bottom;
+    }
+
+    public String shoes() {
+        return shoes;
+    }
+
+    public String accessory() {
+        return accessory;
+    }
+
+    public String description() {
+        return description;
+    }
 }
