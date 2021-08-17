@@ -55,6 +55,38 @@ public class Proposal {
         return new ProposalBuilder();
     }
 
+    public Long id() {
+        return id;
+    }
+
+    public Member targetMember() {
+        return targetMember;
+    }
+
+    public Member mabcci() {
+        return mabcci;
+    }
+
+    public String top() {
+        return top;
+    }
+
+    public String bottom() {
+        return bottom;
+    }
+
+    public String shoes() {
+        return shoes;
+    }
+
+    public String accessory() {
+        return accessory;
+    }
+
+    public String description() {
+        return description;
+    }
+
     public static class ProposalBuilder {
         private Member targetMember;
         private Member mabcci;
