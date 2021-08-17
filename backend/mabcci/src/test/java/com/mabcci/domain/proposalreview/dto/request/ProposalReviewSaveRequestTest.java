@@ -14,7 +14,7 @@ class ProposalReviewSaveRequestTest {
 
     @BeforeEach
     void setUp() {
-        proposalReviewSaveRequest = new ProposalReviewSaveRequestTest(1L, StarRating.ZERO, "내용");
+        proposalReviewSaveRequest = new ProposalReviewSaveRequest(1L, StarRating.ZERO, "내용");
     }
 
     @DisplayName("ProposalReviewSaveRequest 인스턴스 생성 여부 테스트")
