@@ -1,6 +1,5 @@
 package com.mabcci.domain.proposal.dto.request;
 
-import com.mabcci.domain.proposal.dto.ProposalSaveRequest;
 import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

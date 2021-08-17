@@ -6,7 +6,7 @@ import com.mabcci.domain.picture.common.PictureUtil;
 import com.mabcci.domain.picture.domain.PictureType;
 import com.mabcci.domain.proposal.domain.Proposal;
 import com.mabcci.domain.proposal.domain.ProposalRepository;
-import com.mabcci.domain.proposal.dto.ProposalSaveRequest;
+import com.mabcci.domain.proposal.dto.request.ProposalSaveRequest;
 import com.mabcci.global.common.Nickname;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,10 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.mabcci.domain.proposal.dto.ProposalSaveRequest.TOP;
-import static com.mabcci.domain.proposal.dto.ProposalSaveRequest.BOTTOM;
-import static com.mabcci.domain.proposal.dto.ProposalSaveRequest.SHOES;
-import static com.mabcci.domain.proposal.dto.ProposalSaveRequest.ACCESSORY;
+import static com.mabcci.domain.proposal.dto.request.ProposalSaveRequest.TOP;
+import static com.mabcci.domain.proposal.dto.request.ProposalSaveRequest.BOTTOM;
+import static com.mabcci.domain.proposal.dto.request.ProposalSaveRequest.SHOES;
+import static com.mabcci.domain.proposal.dto.request.ProposalSaveRequest.ACCESSORY;
 
 
 @Service

@@ -1,11 +1,10 @@
 package com.mabcci.domain.proposal.ui;
 
 import com.mabcci.domain.proposal.application.ProposalSaveService;
-import com.mabcci.domain.proposal.dto.ProposalSaveRequest;
+import com.mabcci.domain.proposal.dto.request.ProposalSaveRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;

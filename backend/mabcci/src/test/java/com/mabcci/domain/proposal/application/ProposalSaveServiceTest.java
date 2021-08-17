@@ -8,7 +8,7 @@ import com.mabcci.domain.picture.common.PictureUtil;
 import com.mabcci.domain.picture.domain.Picture;
 import com.mabcci.domain.proposal.domain.Proposal;
 import com.mabcci.domain.proposal.domain.ProposalRepository;
-import com.mabcci.domain.proposal.dto.ProposalSaveRequest;
+import com.mabcci.domain.proposal.dto.request.ProposalSaveRequest;
 import com.mabcci.global.common.Email;
 import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,13 +18,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.util.List;
 import java.util.Optional;
 
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
