@@ -4,6 +4,7 @@ import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.proposal.domain.Proposal;
 import com.mabcci.domain.proposal.domain.ProposalFilter;
 import com.mabcci.domain.proposal.domain.ProposalRepository;
+import com.mabcci.domain.proposal.dto.response.ProposalDetailFindResponse;
 import com.mabcci.domain.proposal.dto.response.ProposalFindResponse;
 import com.mabcci.domain.proposal.dto.response.ProposalFindResponses;
 import com.mabcci.global.common.Nickname;
@@ -40,5 +41,14 @@ public class ProposalFindService {
             return proposal.mabcci();
         }
         return proposal.targetMember();
+    }
+
+    public ProposalDetailFindResponse findProposal(final Long id) {
+        return ProposalDetailFindResponse.ofProposal(getProposalById(id));
+    }
+
+    private Proposal getProposalById(final Long id) {
+        return proposalRepository.findById(id)
+                .orElseThrow(IllegalArgumentException::new);
     }
 }
