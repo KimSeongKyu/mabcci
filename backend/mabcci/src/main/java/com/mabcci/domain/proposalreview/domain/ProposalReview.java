@@ -1,7 +1,6 @@
 package com.mabcci.domain.proposalreview.domain;
 
 import com.mabcci.domain.proposal.domain.Proposal;
-import org.springframework.boot.context.config.ConfigData;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -37,6 +36,22 @@ public class ProposalReview {
 
     public static ProposalReviewBuilder builder() {
         return new ProposalReviewBuilder();
+    }
+
+    public Long id() {
+        return id;
+    }
+
+    public Proposal proposal() {
+        return proposal;
+    }
+
+    public StarRating starRating() {
+        return starRating;
+    }
+
+    public String content() {
+        return content;
     }
 
     public static class ProposalReviewBuilder {
