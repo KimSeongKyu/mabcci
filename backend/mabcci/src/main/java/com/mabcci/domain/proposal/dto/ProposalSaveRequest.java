@@ -15,10 +15,10 @@ public final class ProposalSaveRequest {
     public final static String SHOES = "shoes";
     public final static String ACCESSORY = "accessory";
 
-    @NotNull @JsonProperty("targetMemberNickname")
+    @JsonProperty("targetMemberNickname")
     private Nickname targetMemberNickname;
 
-    @NotNull @JsonProperty("mabcciNickname")
+    @JsonProperty("mabcciNickname")
     private Nickname mabcciNickname;
 
     @JsonProperty("top")
