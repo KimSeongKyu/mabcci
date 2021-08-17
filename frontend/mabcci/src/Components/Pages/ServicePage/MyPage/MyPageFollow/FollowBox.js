@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams, useHistory } from 'react-router-dom';
 import './Follow.css';
 import { IoMdClose } from 'react-icons/io';
-import FollowingList from '../../../../../API/MypageAPI/FollowingList'
-import FollowerList from '../../../../../API/MypageAPI/FollowerList';
+import FollowingListApi from '../../../../../API/MypageAPI/FollowingListApi'
+import FollowerListApi from '../../../../../API/MypageAPI/FollowerListApi';
 import 기본이미지 from '../../../../../Asset/Images/기본프로필.jpg'
 
 const FollowBox = props => {
@@ -24,8 +24,11 @@ const FollowBox = props => {
   const [followingList, setFollowingList] = useState()
 
   useEffect(async () => {
-    const followingRes = await FollowingList(props.myInfo.nickname, following);
-    const followerRes = await FollowerList(props.myInfo.nickname, follower);
+    const followingRes = await FollowingListApi(
+      props.myInfo.nickname,
+      following,
+    );
+    const followerRes = await FollowerListApi(props.myInfo.nickname, follower);
     setFollowerList(followerRes.data);
     setFollowingList(followingRes.data);
   }, [props.myInfo.nickname, props.myInfo.follower, props.myInfo.following]);

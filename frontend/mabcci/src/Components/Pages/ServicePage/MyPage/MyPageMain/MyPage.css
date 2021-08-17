@@ -65,6 +65,7 @@
   backface-visibility: hidden;
   cursor: pointer;
   border: solid 0.1px var(--main-color-1);
+  padding: 1px;
 }
 
 .mypage-profile-bodyinfo {

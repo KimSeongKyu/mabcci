@@ -1,10 +1,10 @@
 import { FollowListUrl } from '../ApiUrl';
 import instance from '../index';
 
-const FollowingList = async (nickname, followingList) => {
+const FollowerListApi = async (nickname, followingList) => {
   try {
     const response = await instance.get(
-      `${FollowListUrl}${nickname}/following`,
+      `${FollowListUrl}${nickname}/follower`,
       followingList,
     );
 
@@ -19,4 +19,4 @@ const FollowingList = async (nickname, followingList) => {
   }
 };
 
-export default FollowingList;
+export default FollowerListApi;
