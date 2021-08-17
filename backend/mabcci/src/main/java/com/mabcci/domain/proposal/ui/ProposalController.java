@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 
 @CrossOrigin(originPatterns = "http://localhost:*")
 @RestController
@@ -32,6 +33,11 @@ public class ProposalController {
     public ResponseEntity findProposals(@RequestParam("filter") final ProposalFilter proposalFilter,
                                         @Valid @RequestParam("nickname") final Nickname nickname) {
         return ResponseEntity.ok(proposalFindService.findProposals(proposalFilter, nickname));
+    }
+
+    @GetMapping("/api/proposals/{id}")
+    public ResponseEntity findProposal(@Positive @PathVariable("id") final Long id) {
+        return ResponseEntity.ok(proposalFindService.findProposal(id));
     }
 }
 
