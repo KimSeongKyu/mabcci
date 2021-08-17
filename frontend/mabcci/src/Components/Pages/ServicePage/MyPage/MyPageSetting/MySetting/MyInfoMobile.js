@@ -155,7 +155,18 @@ const MyInfoMobile = props => {
             </div>
             <h3 className="mypage-bodytype-header">Body Type</h3>
             {props.myUpdateInfo.gender === 'MAN' ? (
-              <div className="mypage-mobile-update-content">
+              <div className="mypage-mobile-update-bodyType">
+                <button
+                  className={
+                    props.myUpdateInfo.bodyType === 'NONE'
+                      ? 'mypage-bodytype-btn mypage-bodytype-btn-select'
+                      : 'mypage-bodytype-btn'
+                  }
+                  name="NONE"
+                  onClick={changeBodyType}
+                >
+                  NO TYPE
+                </button>
                 <button
                   className={
                     props.myUpdateInfo.bodyType === 'INVERTED_TRIANGLE'
@@ -228,7 +239,18 @@ const MyInfoMobile = props => {
                 </button>
               </div>
             ) : (
-              <div className="mypage-mobile-update-content">
+              <div className="mypage-mobile-update-bodyType">
+                <button
+                  className={
+                    props.myUpdateInfo.bodyType === 'NONE'
+                      ? 'mypage-bodytype-btn mypage-bodytype-btn-select'
+                      : 'mypage-bodytype-btn'
+                  }
+                  name="NONE"
+                  onClick={changeBodyType}
+                >
+                  NO TYPE
+                </button>
                 <button
                   className={
                     props.myUpdateInfo.bodyType === 'INVERTED_TRIANGLE'

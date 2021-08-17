@@ -8,6 +8,20 @@
   transform: translateY(-28%);
 }
 
+.mypage-follow-modal-container {
+  width: 100%;
+  height: 180%;
+  background-color: black;
+  position: absolute;
+  z-index: 2;
+  opacity: 0.5;
+  transform: translateY(-28%);
+}
+
+.mypage-modal-box-information p {
+  cursor: pointer;
+}
+
 .mypage-modal-box {
   width: 400px;
   height: 300px;
@@ -80,8 +94,13 @@
   padding: 10px;
 }
 
-.mypage-modal-box-content p {
-  margin-right: 55%;
+.mypage-modal-box-information {
+  display: flex;
+  align-items: center;
+}
+
+.mypage-modal-box-information p {
+  margin-left: 10px;
 }
 
 .mypage-modal-box-content img {

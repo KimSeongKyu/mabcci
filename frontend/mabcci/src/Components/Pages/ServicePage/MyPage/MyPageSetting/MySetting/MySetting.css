@@ -75,7 +75,7 @@ section {
 }
 
 .mypage-mobile-update {
-  z-index: 100;
+  z-index: 98;
 }
 
 .mypage-mobile-update-box {
@@ -90,6 +90,16 @@ section {
   padding: 20px;
   padding-left: 40px;
   padding-right: 40px;
+}
+
+.mypage-mobile-update-bodyType {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.mypage-mobile-update-bodyType button {
+  margin: 5px;
 }
 
 .mypage-mobile-update-content input {

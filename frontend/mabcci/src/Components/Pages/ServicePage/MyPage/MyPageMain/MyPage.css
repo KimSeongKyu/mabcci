@@ -86,6 +86,7 @@
   height: 70%;
   margin: auto;
   margin-right: 0;
+  border: none;
 }
 
 .mypage-profile-bodysize-secret {
@@ -132,12 +133,12 @@
   width: 80%;
   margin: auto;
   margin-top: 30px;
-  margin-left: 15%;
   text-align: start;
 }
 
 .mypage-introduce-box-null {
   color: lightgrey;
+  margin: auto;
 }
 
 #mypage-web-nickname {

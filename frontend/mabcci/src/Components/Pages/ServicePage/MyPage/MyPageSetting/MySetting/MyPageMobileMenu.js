@@ -40,7 +40,7 @@ const MyPageMobileMenu = props => {
       updatePicture: null,
       description: res.myInfo.description,
     });
-  }, []);
+  }, [nickname]);
 
   const updateData = new FormData();
   updateData.append('gender', myUpdateInfo.gender);
@@ -64,11 +64,18 @@ const MyPageMobileMenu = props => {
   }
   updateData.append('picture', myUpdateInfo.updatePicture);
   updateData.append('description', myUpdateInfo.description);
+    {
+      myUpdateInfo.bodyType
+        ? updateData.append('bodyType', myUpdateInfo.bodyType)
+        : updateData.append('bodyType', 'none');
+    }
+  
 
   const [myPageUpdate, setMyPageUpdate] = useState('none')
 
   const goBack = () => {
     props.setMobileMenu(false)
+    props.setMyPageUpdate('none');
   };
 
   const LogOut = () => {

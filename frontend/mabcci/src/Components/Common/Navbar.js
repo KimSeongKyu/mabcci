@@ -22,6 +22,7 @@ import getUserInfo from './getUserInfo';
 function Nav() {
   const history = useHistory();
   const dispatch = useDispatch();
+  const myInfo = getUserInfo();
 
   const [isLoggedin, setisLoggedin] = useState(false);
   useEffect(() => {
@@ -53,7 +54,6 @@ function Nav() {
   };
 
   const goMypage = () => {
-    const myInfo = getUserInfo();
     setpopover(false);
     history.push(`/mypage/${myInfo.nickname}`);
   };

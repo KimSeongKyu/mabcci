@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination } from 'swiper/core';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
@@ -81,10 +81,12 @@ const OOTDContent = props => {
     <article className="detail-content">
       <section className="detail-info">
         <div className="detail-info-photo">
-          <img src={writer.memberPicture} alt="UserPicture" width="70" />
+          <img src={baseUrl + writer.memberPicture} alt="UserPicture" />
         </div>
         <div className="detail-info-content">
-          <p>{writer.nickname}</p>
+          <Link to={`/mypage/${writer.nickname}`}>
+            <p>{writer.nickname}</p>
+          </Link>
           <p>
             {detail.registeredTime} views:{detail.views}
           </p>

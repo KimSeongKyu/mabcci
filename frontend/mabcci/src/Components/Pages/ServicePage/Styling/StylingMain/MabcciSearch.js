@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BiSearchAlt2, BiEdit } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 import AllMabcciApi from '../../../../../API/MabcciAPI/AllMabcciApi';
 import 미니멀 from '../../../../../Asset/Images/미니멀옷.png';
 import 스트릿 from '../../../../../Asset/Images/스트릿옷.png';
@@ -65,7 +66,7 @@ const MabcciSearch = () => {
     setFilterMabcciList(
       mabcciList &&
         mabcciList.filter(mabcci => {
-          return mabcci.nickName === searchContent;
+          return mabcci.nickname === searchContent;
         }),
     );
   };
@@ -95,8 +96,8 @@ const MabcciSearch = () => {
   };
 
   /* Mabcci 마이페이지 이벤트 */
-  const mabcciPageHandler = nickName => {
-    console.log(nickName, 'Mabcci 마이페이지');
+  const mabcciPageHandler = nickname => {
+    console.log(nickname, 'Mabcci 마이페이지');
   };
 
   return (
@@ -134,11 +135,11 @@ const MabcciSearch = () => {
       <article className="styling-mabccilist">
         {filterMabcciList &&
           filterMabcciList.map(mabcci => (
-            <div className="styling-mabcci" key={mabcci.nickName}>
+            <div className="styling-mabcci" key={mabcci.nickname}>
               <button
                 type="button"
-                onClick={() => mabcciPageHandler(mabcci.nickName)}
-                onKeyDown={() => mabcciPageHandler(mabcci.nickName)}
+                onClick={() => mabcciPageHandler(mabcci.nickname)}
+                onKeyDown={() => mabcciPageHandler(mabcci.nickname)}
               >
                 <img
                   className="styling-mabcci-photo"
@@ -148,7 +149,9 @@ const MabcciSearch = () => {
                 />
               </button>
               <div className="styling-mabcci-info">
-                <h3>{mabcci.nickName}</h3>
+                <Link to={`/mypage/${mabcci.nickname}`}>
+                  <h3>{mabcci.nickname}</h3>
+                </Link>
                 {mabcci.categories.map(category => (
                   <h6 key={category}># {category} </h6>
                 ))}
@@ -156,8 +159,8 @@ const MabcciSearch = () => {
               <BiEdit
                 className="styling-mabcci-apply"
                 size="40"
-                onClick={() => stylingApplyHandler(mabcci.nickName)}
-                onKeyDown={() => stylingApplyHandler(mabcci.nickName)}
+                onClick={() => stylingApplyHandler(mabcci.nickname)}
+                onKeyDown={() => stylingApplyHandler(mabcci.nickname)}
               />
             </div>
           ))}

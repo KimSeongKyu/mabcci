@@ -1,20 +1,46 @@
 /* eslint-disable */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import './Follow.css';
-import 아라찌 from '../MyPageMain/images/다운로드.jfif';
 import { IoMdClose } from 'react-icons/io';
+import FollowingList from '../../../../../API/MypageAPI/FollowingList'
+import FollowerList from '../../../../../API/MypageAPI/FollowerList';
 
 const FollowBox = props => {
+  const { nickname } = useParams();
+  const baseUrl = 'http://localhost:8080';
+
+  const follower = {
+    follower: props.myInfo.nickname
+  };
+
+  const following = {
+    following: props.myInfo.nickname
+  }
+
+  const [followerList, setFollowerList] = useState()
+  const [followingList, setFollowingList] = useState()
+
+  useEffect(async () => {
+    const followingRes = await FollowingList(props.myInfo.nickname, following);
+    const followerRes = await FollowerList(props.myInfo.nickname, follower);
+    setFollowerList(followerRes.data);
+    setFollowingList(followingRes.data);
+  }, [nickname]);
 
   const exitFollowBox = () => {
+    props.setFollowBox('none');
+  }
+
+  const goToUserPage = (e) => {
     props.setFollowBox('none');
   }
 
   return (
     <div>
       {props.followBox === '팔로워' || props.followBox === '팔로잉' ? (
-        <div className="mypage-modal-container" />
+        <div className="mypage-follow-modal-container" />
       ) : null}
 
       {props.followBox === '팔로워' ? (
@@ -29,11 +55,19 @@ const FollowBox = props => {
               <IoMdClose />
             </button>
           </div>
-          <div className="mypage-modal-box-content">
-            <img src={아라찌} alt="하이" />
-            <p>유저네임</p>
-            <button type="submit">삭제</button>
-          </div>
+          {followerList.map(follower => {
+            return (
+              <div className="mypage-modal-box-content">
+                <div className="mypage-modal-box-information">
+                  <img src={baseUrl + follower.picture} alt="하이" />
+                  <Link to={`/mypage/${follower.name}`} onClick={goToUserPage}>
+                    <p>{follower.name}</p>
+                  </Link>
+                </div>
+                <button type="submit">삭제</button>
+              </div>
+            );
+          })}
         </div>
       ) : null}
 
@@ -49,56 +83,19 @@ const FollowBox = props => {
               <IoMdClose />
             </button>
           </div>
-          <div className="mypage-modal-box-content">
-            <img src={아라찌} alt="하이" />
-            <p>유저네임</p>
-            <button type="submit">팔로잉취소</button>
-          </div>
-          <div className="mypage-modal-box-content">
-            <img src={아라찌} alt="하이" />
-            <p>유저네임</p>
-            <button type="submit">팔로잉취소</button>
-          </div>
-          <div className="mypage-modal-box-content">
-            <img src={아라찌} alt="하이" />
-            <p>유저네임</p>
-            <button type="submit">팔로잉취소</button>
-          </div>
-          <div className="mypage-modal-box-content">
-            <img src={아라찌} alt="하이" />
-            <p>유저네임</p>
-            <button type="submit">팔로잉취소</button>
-          </div>
-          <div className="mypage-modal-box-content">
-            <img src={아라찌} alt="하이" />
-            <p>유저네임</p>
-            <button type="submit">팔로잉취소</button>
-          </div>
-          <div className="mypage-modal-box-content">
-            <img src={아라찌} alt="하이" />
-            <p>유저네임</p>
-            <button type="submit">팔로잉취소</button>
-          </div>
-          <div className="mypage-modal-box-content">
-            <img src={아라찌} alt="하이" />
-            <p>유저네임</p>
-            <button type="submit">팔로잉취소</button>
-          </div>
-          <div className="mypage-modal-box-content">
-            <img src={아라찌} alt="하이" />
-            <p>유저네임</p>
-            <button type="submit">팔로잉취소</button>
-          </div>
-          <div className="mypage-modal-box-content">
-            <img src={아라찌} alt="하이" />
-            <p>유저네임</p>
-            <button type="submit">팔로잉취소</button>
-          </div>
-          <div className="mypage-modal-box-content">
-            <img src={아라찌} alt="하이" />
-            <p>유저네임</p>
-            <button type="submit">팔로잉취소</button>
-          </div>
+          {followingList.map(following => {
+            return (
+              <div className="mypage-modal-box-content">
+                <div className="mypage-modal-box-information">
+                  <img src={baseUrl + following.picture} alt="하이" />
+                  <Link to={`/mypage/${following.name}`} onClick={goToUserPage}>
+                    <p>{following.name}</p>
+                  </Link>
+                </div>
+                <button type="submit">팔로잉</button>
+              </div>
+            );
+          })}
         </div>
       ) : null}
     </div>

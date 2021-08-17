@@ -13,11 +13,14 @@ import getUserInfo from '../../../../Common/getUserInfo';
 import { MdReplay } from 'react-icons/md';
 
 const MyPageProfile = props => {
+
   const [profile, setProfile] = useState(false)
 
   const userInfo = getUserInfo();
 
-  const clickProfile = () => {setProfile(!profile)}
+  const clickProfile = () => {
+    setProfile(!profile)
+  }
   
   const openSetting = () => {
     props.setMyPageUpdate('setting');
@@ -46,12 +49,13 @@ const MyPageProfile = props => {
    }
 
    const unFollow = async () => {
-     const followMembers = {
+     const deleteFollowMembers = {
        following: props.myInfo.nickname,
        follower: userInfo.nickname,
      };
-     const res = await UnFollowApi(followMembers);
+     const res = await UnFollowApi(deleteFollowMembers);
      console.log(res);
+     console.log(res.res)
    };
 
   return (
@@ -69,13 +73,17 @@ const MyPageProfile = props => {
           }
         >
           <div className="mypage-profile-bodyinfo">
-            {props.myInfo.bodyType !== null ? (
+            {props.myInfo.bodyType == 'none' ||
+            props.myInfo.bodyType == 'NONE' ? (
+              <div className="mypage-profile-bodysize-noimage">No Type</div>
+            ) : (
               <img
-                src={props.myInfo.gender + '_' + props.myInfo.bodyType}
+                src={
+                  process.env.PUBLIC_URL +
+                  `/images/${props.myInfo.gender}_${props.myInfo.bodyType}.png`
+                }
                 alt="No image"
               ></img>
-            ) : (
-              <div className="mypage-profile-bodysize-noimage">No Type</div>
             )}
             <div className="mypage-profile-bodysize">
               {props.myInfo.height !== 0 ? (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { IoMdSend } from 'react-icons/io';
 import {
   OOTDCommentReadApi,
@@ -7,7 +7,7 @@ import {
   OOTDCommentDeleteApi,
   OOTDCommentUpdateApi,
 } from '../../../../../API/OOTDAPI/OOTDDetailApi';
-import userphoto from './Images/userphoto.png';
+import { baseUrl } from '../../../../../API/ApiUrl';
 
 export const SingleComment = props => {
   const { depth, comment, allComments, userInfo } = props;
@@ -26,13 +26,15 @@ export const SingleComment = props => {
       <div className="detail-comment">
         <div className="detail-comment-info">
           <div className="detail-comment-info-photo">
-            <img src={userphoto} alt="UserImage" width="48" />
+            <img src={baseUrl + comment.memberPicture} alt="UserImage" />
           </div>
 
           {updateToggle ? null : (
             <div className="detail-comment-info-content">
               <div className="detail-comment-info-namedate">
-                <h5>{comment.memberNickname} &nbsp; </h5>
+                <Link to={`/mypage/${comment.memberNickname}`}>
+                  <h5>{comment.memberNickname} &nbsp; </h5>
+                </Link>
                 <p>{comment.createdDate.slice(0, 10)}</p>
               </div>
               {depth === '0' ? (

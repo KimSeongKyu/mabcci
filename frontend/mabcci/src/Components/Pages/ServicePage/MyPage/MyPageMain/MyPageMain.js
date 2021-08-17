@@ -43,15 +43,23 @@ function MyPageMain() {
     }
     setMyInfo(res.myInfo);
     console.log(res);
-  }, []);
+  }, [nickname]);
 
   const goToMobileMenu = () => {
     setMobileMenu(true);
+    setMyPageUpdate('setting');
   };
 
   return (
     <div className="mypage-entire">
-      <FollowBox followBox={followBox} setFollowBox={setFollowBox} />
+      {myInfo.categories ? (
+        <FollowBox
+          followBox={followBox}
+          setFollowBox={setFollowBox}
+          myInfo={myInfo}
+        />
+      ) : null}
+
       <MyChatList chatBox={chatBox} setChatBox={setChatBox} />
       <MyProposalList
         proposalBox={proposalBox}
