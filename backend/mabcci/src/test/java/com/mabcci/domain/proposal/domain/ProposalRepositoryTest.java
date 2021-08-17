@@ -14,6 +14,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import java.util.List;
+
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
 import static com.mabcci.global.common.EmailTest.EMAIL;
@@ -32,6 +34,7 @@ class ProposalRepositoryTest {
 
     private Member targetMember;
     private Member mabcci;
+    private Nickname mabcciNickname;
     private Proposal proposal;
 
     @BeforeEach
@@ -46,10 +49,11 @@ class ProposalRepositoryTest {
                 .picture(PICTURE)
                 .memberRole(MemberRole.USER)
                 .build();
+        mabcciNickname = Nickname.of("mabcci");
         mabcci = Member.Builder()
                 .email(Email.of("mabcci@example.com"))
                 .password(PASSWORD)
-                .nickname(Nickname.of("mabcci"))
+                .nickname(mabcciNickname)
                 .phone(Phone.of("010-2345-6789"))
                 .gender(Gender.MAN)
                 .description(DESCRIPTION)
@@ -84,5 +88,14 @@ class ProposalRepositoryTest {
         final Proposal savedProposal = proposalRepository.save(proposal);
 
         assertThat(savedProposal.id()).isEqualTo(proposal.id());
+    }
+
+    @DisplayName("ProposalRepository 내가 제안한 제안서 리스트 조회 테스트")
+    @Test
+    void find_all_by_mabcci_test() {
+        testEntityManager.persist(proposal);
+        final List<Proposal> proposals = proposalRepository.findAllByMabcciNickname(mabcciNickname);
+
+        assertThat(proposals).contains(proposal);
     }
 }
