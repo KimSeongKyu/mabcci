@@ -5,8 +5,15 @@ import com.mabcci.global.common.Nickname;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
+import java.util.Map;
+import java.util.Optional;
 
 public final class ProposalSaveRequest {
+
+    public final static String TOP = "top";
+    public final static String BOTTOM = "bottom";
+    public final static String SHOES = "shoes";
+    public final static String ACCESSORY = "accessory";
 
     @NotNull @JsonProperty("targetMemberNickname")
     private Nickname targetMemberNickname;
@@ -69,6 +76,15 @@ public final class ProposalSaveRequest {
 
     public final String description() {
         return description;
+    }
+
+    public final Map<String, Optional<MultipartFile>> pictures() {
+        return Map.of(
+                TOP, Optional.ofNullable(top),
+                BOTTOM, Optional.ofNullable(bottom),
+                SHOES, Optional.ofNullable(shoes),
+                ACCESSORY, Optional.ofNullable(accessory)
+        );
     }
 }
 
