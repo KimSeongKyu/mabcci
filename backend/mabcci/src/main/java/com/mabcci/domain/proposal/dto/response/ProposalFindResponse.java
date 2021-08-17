@@ -27,4 +27,16 @@ public final class ProposalFindResponse {
         this.nickname = nickname;
         this.createdDate = createdDate;
     }
+
+    public final String picture() {
+        return picture;
+    }
+
+    public final Nickname nickname() {
+        return nickname;
+    }
+
+    public final LocalDateTime createdDate() {
+        return createdDate;
+    }
 }
