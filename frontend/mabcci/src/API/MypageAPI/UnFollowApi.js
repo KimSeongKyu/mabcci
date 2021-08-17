@@ -3,8 +3,9 @@ import instance from '../index';
 
 const UnFollowApi = async deleteFollowMembers => {
   try {
-    console.log(deleteFollowMembers, '언팔할때 보내는 데이터');
-    const response = await instance.delete(UnFollowUrl, deleteFollowMembers);
+    const response = await instance.delete(UnFollowUrl, {
+      data: deleteFollowMembers,
+    });
     return {
       status: response.status,
     };

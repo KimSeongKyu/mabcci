@@ -6,6 +6,7 @@ import './Follow.css';
 import { IoMdClose } from 'react-icons/io';
 import FollowingList from '../../../../../API/MypageAPI/FollowingList'
 import FollowerList from '../../../../../API/MypageAPI/FollowerList';
+import 기본이미지 from '../../../../../Asset/Images/기본프로필.jpg'
 
 const FollowBox = props => {
   const { nickname } = useParams();
@@ -27,7 +28,7 @@ const FollowBox = props => {
     const followerRes = await FollowerList(props.myInfo.nickname, follower);
     setFollowerList(followerRes.data);
     setFollowingList(followingRes.data);
-  }, [nickname]);
+  }, [props.myInfo.nickname, props.myInfo.follower, props.myInfo.following]);
 
   const exitFollowBox = () => {
     props.setFollowBox('none');
@@ -59,7 +60,8 @@ const FollowBox = props => {
             return (
               <div className="mypage-modal-box-content">
                 <div className="mypage-modal-box-information">
-                  <img src={baseUrl + follower.picture} alt="하이" />
+                  <img src={follower.picture == null ? 기본이미지
+                  :baseUrl + follower.picture} alt="하이" />
                   <Link to={`/mypage/${follower.name}`} onClick={goToUserPage}>
                     <p>{follower.name}</p>
                   </Link>
@@ -87,7 +89,14 @@ const FollowBox = props => {
             return (
               <div className="mypage-modal-box-content">
                 <div className="mypage-modal-box-information">
-                  <img src={baseUrl + following.picture} alt="하이" />
+                  <img
+                    src={
+                      follower.picture === null
+                        ? 기본이미지
+                        : baseUrl + following.picture
+                    }
+                    alt="하이"
+                  />
                   <Link to={`/mypage/${following.name}`} onClick={goToUserPage}>
                     <p>{following.name}</p>
                   </Link>

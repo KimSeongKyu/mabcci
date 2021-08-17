@@ -43,12 +43,14 @@ public class FollowController {
 
     @PostMapping("/api/follow")
     public ResponseEntity<?> follow(@RequestBody final FollowRequest request) {
+        System.out.println(request.follower().nickname());
         final Long followId = followService.follow(request.following(), request.follower());
         return ResponseEntity.ok().body(followId);
     }
 
     @DeleteMapping(value = "/api/unfollow")
     public ResponseEntity<?> unfollow(@RequestBody final UnFollowRequest request) {
+        System.out.println(request.follower().nickname());
         unFollowService.unfollow(request.following(), request.follower());
         return ResponseEntity.ok().build();
     }

@@ -45,7 +45,13 @@ const MyPageProfile = props => {
        follower: userInfo.nickname,
      };
      const res = await FollowApi(followMembers);
-     console.log(res);
+     if (res.status == 200) {
+      const nowCount = props.myInfo.follower;
+      props.setMyInfo({
+        ...props.myInfo,
+        follower: nowCount + 1
+      })
+     }
    }
 
    const unFollow = async () => {
@@ -54,8 +60,13 @@ const MyPageProfile = props => {
        follower: userInfo.nickname,
      };
      const res = await UnFollowApi(deleteFollowMembers);
-     console.log(res);
-     console.log(res.res)
+     if (res.status == 200) {
+      const nowCount = props.myInfo.follower;
+      props.setMyInfo({
+        ...props.myInfo,
+        follower: nowCount - 1,
+      });
+     }
    };
 
   return (
@@ -74,7 +85,8 @@ const MyPageProfile = props => {
         >
           <div className="mypage-profile-bodyinfo">
             {props.myInfo.bodyType == 'none' ||
-            props.myInfo.bodyType == 'NONE' ? (
+            props.myInfo.bodyType == 'NONE'  ||
+            props.myInfo.bodyType == null ?(
               <div className="mypage-profile-bodysize-noimage">No Type</div>
             ) : (
               <img

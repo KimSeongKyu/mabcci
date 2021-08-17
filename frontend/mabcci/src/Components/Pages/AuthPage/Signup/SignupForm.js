@@ -91,12 +91,18 @@ function SignupForm() {
     return false;
   };
 
+  const isNickname = () => {
+    const regExp = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]{1,10}$/;
+    return regExp.test(userInfo.nickname);
+  };
+
   const isPhoneNumber = () => {
     const phonNumber =
       userInfo.firstPhoneNumber +
       userInfo.secondPhoneNumber +
       userInfo.thirdPhoneNumber;
     const regExp = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/;
+
     return regExp.test(phonNumber);
   };
 
@@ -118,7 +124,8 @@ function SignupForm() {
       isEmail() === false ||
       isPhoneNumber() === false ||
       isSamePassword() === false ||
-      isCorrectPassword() === false
+      isCorrectPassword() === false ||
+      isNickname() === false
     ) {
       return false;
     }
@@ -137,12 +144,21 @@ function SignupForm() {
         {isEmail() === false && userInfo.email.length > 0 ? (
           <p className="signup-warnning-email">이메일 형식으로 입력해주세요</p>
         ) : null}
-        <input
-          type="text"
-          placeholder="Nickname"
-          name="nickname"
-          onChange={changeUserInfo}
-        />
+        <div className="signup-nickname-check-box">
+          <input
+            id="signup-nickname-input"
+            type="text"
+            placeholder="Nickname"
+            name="nickname"
+            onChange={changeUserInfo}
+          />
+          <button type="submit">중복확인</button>
+        </div>
+        {isNickname() === false ? (
+          <p className="signup-warnning-nickname">
+            닉네임은 한글, 영문, 숫자만 가능하고 최대 10자리입니다.
+          </p>
+        ) : null}
         <div className="signup-phone-number">
           <div>PhoneNumber</div>
           <input
@@ -169,18 +185,22 @@ function SignupForm() {
           userInfo.thirdPhoneNumber.length > 0) ? (
           <p className="signup-warnning-phone">번호를 알맞게 입력해주세요</p>
         ) : null}
-        <input
-          type="password"
-          placeholder="Password"
-          name="password"
-          onChange={changeUserInfo}
-        />
-        <input
-          type="password"
-          placeholder="PasswordConfirm"
-          name="passwordConfirmation"
-          onChange={changeUserInfo}
-        />
+        <form action="">
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            onChange={changeUserInfo}
+          />
+        </form>
+        <form action="">
+          <input
+            type="password"
+            placeholder="PasswordConfirm"
+            name="passwordConfirmation"
+            onChange={changeUserInfo}
+          />
+        </form>
         {!isSamePassword() ? (
           <p className="signup-warnning-password">비밀번호가 다릅니다!</p>
         ) : null}
