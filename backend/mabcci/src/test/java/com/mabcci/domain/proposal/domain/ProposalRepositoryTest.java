@@ -116,4 +116,16 @@ class ProposalRepositoryTest {
 
         assertThat(foundProposal.id()).isEqualTo(proposal.id());
     }
+
+    @DisplayName("ProposalRepository 제안서 삭제 테스트")
+    @Test
+    void delete_by_id_test() {
+        testEntityManager.persist(proposal);
+
+        assertThat(proposalRepository.existsById(proposal.id())).isTrue();
+
+        proposalRepository.deleteById(proposal.id());
+
+        assertThat(proposalRepository.existsById(proposal.id())).isFalse();
+    }
 }
