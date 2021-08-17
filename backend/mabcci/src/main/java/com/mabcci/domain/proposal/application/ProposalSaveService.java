@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import static com.mabcci.domain.proposal.dto.ProposalSaveRequest.TOP;
 import static com.mabcci.domain.proposal.dto.ProposalSaveRequest.BOTTOM;
@@ -52,20 +51,19 @@ public class ProposalSaveService {
                 .orElseThrow(IllegalArgumentException::new);
     }
 
-    private Map<String, String> savePicturesAndMapToPath(final Map<String, Optional<MultipartFile>> pictures, final String directoryName) {
+    private Map<String, String> savePicturesAndMapToPath(final Map<String, MultipartFile> pictures, final String directoryName) {
         final Map<String, String> picturePaths = new HashMap<>();
         pictures.keySet()
                 .stream()
                 .forEach(part -> {
-                    final Optional<MultipartFile> picture = pictures.get(part);
-                    final String picturePath = savePicture(picture, directoryName);
+                    final String picturePath = savePicture(pictures.get(part), directoryName);
                     picturePaths.put(part, picturePath);
                 });
         return picturePaths;
     }
 
-    private String savePicture(final Optional<MultipartFile> picture, final String directoryName) {
-        return picture.isPresent() ? pictureUtil.savePicture(picture.get(), directoryName).path() : null;
+    private String savePicture(final MultipartFile picture, final String directoryName) {
+        return picture.isEmpty() ? null : pictureUtil.savePicture(picture, directoryName).path();
     }
 
     private void saveProposal(final Member targetMember, final Member mabcci,

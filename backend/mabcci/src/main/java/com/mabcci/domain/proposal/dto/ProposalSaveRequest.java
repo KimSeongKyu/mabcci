@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mabcci.global.common.Nickname;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.NotNull;
 import java.util.Map;
-import java.util.Optional;
 
 public final class ProposalSaveRequest {
 
@@ -78,12 +76,12 @@ public final class ProposalSaveRequest {
         return description;
     }
 
-    public final Map<String, Optional<MultipartFile>> pictures() {
+    public final Map<String, MultipartFile> pictures() {
         return Map.of(
-                TOP, Optional.ofNullable(top),
-                BOTTOM, Optional.ofNullable(bottom),
-                SHOES, Optional.ofNullable(shoes),
-                ACCESSORY, Optional.ofNullable(accessory)
+                TOP, top,
+                BOTTOM, bottom,
+                SHOES, shoes,
+                ACCESSORY, accessory
         );
     }
 }

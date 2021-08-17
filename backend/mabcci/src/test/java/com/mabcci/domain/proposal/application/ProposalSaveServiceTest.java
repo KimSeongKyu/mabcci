@@ -18,8 +18,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -91,7 +95,9 @@ class ProposalSaveServiceTest {
         doReturn(topPicture, bottomPicture).when(pictureUtil).savePicture(any(), any());
         doReturn(proposal).when(proposalRepository).save(any());
 
-        final ProposalSaveRequest proposalSaveRequest = new ProposalSaveRequest(NICKNAME, Nickname.of("mabcci"), topFile, bottomFile, null, null, null);
+        final MultipartFile emptyFile = new MockMultipartFile("emtpyFile", null, null, new byte[]{});
+        final ProposalSaveRequest proposalSaveRequest = new ProposalSaveRequest(NICKNAME, Nickname.of("mabcci"), topFile, bottomFile,
+                emptyFile, emptyFile, null);
 
         proposalSaveService.saveProposal(proposalSaveRequest);
 
