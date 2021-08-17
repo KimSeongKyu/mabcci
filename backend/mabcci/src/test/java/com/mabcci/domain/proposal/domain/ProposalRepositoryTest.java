@@ -92,9 +92,18 @@ class ProposalRepositoryTest {
 
     @DisplayName("ProposalRepository 내가 제안한 제안서 리스트 조회 테스트")
     @Test
-    void find_all_by_mabcci_test() {
+    void find_all_by_mabcci_nickname_test() {
         testEntityManager.persist(proposal);
         final List<Proposal> proposals = proposalRepository.findAllByMabcciNickname(mabcciNickname);
+
+        assertThat(proposals).contains(proposal);
+    }
+
+    @DisplayName("ProposalRepository 맵씨들로부터 제안 받은 제안서 리스트 조회 테스트")
+    @Test
+    void find_all_by_target_member_nickname_test() {
+        testEntityManager.persist(proposal);
+        final List<Proposal> proposals = proposalRepository.findAllByTargetMemberNickname(NICKNAME);
 
         assertThat(proposals).contains(proposal);
     }
