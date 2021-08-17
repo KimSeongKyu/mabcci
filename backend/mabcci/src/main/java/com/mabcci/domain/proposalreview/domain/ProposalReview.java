@@ -1,12 +1,13 @@
 package com.mabcci.domain.proposalreview.domain;
 
+import com.mabcci.domain.BaseTimeEntity;
 import com.mabcci.domain.proposal.domain.Proposal;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class ProposalReview {
+public class ProposalReview extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -20,7 +20,7 @@ class ProposalReviewRepositoryTest {
     void initialize() {
         assertAll(
                 () -> assertThat(proposalReviewRepository).isNotNull(),
-                () -> assertThat(proposalReviewRepository).isExactlyInstanceOf(ProposalReviewRepository.class)
+                () -> assertThat(proposalReviewRepository).isInstanceOf(ProposalReviewRepository.class)
         );
     }
 }
