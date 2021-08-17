@@ -8,9 +8,13 @@ import com.mabcci.global.common.Nickname;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 public final class ProposalFindResponse {
+
+    @NotNull @Positive @JsonProperty("id")
+    private Long id;
 
     @JsonProperty("picture")
     private String picture;
@@ -25,13 +29,18 @@ public final class ProposalFindResponse {
     }
 
     public final static ProposalFindResponse ofProposalAndMember(final Proposal proposal, final Member member) {
-        return new ProposalFindResponse(member.picture(), member.nickname(), proposal.createdDate());
+        return new ProposalFindResponse(proposal.id(), member.picture(), member.nickname(), proposal.createdDate());
     }
 
-    public ProposalFindResponse(final String picture, final Nickname nickname, final LocalDateTime createdDate) {
+    public ProposalFindResponse(final Long id, final String picture, final Nickname nickname, final LocalDateTime createdDate) {
+        this.id = id;
         this.picture = picture;
         this.nickname = nickname;
         this.createdDate = createdDate;
+    }
+
+    public final Long id() {
+        return id;
     }
 
     public final String picture() {

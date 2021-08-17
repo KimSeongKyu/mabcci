@@ -24,7 +24,7 @@ class ProposalFindResponseTest {
     @BeforeEach
     void setUp() {
         now = LocalDateTime.now();
-        proposalFindResponse = new ProposalFindResponse(PICTURE, NICKNAME, now);
+        proposalFindResponse = new ProposalFindResponse(1L, PICTURE, NICKNAME, now);
     }
 
     @DisplayName("ProposalFindResponse 인스턴스 생성 여부 테스트")
@@ -50,7 +50,7 @@ class ProposalFindResponseTest {
     @Test
     void validate_test() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        final ProposalFindResponse invalidResponse = new ProposalFindResponse(null, Nickname.of(""), LocalDateTime.MAX);
+        final ProposalFindResponse invalidResponse = new ProposalFindResponse(0L, null, Nickname.of(""), LocalDateTime.MAX);
 
         final Set<ConstraintViolation<ProposalFindResponse>> invalidPropertiesOfValidResponse =
                 validator.validate(proposalFindResponse);
@@ -59,7 +59,7 @@ class ProposalFindResponseTest {
 
         assertAll(
                 () -> assertThat(invalidPropertiesOfValidResponse.size()).isEqualTo(0),
-                () -> assertThat(invalidPropertiesOfInvalidResponse.size()).isEqualTo(2)
+                () -> assertThat(invalidPropertiesOfInvalidResponse.size()).isEqualTo(3)
         );
     }
 }

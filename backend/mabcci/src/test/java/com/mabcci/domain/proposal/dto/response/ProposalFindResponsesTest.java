@@ -24,7 +24,7 @@ class ProposalFindResponsesTest {
 
     @BeforeEach
     void setUp() {
-        proposalFindResponse = new ProposalFindResponse(PICTURE, NICKNAME, LocalDateTime.now());
+        proposalFindResponse = new ProposalFindResponse(1L, PICTURE, NICKNAME, LocalDateTime.now());
         proposalFindResponses = new ProposalFindResponses(List.of(proposalFindResponse));
     }
 

@@ -70,7 +70,7 @@ class ProposalControllerTest {
     @DisplayName("ProposalController 인스턴스 제안서 리스트 조회 API 테스트")
     @Test
     void find_proposals_api_test() throws Exception{
-        final ProposalFindResponse proposalFindResponse = new ProposalFindResponse(PICTURE, NICKNAME, LocalDateTime.now());
+        final ProposalFindResponse proposalFindResponse = new ProposalFindResponse(1L, PICTURE, NICKNAME, LocalDateTime.now());
         final ProposalFindResponses proposalFindResponses = new ProposalFindResponses(List.of(proposalFindResponse));
 
         doReturn(proposalFindResponses).when(proposalFindService).findProposals(any(), any());
