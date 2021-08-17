@@ -11,9 +11,12 @@ import MyInfoMobile from './MyInfoMobile';
 import MyProfileMobile from './MyProfileMobile';
 import { useState, useEffect } from 'react';
 import MypageReadApi from '../../../../../../API/MypageAPI/MypageReadApi';
-
+import { baseUrl } from '../../../../../../API/ApiUrl';
+import MyPageUpdate from './MyPageUpdate';
+import getUserInfo from '../../../../../Common/getUserInfo';
 
 const MyPageMobileMenu = props => {
+  const userInfo = getUserInfo();
   const dispatch = useDispatch();
   const history = useHistory();
   const [myUpdateInfo, setMyUpdateInfo] = useState({})
@@ -21,6 +24,9 @@ const MyPageMobileMenu = props => {
 
   useEffect(async () => {
     const res = await MypageReadApi(nickname);
+    if (res.myInfo.picture !== null) {
+      res.myInfo.picture = baseUrl + res.myInfo.picture;
+    }
     setMyUpdateInfo({
       ...myUpdateInfo,
       nickname: res.myInfo.nickname,
@@ -31,9 +37,10 @@ const MyPageMobileMenu = props => {
       bodyType: res.myInfo.bodyType,
       categories: res.myInfo.categories,
       picture: res.myInfo.picture,
+      updatePicture: null,
       description: res.myInfo.description,
     });
-  }, []);
+  }, [nickname]);
 
   const updateData = new FormData();
   updateData.append('gender', myUpdateInfo.gender);
@@ -55,13 +62,20 @@ const MyPageMobileMenu = props => {
       ? updateData.append('footSize', 0)
       : updateData.append('footSize', myUpdateInfo.footSize);
   }
-  updateData.append('picture', myUpdateInfo.picture);
+  updateData.append('picture', myUpdateInfo.updatePicture);
   updateData.append('description', myUpdateInfo.description);
+    {
+      myUpdateInfo.bodyType
+        ? updateData.append('bodyType', myUpdateInfo.bodyType)
+        : updateData.append('bodyType', 'none');
+    }
+  
 
   const [myPageUpdate, setMyPageUpdate] = useState('none')
 
   const goBack = () => {
     props.setMobileMenu(false)
+    props.setMyPageUpdate('none');
   };
 
   const LogOut = () => {
@@ -82,14 +96,25 @@ const MyPageMobileMenu = props => {
 
   return (
     <>
+      <MyPageUpdate
+        myUpdateInfo={myUpdateInfo}
+        setMyUpdateInfo={setMyUpdateInfo}
+        updateData={updateData}
+        myPageUpdate={props.myPageUpdate}
+        setMyPageUpdate={props.setMyPageUpdate}
+        myInfo={props.myInfo}
+        setMyInfo={props.setMyInfo}
+        setMobileMenu={props.setMobileMenu}
+      />
       <MyCategoryMobile
         myPageUpdate={props.myPageUpdate}
         setMyPageUpdate={props.setMyPageUpdate}
         setMobileMenu={props.setMobileMenu}
         myUpdateInfo={myUpdateInfo}
         setMyUpdateInfo={setMyUpdateInfo}
-        setMyInfo={props.setMyInfo}
+        updateData={updateData}
         myInfo={props.myInfo}
+        setMyInfo={props.setMyInfo}
       />
       <MyInfoMobile
         myPageUpdate={props.myPageUpdate}
@@ -98,8 +123,8 @@ const MyPageMobileMenu = props => {
         myUpdateInfo={myUpdateInfo}
         setMyUpdateInfo={setMyUpdateInfo}
         updateData={updateData}
-        setMyInfo={props.setMyInfo}
         myInfo={props.myInfo}
+        setMyInfo={props.setMyInfo}
       />
       <MyProfileMobile
         myPageUpdate={props.myPageUpdate}
@@ -107,8 +132,9 @@ const MyPageMobileMenu = props => {
         setMobileMenu={props.setMobileMenu}
         myUpdateInfo={myUpdateInfo}
         setMyUpdateInfo={setMyUpdateInfo}
-        setMyInfo={props.setMyInfo}
+        updateData={updateData}
         myInfo={props.myInfo}
+        setMyInfo={props.setMyInfo}
       />
       {props.mobileMenu === true ? (
         <div className="mypage-moblie-container" />

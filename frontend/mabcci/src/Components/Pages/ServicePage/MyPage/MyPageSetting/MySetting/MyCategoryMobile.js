@@ -9,6 +9,9 @@ import 스트릿 from '../../../../../../Asset/Images/스트릿.png';
 import 오피스 from '../../../../../../Asset/Images/오피스.png';
 import 캐쥬얼 from '../../../../../../Asset/Images/캐쥬얼.png';
 import 포멀 from '../../../../../../Asset/Images/포멀.png';
+import MypageReadApi from '../../../../../../API/MypageAPI/MypageReadApi';
+import MypageUpdateApi from '../../../../../../API/MypageAPI/MyPageUpdateApi';
+import { baseUrl } from '../../../../../../API/ApiUrl';
 
 const MyCategoryMobile = props => {
   const goBack = () => {
@@ -16,9 +19,43 @@ const MyCategoryMobile = props => {
     props.setMobileMenu(true);
   };
 
-  const styleBtnClick = () => {
-    props.set 
+  const styleBtnClick = (e) => {
+    const copyCategory = [...props.myUpdateInfo.categories];
+
+    const nowCategory = e.target.name;
+
+    const findResult = copyCategory.indexOf(nowCategory);
+
+    if (findResult === -1) {
+      copyCategory.push(nowCategory);
+    } else {
+      copyCategory.splice(findResult, 1);
+    }
+    props.setMyUpdateInfo({
+      ...props.myUpdateInfo,
+      categories: copyCategory,
+    });
   }
+  
+
+  const submit = async () => {
+    const res = await MypageUpdateApi(
+      props.updateData,
+      props.myUpdateInfo.nickname,
+    );
+    if (res.status === 200) {
+      const res = await MypageReadApi(props.myUpdateInfo.nickname);
+      if (res.myInfo.picture !== null) {
+        res.myInfo.picture = baseUrl + res.myInfo.picture;
+      }
+      props.setMyInfo(res.myInfo);
+      props.setMyPageUpdate('none');
+      props.setMobileMenu(true);
+    } else {
+      console.log(res.status);
+      alert('닉네임을 확인하세요');
+    }
+  };
 
   return (
     <>
@@ -135,6 +172,9 @@ const MyCategoryMobile = props => {
               </div>
             </div>
           </div>
+          <button className="mypage-submit-btn mypage-category-submit-btn" type="submit" onClick={submit}>
+            저장
+          </button>
         </div>
       ) : null}
     </>

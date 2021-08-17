@@ -68,10 +68,10 @@ public class MemberUpdateService {
 
     private void updateMember(final Gender gender, final String description, final Nickname nickname, final int height, final int weight, final int footSize, final BodyType bodyType, final MultipartFile rawPicture, final Member member) {
         if(Objects.isNull(rawPicture) || rawPicture.isEmpty()) {
-            final Picture picture = picture(rawPicture);
-            member.update(nickname, gender, description, height, weight, footSize, bodyType, picture.path());
+            member.update(nickname, gender, description, height, weight, footSize, bodyType);
+            return;
         }
-        member.update(nickname, gender, description, height, weight, footSize, bodyType);
+        final Picture picture = picture(rawPicture);
+        member.update(nickname, gender, description, height, weight, footSize, bodyType, picture.path());
     }
-
 }

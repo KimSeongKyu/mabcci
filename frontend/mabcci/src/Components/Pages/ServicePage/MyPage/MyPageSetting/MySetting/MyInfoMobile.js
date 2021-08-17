@@ -16,6 +16,7 @@ import WOMAN_OVAL from '../../../../../../Asset/Images/WOMAN_OVAL.png';
 import WOMAN_TRIANGLE from '../../../../../../Asset/Images/WOMAN_TRIANGLE.png';
 import MypageUpdateApi from '../../../../../../API/MypageAPI/MyPageUpdateApi';
 import MypageReadApi from '../../../../../../API/MypageAPI/MypageReadApi'
+import { baseUrl } from '../../../../../../API/ApiUrl';
 
 const MyInfoMobile = props => {
 
@@ -53,6 +54,9 @@ const MyInfoMobile = props => {
     );
     if (res.status === 200) {
       const res = await MypageReadApi(props.myUpdateInfo.nickname);
+      if (res.myInfo.picture !== null) {
+        res.myInfo.picture = baseUrl + res.myInfo.picture;
+      }
       props.setMyInfo(res.myInfo);
       props.setMyPageUpdate('none');
       props.setMobileMenu(true);
@@ -63,13 +67,6 @@ const MyInfoMobile = props => {
     }
   }
 
-  const updateProfile = e => {
-    props.setMyUpdateInfo({
-      ...props.myUpdateInfo,
-      picture: e.target.files[0],
-    });
-  }
-
   return (
     <>
       {props.myPageUpdate === 'info' ? (
@@ -78,11 +75,6 @@ const MyInfoMobile = props => {
       {props.myPageUpdate === 'info' ? (
         <div className="mypage-mobile-menu mypage-mobile-update">
           <div className="mypage-mobile-menu-header">
-            <input
-              type="file"
-              accept=".jpg,.jpeg,.png"
-              onChange={updateProfile}
-            />
             <button
               type="submit"
               className="mypage-mobile-menu-btn"
@@ -163,7 +155,18 @@ const MyInfoMobile = props => {
             </div>
             <h3 className="mypage-bodytype-header">Body Type</h3>
             {props.myUpdateInfo.gender === 'MAN' ? (
-              <div className="mypage-mobile-update-content">
+              <div className="mypage-mobile-update-bodyType">
+                <button
+                  className={
+                    props.myUpdateInfo.bodyType === 'NONE'
+                      ? 'mypage-bodytype-btn mypage-bodytype-btn-select'
+                      : 'mypage-bodytype-btn'
+                  }
+                  name="NONE"
+                  onClick={changeBodyType}
+                >
+                  NO TYPE
+                </button>
                 <button
                   className={
                     props.myUpdateInfo.bodyType === 'INVERTED_TRIANGLE'
@@ -236,7 +239,18 @@ const MyInfoMobile = props => {
                 </button>
               </div>
             ) : (
-              <div className="mypage-mobile-update-content">
+              <div className="mypage-mobile-update-bodyType">
+                <button
+                  className={
+                    props.myUpdateInfo.bodyType === 'NONE'
+                      ? 'mypage-bodytype-btn mypage-bodytype-btn-select'
+                      : 'mypage-bodytype-btn'
+                  }
+                  name="NONE"
+                  onClick={changeBodyType}
+                >
+                  NO TYPE
+                </button>
                 <button
                   className={
                     props.myUpdateInfo.bodyType === 'INVERTED_TRIANGLE'

@@ -13,10 +13,13 @@ import MyChatList from '../MyPageSetting/MyChatList/MyChatList';
 import MyProposalList from '../MyPageSetting/MyProposal/MyProposalList';
 import MyProposalListMobile from '../MyPageSetting/MyProposal/MyProposalListMobile';
 import MyPageMobileMenu from '../MyPageSetting/MySetting/MyPageMobileMenu';
-import MyPageUpdate from '../MyPageSetting/MySetting/MyPageUpdate';
+import getUserInfo from '../../../../Common/getUserInfo';
+import { baseUrl } from '../../../../../API/ApiUrl';
 
 function MyPageMain() {
   const { nickname } = useParams();
+
+  const userInfo = getUserInfo();
 
   const dispatch = useDispatch();
 
@@ -35,20 +38,28 @@ function MyPageMain() {
   useEffect(async () => {
     dispatch(NavCategory('mypage'));
     const res = await MypageReadApi(nickname);
+    if (res.myInfo.picture !== null) {
+      res.myInfo.picture = baseUrl + res.myInfo.picture;
+    }
     setMyInfo(res.myInfo);
-  }, []);
+    console.log(res);
+  }, [nickname]);
 
   const goToMobileMenu = () => {
     setMobileMenu(true);
+    setMyPageUpdate('setting');
   };
 
   return (
     <div className="mypage-entire">
-      <MyPageUpdate
-        myPageUpdate={myPageUpdate}
-        setMyPageUpdate={setMyPageUpdate}
-      />
-      <FollowBox followBox={followBox} setFollowBox={setFollowBox} />
+      {myInfo.categories ? (
+        <FollowBox
+          followBox={followBox}
+          setFollowBox={setFollowBox}
+          myInfo={myInfo}
+        />
+      ) : null}
+
       <MyChatList chatBox={chatBox} setChatBox={setChatBox} />
       <MyProposalList
         proposalBox={proposalBox}
@@ -60,7 +71,7 @@ function MyPageMain() {
         mobileMenu={mobileMenu}
         setMobileMenu={setMobileMenu}
       />
-      {myInfo ? (
+      {myInfo.categories ? (
         <MyPageMobileMenu
           myInfo={myInfo}
           setMyInfo={setMyInfo}
@@ -73,13 +84,16 @@ function MyPageMain() {
         />
       ) : null}
       <div className="mypage-container">
-        <button
-          className="mypage-mobile-setting"
-          type="submit"
-          onClick={goToMobileMenu}
-        >
-          <HiMenu />
-        </button>
+        {userInfo.nickname === myInfo.nickname ? (
+          <button
+            className="mypage-mobile-setting"
+            type="submit"
+            onClick={goToMobileMenu}
+          >
+            <HiMenu />
+          </button>
+        ) : null}
+
         {myInfo.categories ? (
           <MyPageProfile
             myInfo={myInfo}
@@ -94,8 +108,8 @@ function MyPageMain() {
             setMobileMenu={setMobileMenu}
           />
         ) : null}
+        {myInfo.role === 'MABCCI' ? <MabcciReview /> : null}
         {myInfo.ootds ? <MyPageFeed myInfo={myInfo} /> : null}
-        <MabcciReview />
       </div>
     </div>
   );

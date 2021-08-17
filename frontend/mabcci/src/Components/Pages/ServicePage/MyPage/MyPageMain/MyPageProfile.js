@@ -3,16 +3,24 @@
 import React from 'react';
 import './MyPage.css';
 import { useState } from 'react';
+import FollowApi from '../../../../../API/MypageAPI/FollowApi';
+import UnFollowApi from '../../../../../API/MypageAPI/UnFollowApi';
 import {AiOutlineSetting} from "react-icons/ai"
 import {CgFileDocument} from "react-icons/cg"
 import {AiOutlineMessage} from 'react-icons/ai'
 import 기본프로필 from '../../../../../Asset/Images/기본프로필.jpg'
-import { baseUrl } from '../../../../../API/ApiUrl';
+import getUserInfo from '../../../../Common/getUserInfo';
+import { MdReplay } from 'react-icons/md';
 
 const MyPageProfile = props => {
+
   const [profile, setProfile] = useState(false)
 
-  const clickProfile = () => {setProfile(!profile)}
+  const userInfo = getUserInfo();
+
+  const clickProfile = () => {
+    setProfile(!profile)
+  }
   
   const openSetting = () => {
     props.setMyPageUpdate('setting');
@@ -31,21 +39,51 @@ const MyPageProfile = props => {
      props.setProposalBox(true)
    }
 
+   const follow = async () => {
+     const followMembers = {
+       following: props.myInfo.nickname,
+       follower: userInfo.nickname,
+     };
+     const res = await FollowApi(followMembers);
+     console.log(res);
+   }
+
+   const unFollow = async () => {
+     const deleteFollowMembers = {
+       following: props.myInfo.nickname,
+       follower: userInfo.nickname,
+     };
+     const res = await UnFollowApi(deleteFollowMembers);
+     console.log(res);
+     console.log(res.res)
+   };
+
   return (
     <>
+      <div className="mypage-profile-box mypage-picture-btn-box">
+        <MdReplay className="mypage-picture-btn" onClick={clickProfile} />
+      </div>
       <div className="mypage-profile-box">
         <div
+          onClick={clickProfile}
           className={
             profile === true
               ? 'mypage-profile-inner mypage-profile-inner-active'
               : 'mypage-profile-inner'
           }
         >
-          <div className="mypage-profile-bodyinfo" onClick={clickProfile}>
-            {props.myInfo.bodyType !== null ? (
-              <img src={baseUrl + props.myInfo.bodyType} alt="No image"></img>
-            ) : (
+          <div className="mypage-profile-bodyinfo">
+            {props.myInfo.bodyType == 'none' ||
+            props.myInfo.bodyType == 'NONE' ? (
               <div className="mypage-profile-bodysize-noimage">No Type</div>
+            ) : (
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  `/images/${props.myInfo.gender}_${props.myInfo.bodyType}.png`
+                }
+                alt="No image"
+              ></img>
             )}
             <div className="mypage-profile-bodysize">
               {props.myInfo.height !== 0 ? (
@@ -54,7 +92,7 @@ const MyPageProfile = props => {
                 <p className="mypage-profile-bodysize-secret">secret</p>
               )}
               {props.myInfo.weight !== 0 ? (
-                <p>{props.myInfo.height}cm</p>
+                <p>{props.myInfo.weight}kg</p>
               ) : (
                 <p className="mypage-profile-bodysize-secret">secret</p>
               )}
@@ -65,28 +103,71 @@ const MyPageProfile = props => {
               )}
             </div>
           </div>
+
           {props.myInfo.picture !== null ? (
-            <img src={baseUrl + props.myInfo.picture} alt="No image"></img>
+            <img src={props.myInfo.picture} alt="No image"></img>
           ) : (
-              <img src={기본프로필} alt="" onClick={clickProfile} />
+            <img src={기본프로필} alt="" onClick={clickProfile} />
           )}
         </div>
 
         <div className="mypage-info-box">
           <div id="mypage-web-nickname">
             <h3>{props.myInfo.nickname}</h3>
-            <button type="submit">
-              <CgFileDocument onClick={clickProposalList} />
-            </button>
-            <button type="submit">
-              <AiOutlineMessage onClick={clickChatList} />
-            </button>
-            <button type="submit" onClick={openSetting}>
-              <AiOutlineSetting />
-            </button>
+
+            {userInfo.nickname === props.myInfo.nickname ? (
+              <div>
+                <button type="submit">
+                  <CgFileDocument onClick={clickProposalList} />
+                </button>
+                <button type="submit">
+                  <AiOutlineMessage onClick={clickChatList} />
+                </button>
+                <button type="submit" onClick={openSetting}>
+                  <AiOutlineSetting />
+                </button>
+              </div>
+            ) : (
+              <div>
+                <button type="submit" onClick={follow} id="mypage-follow-btn">
+                  팔로우
+                </button>
+                <button type="submit" onClick={unFollow} id="mypage-follow-btn">
+                  팔로우취소
+                </button>
+                {props.myInfo.role === 'MABCCI' &&
+                userInfo.nickname !== props.myInfo.nickname ? (
+                  <button type="submit" id="mypage-mabcci-styling-btn">
+                    Styling 신청
+                  </button>
+                ) : null}
+              </div>
+            )}
           </div>
           <div id="mypage-mobile-nickname">
-            <h5>{props.myInfo.nickname}</h5>
+            <div>
+              <h3>{props.myInfo.nickname}</h3>
+              {userInfo.nickname === props.myInfo.nickname ? null : (
+                <div>
+                  <button type="submit" onClick={follow} id="mypage-follow-btn">
+                    팔로우
+                  </button>
+                  <button
+                    type="submit"
+                    onClick={unFollow}
+                    id="mypage-follow-btn"
+                  >
+                    팔로우취소
+                  </button>
+                  {props.myInfo.role === 'MABCCI' &&
+                  userInfo.nickname !== props.myInfo.nickname ? (
+                    <button type="submit" id="mypage-mabcci-styling-btn">
+                      Styling 신청
+                    </button>
+                  ) : null}
+                </div>
+              )}
+            </div>
           </div>
           <div>
             <button type="submit" onClick={clickFollow} name="팔로워">
@@ -107,7 +188,9 @@ const MyPageProfile = props => {
       <div className="mypage-introduce-box">
         <p>Introduce</p>
 
-        {props.myInfo.description == 'null' ? (
+        {props.myInfo.description == 'null' ||
+        props.myInfo.description == '' ||
+        props.myInfo.description == null ? (
           <div className="mypage-introduce-box-null">No information❕</div>
         ) : (
           <div>{props.myInfo.description}</div>

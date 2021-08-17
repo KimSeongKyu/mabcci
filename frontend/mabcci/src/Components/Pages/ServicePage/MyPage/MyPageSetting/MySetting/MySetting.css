@@ -1,25 +1,43 @@
+section {
+  text-align: center;
+}
+
 .mypage-update-container {
-  background-color: aqua;
+  background-color: white;
   position: absolute;
   width: 600px;
   max-height: 600px;
   margin-left: 50%;
   margin-top: 5%;
-  transform: translate(-50%);
+  transform: translate(-50%, -30%);
   transform-origin: left;
   z-index: 5;
   text-align: center;
   animation-name: mypage-update-appear;
   animation-duration: 1s;
   overflow: auto;
+  padding: 30px;
+}
+
+.mypage-update-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: solid 0.5px lightgray;
+  margin-bottom: 20px;
+  justify-content: space-between;
+}
+
+.mypage-update-header h3 {
+  font-weight: 900;
 }
 
 @keyframes mypage-update-appear {
   0% {
-    transform: scale(0.7) translate(-50%);
+    transform: scale(0.7) translate(-50%, -30%);
   }
   100% {
-    transform: scale(1) translate(-50%);
+    transform: scale(1) translate(-50%, -30%);
   }
 }
 
@@ -57,7 +75,7 @@
 }
 
 .mypage-mobile-update {
-  z-index: 4;
+  z-index: 98;
 }
 
 .mypage-mobile-update-box {
@@ -72,6 +90,16 @@
   padding: 20px;
   padding-left: 40px;
   padding-right: 40px;
+}
+
+.mypage-mobile-update-bodyType {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.mypage-mobile-update-bodyType button {
+  margin: 5px;
 }
 
 .mypage-mobile-update-content input {
@@ -203,6 +231,16 @@
   width: 100%;
 }
 
+.mypage-category-submit-btn {
+  transform: translateY(-250%);
+  margin-bottom: 0px;
+}
+
+.mypage-mobile-profie-btn {
+  transform: translateY(-100%);
+  margin-bottom: 40px;
+}
+
 .mypage-submit-btn:active {
   padding-top: 1px;
   padding-left: 1px;
@@ -220,6 +258,53 @@
 
 .mypage-mobile-category p {
   text-align: center;
+}
+
+.mypage-mobile-profile {
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mypage-mobile-profile-h5 {
+  padding-left: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background-color: var(--main-color-3);
+}
+
+.mypage-mobile-profile img {
+  background-size: cover;
+  border-radius: 50%;
+  width: 170px;
+  height: 170px;
+  border: solid 0.1px var(--main-color-1);
+}
+
+.mypage-mobile-profile-input {
+  background-color: var(--main-color-2);
+  border-radius: 10px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.mypage-mobile-profile-input:hover {
+  background-color: var(--main-color-1);
+}
+
+.mypage-mobile-profile-input:active {
+  padding-left: 3px;
+  padding-top: 3px;
+  box-shadow: none;
+}
+
+.mypage-mobile-profile-picture {
+  position: relative;
+}
+
+.mypage-mobile-profile-picture button {
+  position: absolute;
 }
 
 @media screen and (min-width: 576px) {
