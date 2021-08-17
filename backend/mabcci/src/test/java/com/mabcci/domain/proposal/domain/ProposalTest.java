@@ -10,6 +10,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+
+import java.util.Set;
+
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
 import static com.mabcci.global.common.EmailTest.EMAIL;
@@ -92,6 +98,23 @@ class ProposalTest {
                 () -> assertThat(proposal.shoes()).isEqualTo("shoesPictureUrl"),
                 () -> assertThat(proposal.accessory()).isEqualTo("accessoryPictureUrl"),
                 () -> assertThat(proposal.description()).isEqualTo("description")
+        );
+    }
+
+    @DisplayName("Proposal 인스턴스 프로퍼티 유효성 검증 테스트")
+    @Test
+    void validate_test() {
+        final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        final Proposal invalidProposal = Proposal.builder().build();
+
+        final Set<ConstraintViolation<Proposal>> invalidPropertiesOfValidProposal =
+                validator.validate(proposal);
+        final Set<ConstraintViolation<Proposal>> invalidPropertiesOfInvalidProposal =
+                validator.validate(invalidProposal);
+
+        assertAll(
+                () -> assertThat(invalidPropertiesOfValidProposal.size()).isEqualTo(0),
+                () -> assertThat(invalidPropertiesOfInvalidProposal.size()).isEqualTo(2)
         );
     }
 }
