@@ -105,9 +105,7 @@ const MakeSuggestion = () => {
     data.append('shoes', suggestion.shoes[1]);
     data.append('accessory', suggestion.accessory[1]);
 
-    console.log(data);
     const response = await SuggestionWriteApi(data);
-    console.log(response);
   };
 
   return (

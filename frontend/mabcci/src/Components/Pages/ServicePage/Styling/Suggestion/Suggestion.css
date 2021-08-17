@@ -28,12 +28,10 @@
   grid-template-areas:
     'top bottom'
     'shoes acc';
-  gap: 1vw;
 }
 
 .suggestion-cloth {
-  width: 200px;
-  height: 200px;
+  width: 100%;
   object-fit: contain;
 
   /* 모서리 */
@@ -110,7 +108,7 @@
 }
 
 .suggestion-comment {
-  margin-bottom: 60px;
+  margin-bottom: 50px;
 }
 
 .suggesion-footer {
