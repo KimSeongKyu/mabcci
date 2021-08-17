@@ -1,10 +1,13 @@
 package com.mabcci.domain.proposal.ui;
 
+import com.mabcci.domain.proposal.application.ProposalDeleteService;
 import com.mabcci.domain.proposal.application.ProposalFindService;
 import com.mabcci.domain.proposal.application.ProposalSaveService;
 import com.mabcci.domain.proposal.domain.ProposalFilter;
+import com.mabcci.domain.proposal.dto.response.ProposalDetailFindResponse;
 import com.mabcci.domain.proposal.dto.response.ProposalFindResponse;
 import com.mabcci.domain.proposal.dto.response.ProposalFindResponses;
+import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +25,7 @@ import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ProposalController.class)
@@ -32,6 +34,7 @@ class ProposalControllerTest {
     @Autowired private MockMvc mockMvc;
     @MockBean private ProposalSaveService proposalSaveService;
     @MockBean private ProposalFindService proposalFindService;
+    @MockBean private ProposalDeleteService proposalDeleteService;
 
     @DisplayName("ProposalController 인스턴스 제안서 저장 API 테스트")
     @Test
@@ -69,7 +72,7 @@ class ProposalControllerTest {
 
     @DisplayName("ProposalController 인스턴스 제안서 리스트 조회 API 테스트")
     @Test
-    void find_proposals_api_test() throws Exception{
+    void find_proposals_api_test() throws Exception {
         final ProposalFindResponse proposalFindResponse = new ProposalFindResponse(1L, PICTURE, NICKNAME, LocalDateTime.now());
         final ProposalFindResponses proposalFindResponses = new ProposalFindResponses(List.of(proposalFindResponse));
 
@@ -79,5 +82,30 @@ class ProposalControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    @DisplayName("ProposalController 인스턴스 제안서 상세 조회 API 테스트")
+    @Test
+    void find_proposal_api_test() throws Exception {
+        final ProposalDetailFindResponse proposalDetailFindResponse =
+                new ProposalDetailFindResponse(Nickname.of("targetMember"), Nickname.of("mabcci"), null, null, null, null, null);
+
+        doReturn(proposalDetailFindResponse).when(proposalFindService).findProposal(any());
+
+        mockMvc.perform(get("/api/proposals/{id}", 1L)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("ProposalController 인스턴스 제안서 삭제 API 테스트")
+    @Test
+    void delete_proposal_api_test() throws Exception {
+        doNothing().when(proposalDeleteService).deleteProposalById(any());
+
+        mockMvc.perform(delete("/api/proposals/{id}", 1L)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
     }
 }
