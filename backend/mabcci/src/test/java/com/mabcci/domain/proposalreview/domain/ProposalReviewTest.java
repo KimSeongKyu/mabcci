@@ -9,6 +9,7 @@ import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
@@ -81,6 +82,19 @@ class ProposalReviewTest {
         assertAll(
                 () -> assertThat(proposalReview).isNotNull(),
                 () -> assertThat(proposalReview).isExactlyInstanceOf(ProposalReview.class)
+        );
+    }
+
+    @DisplayName("ProposalReview 인스턴스 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        ReflectionTestUtils.setField(proposalReview, "id", 1L);
+
+        assertAll(
+                () -> assertThat(proposalReview.id()).isEqualTo(1L),
+                () -> assertThat(proposalReview.proposal()).isEqualTo(proposal),
+                () -> assertThat(proposalReview.starRating()).isEqualTo(StarRating.ZERO),
+                () -> assertThat(proposalReview.content()).isEqualTo("내용")
         );
     }
 }
