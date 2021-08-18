@@ -60,6 +60,9 @@ public class Member extends BaseTimeEntity {
     @JoinColumn(name = "member_specs_id")
     private MemberSpecs memberSpecs;
 
+    @Column(name = "member_is_popular_mabcci", nullable = false)
+    private Boolean isPopularMabcci;
+
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private Set<MemberCategory> memberCategories = new HashSet<>();
 
@@ -155,6 +158,7 @@ public class Member extends BaseTimeEntity {
         this.picture = memberBuilder.picture;
         this.memberRole = memberBuilder.memberRole;
         this.memberSpecs = memberBuilder.memberSpecs;
+        isPopularMabcci = false;
     }
 
     public Long id() {
@@ -185,6 +189,10 @@ public class Member extends BaseTimeEntity {
 
     public MemberSpecs memberSpecs() {
         return memberSpecs;
+    }
+
+    public Boolean isPopularMabcci() {
+        return isPopularMabcci;
     }
 
     public Set<MemberCategory> memberCategories() { return memberCategories; }

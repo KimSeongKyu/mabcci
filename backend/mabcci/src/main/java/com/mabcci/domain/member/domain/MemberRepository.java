@@ -27,4 +27,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query(value = "SELECT * FROM member m WHERE m.member_nickname LIKE %:nickname%", nativeQuery = true)
     List<Member> findByNicknameContains(@Param("nickname") String nickname);
+
+    List<Member> findByIsPopularMabcci(Boolean isPopularMabcci);
 }
