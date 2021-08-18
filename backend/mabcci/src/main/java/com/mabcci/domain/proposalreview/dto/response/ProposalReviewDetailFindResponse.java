@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mabcci.domain.proposalreview.domain.ProposalReview;
 import com.mabcci.global.common.Nickname;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.PositiveOrZero;
@@ -15,7 +15,7 @@ public final class ProposalReviewDetailFindResponse {
     @JsonProperty("memberPicture")
     private String memberPicture;
 
-    @NotEmpty @JsonProperty("nickname")
+    @Valid @NotNull @JsonProperty("nickname")
     private Nickname nickname;
 
     @PositiveOrZero @JsonProperty("starRating")

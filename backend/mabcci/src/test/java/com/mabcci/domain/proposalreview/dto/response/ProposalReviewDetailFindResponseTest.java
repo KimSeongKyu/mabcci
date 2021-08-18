@@ -12,7 +12,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
@@ -98,6 +102,25 @@ class ProposalReviewDetailFindResponseTest {
                 () -> assertThat(proposalReviewDetailFindResponse.starRating()).isEqualTo(StarRating.ZERO.ordinal()),
                 () -> assertThat(proposalReviewDetailFindResponse.content()).isEqualTo("내용"),
                 () -> assertThat(proposalReviewDetailFindResponse.createdDate()).isEqualTo(now)
+        );
+    }
+
+
+    @DisplayName("ProposalReviewDetailFindResponse 인스턴스 프로퍼티 유효성 검증 테스트")
+    @Test
+    void validate_test() {
+        final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        final ProposalReviewDetailFindResponse invalidResponse =
+                new ProposalReviewDetailFindResponse(null, null, -1, null, LocalDateTime.MAX);
+
+        final Set<ConstraintViolation<ProposalReviewDetailFindResponse>> invalidPropertiesOfValidResponse =
+                validator.validate(proposalReviewDetailFindResponse);
+        final Set<ConstraintViolation<ProposalReviewDetailFindResponse>> invalidPropertiesOfInvalidResponse =
+                validator.validate(invalidResponse);
+
+        assertAll(
+                () -> assertThat(invalidPropertiesOfValidResponse.size()).isEqualTo(0),
+                () -> assertThat(invalidPropertiesOfInvalidResponse.size()).isEqualTo(3)
         );
     }
 }
