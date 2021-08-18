@@ -226,6 +226,18 @@
   padding-left: 0px;
 }
 
+.mypage-entire-review-list {
+  display: flex;
+  padding: 5px;
+  padding-left: 0px;
+}
+
+.mypage-entire-review-list img {
+  border-radius: 50px;
+  width: 40px;
+  height: 40px;
+}
+
 .mypage-review-list div {
   width: 50%;
   text-align: start;
@@ -236,6 +248,10 @@
   fill: var(--main-color-1);
   stroke-width: 1;
   padding: 3px;
+}
+
+.mypage-review-comment {
+  width: 40%;
 }
 
 .mypage-feed-container {

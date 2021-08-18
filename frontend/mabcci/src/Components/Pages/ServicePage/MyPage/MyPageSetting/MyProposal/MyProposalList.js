@@ -4,6 +4,7 @@ import '../MySetting/MySetting.css'
 import React, {useState, useEffect} from 'react';
 import { Link, useHistory } from 'react-router-dom'
 import 기본이미지 from '../../../../../../Asset/Images/기본프로필.jpg'
+import MyProposalReviewDetail from './MyProposalReviewDetail';
 import MyProposalReview from './MyProposalReview';
 import SuggestSuggestionListApi from '../../../../../../API/SuggestionAPI/SuggestSuggestionListApi';
 import ReceiveSuggestionListApi from '../../../../../../API/SuggestionAPI/ReceiveSuggestionListApi';
@@ -40,9 +41,16 @@ const MyProposalList = props => {
 
   const [reviewBox, setReviewBox] = useState(false);
 
+  const [reviewDetailBox, setReviewDetailBox] = useState(false)
+
   const openReviewBox = (e) => {
     setNowProposalId(e.target.id);
     setReviewBox(true)
+  }
+
+  const openReviewDetail = (e) => {
+    setNowProposalId(e.target.id);
+    setReviewDetailBox(true);
   }
 
   const goProposalDetail = e => {
@@ -51,6 +59,11 @@ const MyProposalList = props => {
 
   return (
     <>
+      <MyProposalReviewDetail
+        reviewDetailBox={reviewDetailBox}
+        setReviewDetailBox={setReviewDetailBox}
+        nowProposalId={nowProposalId}
+      />
       <MyProposalReview
         reviewBox={reviewBox}
         setReviewBox={setReviewBox}
@@ -117,17 +130,51 @@ const MyProposalList = props => {
                       </div>
 
                       {receiveproposal.isReviewed == false ? (
+                        <div style={{ display: 'flex' }}>
+                          <button
+                            type="submit"
+                            style={{ width: '5rem', height: '2rem' }}
+                            id={receiveproposal.id}
+                            onClick={goProposalDetail}
+                          >
+                            Open
+                          </button>
+                          <button
+                            type="submit"
+                            style={{
+                              width: '5rem',
+                              height: '2rem',
+                              backgroundColor: 'lightblue',
+                            }}
+                            onClick={openReviewBox}
+                            id={receiveproposal.id}
+                          >
+                            리뷰작성
+                          </button>
+                        </div>
+                      ) : (
+                        <div style={{ display: 'flex' }}>
+                          <button
+                            type="submit"
+                            style={{ width: '5rem', height: '2rem' }}
+                            id={receiveproposal.id}
+                            onClick={goProposalDetail}
+                          >
+                            Open
+                          </button>
                         <button
                           type="submit"
-                          onClick={openReviewBox}
+                          style={{
+                            width: '5rem',
+                            height: '2rem',
+                            backgroundColor: 'lightgreen',
+                          }}
                           id={receiveproposal.id}
+                          onClick={openReviewDetail}
                         >
-                          Review
+                          리뷰보기
                         </button>
-                      ) : (
-                        <button type="submit">
-                          Open
-                        </button>
+                        </div>
                       )}
                     </div>
                   );

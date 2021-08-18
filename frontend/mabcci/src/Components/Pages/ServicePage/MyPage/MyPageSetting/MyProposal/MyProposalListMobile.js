@@ -8,9 +8,12 @@ import { baseUrl } from '../../../../../../API/ApiUrl'
 import MyPageProposalReview from './MyProposalReview';
 import SuggestSuggestionListApi from '../../../../../../API/SuggestionAPI/SuggestSuggestionListApi'
 import ReceiveSuggestionListApi from '../../../../../../API/SuggestionAPI/ReceiveSuggestionListApi';
+import MyProposalReviewDetail from './MyProposalReviewDetail';
+
 
 const MyPageProposalListMobile = props => {
   const [reviewBox, setReviewBox] = useState(false);
+  const [reviewDetailBox, setReviewDetailBox] = useState(false);
   const history = useHistory();
 
   const [suggestList, setSuggestList] = useState();
@@ -45,12 +48,22 @@ const MyPageProposalListMobile = props => {
     setReviewBox(true);
   };
 
+    const openReviewDetail = (e) => {
+      setNowProposalId(e.target.id);
+      setReviewDetailBox(true);
+    };
+
   const goProposalDetail = (id) => {
     history.push(`/suggestion/${id}`)
   }
 
   return (
     <>
+      <MyProposalReviewDetail
+        reviewDetailBox={reviewDetailBox}
+        setReviewDetailBox={setReviewDetailBox}
+        nowProposalId={nowProposalId}
+      />
       <MyPageProposalReview
         reviewBox={reviewBox}
         setReviewBox={setReviewBox}
@@ -124,7 +137,13 @@ const MyPageProposalListMobile = props => {
                         Review
                       </button>
                     ) : (
-                      <button type="submit">Open</button>
+                      <button
+                        type="submit"
+                        id={receiveproposal.id}
+                        onClick={openReviewDetail}
+                      >
+                        Open
+                      </button>
                     )}
                   </div>
                 );

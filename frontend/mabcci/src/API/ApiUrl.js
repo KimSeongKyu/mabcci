@@ -41,3 +41,7 @@ export const ReceivedSuggestionListUrl =
 
 /* Review Url */
 export const ReviewWriteUrl = '/api/proposals/reviews';
+export const ReviewListReadUrl = '/api/proposals/reviews?nickname=';
+export const ReviewEntireListReadUrl =
+  '/api/proposals/reviews/details?nickname=';
+export const ReviewDetailUrl = '/api/proposals/';
