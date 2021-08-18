@@ -22,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        List<String> folders = Arrays.asList("/profile/", "/ootd/", "/board/");
+        List<String> folders = Arrays.asList("/profile/", "/ootd/", "/proposal/");
         folders.stream()
                 .forEach(folder -> registry.addResourceHandler(uploadPath + folder + "**")
                         .addResourceLocations(resourcePath + folder)
