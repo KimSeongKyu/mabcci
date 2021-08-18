@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.util.List;
@@ -153,11 +154,12 @@ class ProposalReviewRepositoryTest {
         testEntityManager.persist(secondProposal);
         testEntityManager.persist(thirdProposal);
         testEntityManager.persist(fourthProposal);
+        testEntityManager.persist(proposalReview);
         testEntityManager.persist(secondProposalReview);
         testEntityManager.persist(thirdProposalReview);
         testEntityManager.persist(fourthProposalReview);
 
-        final List<ProposalReview> proposalReviews = proposalReviewRepository.findLatelyThreeByNickname(mabcci.nickname());
+        final List<ProposalReview> proposalReviews = proposalReviewRepository.findLatelyThreeByNickname(mabcci.nickname(), PageRequest.of(0, 3));
 
         assertAll(
                 () -> assertThat(proposalReviews.size()).isEqualTo(3),
