@@ -55,6 +55,8 @@ const MyProposalList = props => {
         reviewBox={reviewBox}
         setReviewBox={setReviewBox}
         nowProposalId={nowProposalId}
+        receiveList={receiveList}
+        setReceiveList={setReceiveList}
       />
       <div>
         {props.proposalBox === true ? (
@@ -94,7 +96,7 @@ const MyProposalList = props => {
             ) : null}
             {nowProposalPage === 'receive' ? (
               <div>
-                {receiveList.map(receiveproposal => {
+                {receiveList.map((receiveproposal, idx) => {
                   return (
                     <div
                       className="mypage-modal-box-content"
@@ -114,7 +116,7 @@ const MyProposalList = props => {
                         <p>{receiveproposal.createdDate.slice(0, 10)}</p>
                       </div>
 
-                      {receiveproposal.isReviewed == true ? (
+                      {receiveproposal.isReviewed == false ? (
                         <button
                           type="submit"
                           onClick={openReviewBox}
@@ -123,7 +125,7 @@ const MyProposalList = props => {
                           Review
                         </button>
                       ) : (
-                        <button type="submit" onClick={openReviewBox}>
+                        <button type="submit">
                           Open
                         </button>
                       )}

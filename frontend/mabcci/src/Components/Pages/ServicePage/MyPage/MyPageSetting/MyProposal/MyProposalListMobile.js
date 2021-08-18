@@ -13,6 +13,9 @@ const MyPageProposalListMobile = props => {
   const [reviewBox, setReviewBox] = useState(false);
   const history = useHistory();
 
+  const [suggestList, setSuggestList] = useState();
+  const [receiveList, setReceiveList] = useState();
+
   useEffect(async () => {
     const suggestRes = await SuggestSuggestionListApi(props.myInfo.nickname);
     setSuggestList(suggestRes);
@@ -21,6 +24,7 @@ const MyPageProposalListMobile = props => {
   }, [props.myInfo.nickname]);
 
   const [nowProposalPage, setNowProposalPage] = useState('receive');
+  const [nowProposalId, setNowProposalId] = useState();
 
   const seeSuggestList = () => {
     setNowProposalPage('suggest');
@@ -30,16 +34,14 @@ const MyPageProposalListMobile = props => {
     setNowProposalPage('receive');
   };
 
-  const [suggestList, setSuggestList] = useState();
-  const [receiveList, setReceiveList] = useState();
-
   const goBack = () => {
     props.setProposalBox(false)
     props.setMobileMenu(true)
     props.setMyPageUpdate('update')
   };  
 
-  const goReview = () => {
+  const openReviewBox = e => {
+    setNowProposalId(e.target.id);
     setReviewBox(true);
   };
 
@@ -49,7 +51,13 @@ const MyPageProposalListMobile = props => {
 
   return (
     <>
-      <MyPageProposalReview reviewBox={reviewBox} setReviewBox={setReviewBox} />
+      <MyPageProposalReview
+        reviewBox={reviewBox}
+        setReviewBox={setReviewBox}
+        nowProposalId={nowProposalId}
+        receiveList={receiveList}
+        setReceiveList={setReceiveList}
+      />
       {props.proposalBox === true ? (
         <div className="mypage-moblie-container" />
       ) : null}
@@ -107,9 +115,17 @@ const MyPageProposalListMobile = props => {
                       <p>{receiveproposal.createdDate.slice(0, 10)}</p>
                     </div>
 
-                    <button type="submit" onClick={goReview}>
-                      Review
-                    </button>
+                    {receiveproposal.isReviewed == false ? (
+                      <button
+                        type="submit"
+                        onClick={openReviewBox}
+                        id={receiveproposal.id}
+                      >
+                        Review
+                      </button>
+                    ) : (
+                      <button type="submit">Open</button>
+                    )}
                   </div>
                 );
               })}
