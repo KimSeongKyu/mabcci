@@ -6,11 +6,13 @@ import com.mabcci.domain.member.domain.MemberRole;
 import com.mabcci.domain.proposal.domain.Proposal;
 import com.mabcci.global.common.Email;
 import com.mabcci.global.common.Nickname;
+import com.mabcci.global.common.Phone;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
@@ -27,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class ProposalReviewRepositoryTest {
 
     @Autowired private ProposalReviewRepository proposalReviewRepository;
+    @Autowired private TestEntityManager testEntityManager;
 
     private ProposalReview proposalReview;
     private Proposal proposal;
@@ -49,7 +52,7 @@ class ProposalReviewRepositoryTest {
                 .email(Email.of("mabcci@example.com"))
                 .password(PASSWORD)
                 .nickname(Nickname.of("mabcci"))
-                .phone(PHONE)
+                .phone(Phone.of("010-2345-6789"))
                 .gender(Gender.MAN)
                 .description(DESCRIPTION)
                 .picture(PICTURE)
@@ -69,6 +72,9 @@ class ProposalReviewRepositoryTest {
                 .starRating(StarRating.ZERO)
                 .content("내용")
                 .build();
+        testEntityManager.persist(targetMember);
+        testEntityManager.persist(mabcci);
+        testEntityManager.persist(proposal);
     }
 
     @DisplayName("ProposalReviewRepository 구현체 존재 여부 테스트")
@@ -83,8 +89,17 @@ class ProposalReviewRepositoryTest {
     @DisplayName("ProposalReviewRepository 제안서 리뷰 저장 테스트")
     @Test
     void save_test() {
-        final ProposalReview savedReview = proposalReviewRepository.save(proposalReview);
+        final ProposalReview savedProposalReview = proposalReviewRepository.save(proposalReview);
 
-        assertThat(savedReview.id()).isEqualTo(proposalReview.id());
+        assertThat(savedProposalReview.id()).isEqualTo(proposalReview.id());
+    }
+
+    @DisplayName("ProposalReviewRepository 제안서 id에 해당하는 제안서 리뷰 조회 테스트")
+    @Test
+    void find_by_proposal_id_test() {
+        testEntityManager.persist(proposalReview);
+        final ProposalReview foundProposalReview = proposalReviewRepository.findByProposalId(proposal.id()).get();
+
+        assertThat(foundProposalReview.id()).isEqualTo(proposalReview.id());
     }
 }
