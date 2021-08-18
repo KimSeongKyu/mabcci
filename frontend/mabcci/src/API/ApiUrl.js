@@ -38,3 +38,6 @@ export const SuggestSuggestionListUrl =
   '/api/proposals?filter=suggested&nickname=';
 export const ReceivedSuggestionListUrl =
   '/api/proposals?filter=received&nickname=';
+
+/* Review Url */
+export const ReviewWriteUrl = '/api/proposals/reviews';

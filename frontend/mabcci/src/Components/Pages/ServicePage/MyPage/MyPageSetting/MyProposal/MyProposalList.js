@@ -28,6 +28,8 @@ const MyProposalList = props => {
 
   const [nowProposalPage, setNowProposalPage] = useState('receive');
 
+  const [nowProposalId, setNowProposalId] = useState();
+
   const seeSuggestList = () => {
     setNowProposalPage('suggest')
   }
@@ -38,7 +40,8 @@ const MyProposalList = props => {
 
   const [reviewBox, setReviewBox] = useState(false);
 
-  const openReviewBox = () => {
+  const openReviewBox = (e) => {
+    setNowProposalId(e.target.id);
     setReviewBox(true)
   }
 
@@ -48,107 +51,122 @@ const MyProposalList = props => {
 
   return (
     <>
-      <MyProposalReview reviewBox={reviewBox} setReviewBox={setReviewBox} />
-      {props.proposalBox === true ? (
-        <div className="mypage-modal-container" />
-      ) : null}
-      {props.proposalBox === true ? (
-        <div className="mypage-modal-box">
-          <div className="mypage-modal-box-header">
-            <h5>Proposal List</h5>
-            <button
-              type="submit"
-              className="mypage-modal-box-btn"
-              onClick={closeProposalBox}
-            >
-              X
-            </button>
-          </div>
-          {props.myInfo.role == 'MABCCI' ? (
-            <div className="mypage-proposal-header">
-              <h5
-                style={
-                  nowProposalPage == 'receive' ? { color: '#f9a77c' } : null
-                }
-                onClick={seeReceiveList}
+      <MyProposalReview
+        reviewBox={reviewBox}
+        setReviewBox={setReviewBox}
+        nowProposalId={nowProposalId}
+      />
+      <div>
+        {props.proposalBox === true ? (
+          <div className="mypage-modal-container" />
+        ) : null}
+        {props.proposalBox === true ? (
+          <div className="mypage-modal-box">
+            <div className="mypage-modal-box-header">
+              <h5>Proposal List</h5>
+              <button
+                type="submit"
+                className="mypage-modal-box-btn"
+                onClick={closeProposalBox}
               >
-                receive
-              </h5>
-              <h5
-                style={
-                  nowProposalPage == 'suggest' ? { color: '#f9a77c' } : null
-                }
-                onClick={seeSuggestList}
-              >
-                suggest
-              </h5>
+                X
+              </button>
             </div>
-          ) : null}
-          {nowProposalPage == 'receive' ? (
-            <div>
-              {receiveList.map(receiveproposal => {
-                return (
-                  <div
-                    className="mypage-modal-box-content"
-                    key={receiveproposal.id}
-                  >
-                    <img
-                      src={
-                        receiveproposal.picture == null
-                          ? 기본이미지
-                          : baseUrl + receiveproposal.picture
-                      }
-                      alt="하이"
-                    />
-                    <div className="mypage-proposal-box-info">
-                      <h5>To {props.myInfo.nickname}</h5>
-                      <p>Mabcci {receiveproposal.nickname}</p>
-                      <p>{receiveproposal.createdDate.slice(0, 10)}</p>
-                    </div>
-                  
-                    <button type="submit" onClick={openReviewBox}>
-                      Review
-                    </button>
-
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div>
-              {suggestList.map(suggestproposal => {
-                return (
-                  <div
-                    className="mypage-modal-box-content"
-                    key={suggestproposal.id}
-                  >
-                    <img
-                      src={
-                        suggestproposal.picture == null
-                          ? 기본이미지
-                          : baseUrl + suggestproposal.picture
-                      }
-                      alt="하이"
-                    />
-                    <div className="mypage-proposal-box-info">
-                      <h5>To {suggestproposal.nickname}</h5>
-                      <p>Mabcci {props.myInfo.nickname}</p>
-                      <p>{suggestproposal.createdDate.slice(0, 10)}</p>
-                    </div>
-                    <button
-                      type="submit"
-                      id={suggestproposal.id}
-                      onClick={goProposalDetail}
+            {props.myInfo.role == 'MABCCI' ? (
+              <div className="mypage-proposal-header">
+                <h5
+                  style={
+                    nowProposalPage == 'receive' ? { color: '#f9a77c' } : null
+                  }
+                  onClick={seeReceiveList}
+                >
+                  receive
+                </h5>
+                <h5
+                  style={
+                    nowProposalPage == 'suggest' ? { color: '#f9a77c' } : null
+                  }
+                  onClick={seeSuggestList}
+                >
+                  suggest
+                </h5>
+              </div>
+            ) : null}
+            {nowProposalPage === 'receive' ? (
+              <div>
+                {receiveList.map(receiveproposal => {
+                  return (
+                    <div
+                      className="mypage-modal-box-content"
+                      key={receiveproposal.id}
                     >
-                      Open
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      ) : null}
+                      <img
+                        src={
+                          receiveproposal.picture == null
+                            ? 기본이미지
+                            : baseUrl + receiveproposal.picture
+                        }
+                        alt="하이"
+                      />
+                      <div className="mypage-proposal-box-info">
+                        <h5>To {props.myInfo.nickname}</h5>
+                        <p>Mabcci {receiveproposal.nickname}</p>
+                        <p>{receiveproposal.createdDate.slice(0, 10)}</p>
+                      </div>
+
+                      {receiveproposal.isReviewed == true ? (
+                        <button
+                          type="submit"
+                          onClick={openReviewBox}
+                          id={receiveproposal.id}
+                        >
+                          Review
+                        </button>
+                      ) : (
+                        <button type="submit" onClick={openReviewBox}>
+                          Open
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div>
+                {suggestList.map(suggestproposal => {
+                  return (
+                    <div
+                      className="mypage-modal-box-content"
+                      key={suggestproposal.id}
+                    >
+                      <img
+                        src={
+                          suggestproposal.picture == null
+                            ? 기본이미지
+                            : baseUrl + suggestproposal.picture
+                        }
+                        alt="하이"
+                      />
+                      <div className="mypage-proposal-box-info">
+                        <h5>To {suggestproposal.nickname}</h5>
+                        <p>Mabcci {props.myInfo.nickname}</p>
+                        <p>{suggestproposal.createdDate.slice(0, 10)}</p>
+                      </div>
+                      <button
+                        type="submit"
+                        id={suggestproposal.id}
+                        onClick={goProposalDetail}
+                      >
+                        Open
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        ) : null}
+      </div>
     </>
   );
 };

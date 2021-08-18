@@ -5,13 +5,15 @@ import '../MySetting/MySetting.css';
 import './MyProposal.css';
 import {IoMdArrowBack} from 'react-icons/io';
 import { useState } from 'react';
+import ReviewWriteApi from '../../../../../../API/ReviewAPI/ReviewWriteApi';
 
-const MyProposalReview = props => {
+const MyProposalReview = (props) => {
 
   const [review, setReview] = useState({
     content: '',
-    star: 0,
-  })
+    starRating: '',
+    id: 0,
+  });
 
   const writeReivew = (e) => {
     setReview({
@@ -27,12 +29,18 @@ const MyProposalReview = props => {
   const clickStar = (e) => {
     setReview({
       ...review,
-      star: e.target.value,
-    })
+      starRating: e.target.value,
+    });
   }
 
-  const submitReview = () => {
-    console.log(review)
+  const submitReview = async () => {
+    const data = {
+      id: props.nowProposalId,
+      starRating: review.starRating,
+      content: review.content
+    };
+    // const res = await ReviewWriteApi(review);
+    console.log(data);
   }
 
   return (
