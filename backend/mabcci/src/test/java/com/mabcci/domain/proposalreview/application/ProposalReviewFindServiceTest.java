@@ -8,6 +8,7 @@ import com.mabcci.domain.proposalreview.domain.ProposalReview;
 import com.mabcci.domain.proposalreview.domain.ProposalReviewRepository;
 import com.mabcci.domain.proposalreview.domain.StarRating;
 import com.mabcci.domain.proposalreview.dto.response.ProposalReviewFindResponse;
+import com.mabcci.domain.proposalreview.dto.response.ProposalReviewFindResponses;
 import com.mabcci.global.common.Email;
 import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +19,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
@@ -94,5 +96,19 @@ class ProposalReviewFindServiceTest {
                 () -> assertThat(proposalReviewFindResponse.starRating()).isEqualTo(proposalReview.starRating().ordinal()),
                 () -> assertThat(proposalReviewFindResponse.content()).isEqualTo(proposalReview.content())
         );
+    }
+
+    @DisplayName("ProposalReviewFindService 인스턴스 맵씨 닉네임에 해당하는 최근 제안서 리뷰 3개 조회 테스트")
+    @Test
+    void find_lately_three_proposal_reviews_by_nickname_test() {
+        doReturn(List.of(proposalReview)).when(proposalReviewRepository).findLatelyThreeByNickname(any(), any());
+
+        final ProposalReviewFindResponses proposalReviewFindResponses =
+                proposalReviewFindService.findLatelyThreeProposalReviewsByNickname(proposal.mabcci().nickname());
+
+        verify(proposalReviewRepository, times(1)).findLatelyThreeByNickname(any(), any());
+
+        assertThat(proposalReviewFindResponses.proposalReviews())
+                .contains(ProposalReviewFindResponse.ofProposalReview(proposalReview));
     }
 }
