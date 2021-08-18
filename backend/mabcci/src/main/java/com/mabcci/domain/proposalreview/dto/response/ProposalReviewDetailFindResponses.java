@@ -13,4 +13,8 @@ public final class ProposalReviewDetailFindResponses {
     public ProposalReviewDetailFindResponses(final List<ProposalReviewDetailFindResponse> proposalReviewDetailFindResponses) {
         this.proposalReviewDetailFindResponses = proposalReviewDetailFindResponses;
     }
+
+    public final List<ProposalReviewDetailFindResponse> proposalReviews() {
+        return proposalReviewDetailFindResponses;
+    }
 }
