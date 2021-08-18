@@ -6,6 +6,7 @@ import com.mabcci.domain.proposalreview.application.ProposalReviewSaveService;
 import com.mabcci.domain.proposalreview.domain.StarRating;
 import com.mabcci.domain.proposalreview.dto.request.ProposalReviewSaveRequest;
 import com.mabcci.domain.proposalreview.dto.response.ProposalReviewFindResponse;
+import com.mabcci.domain.proposalreview.dto.response.ProposalReviewFindResponses;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Collections;
+
+import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -51,6 +55,19 @@ class ProposalReviewControllerTest {
         doReturn(proposalReviewFindResponse).when(proposalReviewFindService).findProposalReviewByProposalId(any());
 
         mockMvc.perform(get("/api/proposals/{id}/reviews/details", 1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("ProposalReviewController 인스턴스 맵씨 닉네임에 해당하는 제안서 리뷰 최근 3개 조회 API 테스트")
+    @Test
+    void find_lately_three_proposal_reviews_api_test() throws Exception {
+        final ProposalReviewFindResponses proposalReviewFindResponses = new ProposalReviewFindResponses(Collections.emptyList());
+
+        doReturn(proposalReviewFindResponses).when(proposalReviewFindService).findLatelyThreeProposalReviewsByNickname(any());
+
+        mockMvc.perform(get("/api/proposals/reviews?nickname={nickname}", NICKNAME)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
