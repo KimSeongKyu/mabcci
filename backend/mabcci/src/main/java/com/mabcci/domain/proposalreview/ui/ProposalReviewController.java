@@ -20,7 +20,7 @@ public class ProposalReviewController {
         this.proposalReviewSaveService = proposalReviewSaveService;
     }
 
-    @PostMapping("/api/proposal-reviews")
+    @PostMapping("/api/proposals/reviews")
     public ResponseEntity saveProposalReview(@Valid @RequestBody final ProposalReviewSaveRequest proposalReviewSaveRequest) {
         proposalReviewSaveService.saveProposalReview(proposalReviewSaveRequest);
         return ResponseEntity.noContent().build();
