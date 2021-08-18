@@ -44,4 +44,24 @@ public final class ProposalReviewDetailFindResponse {
         this.content = content;
         this.createdDate = createdDate;
     }
+
+    public final String memberPicture() {
+        return memberPicture;
+    }
+
+    public final Nickname nickname() {
+        return nickname;
+    }
+
+    public final int starRating() {
+        return starRating;
+    }
+
+    public final String content() {
+        return content;
+    }
+
+    public final LocalDateTime createdDate() {
+        return createdDate;
+    }
 }
