@@ -105,10 +105,14 @@ class ProposalReviewFindServiceTest {
 
         final ProposalReviewFindResponses proposalReviewFindResponses =
                 proposalReviewFindService.findLatelyThreeProposalReviewsByNickname(proposal.mabcci().nickname());
-
         verify(proposalReviewRepository, times(1)).findLatelyThreeByNickname(any(), any());
 
-        assertThat(proposalReviewFindResponses.proposalReviews())
-                .contains(ProposalReviewFindResponse.ofProposalReview(proposalReview));
+        final ProposalReviewFindResponse proposalReviewFindResponse =
+                proposalReviewFindResponses.proposalReviews().get(0);
+
+        assertAll(
+                () -> assertThat(proposalReviewFindResponse.starRating()).isEqualTo(proposalReview.starRating().ordinal()),
+                () -> assertThat(proposalReviewFindResponse.content()).isEqualTo(proposalReview.content())
+        );
     }
 }
