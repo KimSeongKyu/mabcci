@@ -15,6 +15,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import java.util.List;
+
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
 import static com.mabcci.global.common.EmailTest.EMAIL;
@@ -101,5 +103,65 @@ class ProposalReviewRepositoryTest {
         final ProposalReview foundProposalReview = proposalReviewRepository.findByProposalId(proposal.id()).get();
 
         assertThat(foundProposalReview.id()).isEqualTo(proposalReview.id());
+    }
+
+    @DisplayName("ProposalReviewRepository 맵씨 닉네임에 해당하는 제안서 리뷰 최근 3개 조회 테스트")
+    @Test
+    void find_lately_three_by_nickname_test() {
+        final Proposal secondProposal = Proposal.builder()
+                        .targetMember(targetMember)
+                        .mabcci(mabcci)
+                        .top("topPictureUrl")
+                        .bottom("bottomPictureUrl")
+                        .shoes("shoesPictureUrl")
+                        .accessory("accessoryPictureUrl")
+                        .description("description")
+                        .build();
+        final Proposal thirdProposal = Proposal.builder()
+                .targetMember(targetMember)
+                .mabcci(mabcci)
+                .top("topPictureUrl")
+                .bottom("bottomPictureUrl")
+                .shoes("shoesPictureUrl")
+                .accessory("accessoryPictureUrl")
+                .description("description")
+                .build();
+        final Proposal fourthProposal = Proposal.builder()
+                .targetMember(targetMember)
+                .mabcci(mabcci)
+                .top("topPictureUrl")
+                .bottom("bottomPictureUrl")
+                .shoes("shoesPictureUrl")
+                .accessory("accessoryPictureUrl")
+                .description("description")
+                .build();
+        final ProposalReview secondProposalReview = ProposalReview.builder()
+                .proposal(secondProposal)
+                .starRating(StarRating.ZERO)
+                .content("내용")
+                .build();
+        final ProposalReview thirdProposalReview = ProposalReview.builder()
+                .proposal(thirdProposal)
+                .starRating(StarRating.ZERO)
+                .content("내용")
+                .build();
+        final ProposalReview fourthProposalReview = ProposalReview.builder()
+                .proposal(fourthProposal)
+                .starRating(StarRating.ZERO)
+                .content("내용")
+                .build();
+        testEntityManager.persist(secondProposal);
+        testEntityManager.persist(thirdProposal);
+        testEntityManager.persist(fourthProposal);
+        testEntityManager.persist(secondProposalReview);
+        testEntityManager.persist(thirdProposalReview);
+        testEntityManager.persist(fourthProposalReview);
+
+        final List<ProposalReview> proposalReviews = proposalReviewRepository.findLatelyThreeByNickname(mabcci.nickname());
+
+        assertAll(
+                () -> assertThat(proposalReviews.size()).isEqualTo(3),
+                () -> assertThat(proposalReviews).containsAll(List.of(secondProposalReview, thirdProposalReview, fourthProposalReview))
+        );
     }
 }
