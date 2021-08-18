@@ -21,7 +21,8 @@ public interface OotdRepository extends JpaRepository<Ootd, Long> {
             "JOIN o.ootdPictures p " +
             "LEFT OUTER JOIN o.ootdHashtags o_h " +
             "LEFT OUTER JOIN o_h.hashtag h " +
-            "WHERE f.follower = :member",
+            "WHERE f.follower = :member " +
+            "ORDER BY o.id DESC",
             countQuery = "SELECT count(o) " +
                     "FROM Ootd o " +
                     "JOIN o.member m " +
@@ -30,7 +31,8 @@ public interface OotdRepository extends JpaRepository<Ootd, Long> {
                     "JOIN o.ootdPictures p " +
                     "LEFT OUTER JOIN o.ootdHashtags o_h " +
                     "LEFT OUTER JOIN o_h.hashtag h " +
-                    "WHERE f.follower = :member")
+                    "WHERE f.follower = :member " +
+                    "ORDER BY o.id DESC")
     Page<Ootd> findOotdsOfFollowing(@Param("member") Member member, Pageable pageable);
 
     @Query(value = "SELECT DISTINCT o " +
@@ -39,7 +41,8 @@ public interface OotdRepository extends JpaRepository<Ootd, Long> {
             "LEFT OUTER JOIN o.ootdLikes o_l " +
             "JOIN o.ootdPictures p " +
             "LEFT OUTER JOIN o.ootdHashtags o_h " +
-            "LEFT OUTER JOIN o_h.hashtag h",
+            "LEFT OUTER JOIN o_h.hashtag h " +
+            "ORDER BY o.id DESC",
             countQuery = "SELECT count(o) " +
                     "FROM Ootd o " +
                     "JOIN o.member m " +
@@ -63,13 +66,15 @@ public interface OotdRepository extends JpaRepository<Ootd, Long> {
             "FROM Ootd o " +
             "JOIN o.ootdHashtags o_h " +
             "JOIN o_h.hashtag h " +
-            "WHERE h.name = :hashtagName")
+            "WHERE h.name = :hashtagName " +
+            "ORDER BY o.id DESC")
     Page<Ootd> findOotdsByHashtagName(@Param("hashtagName") String hashtagName, Pageable pageable);
 
     @Query(value = "SELECT DISTINCT o " +
             "FROM Ootd o " +
             "JOIN FETCH o.member m " +
-            "WHERE m.nickname = :nickname",
+            "WHERE m.nickname = :nickname " +
+            "ORDER BY o.id DESC",
             countQuery = "SELECT count(o) " +
                     "FROM Ootd o " +
                     "JOIN o.member m " +

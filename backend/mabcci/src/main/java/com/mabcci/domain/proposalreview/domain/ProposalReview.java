@@ -15,7 +15,7 @@ public class ProposalReview extends BaseTimeEntity {
 
     @NotNull
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "proposal_review_proposal_id", nullable = false, updatable = false)
+    @JoinColumn(name = "proposal_review_proposal_id", unique = true, nullable = false, updatable = false)
     private Proposal proposal;
 
     @NotNull

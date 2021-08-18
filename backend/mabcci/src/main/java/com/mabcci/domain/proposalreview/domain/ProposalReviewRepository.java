@@ -30,4 +30,13 @@ public interface ProposalReviewRepository extends JpaRepository<ProposalReview, 
             "WHERE m.nickname = :mabcciNickname " +
             "ORDER BY p_r.id DESC")
     List<ProposalReview> findLatelyThreeByNickname(@Param("mabcciNickname") Nickname mabcciNickname, Pageable pageable);
+
+
+    @Query("SELECT p_r " +
+            "FROM ProposalReview p_r " +
+            "JOIN FETCH p_r.proposal p " +
+            "JOIN FETCH p.mabcci m " +
+            "WHERE m.nickname = :mabcciNickname " +
+            "ORDER BY p_r.id DESC")
+    List<ProposalReview> findAllByMabcciNickname(@Param("mabcciNickname") Nickname mabcciNickname);
 }

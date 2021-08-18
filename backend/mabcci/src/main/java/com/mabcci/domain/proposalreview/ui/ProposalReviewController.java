@@ -37,4 +37,9 @@ public class ProposalReviewController {
     public ResponseEntity findLatelyThreeProposalReviews(@Valid @RequestParam("nickname") final Nickname nickname) {
         return ResponseEntity.ok(proposalReviewFindService.findLatelyThreeProposalReviewsByNickname(nickname));
     }
+
+    @GetMapping("/api/proposals/reviews/details")
+    public ResponseEntity findProposalReviewDetails(@Valid @RequestParam("nickname") final Nickname nickname) {
+        return ResponseEntity.ok(proposalReviewFindService.findProposalReviewsByMabcciNickname(nickname));
+    }
 }

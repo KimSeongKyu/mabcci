@@ -12,6 +12,7 @@ public interface OotdCommentRepository extends JpaRepository<OotdComment, Long> 
             "FROM OotdComment o_c " +
             "JOIN FETCH o_c.ootd o " +
             "JOIN FETCH o_c.member m " +
-            "WHERE o.id = :id")
+            "WHERE o.id = :id " +
+            "ORDER BY o_c.id DESC")
     List<OotdComment> findAllByOotdId(@Param("id") Long id);
 }

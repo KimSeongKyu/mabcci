@@ -5,6 +5,7 @@ import com.mabcci.domain.proposalreview.application.ProposalReviewFindService;
 import com.mabcci.domain.proposalreview.application.ProposalReviewSaveService;
 import com.mabcci.domain.proposalreview.domain.StarRating;
 import com.mabcci.domain.proposalreview.dto.request.ProposalReviewSaveRequest;
+import com.mabcci.domain.proposalreview.dto.response.ProposalReviewDetailFindResponses;
 import com.mabcci.domain.proposalreview.dto.response.ProposalReviewFindResponse;
 import com.mabcci.domain.proposalreview.dto.response.ProposalReviewFindResponses;
 import org.junit.jupiter.api.DisplayName;
@@ -19,8 +20,7 @@ import java.util.Collections;
 
 import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -68,6 +68,19 @@ class ProposalReviewControllerTest {
         doReturn(proposalReviewFindResponses).when(proposalReviewFindService).findLatelyThreeProposalReviewsByNickname(any());
 
         mockMvc.perform(get("/api/proposals/reviews?nickname={nickname}", NICKNAME)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("ProposalReviewController 인스턴스 맵씨 닉네임에 해당하는 제안서 리스트의 리뷰 상세 조회 API 테스트")
+    @Test
+    void find_proposal_review_details_api_test() throws Exception {
+        final ProposalReviewDetailFindResponses proposalReviewDetailFindResponses = new ProposalReviewDetailFindResponses(Collections.emptyList());
+
+        doReturn(proposalReviewDetailFindResponses).when(proposalReviewFindService).findProposalReviewsByMabcciNickname(any());
+
+        mockMvc.perform(get("/api/proposals/reviews/details?nickname={nickname}", NICKNAME)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
