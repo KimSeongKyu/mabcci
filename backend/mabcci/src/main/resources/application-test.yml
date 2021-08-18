@@ -4,6 +4,7 @@ spring:
     url: jdbc:mysql://localhost/mabcci_test
     username: root
     password: root
+    schema: classpath:/org/springframework/batch/core/schema-mysql.sql
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
