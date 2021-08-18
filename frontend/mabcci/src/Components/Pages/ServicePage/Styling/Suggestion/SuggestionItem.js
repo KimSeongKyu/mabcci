@@ -9,30 +9,34 @@ import acc from './Images/tmpAcc.png';
 
 const SuggestionItem = () => {
   const suggestion = useSelector(state => state.SuggestionReducer);
-  console.log(suggestion);
+  console.log(suggestion.top);
   return (
-    <article className="suggestion-item">
-      <img
-        src={suggestion.top ? baseUrl + suggestion.top : top}
-        alt="상의"
-        className="suggestion-cloth suggestion-top"
-      />
-      <img
-        src={suggestion.bottom ? baseUrl + suggestion.bottom : bottom}
-        alt="하의"
-        className="suggestion-cloth suggestion-bottom"
-      />
-      <img
-        src={suggestion.shoes ? baseUrl + suggestion.shoes : shoes}
-        alt="신발"
-        className="suggestion-cloth suggestion-shoes"
-      />
-      <img
-        src={suggestion.acc ? baseUrl + suggestion.acc : acc}
-        alt="액세서리"
-        className="suggestion-cloth suggestion-acc"
-      />
-    </article>
+    <div>
+      {suggestion ? (
+        <article className="suggestion-item">
+          <img
+            src={suggestion.top ? baseUrl + suggestion.top : top}
+            alt="상의"
+            className="suggestion-cloth suggestion-top"
+          />
+          <img
+            src={suggestion.bottom ? baseUrl + suggestion.bottom : bottom}
+            alt="하의"
+            className="suggestion-cloth suggestion-bottom"
+          />
+          <img
+            src={suggestion.shoes ? baseUrl + suggestion.shoes : shoes}
+            alt="신발"
+            className="suggestion-cloth suggestion-shoes"
+          />
+          <img
+            src={suggestion.acc ? baseUrl + suggestion.acc : acc}
+            alt="액세서리"
+            className="suggestion-cloth suggestion-acc"
+          />
+        </article>
+      ) : null}
+    </div>
   );
 };
 
