@@ -83,7 +83,7 @@
 }
 
 .card .nickname {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   margin-bottom: 10px;
 }
 
@@ -102,6 +102,37 @@
 .my-masonry-grid_column {
   padding-left: 30px;
   background-clip: padding-box;
+}
+
+.result {
+  padding: 10px;
+}
+
+.result button {
+  width: 100%;
+  text-align: start;
+}
+
+.result button:hover {
+  background-color: var(--main-color-3);
+}
+
+.result-hashtag {
+  padding: 5px 0;
+}
+
+.result-member {
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+}
+
+.result-member > img {
+  width: 40px;
+  height: 40px;
+  margin-right: 15px;
+  border-radius: 50%;
+  border: solid 2px var(--main-color-1);
 }
 
 @media screen and (min-width: 576px) {
