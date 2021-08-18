@@ -66,7 +66,7 @@ function App() {
         <Route exact path="/OOTDUpdate/:id/:nickname" component={OOTDUpdate} />
         <Route exact path="/chat" component={MabcciChat} />
         <Route exact path="/makeSuggestion" component={MakeSuggestion} />
-        <Route exact path="/Suggestion" component={Suggestion} />
+        <Route exact path="/suggestion/:id" component={Suggestion} />
       </Switch>
     </div>
   );
