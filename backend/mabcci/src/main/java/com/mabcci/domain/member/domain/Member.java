@@ -227,6 +227,11 @@ public class Member extends BaseTimeEntity {
         updateMemberSpecs(memberSpecs.update(height, weight, footSize, bodyType));
     }
 
+    public Member updateToPopularMabcci(final Boolean isPopularMabcci) {
+        this.isPopularMabcci = isPopularMabcci;
+        return this;
+    }
+
     public void updateMemberSpecs(final MemberSpecs memberSpecs) {
         this.memberSpecs = memberSpecs;
     }
