@@ -44,11 +44,11 @@ public class MemberJoinRequestTest {
         final MemberJoinRequest memberJoinRequest = new MemberJoinRequest(EMAIL, PASSWORD, NICKNAME, PHONE, MAN, categories);
 
         assertAll(
-                () -> assertThat(memberJoinRequest.getEmail()).isEqualTo(EMAIL),
-                () -> assertThat(memberJoinRequest.getPassword()).isEqualTo(PASSWORD),
-                () -> assertThat(memberJoinRequest.getNickname()).isEqualTo(NICKNAME),
-                () -> assertThat(memberJoinRequest.getPhone()).isEqualTo(PHONE),
-                () -> assertThat(memberJoinRequest.getGender()).isEqualTo(MAN)
+                () -> assertThat(memberJoinRequest.email()).isEqualTo(EMAIL),
+                () -> assertThat(memberJoinRequest.password()).isEqualTo(PASSWORD),
+                () -> assertThat(memberJoinRequest.nickname()).isEqualTo(NICKNAME),
+                () -> assertThat(memberJoinRequest.phone()).isEqualTo(PHONE),
+                () -> assertThat(memberJoinRequest.gender()).isEqualTo(MAN)
         );
 
     }

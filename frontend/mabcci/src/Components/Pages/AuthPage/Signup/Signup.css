@@ -37,6 +37,45 @@
   margin-bottom: 49%;
 }
 
+.signup-warnning-nickname {
+  color: red;
+  font-size: small;
+  position: absolute;
+  margin-left: 10%;
+  margin-bottom: 23%;
+}
+
+.signup-nickname-check-box {
+  display: flex;
+}
+
+#signup-nickname-input {
+  width: 83%;
+}
+
+.signup-nickname-check-box button {
+  padding: 2px;
+  font-size: x-small;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  background-color: antiquewhite;
+  border-radius: 10px;
+}
+
+#signup-nickname-check-btn {
+  background-color: var(--main-color-1);
+}
+
+.signup-nickname-check-box button:hover {
+  background-color: var(--main-color-1);
+}
+
+.signup-nickname-check-box button:active {
+  padding-left: 3px;
+  padding-top: 3px;
+  box-shadow: none;
+}
+
 .signup-warnning-phone {
   color: red;
   font-size: small;
@@ -206,7 +245,6 @@
 @media screen and (max-width: 576px) {
   .signup-input-list {
     width: 350px;
-    margin: auto;
     margin-bottom: 40px;
   }
   .signup-warnning-password-length {
@@ -214,5 +252,12 @@
   }
   .signup-warnning-password {
     margin-top: 80%;
+  }
+  .signup-warnning-email {
+    margin-bottom: 55%;
+  }
+  .signup-warnning-nickname {
+    margin-left: 7%;
+    margin-bottom: 25%;
   }
 }

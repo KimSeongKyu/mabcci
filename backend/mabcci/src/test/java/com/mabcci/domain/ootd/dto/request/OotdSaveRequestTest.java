@@ -34,12 +34,12 @@ public class OotdSaveRequestTest {
     @Test
     void getter_test() {
         assertAll(
-                () -> assertThat(ootdSaveRequest.getNickname()).isEqualTo("닉네임"),
-                () -> assertThat(ootdSaveRequest.getContent()).isEqualTo("내용"),
-                () -> assertThat(ootdSaveRequest.getTop()).isEqualTo("상의"),
-                () -> assertThat(ootdSaveRequest.getBottom()).isEqualTo("하의"),
-                () -> assertThat(ootdSaveRequest.getShoes()).isEqualTo("신발"),
-                () -> assertThat(ootdSaveRequest.getAccessory()).isEqualTo("악세사리")
+                () -> assertThat(ootdSaveRequest.nickname()).isEqualTo("닉네임"),
+                () -> assertThat(ootdSaveRequest.content()).isEqualTo("내용"),
+                () -> assertThat(ootdSaveRequest.top()).isEqualTo("상의"),
+                () -> assertThat(ootdSaveRequest.bottom()).isEqualTo("하의"),
+                () -> assertThat(ootdSaveRequest.shoes()).isEqualTo("신발"),
+                () -> assertThat(ootdSaveRequest.accessory()).isEqualTo("악세사리")
         );
     }
 

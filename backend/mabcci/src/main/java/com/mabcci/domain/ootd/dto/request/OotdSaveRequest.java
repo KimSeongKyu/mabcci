@@ -1,16 +1,27 @@
 package com.mabcci.domain.ootd.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotNull;
 
 public final class OotdSaveRequest {
 
-    @NotNull
+    @NotNull @JsonProperty("nickname")
     private String nickname;
 
+    @JsonProperty("content")
     private String content;
+
+    @JsonProperty("top")
     private String top;
+
+    @JsonProperty("bottom")
     private String bottom;
+
+    @JsonProperty("shoes")
     private String shoes;
+
+    @JsonProperty("accessory")
     private String accessory;
 
     private OotdSaveRequest() {
@@ -26,27 +37,27 @@ public final class OotdSaveRequest {
         this.accessory = accessory;
     }
 
-    public final String getNickname() {
+    public final String nickname() {
         return nickname;
     }
 
-    public final String getContent() {
+    public final String content() {
         return content;
     }
 
-    public final String getTop() {
+    public final String top() {
         return top;
     }
 
-    public final String getBottom() {
+    public final String bottom() {
         return bottom;
     }
 
-    public final String getShoes() {
+    public final String shoes() {
         return shoes;
     }
 
-    public final String getAccessory() {
+    public final String accessory() {
         return accessory;
     }
 }

@@ -6,7 +6,7 @@ import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.domain.MemberRole;
-import com.mabcci.domain.member.dto.response.MemberByNickNameResponse;
+import com.mabcci.domain.member.dto.response.MemberFindByNickNameResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -64,13 +64,13 @@ class MemberJoinServiceTest {
         given(categoryRepository.findByCategoryName(any())).willReturn(Optional.ofNullable(category));
         final Set<String> categoryNames = new HashSet<>(Arrays.asList("category"));
         final Member findMember = memberJoinService.join(member, categoryNames);
-        final MemberByNickNameResponse memberByNickNameResponse = new MemberByNickNameResponse(findMember);
+        final MemberFindByNickNameResponse memberFindByNickNameResponse = MemberFindByNickNameResponse.ofMember(findMember);
 
         assertAll(
-                () -> assertThat(memberByNickNameResponse.getEmail()).isEqualTo(member.email()),
-                () -> assertThat(memberByNickNameResponse.getNickname()).isEqualTo(member.nickname()),
-                () -> assertThat(memberByNickNameResponse.getGender()).isEqualTo(member.gender()),
-                () -> assertThat(memberByNickNameResponse.getRole()).isEqualTo(member.memberRole())
+                () -> assertThat(memberFindByNickNameResponse.email()).isEqualTo(member.email()),
+                () -> assertThat(memberFindByNickNameResponse.nickname()).isEqualTo(member.nickname()),
+                () -> assertThat(memberFindByNickNameResponse.gender()).isEqualTo(member.gender()),
+                () -> assertThat(memberFindByNickNameResponse.role()).isEqualTo(member.memberRole())
         );
     }
 

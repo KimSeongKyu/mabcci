@@ -4,7 +4,8 @@ public enum PictureType {
 
     PROFILE("profile"),
     OOTD("ootd"),
-    BOARD("board");
+    BOARD("board"),
+    PROPOSAL("proposal");
 
     private final String type;
 

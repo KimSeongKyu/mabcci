@@ -18,13 +18,16 @@ import OOTDDetail from './Components/Pages/ServicePage/OOTD/OOTDDetail/OOTDDetai
 import OOTDWrite from './Components/Pages/ServicePage/OOTD/OOTDWrite/OOTDWrite';
 import StylingMain from './Components/Pages/ServicePage/Styling/StylingMain/StylingMain';
 import OOTDUpdate from './Components/Pages/ServicePage/OOTD/OOTDWrite/OOTDUpdate';
-
+import MakeSuggestion from './Components/Pages/ServicePage/Styling/MakeSuggestion/MakeSuggestion';
+import Suggestion from './Components/Pages/ServicePage/Styling/Suggestion/Suggestion';
 // Pages - AuthPage
 import Login from './Components/Pages/AuthPage/Login/Login';
 import Signup from './Components/Pages/AuthPage/Signup/Signup';
 // Pages - InitialPage
 import Description from './Components/Pages/InitialPage/Description/Description';
 import Intro from './Components/Pages/InitialPage/Intro/Intro';
+// Pages - MabcciChat
+import MabcciChat from './Components/Pages/ServicePage/Styling/MabcciChat/MabcciChat';
 
 import { PrivateRoute, PublicRoute } from './CustomRouter';
 
@@ -55,12 +58,15 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/community" component={CommunityMain} />
-        <Route exact path="/mypage/:nickname" component={MyPageMain} />
+        <Route exact path="/mypage/:nickname" render={() => <MyPageMain />} />
         <Route exact path="/OOTD" component={OOTDMain} />
         <Route exact path="/OOTDWrite" component={OOTDWrite} />
         <Route exact path="/OOTD/:id/:nickname" component={OOTDDetail} />
         <Route exact path="/styling" component={StylingMain} />
         <Route exact path="/OOTDUpdate/:id/:nickname" component={OOTDUpdate} />
+        <Route exact path="/chat" component={MabcciChat} />
+        <Route exact path="/makeSuggestion" component={MakeSuggestion} />
+        <Route exact path="/suggestion/:id" component={Suggestion} />
       </Switch>
     </div>
   );

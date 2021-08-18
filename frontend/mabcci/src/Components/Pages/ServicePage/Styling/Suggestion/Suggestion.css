@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@900&display=swap');
+
+.suggestion-container {
+  margin-bottom: 100px !important;
+}
+
+.suggesion-header {
+  margin-top: 50px;
+  margin-bottom: 80px;
+}
+
+.suggesion-mabcci > h2 {
+  font-family: 'Noto Sans KR', sans-serif;
+  color: rgb(85, 85, 85);
+}
+
+.suggesion-mabcci > h4 {
+  font-family: 'Noto Sans KR', sans-serif;
+  color: var(--main-color-1);
+}
+
+.suggestion-item {
+  margin-left: 15%;
+  margin-bottom: 40px;
+  display: grid;
+  grid-template-rows: [row-first] 40% [row-second] 40%;
+  grid-template-columns: [col-first] 40% [col-second] 40%;
+  grid-template-areas:
+    'top bottom'
+    'shoes acc';
+  gap: 10px;
+}
+
+.suggestion-cloth {
+  width: 100%;
+  object-fit: contain;
+  align-self: stretch;
+
+  /* 모서리 */
+  border-radius: 20px;
+  border: 0.2rem solid #fff;
+  padding: 0.4em;
+  box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 0.5rem var(--main-color-1),
+    0 0 0.3rem var(--main-color-2), 0 0 0.3rem var(--main-color-2),
+    inset 0 0 0.5rem var(--main-color-3);
+}
+
+.suggestion-top {
+  /* Grid */
+  grid-area: top;
+  animation: slide-tl 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation-delay: 0s;
+}
+
+.suggestion-bottom {
+  /* Grid */
+  grid-area: bottom;
+  animation: slide-tr 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation-delay: 0.5s;
+}
+
+.suggestion-shoes {
+  /* Grid */
+  grid-area: shoes;
+  animation: slide-bl 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation-delay: 1s;
+}
+
+.suggestion-acc {
+  /* Grid */
+  grid-area: acc;
+  animation: slide-br 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation-delay: 1.5s;
+}
+
+@keyframes slide-tl {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  100% {
+    transform: translateY(-10%) translateX(-10%);
+  }
+}
+
+@keyframes slide-tr {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  100% {
+    transform: translateY(-10%) translateX(10%);
+  }
+}
+
+@keyframes slide-bl {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  100% {
+    transform: translateY(10%) translateX(-10%);
+  }
+}
+
+@keyframes slide-br {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  100% {
+    transform: translateY(10%) translateX(10%);
+  }
+}
+
+.suggestion-comment {
+  margin-left: 15%;
+  margin-bottom: 40px;
+}
+
+.suggesion-footer {
+  margin-bottom: 50px;
+}
+
+.suggesion-user > h2 {
+  font-family: 'Noto Sans KR', sans-serif;
+  color: rgb(85, 85, 85);
+  text-align: right;
+}
+
+.suggesion-user > h4 {
+  font-family: 'Noto Sans KR', sans-serif;
+  color: var(--main-color-1);
+  text-align: right;
+}
+
+@media screen and (min-width: 576px) {
+  .suggestion-container {
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-top: 30px !important;
+    height: fit-content;
+    box-shadow: 2px 1px 10px 1px rgba(0, 0, 0, 0.1);
+  }
+}

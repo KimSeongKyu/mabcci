@@ -25,7 +25,6 @@
 .mypage-profile-box {
   width: 80%;
   margin: auto;
-  margin-top: 50px;
   text-align: center;
   display: flex;
   justify-content: space-between;
@@ -36,14 +35,26 @@
   transition: all 1s;
   transform-style: preserve-3d;
   margin-left: 10%;
+  background-color: white;
+  width: 150px;
+  height: 150px;
 }
-
-/* .mypage-profile-inner:hover {
-  transform: rotateY(180deg);
-} */
 
 .mypage-profile-inner-active {
   transform: rotateY(180deg);
+  cursor: pointer;
+  width: 150px;
+  height: 150px;
+}
+
+.mypage-picture-btn-box {
+  margin-top: 25px;
+  margin-left: 27%;
+  width: 50px;
+}
+
+.mypage-picture-btn {
+  cursor: pointer;
 }
 
 .mypage-profile-box img {
@@ -53,6 +64,8 @@
   height: 150px;
   backface-visibility: hidden;
   cursor: pointer;
+  border: solid 0.1px var(--main-color-1);
+  padding: 2px;
 }
 
 .mypage-profile-bodyinfo {
@@ -67,6 +80,7 @@
   text-align: center;
   display: flex;
   cursor: pointer;
+  background-color: white;
 }
 
 .mypage-profile-bodyinfo img {
@@ -74,6 +88,16 @@
   height: 70%;
   margin: auto;
   margin-right: 0;
+  border: none;
+}
+
+.mypage-profile-bodysize-secret {
+  color: antiquewhite;
+}
+
+.mypage-profile-bodysize-noimage {
+  margin-top: 40%;
+  margin-left: 4%;
 }
 
 .mypage-profile-bodysize {
@@ -101,12 +125,22 @@
   background-color: white;
 }
 
+.mypage-info-box button:active {
+  padding-left: 3px;
+  padding-top: 3px;
+  box-shadow: none;
+}
+
 .mypage-introduce-box {
   width: 80%;
   margin: auto;
   margin-top: 30px;
-  margin-left: 15%;
   text-align: start;
+}
+
+.mypage-introduce-box-null {
+  color: lightgrey;
+  margin: auto;
 }
 
 #mypage-web-nickname {
@@ -121,8 +155,40 @@
   font-size: x-large;
 }
 
+#mypage-web-nickname svg:active {
+  padding-left: 3px;
+  padding-top: 3px;
+  box-shadow: none;
+}
+
 #mypage-mobile-category {
   margin-top: 10px;
+  margin-bottom: 0px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: center;
+}
+
+#mypage-follow-btn {
+  margin-left: 20px;
+  color: var(--main-color-3);
+  background-color: skyblue;
+  padding: 3px;
+  border-radius: 10px;
+}
+
+#mypage-mabcci-styling-btn {
+  margin-left: 20px;
+  color: var(--main-color-3);
+  background-color: var(--main-color-1);
+  padding: 3px;
+  border-radius: 10px;
+}
+
+#mypage-follow-btn:active {
+  padding-left: 3px;
+  padding-top: 3px;
+  box-shadow: none;
 }
 
 .mypage-introduce-box p {
@@ -168,7 +234,7 @@
 
 .mypage-feed-overlay {
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
   width: 100%;
   height: 100%;
   border-radius: 10px;
@@ -193,6 +259,10 @@
   opacity: 1;
 }
 
+#mypage-mobile-nickname {
+  margin-bottom: 0px;
+}
+
 @media screen and (min-width: 576px) {
   #mypage-mobile-nickname {
     display: none;
@@ -202,31 +272,29 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .mypage-picture-btn-box {
+    margin-left: 28%;
+  }
+}
+
 @media screen and (max-width: 576px) {
   .mypage-profile-box {
     flex-direction: column;
     margin-bottom: 0;
-    margin-top: 0;
+  }
+
+  .mypage-profile-inner {
+    margin: auto;
+  }
+
+  .mypage-picture-btn-box {
+    margin-left: 48%;
   }
 
   .mypage-profile-box div {
     margin-bottom: 20px;
     justify-content: space-evenly;
-  }
-
-  .mypage-profile-box img {
-    width: 35%;
-    margin-bottom: 0;
-  }
-
-  .mypage-profile-inner {
-    margin-left: 0;
-  }
-
-  .mypage-profile-bodyinfo {
-    width: 35%;
-    height: 100%;
-    margin-left: 32.5%;
   }
 
   .mypage-profile-bodyinfo img {
@@ -243,12 +311,12 @@
     display: none;
   }
 
-  #mypage-mobile-category {
-    margin-bottom: 0px;
-  }
-
   #mypage-web-nickname {
     display: none;
+  }
+
+  #mypage-mobile-category h5 {
+    margin-bottom: 10px;
   }
 
   .mypage-feed {
@@ -256,12 +324,12 @@
   }
 
   .mypage-feed img {
-    height: 200px;
+    height: 190px;
   }
 
   .mypage-feed-container {
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 40px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 100px;
   }
 }

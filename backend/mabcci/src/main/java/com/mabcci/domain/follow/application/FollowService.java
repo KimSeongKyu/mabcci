@@ -2,13 +2,15 @@ package com.mabcci.domain.follow.application;
 
 import com.mabcci.domain.follow.domain.Follow;
 import com.mabcci.domain.follow.domain.FollowRepository;
+import com.mabcci.domain.follow.dto.FollowResponse;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.global.common.Nickname;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FollowService {
@@ -23,7 +25,7 @@ public class FollowService {
     }
 
     @Transactional
-    public Long save(final Nickname followingNickname, final Nickname followerNickname) {
+    public Long follow(final Nickname followingNickname, final Nickname followerNickname) {
         final Member following = findMemberByNickName(followingNickname);
         final Member follower = findMemberByNickName(followerNickname);
         final Follow follow = follow(following, follower);
@@ -37,19 +39,9 @@ public class FollowService {
                 .build();
     }
 
-    private Member findMemberByNickName(@Valid final Nickname nickname) {
+    private Member findMemberByNickName(final Nickname nickname) {
         return memberRepository.findByNickName(nickname)
                 .orElseThrow(IllegalArgumentException::new);
-    }
-
-    @Transactional
-    public void cancel(final Long followId) {
-        final Follow follow = findFollowById(followId);
-        followRepository.delete(follow);
-    }
-
-    private Follow findFollowById(Long followId) {
-        return followRepository.findById(followId).orElseThrow(IllegalArgumentException::new);
     }
 
 }

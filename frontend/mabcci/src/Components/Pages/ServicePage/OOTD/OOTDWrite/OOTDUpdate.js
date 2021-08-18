@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
-
+import { useLocation, useParams, useHistory } from 'react-router-dom';
 import './OOTDWrite.css';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,66 +11,33 @@ import 'swiper/components/pagination/pagination.min.css';
 
 import SwiperCore, { Zoom, Navigation, Pagination } from 'swiper/core';
 
-import { GrGallery } from 'react-icons/gr';
 import { IoShirt } from 'react-icons/io5';
 import { GiArmoredPants, GiConverseShoe } from 'react-icons/gi';
 import { FaShoppingBag } from 'react-icons/fa';
 
 import OOTDUpdateApi from '../../../../../API/OOTDAPI/OOTDUpdateApi';
-
-import InputTags from './InputTags';
+import { baseUrl } from '../../../../../API/ApiUrl';
 
 SwiperCore.use([Zoom, Navigation, Pagination]);
 
 function OOTDUpdate() {
+  const history = useHistory();
   const location = useLocation();
-
+  const { id, nickname } = useParams();
   const [myOOTDInfo, setMyOOTDInfo] = useState({
-    id: '',
-    top: '',
-    bottom: '',
-    shoes: '',
-    accessory: '',
-    content: '',
+    id,
+    top: null,
+    bottom: null,
+    shoes: null,
+    accessory: null,
+    content: null,
     picture: [],
     hashTag: [],
   });
 
   useEffect(async () => {
-    await setMyOOTDInfo({ ...myOOTDInfo, ...location.state.info });
+    await setMyOOTDInfo(location.state.info);
   }, []);
-
-  const addImage = e => {
-    const nowSelectImageList = e.target.files;
-    const nowImageURLList = [...myOOTDInfo.picture];
-
-    for (let i = 0; i < nowSelectImageList.length; i += 1) {
-      const nowImageUrl = URL.createObjectURL(nowSelectImageList[i]);
-      nowImageURLList.push(nowImageUrl);
-    }
-    setMyOOTDInfo({
-      ...myOOTDInfo,
-      picture: nowImageURLList,
-    });
-    e.target.value = '';
-  };
-
-  const removeImage = e => {
-    const nowIdx = e.target.value;
-    const copyMyImage = [...myOOTDInfo.picture];
-    copyMyImage.splice(nowIdx, 1);
-    setMyOOTDInfo({
-      ...myOOTDInfo,
-      picture: copyMyImage,
-    });
-  };
-
-  const getTags = tag => {
-    setMyOOTDInfo({
-      ...myOOTDInfo,
-      hashTag: tag,
-    });
-  };
 
   const addOOTDInfo = e => {
     const { name, value } = e.target;
@@ -82,13 +48,16 @@ function OOTDUpdate() {
   };
 
   const submitOOTD = async () => {
-    console.log(myOOTDInfo);
-    const res = await OOTDUpdateApi(myOOTDInfo);
-    if (res.status === 200) {
-      console.log('mock연동 성공');
-      console.log(res.info);
-    } else {
-      console.log('mock연동 실패');
+    const myUpdateInfo = {
+      top: myOOTDInfo.top,
+      bottom: myOOTDInfo.bottom,
+      shoes: myOOTDInfo.shoes,
+      accessory: myOOTDInfo.accessory,
+      content: myOOTDInfo.content,
+    };
+    const res = await OOTDUpdateApi(myOOTDInfo.id, myUpdateInfo);
+    if (res.status === 204) {
+      window.location.replace(`/OOTD/${id}/${nickname}`);
     }
   };
 
@@ -116,37 +85,12 @@ function OOTDUpdate() {
             return (
               <SwiperSlide key={image}>
                 <div className="swiper-zoom-container">
-                  <img src={image} alt="사진을 추가해주세요" />
-                  <button
-                    type="submit"
-                    onClick={removeImage}
-                    value={i}
-                    className="btn-util OOTDWrite-btn-remove"
-                  >
-                    X
-                  </button>
+                  <img src={baseUrl + image} alt="사진을 추가해주세요" />
                 </div>
               </SwiperSlide>
             );
           })}
         </Swiper>
-      </div>
-      <div>
-        <label
-          htmlFor="input-file"
-          className="OOTDWrite-input-file"
-          onChange={addImage}
-        >
-          <GrGallery />
-          Add your photo
-          <input
-            type="file"
-            multiple="multiple"
-            id="input-file"
-            style={{ display: 'none' }}
-            accept=".jpg,.jpeg,.png"
-          />
-        </label>
       </div>
 
       <div className="OOTDWrite-input-box">
@@ -194,19 +138,6 @@ function OOTDUpdate() {
             value={myOOTDInfo.accessory}
           />
         </div>
-      </div>
-      <div className="OOTDWrite-input-box">
-        <p>Tag</p>
-        <InputTags
-          onTag={getTags}
-          tagColor="#48c774"
-          placeHolder="Press enter"
-          className="OOTDWrite-hashtag-input"
-          hashTag={myOOTDInfo}
-        />
-        {myOOTDInfo.hashTag.length >= 20 ? (
-          <p id="OOTDWrite-warnning-tag">태그는 20개까지 작성가능합니다</p>
-        ) : null}
       </div>
       <div className="OOTDWrite-input-box">
         <p>Content</p>

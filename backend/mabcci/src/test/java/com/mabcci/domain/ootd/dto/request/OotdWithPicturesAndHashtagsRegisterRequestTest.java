@@ -42,14 +42,14 @@ class OotdWithPicturesAndHashtagsRegisterRequestTest {
     @Test
     void getter_test() {
         assertAll(
-                () -> assertThat(request.getNickname()).isEqualTo(NICKNAME),
-                () -> assertThat(request.getContent()).isEqualTo("내용"),
-                () -> assertThat(request.getTop()).isEqualTo("상의"),
-                () -> assertThat(request.getBottom()).isEqualTo("하의"),
-                () -> assertThat(request.getShoes()).isEqualTo("신발"),
-                () -> assertThat(request.getAccessory()).isEqualTo("악세사리"),
-                () -> assertThat(request.getPictures()).isEqualTo(PICTURE_FILES),
-                () -> assertThat(request.getHashtags()).isEqualTo(new ArrayList<>(List.of("해시태그1", "해시태그2"))
+                () -> assertThat(request.nickname()).isEqualTo(NICKNAME),
+                () -> assertThat(request.content()).isEqualTo("내용"),
+                () -> assertThat(request.top()).isEqualTo("상의"),
+                () -> assertThat(request.bottom()).isEqualTo("하의"),
+                () -> assertThat(request.shoes()).isEqualTo("신발"),
+                () -> assertThat(request.accessory()).isEqualTo("악세사리"),
+                () -> assertThat(request.pictures()).isEqualTo(PICTURE_FILES),
+                () -> assertThat(request.hashtags()).isEqualTo(new ArrayList<>(List.of("해시태그1", "해시태그2"))
                 ));
     }
 

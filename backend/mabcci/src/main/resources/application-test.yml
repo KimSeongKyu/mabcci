@@ -10,10 +10,12 @@ spring:
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
-      hibernate.enable_lazy_load_no_trans: true
-      hibernate.format_sql: true
+      hibernate:
+        default_batch_fetch_size: 1000
+        enable_lazy_load_no_trans: true
+        format_sql: true
 path:
   upload: "/images"
   resource: "file:///C:/mabcci/images/test"

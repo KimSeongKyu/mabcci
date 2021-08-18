@@ -20,7 +20,7 @@ class JwtTokenTypeTest {
                 ));
     }
 
-    @DisplayName("JwtTokenType 인스턴스 만료 시간 반환 기능 테스트")
+    @DisplayName("JwtTokenType 인스턴스 만료 시간 반환 테스트")
     @Test
     void expiration_time_test() {
         final Long accessTokenExpirationTime = 1000 * 60 * 30L;

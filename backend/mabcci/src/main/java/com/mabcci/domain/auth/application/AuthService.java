@@ -13,6 +13,7 @@ import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.exception.MemberNotFoundException;
 import com.mabcci.global.common.Email;
+import com.mabcci.global.common.Password;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,28 +32,45 @@ public class AuthService {
     }
 
     @Transactional
-    public void logout(final LogoutRequest logoutRequest) {
-        final Email email = logoutRequest.getEmail();
-        final RefreshToken refreshToken = refreshTokenRepository.findById(email)
-                .orElseThrow(() -> new NotLoginMemberException(email));
-
-        refreshTokenRepository.delete(refreshToken);
-    }
-
-    @Transactional
     public LoginResponse login(final LoginRequest loginRequest) {
-        final Email email = loginRequest.getEmail();
-        final Member member = memberRepository.findByEmailAndPassword(email, loginRequest.getPassword())
-                .orElseThrow(MemberNotFoundException::new);
-
+        final Email email = loginRequest.email();
+        final Member member = getMemberByEmailAndPassword(email, loginRequest.password());
         final JwtToken accessToken = jwtUtil.createToken(JwtTokenType.ACCESS_TOKEN, member);
         final JwtToken refreshToken = jwtUtil.createToken(JwtTokenType.REFRESH_TOKEN, member);
 
-        refreshTokenRepository.save(RefreshToken.builder()
-                .email(email)
-                .refreshToken(refreshToken)
-                .build());
+        saveRefreshToken(email, refreshToken);
 
         return new LoginResponse(accessToken, refreshToken);
+    }
+
+    @Transactional
+    public void logout(final LogoutRequest logoutRequest) {
+        final Email email = logoutRequest.email();
+        deleteRefreshToken(getRefreshTokenByEmail(email));
+    }
+
+    private Member getMemberByEmailAndPassword(final Email email, final Password password) {
+        return memberRepository.findByEmailAndPassword(email, password)
+                .orElseThrow(MemberNotFoundException::new);
+    }
+
+    private void saveRefreshToken(final Email email, final JwtToken refreshToken) {
+        refreshTokenRepository.save(buildRefreshToken(email, refreshToken));
+    }
+
+    private RefreshToken buildRefreshToken(final Email email, final JwtToken refreshToken) {
+        return RefreshToken.builder()
+                .email(email)
+                .refreshToken(refreshToken)
+                .build();
+    }
+
+    private RefreshToken getRefreshTokenByEmail(final Email email) {
+        return refreshTokenRepository.findById(email)
+                .orElseThrow(() -> new NotLoginMemberException(email));
+    }
+
+    private void deleteRefreshToken(final RefreshToken refreshToken) {
+        refreshTokenRepository.delete(refreshToken);
     }
 }

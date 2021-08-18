@@ -39,17 +39,6 @@ class AuthControllerTest {
     @Autowired private ObjectMapper objectMapper;
     @MockBean private AuthService authService;
 
-    static Stream<Arguments> provide_email_and_passwords_for_validate_login_request_test() {
-        return Stream.of(
-                Arguments.of(EMAIL, null),
-                Arguments.of(EMAIL, ""),
-                Arguments.of(null, PASSWORD),
-                Arguments.of("", PASSWORD),
-                Arguments.of("notEmailFormat", PASSWORD)
-
-        );
-    }
-
     @DisplayName(value = "AuthController 인스턴스 로그인 API 테스트")
     @Test
     void login_test() throws Exception {
@@ -69,11 +58,10 @@ class AuthControllerTest {
                 .andExpect(jsonPath("$.refreshToken").value(refreshToken.jwtToken()));
     }
 
-    @DisplayName("AuthController 인스턴스 LoginRequest 유효성 검증 테스트")
-    @ParameterizedTest(name = "{index}. email: {0} | password: {1}")
-    @MethodSource("provide_email_and_passwords_for_validate_login_request_test")
-    void validate_login_request_test(final Email email, final Password password) throws Exception {
-        final LoginRequest loginRequest = new LoginRequest(email, password);
+    @DisplayName("AuthController 인스턴스 로그인 API 실패 테스트")
+    @Test
+    void validate_login_request_test() throws Exception {
+        final LoginRequest loginRequest = new LoginRequest(null, null);
 
         mockMvc.perform(post("/auth/login")
                 .content(objectMapper.writeValueAsString(loginRequest))
@@ -85,25 +73,22 @@ class AuthControllerTest {
     @DisplayName("AuthController 인스턴스 로그아웃 API 테스트")
     @Test
     void logout_test() throws Exception {
-        final String logoutRequestString = objectMapper.writeValueAsString(new LogoutRequest(EMAIL));
         doNothing().when(authService).logout(any());
 
         mockMvc.perform(post("/auth/logout")
-                .content(logoutRequestString)
+                .content(objectMapper.writeValueAsString(new LogoutRequest(EMAIL)))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
     }
 
-    @DisplayName("AuthController 인스턴스 LogoutRequest 유효성 검증 테스트")
+    @DisplayName("AuthController 인스턴스 로그아웃 API 실패 테스트")
     @ParameterizedTest(name = "{index}. email: {0}")
     @ValueSource(strings = {"notEmailFormat"})
     @NullAndEmptySource
     void validate_logout_request_test(final String email) throws Exception {
-        final String logoutRequestDtoString = objectMapper.writeValueAsString(new LogoutRequest(Email.of(email)));
-
         mockMvc.perform(post("/auth/logout")
-                .content(logoutRequestDtoString)
+                .content(objectMapper.writeValueAsString(new LogoutRequest(Email.of(email))))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());

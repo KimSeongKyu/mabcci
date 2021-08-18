@@ -42,6 +42,11 @@ public class PictureUtil {
         return new Picture(mapDirectoryNameToUrl(directoryName), fileName);
     }
 
+    public void deletePicture(final Picture picture) {
+        final String path = mapUrlToDirectoryName(picture.path());
+        new File(path).delete();
+    }
+
     public String makeDirectory(final PictureType pictureType) {
         final String directoryName = makeDirectoryName(pictureType);
         final File file = new File(directoryName);
@@ -74,10 +79,5 @@ public class PictureUtil {
             return PNG_FILE_EXTENSION;
         }
         return JPG_FILE_EXTENSION;
-    }
-
-    public void deletePicture(final Picture picture) {
-        final String path = mapUrlToDirectoryName(picture.path());
-        new File(path).delete();
     }
 }

@@ -1,0 +1,125 @@
+.mypage-proposal-box-info {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 300px;
+  margin-left: 10px;
+}
+
+.mypage-proposal-box-info p {
+  font-size: xx-small;
+}
+
+.mypage-proposal-box-info h5 {
+  font-size: medium;
+  font-weight: 500;
+}
+
+.mypage-review-box {
+  z-index: 5;
+  text-align: center;
+  width: 400px;
+  height: 300px;
+  background-color: white;
+  margin-left: 50%;
+  position: absolute;
+  transform: translate(-50%);
+  transform-origin: left;
+  margin-top: 100px;
+  border: solid 1px lightgray;
+  overflow-y: auto;
+  overflow-x: hidden;
+  animation-name: appear;
+  animation-duration: 1s;
+}
+
+.mypage-modal-box-btn {
+  padding: 0px 10px 0px 10px;
+  font-weight: 600;
+  font-size: large;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.mypage-modal-box-btn svg {
+  margin-bottom: 3px;
+}
+
+.mypage-review-content {
+  margin: 10px;
+  height: 200px;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-color: var(--main-color-2);
+}
+
+.mypage-review-content textarea {
+  border: none;
+  overflow-y: auto;
+  background-color: #faf9f8;
+}
+
+.mypage-review-content-mobile {
+  text-align: center;
+}
+
+.mypage-review-content-mobile textarea {
+  width: 80%;
+}
+
+.mypage-review-btn {
+  margin-left: 50%;
+  transform: translate(-50%);
+}
+
+#mypage-review-box-head {
+  margin-left: 0%;
+  margin-right: 35%;
+  transform: translate(-50%);
+}
+
+.mypage-review-star-box {
+  display: flex;
+  justify-content: center;
+}
+
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 2em;
+  justify-content: space-around;
+  padding: 0 0.2em;
+  text-align: center;
+  width: 4em;
+}
+
+.star-rating input {
+  display: none;
+}
+
+.star-rating label {
+  color: #ccc;
+  cursor: pointer;
+}
+
+.star-rating :checked ~ label {
+  color: var(--main-color-1);
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #fc0;
+}
+
+.mypage-mobile-proposal {
+  z-index: 4;
+}
+
+@media screen and (max-width: 576px) {
+  .mypage-review-box {
+    position: fixed;
+  }
+  .mypage-modal-box {
+    display: none;
+  }
+}

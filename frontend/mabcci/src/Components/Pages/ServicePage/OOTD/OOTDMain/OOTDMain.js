@@ -1,31 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEFfect, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import NavCategory from '../../../../../Redux/Actions/NavAction';
 import OOTDFeed from './OOTDFeed';
 import OOTDHeader from './OOTDHeader';
 import './OOTD.css';
 
 function OOTDMain() {
-  const [filter, setFilter] = useState('All');
   const [filtering, setFiltering] = useState(false);
   const [searching, setSearching] = useState(false);
-  const [page, setPage] = useState(1);
+  const [keyword, setKeyword] = useState('');
+  const [searchResult, setSearchResult] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
+  const [page, setPage] = useState(0);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(NavCategory('OOTD'));
+  }, []);
   return (
     <div className="container">
       <OOTDHeader
-        filter={filter}
         searching={searching}
-        setFilter={setFilter}
         setPage={setPage}
         setFiltering={setFiltering}
         setSearching={setSearching}
+        setKeyword={setKeyword}
+        setSearchResult={setSearchResult}
+        setSearchInput={setSearchInput}
       />
       <OOTDFeed
-        filter={filter}
         filtering={filtering}
         searching={searching}
         page={page}
+        keyword={keyword}
+        searchResult={searchResult}
+        searchInput={searchInput}
         setPage={setPage}
         setFiltering={setFiltering}
+        setKeyword={setKeyword}
+        setSearching={setSearching}
+        setSearchResult={setSearchResult}
+        setSearchInput={setSearchInput}
       />
     </div>
   );

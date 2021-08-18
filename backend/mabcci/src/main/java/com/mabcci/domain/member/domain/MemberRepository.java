@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -18,9 +19,12 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByNickName(@Param("nickname") Nickname nickname);
 
     @Query("select m from Member m where m.memberRole = :memberRole")
-    List<Member> findByMemberRole(@Param("memberRole")MemberRole memberRole);
+    List<Member> findAllByMemberRole(@Param("memberRole")MemberRole memberRole);
 
     Optional<Member> findByNicknameAndPassword(Nickname nickname, Password password);
 
     Optional<Member> findByEmailAndPassword(Email email, Password password);
+
+    @Query(value = "SELECT * FROM member m WHERE m.member_nickname LIKE %:nickname%", nativeQuery = true)
+    List<Member> findByNicknameContains(@Param("nickname") String nickname);
 }

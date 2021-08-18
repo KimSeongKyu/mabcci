@@ -1,6 +1,9 @@
 package com.mabcci.domain.ootd.ui;
 
-import com.mabcci.domain.ootd.application.OotdService;
+import com.mabcci.domain.ootd.application.OotdDeleteService;
+import com.mabcci.domain.ootd.application.OotdFindService;
+import com.mabcci.domain.ootd.application.OotdSaveService;
+import com.mabcci.domain.ootd.application.OotdUpdateService;
 import com.mabcci.domain.ootd.domain.OotdFilter;
 import com.mabcci.domain.ootd.dto.request.OotdUpdateRequest;
 import com.mabcci.domain.ootd.dto.request.OotdWithPicturesAndHashtagsRegisterRequest;
@@ -18,35 +21,55 @@ import javax.validation.constraints.Positive;
 @RestController
 public class OotdController {
 
-    private final OotdService ootdService;
+    private final OotdSaveService ootdSaveService;
+    private final OotdFindService ootdFindService;
+    private final OotdUpdateService ootdUpdateService;
+    private final OotdDeleteService ootdDeleteService;
 
-    public OotdController(final OotdService ootdService) {
-        this.ootdService = ootdService;
+    public OotdController(final OotdSaveService ootdSaveService, final OotdFindService ootdFindService,
+                          final OotdUpdateService ootdUpdateService, final OotdDeleteService ootdDeleteService) {
+        this.ootdSaveService = ootdSaveService;
+        this.ootdFindService = ootdFindService;
+        this.ootdUpdateService = ootdUpdateService;
+        this.ootdDeleteService = ootdDeleteService;
     }
 
     @PostMapping("/api/ootds")
     public ResponseEntity registerOotdWithPicturesAndHashtags(@Valid final OotdWithPicturesAndHashtagsRegisterRequest request) {
-        ootdService.saveOotdAndPicturesAndHashtags(request);
+        ootdSaveService.saveOotdAndPicturesAndHashtags(request);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/api/ootds/{id}/detail/{nickname}")
+    public ResponseEntity findOotdDetail(@NotNull @Positive @PathVariable("id") final Long id,
+                                         @Valid @NotNull @PathVariable("nickname") final Nickname nickname) {
+        return ResponseEntity.ok(ootdFindService.findOotdDetail(id, nickname));
     }
 
     @GetMapping("/api/ootds/{nickname}")
     public ResponseEntity findFilteredOotdList(@NotBlank @PathVariable("nickname") final Nickname nickname,
                                                @NotBlank @RequestParam("filter") final OotdFilter ootdFilter,
                                                @NotNull final Pageable pageable) {
-        return ResponseEntity.ok(ootdService.findFilteredOotdList(nickname, ootdFilter, pageable));
+        return ResponseEntity.ok(ootdFindService.findOotds(nickname, ootdFilter, pageable));
+    }
+
+    @GetMapping("/api/ootds")
+    public ResponseEntity findOotdListByKeyword(@NotNull @RequestParam("search") final String keyword,
+                                                @NotBlank @RequestParam("filter") final OotdFilter ootdFilter,
+                                                @NotNull final Pageable pageable) {
+        return ResponseEntity.ok(ootdFindService.findOotdsByKeyword(keyword, ootdFilter, pageable));
     }
 
     @PutMapping("/api/ootds/{id}")
     public ResponseEntity updateOotd(@Positive @PathVariable("id") final Long id,
                                      @Valid @NotNull @RequestBody final OotdUpdateRequest ootdUpdateRequest) {
-        ootdService.updateOotd(id, ootdUpdateRequest);
+        ootdUpdateService.updateOotd(id, ootdUpdateRequest);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/api/ootds/{id}")
     public ResponseEntity deleteOotd(@Positive @PathVariable("id") final Long id) {
-        ootdService.deleteOotd(id);
+        ootdDeleteService.deleteOotdById(id);
         return ResponseEntity.noContent().build();
     }
 }

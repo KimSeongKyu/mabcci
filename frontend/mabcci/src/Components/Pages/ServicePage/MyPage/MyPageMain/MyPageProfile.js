@@ -2,81 +2,242 @@
 
 import React from 'react';
 import './MyPage.css';
-import 박서준 from './images/박서준.jfif';
-import 직사각형_남자 from './images/직사각형_남자.png'
-import { useHistory } from 'react-router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import FollowApi from '../../../../../API/MypageAPI/FollowApi';
+import UnFollowApi from '../../../../../API/MypageAPI/UnFollowApi';
 import {AiOutlineSetting} from "react-icons/ai"
+import {CgFileDocument} from "react-icons/cg"
+import {AiOutlineMessage} from 'react-icons/ai'
+import 기본프로필 from '../../../../../Asset/Images/기본프로필.jpg'
+import getUserInfo from '../../../../Common/getUserInfo';
+import { MdReplay } from 'react-icons/md';
+import FollowerListApi from '../../../../../API/MypageAPI/FollowerListApi'
 
 const MyPageProfile = props => {
-  const history = useHistory
-
   const [profile, setProfile] = useState(false)
 
-  const clickProfile = () => {setProfile(!profile)}
-  
-  const goToSetting = () => {
-    // history.push()
+  const userInfo = getUserInfo();
+
+  const [isFollower, setIsFollower] = useState()
+
+  const follower = {
+    follower: props.myInfo.nickname,
+  };
+
+  useEffect(async() => {
+    const followerRes = await FollowerListApi(props.myInfo.nickname, follower);
+    followerRes.data.map(follower => {
+      if(userInfo.nickname == follower.name) {
+        setIsFollower(true);
+      }
+    })
+  })
+
+  const clickProfile = () => {
+    setProfile(!profile)
   }
+  
+  const openSetting = () => {
+    props.setMyPageUpdate('setting');
+    props.setMobileMenu(true);
+  };
 
    const clickFollow = (e) => {
      props.setFollowBox(e.target.name)
    }
 
+   const clickChatList = () => {
+     props.setChatBox(true)
+   }
+
+   const clickProposalList = () => {
+     props.setProposalBox(true)
+   }
+
+   const follow = async () => {
+     const followMembers = {
+       following: props.myInfo.nickname,
+       follower: userInfo.nickname,
+     };
+     const res = await FollowApi(followMembers);
+     if (res.status == 200) {
+      const nowCount = props.myInfo.follower;
+      props.setMyInfo({
+        ...props.myInfo,
+        follower: nowCount + 1
+      })
+      setIsFollower(true);
+     }
+   }
+
+   const unFollow = async () => {
+     const deleteFollowMembers = {
+       following: props.myInfo.nickname,
+       follower: userInfo.nickname,
+     };
+     const res = await UnFollowApi(deleteFollowMembers);
+     if (res.status == 200) {
+      const nowCount = props.myInfo.follower;
+      props.setMyInfo({
+        ...props.myInfo,
+        follower: nowCount - 1,
+      });
+      setIsFollower(false);
+     }
+   };
+
   return (
     <>
+      <div className="mypage-profile-box mypage-picture-btn-box">
+        <MdReplay className="mypage-picture-btn" onClick={clickProfile} />
+      </div>
       <div className="mypage-profile-box">
         <div
+          onClick={clickProfile}
           className={
             profile === true
               ? 'mypage-profile-inner mypage-profile-inner-active'
               : 'mypage-profile-inner'
           }
         >
-          <div className="mypage-profile-bodyinfo" onClick={clickProfile}>
-            <img src={직사각형_남자}></img>
+          <div className="mypage-profile-bodyinfo">
+            {props.myInfo.bodyType == 'none' ||
+            props.myInfo.bodyType == 'NONE' ||
+            props.myInfo.bodyType == null ? (
+              <div className="mypage-profile-bodysize-noimage">No Type</div>
+            ) : (
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  `/images/${props.myInfo.gender}_${props.myInfo.bodyType}.png`
+                }
+                alt="No image"
+              ></img>
+            )}
             <div className="mypage-profile-bodysize">
-              <p>185cm</p>
-              <p>75kg</p>
-              <p>270mm</p>
+              {props.myInfo.height !== 0 ? (
+                <p>{props.myInfo.height}cm</p>
+              ) : (
+                <p className="mypage-profile-bodysize-secret">secret</p>
+              )}
+              {props.myInfo.weight !== 0 ? (
+                <p>{props.myInfo.weight}kg</p>
+              ) : (
+                <p className="mypage-profile-bodysize-secret">secret</p>
+              )}
+              {props.myInfo.footSize !== 0 ? (
+                <p>{props.myInfo.footSize}mm</p>
+              ) : (
+                <p className="mypage-profile-bodysize-secret">secret</p>
+              )}
             </div>
           </div>
-          <img src={박서준} alt="" onClick={clickProfile} />
+
+          {props.myInfo.picture !== null ? (
+            <img src={props.myInfo.picture} alt="No image"></img>
+          ) : (
+            <img src={기본프로필} alt="" onClick={clickProfile} />
+          )}
         </div>
 
         <div className="mypage-info-box">
           <div id="mypage-web-nickname">
-            {/* <h3>{props.myInfo.nickname}</h3> */}
-            <h3>박서준</h3>
-            <button type="submit" onClick={goToSetting}>
-              <AiOutlineSetting/>
-            </button>
+            <h3>{props.myInfo.nickname}</h3>
+
+            {userInfo.nickname === props.myInfo.nickname ? (
+              <div>
+                <button type="submit">
+                  <CgFileDocument onClick={clickProposalList} />
+                </button>
+                <button type="submit">
+                  <AiOutlineMessage onClick={clickChatList} />
+                </button>
+                <button type="submit" onClick={openSetting}>
+                  <AiOutlineSetting />
+                </button>
+              </div>
+            ) : (
+              <div>
+                {isFollower === true ? (
+                  <button
+                    type="submit"
+                    onClick={unFollow}
+                    id="mypage-follow-btn"
+                  >
+                    팔로우취소
+                  </button>
+                ) : (
+                  <button type="submit" onClick={follow} id="mypage-follow-btn">
+                    팔로우
+                  </button>
+                )}
+                {props.myInfo.role === 'MABCCI' &&
+                userInfo.nickname !== props.myInfo.nickname ? (
+                  <button type="submit" id="mypage-mabcci-styling-btn">
+                    Styling 신청
+                  </button>
+                ) : null}
+              </div>
+            )}
           </div>
           <div id="mypage-mobile-nickname">
-            {/* <h5>{props.myInfo.nickname}</h5> */}
-            <h5>박서준</h5>
+            <div>
+              <h3>{props.myInfo.nickname}</h3>
+              {userInfo.nickname === props.myInfo.nickname ? null : (
+                <div>
+                  {isFollower === true ? (
+                    <button
+                      type="submit"
+                      onClick={unFollow}
+                      id="mypage-follow-btn"
+                    >
+                      팔로우취소
+                    </button>
+                  ) : (
+                    <button
+                      type="submit"
+                      onClick={follow}
+                      id="mypage-follow-btn"
+                    >
+                      팔로우
+                    </button>
+                  )}
+                  {props.myInfo.role === 'MABCCI' &&
+                  userInfo.nickname !== props.myInfo.nickname ? (
+                    <button type="submit" id="mypage-mabcci-styling-btn">
+                      Styling 신청
+                    </button>
+                  ) : null}
+                </div>
+              )}
+            </div>
           </div>
           <div>
-            <button type="submit" onClick={clickFollow} name='팔로워'>팔로워 {}명</button>
-            <button type="submit"onClick={clickFollow} name="팔로잉">팔로잉 {}명</button>
+            <button type="submit" onClick={clickFollow} name="팔로워">
+              팔로워 {props.myInfo.follower}명
+            </button>
+            <button type="submit" onClick={clickFollow} name="팔로잉">
+              팔로잉 {props.myInfo.following}명
+            </button>
           </div>
           <div id="mypage-mobile-category">
-            <h5>#아메카지</h5>
-            <h5>#스트릿</h5>
-            <h5>#포멀</h5>
+            {props.myInfo.categories.map((category, idx) => (
+              <h5 key={idx}>#{category}</h5>
+            ))}
           </div>
         </div>
         <div className="mypage-blank" />
       </div>
       <div className="mypage-introduce-box">
         <p>Introduce</p>
-        {/* 
-        {props.myInfo.introduce === [] ? (
-          <div>소개글이 비어있어요!</div>
+
+        {props.myInfo.description == 'null' ||
+        props.myInfo.description == '' ||
+        props.myInfo.description == null ? (
+          <div className="mypage-introduce-box-null">No information❕</div>
         ) : (
-          <div>안녕하세요 아라찌입니다.</div>
-        )} */}
-        <div>안녕하세요 서준팍입니다.</div>
+          <div>{props.myInfo.description}</div>
+        )}
       </div>
     </>
   );

@@ -4,20 +4,19 @@ import com.mabcci.domain.auth.domain.vo.JwtToken;
 import com.mabcci.global.common.Email;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @Entity
 public class RefreshToken {
 
-    @NotNull
-    @EmbeddedId
-    @AttributeOverride(name = "email", column =
+    @Valid @NotNull
+    @EmbeddedId @AttributeOverride(name = "email", column =
     @Column(name = "refresh_token_email", nullable = false, unique = true))
     private Email email;
 
-    @NotNull
-    @Embedded
-    @AttributeOverride(name = "jwtToken", column =
+    @Valid @NotNull
+    @Embedded @AttributeOverride(name = "jwtToken", column =
     @Column(name = "refresh_token", length = 500, nullable = false, unique = true))
     private JwtToken refreshToken;
 

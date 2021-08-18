@@ -5,11 +5,10 @@
   padding-top: 3%;
   padding-left: 5%;
   max-width: 100vw;
-  background-color: var(--main-color-1);
 }
 
 .styling-title > h3 {
-  color: var(--main-color-4);
+  color: var(--main-color-1);
   margin-top: 20px;
 }
 
@@ -20,7 +19,7 @@
   margin-top: 20px;
   margin-bottom: 30px;
   background-color: transparent;
-  border-color: var(--main-color-4);
+  border-color: rgb(224, 224, 224);
 }
 
 .styling-search-send {
@@ -86,6 +85,9 @@
 
 .styling-mabcci-photo {
   filter: drop-shadow(5px 5px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
 }
 
 .styling-mabcci-info {
@@ -119,7 +121,7 @@
   margin-right: 5px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .styling-category {
@@ -127,4 +129,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+@media screen and (max-width: 576px) {
+  .styling-header {
+    background-color: var(--main-color-1);
+  }
+  .styling-title > h3 {
+    color: var(--main-color-3);
+  }
 }

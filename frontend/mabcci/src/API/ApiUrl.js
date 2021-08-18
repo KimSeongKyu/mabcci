@@ -1,7 +1,12 @@
+export const baseUrl = 'http://localhost:8080';
+
+/* AuthAPI Url */
 export const LoginUrl = '/auth/login';
 export const LogoutUrl = '/auth/logout';
 export const SignupUrl = '/api/members';
+export const CheckNicknameUrl = '/api/members/check/';
 
+/* OOTDAPI Url */
 export const OOTDWriteUrl = '/api/ootds';
 export const OOTDUpdateUrl = '/api/ootds/';
 export const OOTDDeleteUrl = '/api/ootds/';
@@ -12,10 +17,20 @@ export const OOTDMyPageListUrl = '';
 export const OOTDCommentCreateUrl = '/api/ootd/comments';
 export const OOTDCommentUpdateUrl = '/api/ootd/comments/';
 export const OOTDCommentDeleteUrl = '/api/ootd/comments/';
-export const OOTDCommentReadUrl = '/api/ootd/comments';
+export const OOTDCommentReadUrl = '/api/ootd/';
 export const OOTDLikeUrl = '/api/ootd/';
 
-export const MabcciSearchUrl = '/api/members/mabcci';
-export const PopularMabcciSearchUrl = '/api/members/mabcci/popular';
+/* MabcciAPI Url */
+export const AllMabcciUrl = '/api/members/mabcci';
+export const PopularMabcciUrl = '/api/members/mabcci/popular';
 
-export const MypageReadUrl = '/api/members';
+/* MypageAPI Url */
+export const MypageReadUrl = '/api/members/mypage';
+export const MypageUpdateUrl = '/api/members/update';
+export const FollowUrl = '/api/follow';
+export const UnFollowUrl = '/api/unfollow';
+export const FollowListUrl = '/api/';
+
+/* Suggestion Url */
+export const SuggestionWriteUrl = '/api/proposals';
+export const SuggestionReadUrl = '/api/proposals/';

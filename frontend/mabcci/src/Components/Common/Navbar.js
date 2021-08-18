@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './Nav.css';
-import { AiOutlineLogin, AiOutlineHome } from 'react-icons/ai';
+import {
+  AiOutlineLogin,
+  AiOutlineHome,
+  AiOutlineMessage,
+} from 'react-icons/ai';
 
 import { FiUser } from 'react-icons/fi';
 import { FaRegComments } from 'react-icons/fa';
@@ -12,10 +16,13 @@ import { IoShirtOutline } from 'react-icons/io5';
 import LogoutApi from '../../API/AuthAPI/LogoutApi';
 import { Logout } from '../../Redux/Actions/LoginAction';
 import logo from '../../Asset/Images/logo.png';
+import NavCategory from '../../Redux/Actions/NavAction';
+import getUserInfo from './getUserInfo';
 
 function Nav() {
   const history = useHistory();
   const dispatch = useDispatch();
+  const myInfo = getUserInfo();
 
   const [isLoggedin, setisLoggedin] = useState(false);
   useEffect(() => {
@@ -28,6 +35,7 @@ function Nav() {
   });
 
   const loginRedux = useSelector(state => state.LoginReducer);
+  const navCategory = useSelector(state => state.NavReducer);
 
   const [popover, setpopover] = useState(false);
 
@@ -35,22 +43,19 @@ function Nav() {
     setpopover(!popover);
   };
 
-  const [nowMenu, setNowMenu] = useState('');
-
   const selectMenu = e => {
-    setNowMenu(e.target.name);
+    dispatch(NavCategory(e.target.name));
   };
 
   const LogOut = () => {
-    localStorage.clear();
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     dispatch(Logout());
     history.push('/intro');
   };
 
   const goMypage = () => {
-    const myInfo = JSON.parse(localStorage.getItem('userInfo'));
     setpopover(false);
-    setNowMenu('mypage');
     history.push(`/mypage/${myInfo.nickname}`);
   };
 
@@ -64,6 +69,9 @@ function Nav() {
           </Link>
           {isLoggedin ? (
             <div className="navbar-web-icon">
+              <Link to="/chat">
+                <AiOutlineMessage className="message" />
+              </Link>
               <MdAccessAlarm />
               <MdAccountCircle className="mypage" onClick={openPopover} />
             </div>
@@ -90,7 +98,7 @@ function Nav() {
               to="/home"
               onClick={selectMenu}
               name="home"
-              id={nowMenu === 'home' ? 'navbar-menu-link-selected' : null}
+              id={navCategory === 'home' ? 'navbar-menu-link-selected' : null}
             >
               Home
             </Link>
@@ -98,7 +106,7 @@ function Nav() {
               to="/OOTD"
               onClick={selectMenu}
               name="OOTD"
-              id={nowMenu === 'OOTD' ? 'navbar-menu-link-selected' : null}
+              id={navCategory === 'OOTD' ? 'navbar-menu-link-selected' : null}
             >
               OOTD
             </Link>
@@ -106,17 +114,11 @@ function Nav() {
               to="/styling"
               onClick={selectMenu}
               name="Styling"
-              id={nowMenu === 'Styling' ? 'navbar-menu-link-selected' : null}
+              id={
+                navCategory === 'Styling' ? 'navbar-menu-link-selected' : null
+              }
             >
               Styling
-            </Link>
-            <Link
-              to="/Community"
-              onClick={selectMenu}
-              name="Community"
-              id={nowMenu === 'Community' ? 'navbar-menu-link-selected' : null}
-            >
-              Community
             </Link>
           </div>
         </div>
@@ -126,25 +128,16 @@ function Nav() {
         <Link to="/home">
           <div className="navbar-mobile-btn">
             <AiOutlineHome />
-            <p name="home">HOME</p>
           </div>
         </Link>
         <Link to="/OOTD">
           <div className="navbar-mobile-btn">
             <BsImages />
-            <p>OOTD</p>
           </div>
         </Link>
         <Link to="/styling">
           <div className="navbar-mobile-btn">
             <IoShirtOutline />
-            <p>스타일링</p>
-          </div>
-        </Link>
-        <Link to="/community">
-          <div className="navbar-mobile-btn">
-            <FaRegComments />
-            <p>커뮤니티</p>
           </div>
         </Link>
         <button
@@ -154,7 +147,6 @@ function Nav() {
           type="submit"
         >
           <FiUser />
-          <p>내 정보</p>
         </button>
       </div>
     </div>

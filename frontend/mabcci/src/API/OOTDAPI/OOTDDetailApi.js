@@ -1,5 +1,4 @@
-import axios from 'axios';
-import instance from '../indexMock';
+import instance from '../index';
 
 import {
   OOTDDetailUrl,
@@ -10,9 +9,11 @@ import {
   OOTDLikeUrl,
 } from '../ApiUrl';
 
-export const OOTDDetailApi = async id => {
+export const OOTDDetailApi = async (id, nickname) => {
   try {
-    const response = await instance.get(`${OOTDDetailUrl}${id}`);
+    const response = await instance.get(
+      `${OOTDDetailUrl}${id}/detail/${nickname}`,
+    );
 
     return {
       status: response.status,
@@ -25,11 +26,57 @@ export const OOTDDetailApi = async id => {
   }
 };
 
-export const OOTDCommentCreateApi = async () => {
+export const OOTDCommentCreateApi = async newComment => {
   try {
-    const response = await axios.get(OOTDCommentCreateUrl);
-    return {};
+    const response = await instance.post(OOTDCommentCreateUrl, newComment);
+    return response;
   } catch (response) {
-    return {};
+    return response;
+  }
+};
+
+export const OOTDCommentReadApi = async id => {
+  try {
+    const response = await instance.get(`${OOTDCommentReadUrl}${id}/comments`);
+    return {
+      status: response.status,
+      comments: response.data.comments,
+    };
+  } catch (response) {
+    return {
+      status: response.status,
+    };
+  }
+};
+
+export const OOTDCommentUpdateApi = async (id, updateComment) => {
+  try {
+    const response = await instance.put(
+      `${OOTDCommentUpdateUrl}${id}`,
+      updateComment,
+    );
+    return response;
+  } catch (response) {
+    return response;
+  }
+};
+
+export const OOTDCommentDeleteApi = async id => {
+  try {
+    const response = await instance.delete(`${OOTDCommentDeleteUrl}${id}`);
+    return response;
+  } catch (response) {
+    return response;
+  }
+};
+
+export const OOTDLikeApi = async (id, nickname) => {
+  try {
+    const response = await instance.post(
+      `${OOTDLikeUrl}${id}/like/${nickname}`,
+    );
+    return response;
+  } catch (response) {
+    return response;
   }
 };

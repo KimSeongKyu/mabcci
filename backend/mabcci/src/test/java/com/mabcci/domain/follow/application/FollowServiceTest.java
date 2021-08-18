@@ -68,26 +68,11 @@ class FollowServiceTest {
         given(memberRepository.findByNickName(following.nickname())).willReturn(Optional.ofNullable(following));
         given(memberRepository.findByNickName(follower.nickname())).willReturn(Optional.ofNullable(follower));
 
-        final Long actual = followService.save(following.nickname(), follower.nickname());
+        final Long actual = followService.follow(following.nickname(), follower.nickname());
 
         then(followRepository).should(times(1)).save(any());
         then(memberRepository).should(times(2)).findByNickName(any());
         assertThat(actual).isEqualTo(1L);
-    }
-
-    @DisplayName("FollowService 인스턴스 delete() 기능 테스트")
-    @Test
-    void delete_test() {
-        final Follow follow = Follow.Builder().following(following).follower(follower).build();
-        ReflectionTestUtils.setField(follow, "id", 1L);
-
-        doNothing().when(followRepository).delete(any());
-        given(followRepository.findById(any())).willReturn(Optional.ofNullable(follow));
-
-        followService.cancel(1L);
-
-        then(followRepository).should(times(1)).delete(any());
-        then(followRepository).should(times(1)).findById(any());
     }
 
     private static Member member(Email email, Password password, Nickname nickname, Phone phone) {

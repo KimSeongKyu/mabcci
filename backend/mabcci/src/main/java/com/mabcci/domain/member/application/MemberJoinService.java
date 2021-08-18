@@ -6,6 +6,7 @@ import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.domain.MemberSpecs;
 import com.mabcci.domain.membercategory.domain.MemberCategory;
+import com.mabcci.domain.picture.common.PictureUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +29,7 @@ public class MemberJoinService {
         member.updateMemberSpecs(memberSpecs);
         for (String categoryName : categoryNames) {
             final Category category = getCategoryByCategoryName(categoryName);
-            final MemberCategory memberCategory = MemberCategory.createMemberCategory(member, category);
+            final MemberCategory memberCategory = MemberCategory.fromMemberAndCategory(member, category);
             member.addMemberCategory(memberCategory);
         }
         return memberRepository.save(member);
