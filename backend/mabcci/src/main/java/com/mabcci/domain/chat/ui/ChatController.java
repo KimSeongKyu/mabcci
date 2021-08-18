@@ -25,7 +25,6 @@ public class ChatController {
 
     @MessageMapping("/chat/message")
     public void message(ChattingMessage message, @Header("Authorization") String jwt) {
-        // 오는거에 따라 파싱 가능성도 있음
         final String nickname = jwtUtil.nickname(jwt);
         message.changeSender(nickname);
         messagingTemplate.convertAndSend("/sub/chat/room/" + message.roomId(), message);

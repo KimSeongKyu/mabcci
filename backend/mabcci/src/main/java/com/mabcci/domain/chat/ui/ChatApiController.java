@@ -25,24 +25,26 @@ public class ChatApiController {
         this.chatRoomCreateService = chatRoomCreateService;
     }
 
+    // 내가 속한 채팅방 리스트를 가져온다.
     @GetMapping("/chat/rooms/{nickname}")
-    public ResponseEntity<Set<ChattingRoomListResponse>> rooms(@Valid @PathVariable Nickname nickname) {
-        final Set<ChattingRoomListResponse> chatRoomListRespons = chatRoomFindService.findChatRoomByNickname(nickname);
-        return ResponseEntity.ok().body(chatRoomListRespons);
+    public ResponseEntity<Set<ChattingRoomListResponse>> findChatRoomByNickname(@Valid @PathVariable Nickname nickname) {
+        final Set<ChattingRoomListResponse> chatRoomListResponse = chatRoomFindService.findChatRoomByNickname(nickname);
+        return ResponseEntity.ok().body(chatRoomListResponse);
     }
 
+    // 채팅방을 만들고 roomId를 리턴한다 -> then 으로 다시 요청해서 접속해주십쇼
     @PostMapping("/chat/room")
-    public ResponseEntity<String> createRoom(@Header("Authorization") String jwt, @Valid @RequestBody final Nickname mabcci) {
+    public ResponseEntity<String> createChattingRoom(@Header("Authorization") String jwt, @Valid @RequestBody final Nickname mabcci) {
         final JwtUtil jwtUtil = new JwtUtil();
         final Nickname firstNickname = Nickname.of(jwtUtil.nickname(jwt));
-        final String roomId = chatRoomCreateService.createChatting(firstNickname, mabcci);
+        final String roomId = chatRoomCreateService.createChattingRoom(firstNickname, mabcci);
         return ResponseEntity.ok().body(roomId);
     }
 
-    // 상대방 이름 사진,
+    // 채팅방 자체에 뿌릴 데이터
     @GetMapping("/chat/room/{roomId}")
-    public ResponseEntity<ChattingRoomResponse> roomInfo(@PathVariable String roomId) {
-        final ChattingRoomResponse chattingRoomResponse = chatRoomFindService.findById(roomId);
+    public ResponseEntity<ChattingRoomResponse> findByRoomId(@PathVariable String roomId) {
+        final ChattingRoomResponse chattingRoomResponse = chatRoomFindService.findByRoomId(roomId);
         return ResponseEntity.ok().body(chattingRoomResponse);
     }
 

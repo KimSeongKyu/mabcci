@@ -10,8 +10,8 @@ public class ChatMessage {
     @Column(name = "chat_message_id", updatable = false)
     private Long id;
 
-    @Column(name = "chat_message_content")
-    private String content;
+    @Column(name = "chat_message_message")
+    private String message;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chat_room_id")
@@ -23,25 +23,25 @@ public class ChatMessage {
 
     protected ChatMessage() { }
 
-    public ChatMessage(final String content, final ChatRoom chatRoom, final Member member) {
-        this.content = content;
+    public ChatMessage(final String message, final ChatRoom chatRoom, final Member member) {
+        this.message = message;
         this.chatRoom = chatRoom;
         this.member = member;
     }
 
-    public Long getId() {
+    public Long id() {
         return id;
     }
 
-    public String getContent() {
-        return content;
+    public String message() {
+        return message;
     }
 
-    public ChatRoom getChatRoom() {
+    public ChatRoom chatRoom() {
         return chatRoom;
     }
 
-    public Member getMember() {
+    public Member member() {
         return member;
     }
 
