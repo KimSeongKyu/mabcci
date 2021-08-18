@@ -29,4 +29,10 @@ class ProposalReviewFindResponsesTest {
                 () -> assertThat(proposalReviewFindResponses).isExactlyInstanceOf(ProposalReviewFindResponses.class)
         );
     }
+
+    @DisplayName("ProposalReviewFindResponses 인스턴스 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        assertThat(proposalReviewFindResponses.proposalReviews()).contains(proposalReviewFindResponse);
+    }
 }
