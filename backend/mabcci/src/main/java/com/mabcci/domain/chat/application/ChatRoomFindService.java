@@ -1,9 +1,6 @@
 package com.mabcci.domain.chat.application;
 
-import com.mabcci.domain.chat.domain.ChatRoom;
-import com.mabcci.domain.chat.domain.ChatRoomRepository;
-import com.mabcci.domain.chat.domain.Chatting;
-import com.mabcci.domain.chat.domain.ChattingRepository;
+import com.mabcci.domain.chat.domain.*;
 import com.mabcci.domain.chat.dto.ChattingRoomListResponse;
 import com.mabcci.domain.chat.dto.ChattingRoomResponse;
 import com.mabcci.domain.member.domain.Member;
@@ -31,17 +28,15 @@ public class ChatRoomFindService {
         this.chatRoomRepository = chatRoomRepository;
     }
 
+    // 왼쪽 채팅 리스트 표현 -> 이전에 채팅방을 만들어야 합니다.
+    // 기존 채팅방이 존재하면? -> 다시 안 만들도록 해야하나
+    // 사용자 얻고 -> 채팅에서 사용자 기준으로 -> 채팅 방 가져옴 -> dto에 담음
     public Set<ChattingRoomListResponse> findChatRoomByNickname(final Nickname nickname) {
         final Member member = findMemberByNickname(nickname);
         return chattingRepository.findByMember(member).stream()
-                .map(Chatting::getChatRoom)
+                .map(Chatting::chatRoom)
                 .map(ChattingRoomListResponse::new)
                 .collect(Collectors.toSet());
-    }
-
-    public ChattingRoomResponse findById(final String roomId) {
-        final ChatRoom chatRoom = findChatRoomById(roomId);
-        return new ChattingRoomResponse(chatRoom);
     }
 
     private Member findMemberByNickname(final Nickname nickname) {
@@ -49,9 +44,15 @@ public class ChatRoomFindService {
                 .orElseThrow(IllegalArgumentException::new);
     }
 
-    private ChatRoom findChatRoomById(final String roomId) {
-        return chatRoomRepository.findById(roomId)
-                .orElseThrow(IllegalArgumentException::new);
+    public ChattingRoomResponse findByRoomId(final String roomId) {
+        final ChatRoom chatRoom = findChattingRoomById(roomId);
+        final Set<Chatting> chattings = chatRoom.chattings();
+        final Set<ChatMessage> chatMessages = chatRoom.chattingMessages();
+        return ChattingRoomResponse.fromChattings(chattings, chatMessages);
+    }
+
+    private ChatRoom findChattingRoomById(final String roomId) {
+        return chatRoomRepository.findById(roomId).get();
     }
 
 }

@@ -27,20 +27,24 @@ public class Chatting {
         this.chatRoom = chatRoom;
     }
 
-    public Long getId() {
+    public Long id() {
         return id;
     }
 
-    public Member getMember() {
+    public Member member() {
         return member;
     }
 
-    public ChatRoom getChatRoom() {
+    public ChatRoom chatRoom() {
         return chatRoom;
     }
 
-    public void addChatRoom(final ChatRoom chatRoom) {
+    public void changeChatRoom(final ChatRoom chatRoom) {
         this.chatRoom = chatRoom;
+    }
+
+    public boolean isContainSameMember(final Member other) {
+        return this.member.equals(other);
     }
 
 }

@@ -1,5 +1,7 @@
 package com.mabcci.domain.chat.domain;
 
+import com.mabcci.domain.chat.dto.ChattingMessage;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,21 +17,23 @@ public class ChatRoom {
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Chatting> chattings = new HashSet<>();
 
+    @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ChatMessage> chattingMessages = new HashSet<>();
+
     public ChatRoom() {
         this.id = UUID.randomUUID().toString();
     }
 
-    public String getId() {
+    public String id() {
         return id;
     }
 
-    public Set<Chatting> getChattings() {
+    public Set<Chatting> chattings() {
         return chattings;
     }
 
-    public void addAllChatting(final Set<Chatting> chattings) {
-        this.chattings.addAll(chattings);
-        chattings.stream().forEach(chatting -> chatting.addChatRoom(this));
+    public Set<ChatMessage> chattingMessages() {
+        return chattingMessages;
     }
 
 }

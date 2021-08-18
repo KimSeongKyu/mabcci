@@ -1,12 +1,9 @@
 package com.mabcci.domain.chat.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mabcci.domain.chat.domain.MessageType;
+import com.mabcci.domain.chat.domain.ChatMessage;
 
 public class ChattingMessage {
-
-    @JsonProperty("messageType")
-    private MessageType messageType;
 
     @JsonProperty("roomId")
     private String roomId;
@@ -20,9 +17,14 @@ public class ChattingMessage {
     private ChattingMessage() {
     }
 
-    public ChattingMessage(final MessageType messageType, final String roomId,
-                           final String sender, final String message) {
-        this.messageType = messageType;
+    public static ChattingMessage ofChatMessage(final ChatMessage chatMessage) {
+        final String id = chatMessage.chatRoom().id();
+        final String nickname = chatMessage.member().nickname().nickname();
+        final String message = chatMessage.message();
+        return new ChattingMessage(id, nickname, message);
+    }
+
+    private ChattingMessage(final String roomId, final String sender, final String message) {
         this.roomId = roomId;
         this.sender = sender;
         this.message = message;
@@ -38,10 +40,6 @@ public class ChattingMessage {
 
     public String message() {
         return message;
-    }
-
-    public MessageType messageType() {
-        return messageType;
     }
 
     public void changeSender(final String sender) {
