@@ -28,6 +28,7 @@
   grid-template-areas:
     'top bottom'
     'shoes acc';
+  gap: 10px;
 }
 
 .suggestion-cloth {

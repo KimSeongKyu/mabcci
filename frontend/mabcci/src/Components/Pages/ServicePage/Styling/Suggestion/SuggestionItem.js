@@ -2,38 +2,33 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { baseUrl } from '../../../../../API/ApiUrl';
 
-import top from './Images/상의.jpg';
-import bottom from './Images/바지.jpg';
-import shoes from './Images/신발.jpg';
-import acc from './Images/악세서리.jpg';
+import top from './Images/tmpTop.png';
+import bottom from './Images/tmpBottom.png';
+import shoes from './Images/tmpShoes.png';
+import acc from './Images/tmpAcc.png';
 
 const SuggestionItem = () => {
   const suggestion = useSelector(state => state.SuggestionReducer);
-
+  console.log(suggestion);
   return (
     <article className="suggestion-item">
       <img
-        src={baseUrl + suggestion.top}
+        src={suggestion.top ? baseUrl + suggestion.top : top}
         alt="상의"
         className="suggestion-cloth suggestion-top"
       />
       <img
-        src={baseUrl + suggestion.bottom}
+        src={suggestion.bottom ? baseUrl + suggestion.bottom : bottom}
         alt="하의"
         className="suggestion-cloth suggestion-bottom"
       />
       <img
-        src={baseUrl + suggestion.bottom}
-        alt="하의"
-        className="suggestion-cloth suggestion-bottom"
-      />
-      <img
-        src={baseUrl + suggestion.shoes}
+        src={suggestion.shoes ? baseUrl + suggestion.shoes : shoes}
         alt="신발"
         className="suggestion-cloth suggestion-shoes"
       />
       <img
-        src={acc}
+        src={suggestion.acc ? baseUrl + suggestion.acc : acc}
         alt="액세서리"
         className="suggestion-cloth suggestion-acc"
       />
