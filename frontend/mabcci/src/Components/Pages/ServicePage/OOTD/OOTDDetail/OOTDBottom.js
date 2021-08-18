@@ -8,6 +8,7 @@ import {
   OOTDCommentUpdateApi,
 } from '../../../../../API/OOTDAPI/OOTDDetailApi';
 import { baseUrl } from '../../../../../API/ApiUrl';
+import 기본프로필 from '../../../../../Asset/Images/기본프로필.jpg';
 
 export const SingleComment = props => {
   const { depth, comment, allComments, userInfo } = props;
@@ -26,7 +27,16 @@ export const SingleComment = props => {
       <div className="detail-comment">
         <div className="detail-comment-info">
           <div className="detail-comment-info-photo">
-            <img src={baseUrl + comment.memberPicture} alt="UserImage" />
+            <Link to={`/mypage/${comment.memberNickname}`}>
+              <img
+                src={
+                  comment.memberPicture !== null
+                    ? baseUrl + comment.memberPicture
+                    : 기본프로필
+                }
+                alt="UserImage"
+              />
+            </Link>
           </div>
 
           {updateToggle ? null : (
@@ -169,20 +179,19 @@ const OOTDBottom = props => {
   const [commentCotent, setCommentCotent] = useState('');
 
   const commentRead = async () => {
-    const response = await OOTDCommentReadApi(ootdId);
-
-    if (response.status === 200) {
-      setAllComments([...response.comments]);
-      setComments(
-        response.comments.filter(comment => {
-          return comment.parentId === 0;
-        }),
-      );
-    }
+    // const response = await OOTDCommentReadApi(ootdId);
+    // if (response.status === 200) {
+    //   setAllComments([...response.comments]);
+    //   setComments(
+    //     response.comments.filter(comment => {
+    //       return comment.parentId === 0;
+    //     }),
+    //   );
+    // }
   };
 
   useEffect(async () => {
-    await commentRead();
+    // await commentRead();
   }, []);
 
   const commentWrite = async (content, parentCommentId) => {
@@ -193,8 +202,8 @@ const OOTDBottom = props => {
       content,
     };
 
-    await OOTDCommentCreateApi(newComment);
-    await commentRead();
+    // await OOTDCommentCreateApi(newComment);
+    // await commentRead();
   };
 
   const commentUpdate = async (commentId, nickname, content) => {
@@ -203,13 +212,13 @@ const OOTDBottom = props => {
       content,
     };
 
-    await OOTDCommentUpdateApi(commentId, updateComment);
-    await commentRead();
+    // await OOTDCommentUpdateApi(commentId, updateComment);
+    // await commentRead();
   };
 
   const commentDelete = async commentId => {
-    await OOTDCommentDeleteApi(commentId);
-    await commentRead();
+    // await OOTDCommentDeleteApi(commentId);
+    // await commentRead();
   };
 
   return (

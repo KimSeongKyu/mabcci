@@ -9,37 +9,11 @@ import 오피스 from '../../../../../Asset/Images/오피스옷.png';
 import 캐쥬얼 from '../../../../../Asset/Images/캐쥬얼옷.png';
 import 포멀 from '../../../../../Asset/Images/포멀옷.png';
 import { baseUrl } from '../../../../../API/ApiUrl';
+import 기본프로필 from '../../../../../Asset/Images/기본프로필.jpg';
 import userphoto from './Images/userphoto.png';
 
 const MabcciSearch = () => {
   const [searchContent, setSearchContent] = useState('');
-  const [mabcciListTmp, setMabcciListTmp] = useState([
-    {
-      nickName: '젠킨스1',
-      picture: userphoto,
-      categories: ['스트릿', '캐쥬얼'],
-    },
-    {
-      nickName: '젠킨스2',
-      picture: userphoto,
-      categories: ['오피스', '캐쥬얼'],
-    },
-    {
-      nickName: '젠킨스3',
-      picture: userphoto,
-      categories: ['오피스', '포멀'],
-    },
-    {
-      nickName: '젠킨스4',
-      picture: userphoto,
-      categories: ['오피스', '미니멀'],
-    },
-    {
-      nickName: '젠킨스5',
-      picture: userphoto,
-      categories: ['아메카지', '캐쥬얼'],
-    },
-  ]);
   const [mabcciList, setMabcciList] = useState([]);
   const [filterMabcciList, setFilterMabcciList] = useState([]);
   const categories = [
@@ -142,12 +116,18 @@ const MabcciSearch = () => {
                 onClick={() => mabcciPageHandler(mabcci.nickname)}
                 onKeyDown={() => mabcciPageHandler(mabcci.nickname)}
               >
-                <img
-                  className="styling-mabcci-photo"
-                  src={baseUrl + mabcci.picture}
-                  alt="mabcciPhoto"
-                  width="100"
-                />
+                <Link to={`/mypage/${mabcci.nickname}`}>
+                  <img
+                    className="styling-mabcci-photo"
+                    src={
+                      mabcci.picture !== null
+                        ? baseUrl + mabcci.picture
+                        : 기본프로필
+                    }
+                    alt="mabcciPhoto"
+                    width="100"
+                  />
+                </Link>
               </button>
               <div className="styling-mabcci-info">
                 <Link to={`/mypage/${mabcci.nickname}`}>

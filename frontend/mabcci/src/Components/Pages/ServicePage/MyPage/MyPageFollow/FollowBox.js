@@ -4,8 +4,9 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams, useHistory } from 'react-router-dom';
 import './Follow.css';
 import { IoMdClose } from 'react-icons/io';
-import FollowingList from '../../../../../API/MypageAPI/FollowingList'
-import FollowerList from '../../../../../API/MypageAPI/FollowerList';
+import FollowingListApi from '../../../../../API/MypageAPI/FollowingListApi'
+import FollowerListApi from '../../../../../API/MypageAPI/FollowerListApi';
+import 기본이미지 from '../../../../../Asset/Images/기본프로필.jpg'
 
 const FollowBox = props => {
   const { nickname } = useParams();
@@ -23,11 +24,14 @@ const FollowBox = props => {
   const [followingList, setFollowingList] = useState()
 
   useEffect(async () => {
-    const followingRes = await FollowingList(props.myInfo.nickname, following);
-    const followerRes = await FollowerList(props.myInfo.nickname, follower);
+    const followingRes = await FollowingListApi(
+      props.myInfo.nickname,
+      following,
+    );
+    const followerRes = await FollowerListApi(props.myInfo.nickname, follower);
     setFollowerList(followerRes.data);
     setFollowingList(followingRes.data);
-  }, [nickname]);
+  }, [props.myInfo.nickname, props.myInfo.follower, props.myInfo.following]);
 
   const exitFollowBox = () => {
     props.setFollowBox('none');
@@ -57,9 +61,10 @@ const FollowBox = props => {
           </div>
           {followerList.map(follower => {
             return (
-              <div className="mypage-modal-box-content">
+              <div className="mypage-modal-box-content" key={follower}>
                 <div className="mypage-modal-box-information">
-                  <img src={baseUrl + follower.picture} alt="하이" />
+                  <img src={follower.picture == null ? 기본이미지
+                  :baseUrl + follower.picture} alt="하이" />
                   <Link to={`/mypage/${follower.name}`} onClick={goToUserPage}>
                     <p>{follower.name}</p>
                   </Link>
@@ -87,7 +92,14 @@ const FollowBox = props => {
             return (
               <div className="mypage-modal-box-content">
                 <div className="mypage-modal-box-information">
-                  <img src={baseUrl + following.picture} alt="하이" />
+                  <img
+                    src={
+                      follower.picture === null
+                        ? 기본이미지
+                        : baseUrl + following.picture
+                    }
+                    alt="하이"
+                  />
                   <Link to={`/mypage/${following.name}`} onClick={goToUserPage}>
                     <p>{following.name}</p>
                   </Link>

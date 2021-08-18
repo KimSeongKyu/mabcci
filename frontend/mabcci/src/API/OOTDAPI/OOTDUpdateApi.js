@@ -1,13 +1,15 @@
+import axios from 'axios';
 import { OOTDUpdateUrl } from '../ApiUrl';
 import instance from '../indexMock';
 
-const OOTDUpdateApi = async (id, myOOTDInfo) => {
+const OOTDUpdateApi = async (id, myUpdateInfo) => {
   try {
-    const response = await instance.put(`${OOTDUpdateUrl}${id}`, myOOTDInfo);
-
+    const response = await axios.put(
+      `http://localhost:8080/api/ootds/${id}`,
+      myUpdateInfo,
+    );
     return {
       status: response.status,
-      info: response.data,
     };
   } catch (response) {
     return {

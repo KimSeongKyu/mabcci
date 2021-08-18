@@ -10,15 +10,15 @@ import {
 } from '../../../../../API/OOTDAPI/OOTDDetailApi';
 import 'swiper/swiper.min.css';
 import 'swiper/components/pagination/pagination.min.css';
-import getUserInfo from '../../../../Common/getUserInfo';
 import OOTDDeleteApi from '../../../../../API/OOTDAPI/OOTDDeleteApi';
+import 기본프로필 from '../../../../../Asset/Images/기본프로필.jpg';
 
 const OOTDContent = props => {
   const history = useHistory();
   const { ootdId, writerNickname, userInfo } = props;
   const [writer, setWriter] = useState({
     nickname: writerNickname,
-    memberPicture: '',
+    memberPicture: null,
   });
   const [detail, setDetail] = useState({
     id: ootdId,
@@ -81,7 +81,16 @@ const OOTDContent = props => {
     <article className="detail-content">
       <section className="detail-info">
         <div className="detail-info-photo">
-          <img src={baseUrl + writer.memberPicture} alt="UserPicture" />
+          <Link to={`/mypage/${writer.nickname}`}>
+            <img
+              src={
+                writer.memberPicture !== null
+                  ? baseUrl + writer.memberPicture
+                  : 기본프로필
+              }
+              alt="UserPicture"
+            />
+          </Link>
         </div>
         <div className="detail-info-content">
           <Link to={`/mypage/${writer.nickname}`}>

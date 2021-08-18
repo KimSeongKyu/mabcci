@@ -4,6 +4,7 @@ export const baseUrl = 'http://localhost:8080';
 export const LoginUrl = '/auth/login';
 export const LogoutUrl = '/auth/logout';
 export const SignupUrl = '/api/members';
+export const CheckNicknameUrl = '/api/members/check/';
 
 /* OOTDAPI Url */
 export const OOTDWriteUrl = '/api/ootds';
@@ -29,3 +30,7 @@ export const MypageUpdateUrl = '/api/members/update';
 export const FollowUrl = '/api/follow';
 export const UnFollowUrl = '/api/unfollow';
 export const FollowListUrl = '/api/';
+
+/* Suggestion Url */
+export const SuggestionWriteUrl = '/api/proposals';
+export const SuggestionReadUrl = '/api/proposals/';

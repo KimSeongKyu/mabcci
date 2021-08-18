@@ -55,7 +55,6 @@ function OOTDWrite() {
 
     for (let i = 0; i < nowSelectImageList.length; i += 1) {
       const nowImageUrl = URL.createObjectURL(nowSelectImageList[i]);
-      console.log(nowImageUrl);
       nowImageURLList.push(nowImageUrl);
       nowOriginImage.push(nowSelectImageList[i]);
     }
@@ -125,7 +124,6 @@ function OOTDWrite() {
 
   return (
     <div className="OOTDWrite-container">
-      {/* <OOTDWrite hashTag={myOOTDInfo.hashTag} /> */}
 
       <h5>OOTD Write</h5>
 
