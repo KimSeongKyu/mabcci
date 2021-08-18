@@ -7,7 +7,7 @@ import java.util.List;
 
 public final class ProposalReviewFindResponses {
 
-    @NotNull @JsonProperty("proposalReviewFindResponses")
+    @NotNull @JsonProperty("proposalReviews")
     private List<ProposalReviewFindResponse> proposalReviewFindResponses;
 
     private ProposalReviewFindResponses() {
@@ -15,5 +15,9 @@ public final class ProposalReviewFindResponses {
 
     public ProposalReviewFindResponses(final List<ProposalReviewFindResponse> proposalReviewFindResponses) {
         this.proposalReviewFindResponses = proposalReviewFindResponses;
+    }
+
+    public final List<ProposalReviewFindResponse> proposalReviews() {
+        return proposalReviewFindResponses;
     }
 }
