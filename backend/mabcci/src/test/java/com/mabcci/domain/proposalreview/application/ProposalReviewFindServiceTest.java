@@ -7,6 +7,8 @@ import com.mabcci.domain.proposal.domain.Proposal;
 import com.mabcci.domain.proposalreview.domain.ProposalReview;
 import com.mabcci.domain.proposalreview.domain.ProposalReviewRepository;
 import com.mabcci.domain.proposalreview.domain.StarRating;
+import com.mabcci.domain.proposalreview.dto.response.ProposalReviewDetailFindResponse;
+import com.mabcci.domain.proposalreview.dto.response.ProposalReviewDetailFindResponses;
 import com.mabcci.domain.proposalreview.dto.response.ProposalReviewFindResponse;
 import com.mabcci.domain.proposalreview.dto.response.ProposalReviewFindResponses;
 import com.mabcci.global.common.Email;
@@ -113,6 +115,33 @@ class ProposalReviewFindServiceTest {
         assertAll(
                 () -> assertThat(proposalReviewFindResponse.starRating()).isEqualTo(proposalReview.starRating().ordinal()),
                 () -> assertThat(proposalReviewFindResponse.content()).isEqualTo(proposalReview.content())
+        );
+    }
+
+    @DisplayName("ProposalReviewFindService 인스턴스 맵씨 닉네임에 해당하는 제안서 리스트의 리뷰 조회 기능 테스트")
+    @Test
+    void find_proposal_reviews_by_mabcci_nickname_test() {
+        doReturn(List.of(proposalReview)).when(proposalReviewRepository).findAllByMabcciNickname(any());
+
+        final ProposalReviewDetailFindResponses proposalReviewDetailFindResponses =
+                proposalReviewFindService.findProposalReviewsByMabcciNickname(mabcci.nickname());
+
+        verify(proposalReviewRepository, times(1)).findAllByMabcciNickname(any());
+
+        final ProposalReviewDetailFindResponse proposalReviewDetailFindResponse =
+                proposalReviewDetailFindResponses.proposalReviews().get(0);
+
+        assertAll(
+                () -> assertThat(proposalReviewDetailFindResponse.memberPicture())
+                        .isEqualTo(proposalReview.proposal().targetMember().picture()),
+                () -> assertThat(proposalReviewDetailFindResponse.nickname())
+                        .isEqualTo(proposalReview.proposal().targetMember().nickname()),
+                () -> assertThat(proposalReviewDetailFindResponse.starRating())
+                        .isEqualTo(proposalReview.starRating().ordinal()),
+                () -> assertThat(proposalReviewDetailFindResponse.content())
+                        .isEqualTo(proposalReview.content()),
+                () -> assertThat(proposalReviewDetailFindResponse.createdDate())
+                        .isEqualTo(proposalReview.createdDate())
         );
     }
 }
