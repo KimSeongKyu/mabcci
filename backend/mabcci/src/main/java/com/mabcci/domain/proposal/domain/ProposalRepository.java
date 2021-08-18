@@ -12,12 +12,14 @@ public interface ProposalRepository extends JpaRepository<Proposal, Long> {
     @Query("SELECT p " +
             "FROM Proposal p " +
             "JOIN FETCH p.mabcci m " +
-            "WHERE m.nickname = :nickname")
+            "WHERE m.nickname = :nickname " +
+            "ORDER BY p.id DESC")
     List<Proposal> findAllByMabcciNickname(@Param("nickname") Nickname nickname);
 
     @Query("SELECT p " +
             "FROM Proposal p " +
             "JOIN FETCH p.targetMember m " +
-            "WHERE m.nickname = :nickname")
+            "WHERE m.nickname = :nickname " +
+            "ORDER BY p.id DESC")
     List<Proposal> findAllByTargetMemberNickname(@Param("nickname") Nickname nickname);
 }
