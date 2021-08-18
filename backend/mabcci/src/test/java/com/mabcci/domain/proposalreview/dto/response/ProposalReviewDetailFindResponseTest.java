@@ -83,4 +83,13 @@ class ProposalReviewDetailFindResponseTest {
                 () -> assertThat(proposalReviewDetailFindResponse).isExactlyInstanceOf(ProposalReviewDetailFindResponse.class)
         );
     }
+
+    @DisplayName("ProposalReviewDetailFindResponse 인스턴스 getter 메서드들 테스트")
+    @Test
+    void getter_test() {
+        assertAll(
+                () -> assertThat(proposalReviewDetailFindResponse.starRating()).isEqualTo(StarRating.ZERO),
+                () -> assertThat(proposalReviewDetailFindResponse.content()).isEqualTo("내용")
+        );
+    }
 }
