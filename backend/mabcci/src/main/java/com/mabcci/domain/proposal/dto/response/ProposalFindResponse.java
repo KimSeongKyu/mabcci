@@ -25,18 +25,22 @@ public final class ProposalFindResponse {
     @NotNull @PastOrPresent @JsonProperty("createdDate")
     private LocalDateTime createdDate;
 
+    @NotNull @JsonProperty("isReviewed")
+    private Boolean reviewed;
+
     private ProposalFindResponse() {
     }
 
     public final static ProposalFindResponse ofProposalAndMember(final Proposal proposal, final Member member) {
-        return new ProposalFindResponse(proposal.id(), member.picture(), member.nickname(), proposal.createdDate());
+        return new ProposalFindResponse(proposal.id(), member.picture(), member.nickname(), proposal.createdDate(), proposal.isReviewed());
     }
 
-    public ProposalFindResponse(final Long id, final String picture, final Nickname nickname, final LocalDateTime createdDate) {
+    public ProposalFindResponse(final Long id, final String picture, final Nickname nickname, final LocalDateTime createdDate, final Boolean reviewed) {
         this.id = id;
         this.picture = picture;
         this.nickname = nickname;
         this.createdDate = createdDate;
+        this.reviewed = reviewed;
     }
 
     public final Long id() {
@@ -53,5 +57,9 @@ public final class ProposalFindResponse {
 
     public final LocalDateTime createdDate() {
         return createdDate;
+    }
+
+    public final Boolean isReviewed() {
+        return reviewed;
     }
 }

@@ -31,7 +31,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class ProposalSaveServiceTest {
+class ProposalReviewSaveServiceTest {
 
     @InjectMocks private ProposalReviewSaveService proposalReviewSaveService;
     @Mock private ProposalReviewRepository proposalReviewRepository;

@@ -2,9 +2,11 @@ package com.mabcci.domain.proposal.domain;
 
 import com.mabcci.domain.BaseTimeEntity;
 import com.mabcci.domain.member.domain.Member;
+import com.mabcci.domain.proposalreview.domain.ProposalReview;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Entity
 public class Proposal extends BaseTimeEntity {
@@ -38,6 +40,9 @@ public class Proposal extends BaseTimeEntity {
 
     @Column(name = "proposal_description", updatable = false)
     private String description;
+
+    @OneToOne(mappedBy = "proposal", cascade = CascadeType.ALL, orphanRemoval = true)
+    private ProposalReview proposalReview;
 
     protected Proposal() {
     }
@@ -86,6 +91,10 @@ public class Proposal extends BaseTimeEntity {
 
     public String description() {
         return description;
+    }
+
+    public Boolean isReviewed() {
+        return Objects.nonNull(proposalReview);
     }
 
     public static class ProposalBuilder {
