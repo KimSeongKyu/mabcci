@@ -12,6 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+
 import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.domain.member.domain.MemberTest.PICTURE;
 import static com.mabcci.global.common.EmailTest.EMAIL;
@@ -24,10 +26,12 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class ProposalReviewDetailFindResponseTest {
 
     private ProposalReviewDetailFindResponse proposalReviewDetailFindResponse;
+    private LocalDateTime now;
 
     @BeforeEach
     void setUp() {
-        proposalReviewDetailFindResponse = new ProposalReviewDetailFindResponse(PICTURE, NICKNAME, StarRating.ZERO.ordinal(), "내용");
+        now = LocalDateTime.now();
+        proposalReviewDetailFindResponse = new ProposalReviewDetailFindResponse(PICTURE, NICKNAME, StarRating.ZERO.ordinal(), "내용", now);
     }
 
     @DisplayName("ProposalReviewDetailFindResponse 인스턴스 생성 여부 테스트")
