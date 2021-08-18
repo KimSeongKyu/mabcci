@@ -1,5 +1,6 @@
 package com.mabcci.batch.popularmabcci.job.config;
 
+import com.mabcci.domain.follow.domain.FollowRepository;
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRepository;
@@ -25,18 +26,17 @@ import java.util.Collection;
 
 import static com.mabcci.global.common.PasswordTest.PASSWORD;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @SpringBatchTest
 class PopularMabcciJobConfigTest {
 
-    @Autowired
-    private JobLauncherTestUtils jobLauncherTestUtils;
-    @Autowired
-    private JobRepositoryTestUtils jobRepositoryTestUtils;
-    @Autowired
-    private MemberRepository memberRepository;
+    @Autowired private JobLauncherTestUtils jobLauncherTestUtils;
+    @Autowired private JobRepositoryTestUtils jobRepositoryTestUtils;
+    @Autowired private MemberRepository memberRepository;
+    @Autowired private FollowRepository followRepository;
 
     @BeforeEach
     void setUp() {
@@ -44,7 +44,7 @@ class PopularMabcciJobConfigTest {
         final String nickname = "nickname";
         final String phone = "010-1234-567";
         for (int i = 0; i < 10; i++) {
-            final Member member = Member.Builder()
+            final Member mabcci = Member.Builder()
                     .email(Email.of(i + email))
                     .password(PASSWORD)
                     .nickname(Nickname.of(nickname + i))
@@ -52,8 +52,7 @@ class PopularMabcciJobConfigTest {
                     .gender(Gender.MAN)
                     .memberRole(MemberRole.MABCCI)
                     .build();
-            ReflectionTestUtils.setField(member, "isPopularMabcci", true);
-            memberRepository.save(member);
+            memberRepository.save(mabcci);
         }
     }
 
@@ -64,6 +63,15 @@ class PopularMabcciJobConfigTest {
 
     @Test
     void popular_mabcci_clear_step_test() {
+        assertAll(
+                () -> memberRepository.findAll()
+                        .stream()
+                        .forEach(mabcci -> {
+                            ReflectionTestUtils.setField(mabcci, "isPopularMabcci", true);
+                            assertThat(mabcci.isPopularMabcci()).isTrue();
+                        })
+        );
+
         JobExecution jobExecution = jobLauncherTestUtils.launchStep("popularMabcciClearStep");
         Collection actualStepExecutions = jobExecution.getStepExecutions();
         ExitStatus actualJobExitStatus = jobExecution.getExitStatus();
@@ -71,8 +79,15 @@ class PopularMabcciJobConfigTest {
         assertThat(actualStepExecutions.size()).isEqualTo(1);
         assertThat(actualJobExitStatus.getExitCode()).isEqualTo("COMPLETED");
 
-        memberRepository.findAll()
-                .stream()
-                .forEach(member -> assertThat(member.isPopularMabcci()).isFalse());
+        assertAll(
+                () -> memberRepository.findAll()
+                        .stream()
+                        .forEach(mabcci -> assertThat(mabcci.isPopularMabcci()).isFalse())
+        );
+    }
+
+    @Test
+    void popular_mabcci_update_step_test() {
+
     }
 }
