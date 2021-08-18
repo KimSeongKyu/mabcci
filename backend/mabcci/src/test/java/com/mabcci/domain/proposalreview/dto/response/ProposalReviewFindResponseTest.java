@@ -27,25 +27,25 @@ import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class ProposalReviewDetailFindResponseTest {
+class ProposalReviewFindResponseTest {
 
-    private ProposalReviewDetailFindResponse proposalReviewDetailFindResponse;
+    private ProposalReviewFindResponse proposalReviewFindResponse;
 
     @BeforeEach
     void setUp() {
-        proposalReviewDetailFindResponse = new ProposalReviewDetailFindResponse(StarRating.ZERO.ordinal(), "내용");
+        proposalReviewFindResponse = new ProposalReviewFindResponse(StarRating.ZERO.ordinal(), "내용");
     }
 
-    @DisplayName("ProposalReviewDetailFindResponse 인스턴스 생성 여부 테스트")
+    @DisplayName("ProposalReviewFindResponse 인스턴스 생성 여부 테스트")
     @Test
     void initialize() {
         assertAll(
-                () -> assertThat(proposalReviewDetailFindResponse).isNotNull(),
-                () -> assertThat(proposalReviewDetailFindResponse).isExactlyInstanceOf(ProposalReviewDetailFindResponse.class)
+                () -> assertThat(proposalReviewFindResponse).isNotNull(),
+                () -> assertThat(proposalReviewFindResponse).isExactlyInstanceOf(ProposalReviewFindResponse.class)
         );
     }
 
-    @DisplayName("ProposalReviewDetailFindResponse 인스턴스 스태틱 팩토리 메서드를 이용한 생성 테스트")
+    @DisplayName("ProposalReviewFindResponse 인스턴스 스태틱 팩토리 메서드를 이용한 생성 테스트")
     @Test
     void static_factory_constructor_test() {
         final Member targetMember = Member.Builder()
@@ -82,32 +82,32 @@ class ProposalReviewDetailFindResponseTest {
                 .starRating(StarRating.ZERO)
                 .content("내용")
                 .build();
-        final ProposalReviewDetailFindResponse proposalReviewDetailFindResponse = ProposalReviewDetailFindResponse.ofProposalReview(proposalReview);
+        final ProposalReviewFindResponse proposalReviewFindResponse = ProposalReviewFindResponse.ofProposalReview(proposalReview);
 
         assertAll(
-                () -> assertThat(proposalReviewDetailFindResponse).isNotNull(),
-                () -> assertThat(proposalReviewDetailFindResponse).isExactlyInstanceOf(ProposalReviewDetailFindResponse.class)
+                () -> assertThat(proposalReviewFindResponse).isNotNull(),
+                () -> assertThat(proposalReviewFindResponse).isExactlyInstanceOf(ProposalReviewFindResponse.class)
         );
     }
 
-    @DisplayName("ProposalReviewDetailFindResponse 인스턴스 getter 메서드들 테스트")
+    @DisplayName("ProposalReviewFindResponse 인스턴스 getter 메서드들 테스트")
     @Test
     void getter_test() {
         assertAll(
-                () -> assertThat(proposalReviewDetailFindResponse.starRating()).isEqualTo(StarRating.ZERO.ordinal()),
-                () -> assertThat(proposalReviewDetailFindResponse.content()).isEqualTo("내용")
+                () -> assertThat(proposalReviewFindResponse.starRating()).isEqualTo(StarRating.ZERO.ordinal()),
+                () -> assertThat(proposalReviewFindResponse.content()).isEqualTo("내용")
         );
     }
 
-    @DisplayName("ProposalReviewDetailFindResponse 인스턴스 프로퍼티 유효성 검증 테스트")
+    @DisplayName("ProposalReviewFindResponse 인스턴스 프로퍼티 유효성 검증 테스트")
     @Test
     void validate_test() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        final ProposalReviewDetailFindResponse invalidResponse = new ProposalReviewDetailFindResponse(-1, null);
+        final ProposalReviewFindResponse invalidResponse = new ProposalReviewFindResponse(-1, null);
 
-        final Set<ConstraintViolation<ProposalReviewDetailFindResponse>> invalidPropertiesOfValidResponse =
-                validator.validate(proposalReviewDetailFindResponse);
-        final Set<ConstraintViolation<ProposalReviewDetailFindResponse>> invalidPropertiesOfInvalidResponse =
+        final Set<ConstraintViolation<ProposalReviewFindResponse>> invalidPropertiesOfValidResponse =
+                validator.validate(proposalReviewFindResponse);
+        final Set<ConstraintViolation<ProposalReviewFindResponse>> invalidPropertiesOfInvalidResponse =
                 validator.validate(invalidResponse);
 
         assertAll(

@@ -7,7 +7,7 @@ import com.mabcci.domain.proposal.domain.Proposal;
 import com.mabcci.domain.proposalreview.domain.ProposalReview;
 import com.mabcci.domain.proposalreview.domain.ProposalReviewRepository;
 import com.mabcci.domain.proposalreview.domain.StarRating;
-import com.mabcci.domain.proposalreview.dto.response.ProposalReviewDetailFindResponse;
+import com.mabcci.domain.proposalreview.dto.response.ProposalReviewFindResponse;
 import com.mabcci.global.common.Email;
 import com.mabcci.global.common.Nickname;
 import org.junit.jupiter.api.BeforeEach;
@@ -85,14 +85,14 @@ class ProposalReviewFindServiceTest {
     void find_proposal_review_by_proposal_id_test() {
         doReturn(Optional.of(proposalReview)).when(proposalReviewRepository).findByProposalId(any());
 
-        final ProposalReviewDetailFindResponse proposalReviewDetailFindResponse =
+        final ProposalReviewFindResponse proposalReviewFindResponse =
                 proposalReviewFindService.findProposalReviewByProposalId(proposal.id());
 
         verify(proposalReviewRepository, times(1)).findByProposalId(any());
 
         assertAll(
-                () -> assertThat(proposalReviewDetailFindResponse.starRating()).isEqualTo(proposalReview.starRating().ordinal()),
-                () -> assertThat(proposalReviewDetailFindResponse.content()).isEqualTo(proposalReview.content())
+                () -> assertThat(proposalReviewFindResponse.starRating()).isEqualTo(proposalReview.starRating().ordinal()),
+                () -> assertThat(proposalReviewFindResponse.content()).isEqualTo(proposalReview.content())
         );
     }
 }

@@ -2,7 +2,7 @@ package com.mabcci.domain.proposalreview.application;
 
 import com.mabcci.domain.proposalreview.domain.ProposalReview;
 import com.mabcci.domain.proposalreview.domain.ProposalReviewRepository;
-import com.mabcci.domain.proposalreview.dto.response.ProposalReviewDetailFindResponse;
+import com.mabcci.domain.proposalreview.dto.response.ProposalReviewFindResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,8 +16,8 @@ public class ProposalReviewFindService {
         this.proposalReviewRepository = proposalReviewRepository;
     }
 
-    public ProposalReviewDetailFindResponse findProposalReviewByProposalId(final Long id) {
-        return ProposalReviewDetailFindResponse.ofProposalReview(getProposalReviewByProposalId(id));
+    public ProposalReviewFindResponse findProposalReviewByProposalId(final Long id) {
+        return ProposalReviewFindResponse.ofProposalReview(getProposalReviewByProposalId(id));
     }
 
     private ProposalReview getProposalReviewByProposalId(final Long id) {

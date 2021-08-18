@@ -5,7 +5,7 @@ import com.mabcci.domain.proposalreview.application.ProposalReviewFindService;
 import com.mabcci.domain.proposalreview.application.ProposalReviewSaveService;
 import com.mabcci.domain.proposalreview.domain.StarRating;
 import com.mabcci.domain.proposalreview.dto.request.ProposalReviewSaveRequest;
-import com.mabcci.domain.proposalreview.dto.response.ProposalReviewDetailFindResponse;
+import com.mabcci.domain.proposalreview.dto.response.ProposalReviewFindResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +46,9 @@ class ProposalReviewControllerTest {
     @DisplayName("ProposalReviewController 인스턴스 제안서 id에 해당하는 제안서 리뷰 상세 조회 API 테스트")
     @Test
     void find_proposal_review_api_test() throws Exception {
-        final ProposalReviewDetailFindResponse proposalReviewDetailFindResponse = new ProposalReviewDetailFindResponse(StarRating.ZERO.ordinal(), "내용");
+        final ProposalReviewFindResponse proposalReviewFindResponse = new ProposalReviewFindResponse(StarRating.ZERO.ordinal(), "내용");
 
-        doReturn(proposalReviewDetailFindResponse).when(proposalReviewFindService).findProposalReviewByProposalId(any());
+        doReturn(proposalReviewFindResponse).when(proposalReviewFindService).findProposalReviewByProposalId(any());
 
         mockMvc.perform(get("/api/proposals/{id}/reviews/details", 1)
                 .contentType(MediaType.APPLICATION_JSON)
