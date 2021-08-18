@@ -20,19 +20,21 @@
 }
 
 .suggestion-item {
-  margin: 0 auto;
-  margin-bottom: 80px;
+  margin-left: 15%;
+  margin-bottom: 40px;
   display: grid;
-  grid-template-rows: [row-first] 200px [row-second] 200px;
-  grid-template-columns: [col-first] 200px [col-second] 200px;
+  grid-template-rows: [row-first] 40% [row-second] 40%;
+  grid-template-columns: [col-first] 40% [col-second] 40%;
   grid-template-areas:
     'top bottom'
     'shoes acc';
+  gap: 10px;
 }
 
 .suggestion-cloth {
   width: 100%;
   object-fit: contain;
+  align-self: stretch;
 
   /* 모서리 */
   border-radius: 20px;
@@ -76,7 +78,7 @@
     transform: translateY(0) translateX(0);
   }
   100% {
-    transform: translateY(-25px) translateX(-25px);
+    transform: translateY(-10%) translateX(-10%);
   }
 }
 
@@ -85,7 +87,7 @@
     transform: translateY(0) translateX(0);
   }
   100% {
-    transform: translateY(-25px) translateX(25px);
+    transform: translateY(-10%) translateX(10%);
   }
 }
 
@@ -94,7 +96,7 @@
     transform: translateY(0) translateX(0);
   }
   100% {
-    transform: translateY(25px) translateX(-25px);
+    transform: translateY(10%) translateX(-10%);
   }
 }
 
@@ -103,12 +105,13 @@
     transform: translateY(0) translateX(0);
   }
   100% {
-    transform: translateY(25px) translateX(25px);
+    transform: translateY(10%) translateX(10%);
   }
 }
 
 .suggestion-comment {
-  margin-bottom: 50px;
+  margin-left: 15%;
+  margin-bottom: 40px;
 }
 
 .suggesion-footer {

@@ -1,34 +1,42 @@
 import React from 'react';
-import top from './Images/상의.jpg';
-import bottom from './Images/바지.jpg';
-import shoes from './Images/신발.jpg';
-import acc from './Images/악세서리.jpg';
+import { useSelector } from 'react-redux';
+import { baseUrl } from '../../../../../API/ApiUrl';
+
+import top from './Images/tmpTop.png';
+import bottom from './Images/tmpBottom.png';
+import shoes from './Images/tmpShoes.png';
+import acc from './Images/tmpAcc.png';
 
 const SuggestionItem = () => {
+  const suggestion = useSelector(state => state.SuggestionReducer);
+  console.log(suggestion.top);
   return (
-    <article className="suggestion-item">
-      <img src={top} alt="상의" className="suggestion-cloth suggestion-top" />
-      <img
-        src={bottom}
-        alt="하의"
-        className="suggestion-cloth suggestion-bottom"
-      />
-      <img
-        src={bottom}
-        alt="하의"
-        className="suggestion-cloth suggestion-bottom"
-      />
-      <img
-        src={shoes}
-        alt="신발"
-        className="suggestion-cloth suggestion-shoes"
-      />
-      <img
-        src={acc}
-        alt="액세서리"
-        className="suggestion-cloth suggestion-acc"
-      />
-    </article>
+    <div>
+      {suggestion ? (
+        <article className="suggestion-item">
+          <img
+            src={suggestion.top ? baseUrl + suggestion.top : top}
+            alt="상의"
+            className="suggestion-cloth suggestion-top"
+          />
+          <img
+            src={suggestion.bottom ? baseUrl + suggestion.bottom : bottom}
+            alt="하의"
+            className="suggestion-cloth suggestion-bottom"
+          />
+          <img
+            src={suggestion.shoes ? baseUrl + suggestion.shoes : shoes}
+            alt="신발"
+            className="suggestion-cloth suggestion-shoes"
+          />
+          <img
+            src={suggestion.acc ? baseUrl + suggestion.acc : acc}
+            alt="액세서리"
+            className="suggestion-cloth suggestion-acc"
+          />
+        </article>
+      ) : null}
+    </div>
   );
 };
 
