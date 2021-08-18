@@ -2,6 +2,7 @@
 import '../../MyPageFollow/Follow.css';
 import '../MySetting/MySetting.css'
 import React, {useState, useEffect} from 'react';
+import { Link, useHistory } from 'react-router-dom'
 import 기본이미지 from '../../../../../../Asset/Images/기본프로필.jpg'
 import MyProposalReview from './MyProposalReview';
 import SuggestSuggestionListApi from '../../../../../../API/SuggestionAPI/SuggestSuggestionListApi';
@@ -9,6 +10,8 @@ import ReceiveSuggestionListApi from '../../../../../../API/SuggestionAPI/Receiv
 import { baseUrl } from '../../../../../../API/ApiUrl'
 
 const MyProposalList = props => {
+  const history = useHistory();
+
   const closeProposalBox = () => {
     props.setProposalBox(false);
   };
@@ -38,6 +41,10 @@ const MyProposalList = props => {
   const openReviewBox = () => {
     setReviewBox(true)
   }
+
+  const goProposalDetail = e => {
+    history.push(`/suggestion/${e.target.id}`);
+  };
 
   return (
     <>
@@ -98,10 +105,11 @@ const MyProposalList = props => {
                       <p>Mabcci {receiveproposal.nickname}</p>
                       <p>{receiveproposal.createdDate.slice(0, 10)}</p>
                     </div>
-
+                  
                     <button type="submit" onClick={openReviewBox}>
                       Review
                     </button>
+
                   </div>
                 );
               })}
@@ -127,8 +135,13 @@ const MyProposalList = props => {
                       <p>Mabcci {props.myInfo.nickname}</p>
                       <p>{suggestproposal.createdDate.slice(0, 10)}</p>
                     </div>
-
-                    <button type="submit">Open</button>
+                    <button
+                      type="submit"
+                      id={suggestproposal.id}
+                      onClick={goProposalDetail}
+                    >
+                      Open
+                    </button>
                   </div>
                 );
               })}

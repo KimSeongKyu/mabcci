@@ -11,6 +11,7 @@ import ReceiveSuggestionListApi from '../../../../../../API/SuggestionAPI/Receiv
 
 const MyPageProposalListMobile = props => {
   const [reviewBox, setReviewBox] = useState(false);
+  const history = useHistory();
 
   useEffect(async () => {
     const suggestRes = await SuggestSuggestionListApi(props.myInfo.nickname);
@@ -41,6 +42,10 @@ const MyPageProposalListMobile = props => {
   const goReview = () => {
     setReviewBox(true);
   };
+
+  const goProposalDetail = (id) => {
+    history.push(`/suggestion/${id}`)
+  }
 
   return (
     <>
@@ -131,8 +136,12 @@ const MyPageProposalListMobile = props => {
                       <p>{suggestproposal.createdDate.slice(0, 10)}</p>
                     </div>
 
-                    <button type="submit" onClick={goReview}>
-                      Review
+                    <button
+                      type="submit"
+                      id={suggestproposal.id}
+                      onClick={goProposalDetail}
+                    >
+                      Open
                     </button>
                   </div>
                 );

@@ -202,6 +202,42 @@
   border-radius: 5px;
 }
 
+.mypage-review-list-box {
+  width: 80%;
+  margin: auto;
+  margin-top: 30px;
+  text-align: start;
+}
+
+.mypage-review-list-box p {
+  font-weight: 900;
+  color: var(--main-color-1);
+}
+
+.mypage-review-list-header {
+  border-bottom: solid 1px lightgray;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mypage-review-list {
+  display: flex;
+  padding: 5px;
+  padding-left: 0px;
+}
+
+.mypage-review-list div {
+  width: 50%;
+  text-align: start;
+}
+
+.mypage-review-list-star {
+  font-size: 30px;
+  fill: var(--main-color-1);
+  stroke-width: 1;
+  padding: 3px;
+}
+
 .mypage-feed-container {
   border-top: solid 1px lightgray;
   margin-top: 30px;

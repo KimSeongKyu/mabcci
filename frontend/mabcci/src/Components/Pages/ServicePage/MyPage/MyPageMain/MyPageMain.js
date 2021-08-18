@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 
 import { HiMenu } from 'react-icons/hi';
 import NavCategory from '../../../../../Redux/Actions/NavAction';
-import MabcciReview from './MabcciReview';
 import MyPageFeed from './MyPageFeed';
 import MyPageProfile from './MyPageProfile';
 import MypageReadApi from '../../../../../API/MypageAPI/MypageReadApi';
@@ -15,6 +14,7 @@ import MyProposalListMobile from '../MyPageSetting/MyProposal/MyProposalListMobi
 import MyPageMobileMenu from '../MyPageSetting/MySetting/MyPageMobileMenu';
 import getUserInfo from '../../../../Common/getUserInfo';
 import { baseUrl } from '../../../../../API/ApiUrl';
+import MyPageReview from './MyPageReview';
 
 function MyPageMain() {
   const { nickname } = useParams();
@@ -111,7 +111,7 @@ function MyPageMain() {
             setMobileMenu={setMobileMenu}
           />
         ) : null}
-        {myInfo.role === 'MABCCI' ? <MabcciReview /> : null}
+        {myInfo.role === 'MABCCI' ? <MyPageReview /> : null}
         {myInfo.ootds ? <MyPageFeed myInfo={myInfo} /> : null}
       </div>
     </div>
