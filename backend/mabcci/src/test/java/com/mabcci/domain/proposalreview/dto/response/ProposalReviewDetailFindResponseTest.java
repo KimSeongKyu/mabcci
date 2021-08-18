@@ -27,7 +27,7 @@ class ProposalReviewDetailFindResponseTest {
 
     @BeforeEach
     void setUp() {
-        proposalReviewDetailFindResponse = new ProposalReviewDetailFindResponse(1L, "내용");
+        proposalReviewDetailFindResponse = new ProposalReviewDetailFindResponse(StarRating.ZERO, "내용");
     }
 
     @DisplayName("ProposalReviewDetailFindResponse 인스턴스 생성 여부 테스트")
