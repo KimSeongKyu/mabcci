@@ -13,11 +13,9 @@ const OotdReducer = (state = initialState, { type, payload }) => {
       return { ...state, ootd: _.uniqBy([...state.ootd, ...payload], 'id') };
     }
     case OOTD_FILTERING: {
-      console.log(payload);
       return { ...state, ootd: payload };
     }
     case OOTD_FILTER_STATE: {
-      console.log(payload);
       return { ...state, filter: payload };
     }
     default:

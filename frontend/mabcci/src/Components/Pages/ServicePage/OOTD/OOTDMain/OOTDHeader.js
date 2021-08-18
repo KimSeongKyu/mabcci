@@ -3,7 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { OOTDFilterState } from '../../../../../Redux/Actions/OOTDAction';
 
-const OOTDHeader = ({ searching, setPage, setFiltering, setSearching }) => {
+const OOTDHeader = ({
+  searching,
+  setPage,
+  setFiltering,
+  setSearching,
+  setKeyword,
+  setSearchResult,
+  setSearchInput,
+}) => {
   const dispatch = useDispatch();
   const filterState = useSelector(state => state.OotdReducer.filter);
   const onFilter = e => {
@@ -11,6 +19,9 @@ const OOTDHeader = ({ searching, setPage, setFiltering, setSearching }) => {
     const keyword = e.target.name;
     dispatch(OOTDFilterState(keyword));
     setFiltering(true);
+    setKeyword(null);
+    setSearchResult([]);
+    setSearchInput('');
     setPage(0);
   };
 
