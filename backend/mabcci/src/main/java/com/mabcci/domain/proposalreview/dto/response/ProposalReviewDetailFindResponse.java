@@ -26,4 +26,12 @@ public final class ProposalReviewDetailFindResponse {
         this.starRating = starRating;
         this.content = content;
     }
+
+    public final StarRating starRating() {
+        return starRating;
+    }
+
+    public final String content() {
+        return content;
+    }
 }
