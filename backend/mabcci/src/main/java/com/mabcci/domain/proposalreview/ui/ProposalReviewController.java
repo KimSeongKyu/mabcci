@@ -3,6 +3,7 @@ package com.mabcci.domain.proposalreview.ui;
 import com.mabcci.domain.proposalreview.application.ProposalReviewFindService;
 import com.mabcci.domain.proposalreview.application.ProposalReviewSaveService;
 import com.mabcci.domain.proposalreview.dto.request.ProposalReviewSaveRequest;
+import com.mabcci.global.common.Nickname;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,5 +31,10 @@ public class ProposalReviewController {
     @GetMapping("/api/proposals/{id}/reviews/details")
     public ResponseEntity findProposalReview(@Positive @PathVariable("id") final Long id) {
         return ResponseEntity.ok(proposalReviewFindService.findProposalReviewByProposalId(id));
+    }
+
+    @GetMapping("/api/proposals/reviews")
+    public ResponseEntity findLatelyThreeProposalReviews(@Valid @RequestParam("nickname") final Nickname nickname) {
+        return ResponseEntity.ok(proposalReviewFindService.findLatelyThreeProposalReviewsByNickname(nickname));
     }
 }
