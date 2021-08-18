@@ -134,4 +134,14 @@ class ProposalReviewRepositoryTest {
         final List<ProposalReview> proposalReviews = proposalReviewRepository.findLatelyThreeByNickname(mabcci.nickname(), PageRequest.of(0, 3));
         assertThat(proposalReviews.size()).isEqualTo(3);
     }
+
+    @DisplayName("ProposalReviewRepository 맵씨 닉네임에 해당하는 제안서 리스트의 리뷰 조회 테스트")
+    @Test
+    void find_all_by_mabcci_nickname_test() {
+        testEntityManager.persist(proposalReview);
+
+        final List<ProposalReview> proposalReviews = proposalReviewRepository.findAllByMabcciNickname(mabcci.nickname());
+
+        assertThat(proposalReviews).contains(proposalReview);
+    }
 }
