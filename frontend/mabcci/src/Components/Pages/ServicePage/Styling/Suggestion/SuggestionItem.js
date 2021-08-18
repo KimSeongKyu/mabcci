@@ -9,7 +9,7 @@ import acc from './Images/tmpAcc.png';
 
 const SuggestionItem = () => {
   const suggestion = useSelector(state => state.SuggestionReducer);
-  console.log(suggestion.top);
+  console.log(baseUrl + suggestion.top);
   return (
     <div>
       {suggestion ? (

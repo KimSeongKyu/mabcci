@@ -70,11 +70,6 @@ const MabcciSearch = () => {
     console.log(nickname, '스타일링 신청 페이지');
   };
 
-  /* Mabcci 마이페이지 이벤트 */
-  const mabcciPageHandler = nickname => {
-    console.log(nickname, 'Mabcci 마이페이지');
-  };
-
   return (
     <>
       <header className="styling-header">
@@ -111,11 +106,7 @@ const MabcciSearch = () => {
         {filterMabcciList &&
           filterMabcciList.map(mabcci => (
             <div className="styling-mabcci" key={mabcci.nickname}>
-              <button
-                type="button"
-                onClick={() => mabcciPageHandler(mabcci.nickname)}
-                onKeyDown={() => mabcciPageHandler(mabcci.nickname)}
-              >
+              <button type="button">
                 <Link to={`/mypage/${mabcci.nickname}`}>
                   <img
                     className="styling-mabcci-photo"
