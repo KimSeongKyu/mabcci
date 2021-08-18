@@ -1,11 +1,13 @@
 import React from 'react';
 
-const SuggestionHeader = () => {
+const SuggestionHeader = ({ suggestion }) => {
+  console.log(suggestion);
+
   return (
     <header className="suggesion-header">
       <div className="suggesion-mabcci">
         <h4>STYLING</h4>
-        <h2>김고은 MABCCI</h2>
+        <h2> MABCCI</h2>
       </div>
     </header>
   );
