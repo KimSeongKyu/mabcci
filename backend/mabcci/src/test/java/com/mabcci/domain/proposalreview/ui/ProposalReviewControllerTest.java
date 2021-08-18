@@ -46,7 +46,7 @@ class ProposalReviewControllerTest {
     @DisplayName("ProposalReviewController 인스턴스 제안서 id에 해당하는 제안서 리뷰 상세 조회 API 테스트")
     @Test
     void find_proposal_review_api_test() throws Exception {
-        final ProposalReviewDetailFindResponse proposalReviewDetailFindResponse = new ProposalReviewDetailFindResponse(StarRating.ZERO, "내용");
+        final ProposalReviewDetailFindResponse proposalReviewDetailFindResponse = new ProposalReviewDetailFindResponse(StarRating.ZERO.ordinal(), "내용");
 
         doReturn(proposalReviewDetailFindResponse).when(proposalReviewFindService).findProposalReviewByProposalId(any());
 

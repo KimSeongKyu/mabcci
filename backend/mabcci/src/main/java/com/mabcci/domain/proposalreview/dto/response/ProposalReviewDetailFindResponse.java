@@ -4,13 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mabcci.domain.proposalreview.domain.ProposalReview;
 import com.mabcci.domain.proposalreview.domain.StarRating;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
 public final class ProposalReviewDetailFindResponse {
 
-    @NotNull
-    @JsonProperty("starRating")
-    private StarRating starRating;
+    @PositiveOrZero @JsonProperty("starRating")
+    private int starRating;
 
     @JsonProperty("content")
     private String content;
@@ -19,15 +18,15 @@ public final class ProposalReviewDetailFindResponse {
     }
 
     public final static ProposalReviewDetailFindResponse ofProposalReview(final ProposalReview proposalReview) {
-        return new ProposalReviewDetailFindResponse(proposalReview.starRating(), proposalReview.content());
+        return new ProposalReviewDetailFindResponse(proposalReview.starRating().ordinal(), proposalReview.content());
     }
 
-    public ProposalReviewDetailFindResponse(final StarRating starRating, final String content) {
+    public ProposalReviewDetailFindResponse(final int starRating, final String content) {
         this.starRating = starRating;
         this.content = content;
     }
 
-    public final StarRating starRating() {
+    public final int starRating() {
         return starRating;
     }
 

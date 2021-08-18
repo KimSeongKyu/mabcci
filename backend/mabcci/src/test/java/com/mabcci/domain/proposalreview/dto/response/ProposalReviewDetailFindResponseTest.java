@@ -33,7 +33,7 @@ class ProposalReviewDetailFindResponseTest {
 
     @BeforeEach
     void setUp() {
-        proposalReviewDetailFindResponse = new ProposalReviewDetailFindResponse(StarRating.ZERO, "내용");
+        proposalReviewDetailFindResponse = new ProposalReviewDetailFindResponse(StarRating.ZERO.ordinal(), "내용");
     }
 
     @DisplayName("ProposalReviewDetailFindResponse 인스턴스 생성 여부 테스트")
@@ -94,7 +94,7 @@ class ProposalReviewDetailFindResponseTest {
     @Test
     void getter_test() {
         assertAll(
-                () -> assertThat(proposalReviewDetailFindResponse.starRating()).isEqualTo(StarRating.ZERO),
+                () -> assertThat(proposalReviewDetailFindResponse.starRating()).isEqualTo(StarRating.ZERO.ordinal()),
                 () -> assertThat(proposalReviewDetailFindResponse.content()).isEqualTo("내용")
         );
     }
@@ -103,7 +103,7 @@ class ProposalReviewDetailFindResponseTest {
     @Test
     void validate_test() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        final ProposalReviewDetailFindResponse invalidResponse = new ProposalReviewDetailFindResponse(null, null);
+        final ProposalReviewDetailFindResponse invalidResponse = new ProposalReviewDetailFindResponse(-1, null);
 
         final Set<ConstraintViolation<ProposalReviewDetailFindResponse>> invalidPropertiesOfValidResponse =
                 validator.validate(proposalReviewDetailFindResponse);

@@ -91,7 +91,7 @@ class ProposalReviewFindServiceTest {
         verify(proposalReviewRepository, times(1)).findByProposalId(any());
 
         assertAll(
-                () -> assertThat(proposalReviewDetailFindResponse.starRating()).isEqualTo(proposalReview.starRating()),
+                () -> assertThat(proposalReviewDetailFindResponse.starRating()).isEqualTo(proposalReview.starRating().ordinal()),
                 () -> assertThat(proposalReviewDetailFindResponse.content()).isEqualTo(proposalReview.content())
         );
     }
