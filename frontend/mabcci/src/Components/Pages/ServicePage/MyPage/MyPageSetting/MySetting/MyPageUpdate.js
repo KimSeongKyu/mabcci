@@ -38,8 +38,6 @@ const MyPageUpdate = (props) => {
   }
 
   const submit = async () => {
-    console.log(props.myUpdateInfo);
-    console.log(props.updateData);
     const res = await MypageUpdateApi(
       props.updateData,
       props.myUpdateInfo.nickname,
@@ -95,7 +93,6 @@ const MyPageUpdate = (props) => {
       ...props.myUpdateInfo,
       bodyType: e.target.name,
     });
-    console.log(props.myUpdateInfo)
   };
 
     const styleBtnClick = e => {
@@ -184,6 +181,7 @@ const MyPageUpdate = (props) => {
             <div className="mypage-mobile-update-content">
               <h3>닉네임</h3>
               <input
+                style={{ pointerEvents:"none" }}
                 type="text"
                 value={props.myUpdateInfo.nickname}
                 name="nickname"

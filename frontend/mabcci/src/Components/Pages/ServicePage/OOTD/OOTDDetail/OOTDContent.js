@@ -112,7 +112,11 @@ const OOTDContent = props => {
         </div>
       </section>
       <section className="detail-ootd-photo">
-        <Swiper pagination className="detail-swiper-container">
+        <Swiper
+          pagination
+          className="detail-swiper-container"
+          autoHeight="true"
+        >
           {detail.ootdPictures.map(picture => {
             return (
               <SwiperSlide className="detail-swiper-slide" key={picture}>

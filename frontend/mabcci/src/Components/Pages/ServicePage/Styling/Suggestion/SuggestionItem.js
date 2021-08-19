@@ -9,7 +9,6 @@ import acc from './Images/tmpAcc.png';
 
 const SuggestionItem = () => {
   const suggestion = useSelector(state => state.SuggestionReducer);
-  console.log(baseUrl + suggestion.top);
   return (
     <div>
       {suggestion ? (
@@ -30,7 +29,7 @@ const SuggestionItem = () => {
             className="suggestion-cloth suggestion-shoes"
           />
           <img
-            src={suggestion.acc ? baseUrl + suggestion.acc : acc}
+            src={suggestion.accessory ? baseUrl + suggestion.accessory : acc}
             alt="액세서리"
             className="suggestion-cloth suggestion-acc"
           />

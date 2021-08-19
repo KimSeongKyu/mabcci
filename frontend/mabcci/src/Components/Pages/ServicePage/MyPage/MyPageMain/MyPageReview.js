@@ -84,25 +84,30 @@ function MyPageReview(props) {
     <article className="mypage-review-list-box">
       <header className="mypage-review-list-header">
         <p>Review</p>
-
-        <button
-          onClick={openEntireReview}
-          style={{ fontSize: 12, color: 'black' }}
-          type="submit"
-        >
-          {entireReviewBox === false ? '자세히보기' : '접기'}
-        </button>
+        {entireReviewList && entireReviewList.length > 0 ? (
+          <button
+            onClick={openEntireReview}
+            style={{ fontSize: 12, color: 'black' }}
+            type="submit"
+          >
+            {entireReviewBox === false ? '자세히보기' : '접기'}
+          </button>
+        ) : null}
       </header>
       {entireReviewList && ReviewList ? (
         <div>
           <div className="mypage-star-average">
-            <header style={{ fontSize: 'x-large' }}>
-              평균별점
-              <h1>
-                <BsFillStarFill className="mypage-review-title-star" />
-                {averageStar().slice(0, 4)}
-              </h1>
-            </header>
+            {entireReviewList.length > 0 ? (
+              <header style={{ fontSize: 'x-large' }}>
+                평균별점
+                <h1>
+                  <BsFillStarFill className="mypage-review-title-star" />
+                  {averageStar().slice(0, 4)}
+                </h1>
+              </header>
+            ) : (
+              <p style={{ color: 'gray' }}>등록된 리뷰가 없습니다.</p>
+            )}
           </div>
           {entireReviewBox === false ? (
             <div>
@@ -120,7 +125,8 @@ function MyPageReview(props) {
                       })}
                     </div>
                     <div className="mypage-review-comment">
-                      {review.content.slice(0, 15)}
+                      {review.content.slice(0, 30)}
+                      {review.content.length > 30 ? <>....</> : null}
                     </div>
                   </section>
                 );
