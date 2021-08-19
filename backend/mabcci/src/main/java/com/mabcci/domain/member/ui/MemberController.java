@@ -1,6 +1,5 @@
 package com.mabcci.domain.member.ui;
 
-import com.mabcci.domain.auth.dto.response.LoginResponse;
 import com.mabcci.domain.member.application.MemberDeleteService;
 import com.mabcci.domain.member.application.MemberFindService;
 import com.mabcci.domain.member.application.MemberJoinService;
@@ -44,9 +43,10 @@ public class MemberController {
     }
 
     @PostMapping(value = "/api/members")
-    public ResponseEntity<LoginResponse> join(@Valid @RequestBody final MemberJoinRequest request) {
-        final LoginResponse loginResponse = memberJoinService.join(request.member(), request.categories());
-        return ResponseEntity.ok().body(loginResponse);
+    public ResponseEntity<MemberFindByNickNameResponse> join(@Valid @RequestBody final MemberJoinRequest request) {
+        final Member member = memberJoinService.join(request.member(), request.categories());
+        final MemberFindByNickNameResponse response = MemberFindByNickNameResponse.ofMember(member);
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/api/members/mypage/{nickname}")
