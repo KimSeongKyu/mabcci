@@ -112,4 +112,18 @@ public class MemberFindServiceTest {
         );
     }
 
+    @DisplayName("MemberFindService 인스턴스 findPopularMabccies() 기능 테스트")
+    @Test
+    void find_popular_mabccies_test() {
+        final List list = new ArrayList(Arrays.asList(member));
+        given(memberRepository.findAllByIsPopularMabcci()).willReturn((list));
+        final MemberFindSimpleResponses memberFindSimpleResponses = memberFindService.findPopularMabccies();
+        final MemberFindSimpleResponse memberFindSimpleResponse = memberFindSimpleResponses.members().get(0);
+
+        assertAll(
+                () -> assertThat(memberFindSimpleResponse.nickname()).isEqualTo(member.nickname()),
+                () -> assertThat(memberFindSimpleResponse.picture()).isEqualTo(member.picture())
+        );
+    }
+
 }
