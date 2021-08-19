@@ -87,6 +87,7 @@ const MyInfoMobile = props => {
             <div className="mypage-mobile-update-content">
               <h3>닉네임</h3>
               <input
+                style={{ pointerEvents: 'none' }}
                 type="text"
                 value={props.myUpdateInfo.nickname}
                 name="nickname"

@@ -102,7 +102,7 @@ const FollowBox = props => {
                 <div className="mypage-modal-box-information">
                   <img
                     src={
-                      follower.picture === null
+                      following.picture == null
                         ? 기본이미지
                         : baseUrl + following.picture
                     }
