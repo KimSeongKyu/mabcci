@@ -3,6 +3,7 @@ package com.mabcci.batch.popularmabcci.job.config;
 import com.mabcci.domain.member.domain.Member;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.item.ItemProcessor;
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.EntityManagerFactory;
 
+@EnableBatchProcessing
 @Configuration
 public class PopularMabcciJobConfig {
 
