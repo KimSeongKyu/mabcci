@@ -136,8 +136,6 @@ const Etc = () => {
   }, []);
 
   useEffect(() => {
-    console.log(window.scrollY);
-    console.log(fix);
     if (window.scrollY >= 370) {
       setFix({ ...fix, firstImage: true });
     }

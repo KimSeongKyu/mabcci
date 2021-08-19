@@ -7,7 +7,7 @@ import 'swiper/swiper.scss';
 
 const Description = () => {
   return (
-    <div className>
+    <div>
       <Swiper className="mySwiper desc-container">
         <SwiperSlide>
           <DescriptionPage1 />
