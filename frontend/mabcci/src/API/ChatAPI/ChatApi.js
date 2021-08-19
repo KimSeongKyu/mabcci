@@ -8,5 +8,12 @@ export const chatListApi = async () => {
 };
 
 export const createChatRoomApi = async mabcci => {
+  const accessToken = localStorage.getItem('accessToken');
   const createChatRoomUrl = `api/chat/room`;
+  const response = await instance.post(createChatRoomUrl, mabcci, {
+    headers: {
+      Authorization: accessToken,
+    },
+  });
+  console.log(response);
 };
