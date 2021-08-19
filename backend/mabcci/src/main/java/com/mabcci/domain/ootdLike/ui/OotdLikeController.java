@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-@CrossOrigin(originPatterns = "http://localhost:*")
+@CrossOrigin(originPatterns = "*")
 @RestController
 public class OotdLikeController {
 
