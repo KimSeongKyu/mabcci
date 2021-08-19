@@ -56,8 +56,8 @@ const MakeSuggestion = () => {
   const clothes = ['top', 'bottom', 'shoes', 'accessory'];
   const clothIcon = [IoShirt, GiArmoredPants, GiConverseShoe, FaShoppingBag];
   const [suggestion, setSuggestion] = useState({
-    targetMemberNickname: '썽',
-    mabcciNickname: '젠킨스',
+    targetMemberNickname: '하얀족제비',
+    mabcciNickname: '래서판다',
     description: '',
     top: [null, new Blob()] /* [ImageURL, originImageURL] */,
     bottom: [null, new Blob()],

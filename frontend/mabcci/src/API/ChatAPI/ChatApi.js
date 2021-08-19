@@ -7,4 +7,6 @@ export const chatListApi = async () => {
   return response;
 };
 
-export const chatLogApi = async () => {};
+export const createChatRoomApi = async mabcci => {
+  const createChatRoomUrl = `api/chat/room`;
+};

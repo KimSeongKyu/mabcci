@@ -72,6 +72,7 @@ export const OOTDCommentDeleteApi = async id => {
 
 export const OOTDLikeApi = async (id, nickname) => {
   try {
+    console.log(`${OOTDLikeUrl}${id}/like/${nickname}`);
     const response = await instance.post(
       `${OOTDLikeUrl}${id}/like/${nickname}`,
     );
