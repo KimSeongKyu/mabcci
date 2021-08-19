@@ -1,30 +1,26 @@
-logging.level:
-  root: info
-  org.hibernate.SQL: debug
 spring:
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+  application:
+    name: mabcci
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://13.124.127.111:3306/mabcci?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: root
   jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    generate-ddl: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     properties:
       hibernate:
         default_batch_fetch_size: 1000
         format_sql: true
-  redis:
-    port: 6387
-  freemarker:
-    template-loader-path: classpath:/templates
-    suffix: .ftl
+logging.level:
+  org.hibernate.SQL: debug
+secret:
+  key: "ssafy mabcci team kim kim joe lim choi"
 path:
   upload: "/images"
-  resource: "file:///images/mabcci/images/local"
-  real: "Users/mabcci/images/local"
-
+  resource: "file:///C:/mabcci/images/test"
+  real: "C:/mabcci/images/test"
