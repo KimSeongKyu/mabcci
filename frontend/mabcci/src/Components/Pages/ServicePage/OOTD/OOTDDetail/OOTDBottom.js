@@ -226,23 +226,6 @@ const OOTDBottom = props => {
       <div className="detail-comments-title">
         <h5>Comments</h5>
       </div>
-      <div className="detail-comments">
-        {comments.length !== 0 &&
-          comments.map(comment => {
-            return (
-              <SingleComment
-                key={comment.id}
-                depth="0"
-                userInfo={userInfo}
-                comment={comment}
-                allComments={allComments}
-                commentWrite={commentWrite}
-                commentDelete={commentDelete}
-                commentUpdate={commentUpdate}
-              />
-            );
-          })}
-      </div>
       <div className="detail-comment-write">
         <input
           className="detail-comment-input"
@@ -261,6 +244,23 @@ const OOTDBottom = props => {
             setCommentCotent('');
           }}
         />
+      </div>
+      <div className="detail-comments">
+        {comments.length !== 0 &&
+          comments.map(comment => {
+            return (
+              <SingleComment
+                key={comment.id}
+                depth="0"
+                userInfo={userInfo}
+                comment={comment}
+                allComments={allComments}
+                commentWrite={commentWrite}
+                commentDelete={commentDelete}
+                commentUpdate={commentUpdate}
+              />
+            );
+          })}
       </div>
     </footer>
   );

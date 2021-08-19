@@ -15,7 +15,7 @@
   max-width: 70%;
   margin-top: 30px;
   margin-bottom: 20px;
-  margin-left: 10%;
+  margin-left: 3%;
 }
 
 .detail-info img {
@@ -61,7 +61,7 @@
 
 .detail-ootd {
   position: relative;
-  margin-left: 10%;
+  margin-left: 3%;
 }
 
 .detail-ootd p {
@@ -207,7 +207,11 @@
   position: relative;
   margin-left: 10%;
   margin-right: 10%;
-  margin-top: 10%;
+  margin-top: 7%;
+  margin-bottom: 7%;
+}
+
+.detail-comments {
   margin-bottom: 30%;
 }
 
@@ -258,5 +262,18 @@
 @media screen and (min-width: 576px) {
   .detail-title {
     display: none;
+  }
+
+  .detail-info {
+    margin-left: 13%;
+  }
+
+  .detail-ootd {
+    position: relative;
+    margin-left: 13%;
+  }
+
+  .detail-bottom {
+    margin-left: 5%;
   }
 }
