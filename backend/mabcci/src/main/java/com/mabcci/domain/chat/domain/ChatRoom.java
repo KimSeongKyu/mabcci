@@ -14,8 +14,8 @@ public class ChatRoom {
     @Column(name = "chat_room_id")
     private String id;
 
-    @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Chatting> chattings = new HashSet<>();
+    @OneToOne(mappedBy = "chatRoom")
+    private Chatting chatting;
 
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ChatMessage> chattingMessages = new HashSet<>();
@@ -28,8 +28,8 @@ public class ChatRoom {
         return id;
     }
 
-    public Set<Chatting> chattings() {
-        return chattings;
+    public Chatting chatting() {
+        return chatting;
     }
 
     public Set<ChatMessage> chattingMessages() {

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mabcci.domain.chat.domain.ChatMessage;
 import com.mabcci.domain.chat.domain.Chatting;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -15,7 +16,7 @@ public class ChattingRoomResponse {
     @JsonProperty("chattingMessages")
     private Set<ChattingMessage> chattingMessages;
 
-    public static ChattingRoomResponse fromChattings(final Set<Chatting> chattings, final Set<ChatMessage> chatMessages) {
+    public static ChattingRoomResponse fromChattings(final Chatting chattings, final Set<ChatMessage> chatMessages) {
         final Set<Chatter> chatters = mapToChatterSet(chattings);
         final Set<ChattingMessage> chattingMessages = chatMessages.stream()
                 .map(ChattingMessage::ofChatMessage)
@@ -23,16 +24,27 @@ public class ChattingRoomResponse {
         return new ChattingRoomResponse(chatters, chattingMessages);
     }
 
-    private static Set<Chatter> mapToChatterSet(final Set<Chatting> chattings) {
-        return chattings.stream()
-                .map(Chatting::member)
-                .map(Chatter::new)
-                .collect(Collectors.toSet());
+    private static Set<Chatter> mapToChatterSet(final Chatting chatting) {
+        final Set<Chatter> chatters = new HashSet<>();
+        chatters.add(new Chatter(chatting.proposal()));
+        chatters.add(new Chatter(chatting.mabcci()));
+        return chatters;
     }
 
-    public ChattingRoomResponse(final Set<Chatter> chatters, final Set<ChattingMessage> chattingMessages) {
+    private ChattingRoomResponse() {
+    }
+
+    private ChattingRoomResponse(final Set<Chatter> chatters, final Set<ChattingMessage> chattingMessages) {
         this.chatters = chatters;
         this.chattingMessages = chattingMessages;
+    }
+
+    public Set<Chatter> chatters() {
+        return chatters;
+    }
+
+    public Set<ChattingMessage> chattingMessages() {
+        return chattingMessages;
     }
 
 }
