@@ -5,7 +5,6 @@ import com.mabcci.domain.auth.domain.vo.ClaimType;
 import com.mabcci.domain.auth.domain.vo.JwtToken;
 import com.mabcci.domain.auth.domain.vo.JwtTokenType;
 import com.mabcci.domain.member.domain.Member;
-import com.mabcci.global.common.Nickname;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
