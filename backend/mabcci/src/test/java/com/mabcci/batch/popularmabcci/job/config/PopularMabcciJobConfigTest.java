@@ -24,11 +24,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Collection;
+import java.util.stream.IntStream;
 
-import static com.mabcci.global.common.EmailTest.EMAIL;
-import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static com.mabcci.global.common.PasswordTest.PASSWORD;
-import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -47,36 +45,42 @@ class PopularMabcciJobConfigTest {
         final String email = "example@example.com";
         final String nickname = "nickname";
         final String phone = "010-5234-567";
-        final Member follower = Member.Builder()
-                .email(EMAIL)
-                .password(PASSWORD)
-                .nickname(NICKNAME)
-                .phone(PHONE)
-                .gender(Gender.MAN)
-                .memberRole(MemberRole.USER)
-                .build();
-        memberRepository.save(follower);
-        for (int i = 0; i < 10; i++) {
-            final Member mabcci = Member.Builder()
-                    .email(Email.of(i + email))
-                    .password(PASSWORD)
-                    .nickname(Nickname.of(nickname + i))
-                    .phone(Phone.of(phone + i))
-                    .gender(Gender.MAN)
-                    .memberRole(MemberRole.MABCCI)
-                    .build();
-            final Follow follow = Follow.Builder()
-                    .follower(follower)
-                    .following(mabcci)
-                    .build();
-            memberRepository.save(mabcci);
-            followRepository.save(follow);
-        }
+        IntStream.rangeClosed(0, 100)
+                .forEachOrdered(i -> {
+                    final Member mabcci = Member.Builder()
+                            .email(Email.of(i + email))
+                            .password(PASSWORD)
+                            .nickname(Nickname.of(nickname + i))
+                            .phone(Phone.of(phone + i))
+                            .gender(Gender.MAN)
+                            .memberRole(MemberRole.MABCCI)
+                            .build();
+                    memberRepository.save(mabcci);
+                    IntStream.rangeClosed(0, i)
+                            .forEachOrdered(j -> {
+                                final Member follower = Member.Builder()
+                                        .email(Email.of(email + 200 + i + j))
+                                        .password(PASSWORD)
+                                        .nickname(Nickname.of(nickname + 200 + i + j))
+                                        .phone(Phone.of(phone + 200 + i + j))
+                                        .gender(Gender.MAN)
+                                        .memberRole(MemberRole.USER)
+                                        .build();
+                                final Follow follow = Follow.Builder()
+                                        .follower(follower)
+                                        .following(mabcci)
+                                        .build();
+                                memberRepository.save(follower);
+                                followRepository.save(follow);
+                            });
+                });
     }
 
     @AfterEach
     void cleanUp() {
         jobRepositoryTestUtils.removeJobExecutions();
+        followRepository.deleteAll();
+        memberRepository.deleteAll();
     }
 
     @Test

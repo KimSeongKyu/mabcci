@@ -95,15 +95,15 @@ public class PopularMabcciJobConfig {
                 .name("popularMabcciUpdatePagingItemReader")
                 .entityManagerFactory(entityManagerFactory)
                 .pageSize(CHUNK_SIZE)
-                .queryString("SELECT m FROM Member m JOIN m.followings f WHERE m.memberRole = 'MABCCI' GROUP BY f.following ORDER BY count(f.following)")
+                .queryString("SELECT m FROM Member m JOIN m.followings f WHERE m.memberRole = 'MABCCI' GROUP BY f.following ORDER BY count(f.following) DESC")
                 .build();
     }
 
     @Bean
     public ItemProcessor<Member, Member> popularMabcciUpdateItemProcessor() {
         return member -> {
-            System.err.println(member.nickname().nickname() + " " + popularMabcciCount);
             if (popularMabcciCount < MAX_POPULAR_MABCCI_COUNT) {
+                System.err.println(member.nickname().nickname() + " " + member.followings().size());
                 popularMabcciCount = Integer.sum(popularMabcciCount, ONE);
                 return member.updateToPopularMabcci(IS_POPULAR_MABCCI);
             }
