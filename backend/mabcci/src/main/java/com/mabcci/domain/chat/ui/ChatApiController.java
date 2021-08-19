@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Set;
 
-@CrossOrigin(originPatterns = "http://localhost:*")
+@CrossOrigin(originPatterns = "*")
 @RestController
 public class ChatApiController {
 

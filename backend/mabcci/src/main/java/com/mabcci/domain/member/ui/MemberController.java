@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 import static com.mabcci.domain.member.domain.MemberRole.MABCCI;
 
-@CrossOrigin(originPatterns = "http://localhost:*")
+@CrossOrigin(originPatterns = "*")
 @RestController
 public class MemberController {
 
