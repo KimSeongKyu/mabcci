@@ -19,34 +19,26 @@ public class ChatRoomCreateService {
         this.memberRepository = memberRepository;
     }
 
-    // 기존 채팅방 있으면 그대로 돌려줌 -> 없으면 생성
     public String createChattingRoom(final Nickname proposal, final Nickname mabcci) {
         final ChatRoom chatRoom = new ChatRoom();
         final Member proposalMember = findMemberByNickName(proposal);
         final Member mabcciMember = findMemberByNickName(mabcci);
-        if (!isChatRoomExist(proposalMember, mabcciMember)) {
-            chattingRepository.save(new Chatting(proposalMember, chatRoom));
-            chattingRepository.save(new Chatting(mabcciMember, chatRoom));
-            return chatRoom.id();
+        if (isChatRoomExist(proposalMember, mabcciMember)) {
+            return existedChatRoomId(proposalMember, mabcciMember);
         }
-        return existedChatRoomId(proposalMember, mabcciMember);
+        chattingRepository.save(new Chatting(proposalMember, mabcciMember, chatRoom));
+        return chatRoom.id();
     }
 
     private String existedChatRoomId(final Member proposalMember, final Member mabcciMember) {
-        return chattingRepository.findByMember(mabcciMember).stream()
-                .filter(chatting -> chatting.isContainSameMember(proposalMember))
-                .map(Chatting::chatRoom)
-                .map(ChatRoom::id)
-                .findFirst()
+        final Chatting chatting = chattingRepository.findByProposalAndMabcci(proposalMember, mabcciMember)
                 .orElseThrow(IllegalArgumentException::new);
+        final ChatRoom chatRoom = chatting.chatRoom();
+        return chatRoom.id();
     }
 
     private Boolean isChatRoomExist(final Member proposalMember, final Member mabcciMember) {
-        return chattingRepository.findByMember(mabcciMember).stream()
-                .filter(chatting -> chatting.isContainSameMember(proposalMember))
-                .map(chatting -> chatting.isContainSameMember(proposalMember))
-                .findFirst()
-                .orElse(false);
+        return chattingRepository.findByProposalAndMabcci(proposalMember, mabcciMember).isPresent();
     }
 
     private Member findMemberByNickName(final Nickname firstNickname) {

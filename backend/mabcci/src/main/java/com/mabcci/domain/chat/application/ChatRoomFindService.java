@@ -31,11 +31,12 @@ public class ChatRoomFindService {
     // 왼쪽 채팅 리스트 표현 -> 이전에 채팅방을 만들어야 합니다.
     // 기존 채팅방이 존재하면? -> 다시 안 만들도록 해야하나
     // 사용자 얻고 -> 채팅에서 사용자 기준으로 -> 채팅 방 가져옴 -> dto에 담음
+    // 채팅방 ID도 얻어야 할 것 같은데
+    // 상대방ID + 상대방 picture + 속한 roomId
     public Set<ChattingRoomListResponse> findChatRoomByNickname(final Nickname nickname) {
         final Member member = findMemberByNickname(nickname);
-        return chattingRepository.findByMember(member).stream()
-                .map(Chatting::chatRoom)
-                .map(ChattingRoomListResponse::new)
+        return chattingRepository.findByProposal(member).stream()
+                .map(ChattingRoomListResponse::ofChatting)
                 .collect(Collectors.toSet());
     }
 
@@ -46,7 +47,7 @@ public class ChatRoomFindService {
 
     public ChattingRoomResponse findByRoomId(final String roomId) {
         final ChatRoom chatRoom = findChattingRoomById(roomId);
-        final Set<Chatting> chattings = chatRoom.chattings();
+        final Chatting chattings = chatRoom.chatting();
         final Set<ChatMessage> chatMessages = chatRoom.chattingMessages();
         return ChattingRoomResponse.fromChattings(chattings, chatMessages);
     }

@@ -26,14 +26,14 @@ public class ChatApiController {
     }
 
     // 내가 속한 채팅방 리스트를 가져온다.
-    @GetMapping("/chat/rooms/{nickname}")
+    @GetMapping("/api/chat/rooms/{nickname}")
     public ResponseEntity<Set<ChattingRoomListResponse>> findChatRoomByNickname(@Valid @PathVariable Nickname nickname) {
         final Set<ChattingRoomListResponse> chatRoomListResponse = chatRoomFindService.findChatRoomByNickname(nickname);
         return ResponseEntity.ok().body(chatRoomListResponse);
     }
 
     // 채팅방을 만들고 roomId를 리턴한다 -> then 으로 다시 요청해서 접속해주십쇼
-    @PostMapping("/chat/room")
+    @PostMapping("/api/chat/room")
     public ResponseEntity<String> createChattingRoom(@Header("Authorization") String jwt, @Valid @RequestBody final Nickname mabcci) {
         final JwtUtil jwtUtil = new JwtUtil();
         final Nickname firstNickname = Nickname.of(jwtUtil.nickname(jwt));
@@ -42,7 +42,7 @@ public class ChatApiController {
     }
 
     // 채팅방 자체에 뿌릴 데이터
-    @GetMapping("/chat/room/{roomId}")
+    @GetMapping("/api/chat/room/{roomId}")
     public ResponseEntity<ChattingRoomResponse> findByRoomId(@PathVariable String roomId) {
         final ChattingRoomResponse chattingRoomResponse = chatRoomFindService.findByRoomId(roomId);
         return ResponseEntity.ok().body(chattingRoomResponse);

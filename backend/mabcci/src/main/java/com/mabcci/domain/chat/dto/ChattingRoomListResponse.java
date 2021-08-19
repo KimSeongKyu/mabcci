@@ -3,24 +3,43 @@ package com.mabcci.domain.chat.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mabcci.domain.chat.domain.ChatRoom;
 import com.mabcci.domain.chat.domain.Chatting;
-
-import java.util.Set;
-import java.util.stream.Collectors;
+import com.mabcci.domain.member.domain.Member;
+import com.mabcci.global.common.Nickname;
 
 public class ChattingRoomListResponse {
 
-    @JsonProperty("chatters")
-    private Set<Chatter> chatters;
+    @JsonProperty("roomId")
+    private String roomId;
 
-    public ChattingRoomListResponse(final ChatRoom chatRoom) {
-        this(chatRoom.chattings().stream()
-                .map(Chatting::member)
-                .map(Chatter::new)
-                .collect(Collectors.toSet()));
+    @JsonProperty("nickname")
+    private String nickname;
+
+    @JsonProperty("picture")
+    private String picture;
+
+    public static ChattingRoomListResponse ofChatting(final Chatting chatting) {
+        final ChatRoom chatRoom = chatting.chatRoom();
+        final Member mabcci = chatting.mabcci();
+        final Nickname mabcciNickname = mabcci.nickname();
+        return new ChattingRoomListResponse(chatRoom.id(), mabcciNickname.nickname(), mabcci.picture());
     }
 
-    public ChattingRoomListResponse(final Set<Chatter> chatters) {
-        this.chatters = chatters;
+    private ChattingRoomListResponse(final String roomId, final String nickname, final String picture) {
+        this.roomId = roomId;
+        this.nickname = nickname;
+        this.picture = picture;
+    }
+
+    public String roomId() {
+        return roomId;
+    }
+
+    public String nickname() {
+        return nickname;
+    }
+
+    public String picture() {
+        return picture;
     }
 
 }

@@ -12,18 +12,23 @@ public class Chatting {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade =  CascadeType.ALL)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "proposal_id")
+    private Member proposal;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade =  CascadeType.ALL)
+    @JoinColumn(name = "mabcci_id")
+    private Member mabcci;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "chat_room_id")
     private ChatRoom chatRoom;
 
     protected Chatting() {
     }
 
-    public Chatting(final Member member, final ChatRoom chatRoom) {
-        this.member = member;
+    public Chatting(final Member proposal, final Member mabcci, final ChatRoom chatRoom) {
+        this.proposal = proposal;
+        this.mabcci = mabcci;
         this.chatRoom = chatRoom;
     }
 
@@ -31,20 +36,20 @@ public class Chatting {
         return id;
     }
 
-    public Member member() {
-        return member;
+    public Member proposal() {
+        return proposal;
+    }
+
+    public Member mabcci() {
+        return mabcci;
     }
 
     public ChatRoom chatRoom() {
         return chatRoom;
     }
 
-    public void changeChatRoom(final ChatRoom chatRoom) {
-        this.chatRoom = chatRoom;
-    }
-
     public boolean isContainSameMember(final Member other) {
-        return this.member.equals(other);
+        return this.proposal.equals(other);
     }
 
 }
