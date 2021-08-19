@@ -89,6 +89,11 @@ public class MemberController {
         return ResponseEntity.ok().body(new MemberFindMabcciResponses(responses));
     }
 
+    @GetMapping("/api/members/mabcci/popular")
+    public ResponseEntity<MemberFindSimpleResponses> findPopularMabccies() {
+        return ResponseEntity.ok(memberFindService.findPopularMabccies());
+    }
+
     @PostMapping("/api/members/update/{originalNickname}")
     public ResponseEntity<?> update(@Valid @ModelAttribute MemberUpdateRequest request,
                                     @PathVariable("originalNickname") Nickname originalNickname,
