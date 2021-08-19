@@ -207,7 +207,11 @@
   position: relative;
   margin-left: 10%;
   margin-right: 10%;
-  margin-top: 10%;
+  margin-top: 7%;
+  margin-bottom: 7%;
+}
+
+.detail-comments {
   margin-bottom: 30%;
 }
 
