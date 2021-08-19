@@ -7,7 +7,7 @@ import com.mabcci.global.common.Nickname;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-public final class MemberFindByNicknameContainsResponse {
+public final class MemberFindSimpleResponse {
 
     @Valid @NotNull @JsonProperty("nickname")
     private Nickname nickname;
@@ -15,11 +15,11 @@ public final class MemberFindByNicknameContainsResponse {
     @JsonProperty("picture")
     private String picture;
 
-    public final static MemberFindByNicknameContainsResponse ofMember(final Member member) {
-        return new MemberFindByNicknameContainsResponse(member.nickname(), member.picture());
+    public final static MemberFindSimpleResponse ofMember(final Member member) {
+        return new MemberFindSimpleResponse(member.nickname(), member.picture());
     }
 
-    public MemberFindByNicknameContainsResponse(final Nickname nickname, final String picture) {
+    public MemberFindSimpleResponse(final Nickname nickname, final String picture) {
         this.nickname = nickname;
         this.picture = picture;
     }
