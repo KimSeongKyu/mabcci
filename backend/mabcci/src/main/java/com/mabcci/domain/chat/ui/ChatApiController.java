@@ -8,7 +8,6 @@ import com.mabcci.domain.chat.application.ChatRoomFindService;
 import com.mabcci.domain.chat.application.ChatRoomCreateService;
 import com.mabcci.global.common.Nickname;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,13 +17,14 @@ import java.util.Set;
 @RestController
 public class ChatApiController {
 
-    private ChatRoomFindService chatRoomFindService;
-    private ChatRoomCreateService chatRoomCreateService;
+    private final ChatRoomFindService chatRoomFindService;
+    private final ChatRoomCreateService chatRoomCreateService;
+    private final JwtUtil jwtUtil;
 
-    public ChatApiController(final ChatRoomFindService chatRoomFindService,
-                             final ChatRoomCreateService chatRoomCreateService) {
+    public ChatApiController(final ChatRoomFindService chatRoomFindService, final ChatRoomCreateService chatRoomCreateService, final JwtUtil jwtUtil) {
         this.chatRoomFindService = chatRoomFindService;
         this.chatRoomCreateService = chatRoomCreateService;
+        this.jwtUtil = jwtUtil;
     }
 
     // 내가 속한 채팅방 리스트를 가져온다.
@@ -37,7 +37,6 @@ public class ChatApiController {
     // 채팅방을 만들고 roomId를 리턴한다 -> then 으로 다시 요청해서 접속해주십쇼
     @PostMapping("/api/chat/room")
     public ResponseEntity<String> createChattingRoom(@RequestHeader("Authorization") String jwt, @Valid @RequestBody final ChattingRoomCreateRequest request) {
-        final JwtUtil jwtUtil = new JwtUtil();
         final Nickname proposal = Nickname.of(jwtUtil.nickname(jwt));
         final String roomId = chatRoomCreateService.createChattingRoom(proposal, request.nickname());
         return ResponseEntity.ok().body(roomId);
