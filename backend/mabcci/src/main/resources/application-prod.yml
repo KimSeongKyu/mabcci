@@ -3,7 +3,7 @@ spring:
     name: mabcci
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://13.124.127.111:3306/mabcci?useSSL=false&useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://13.124.127.111:3306/dev-product?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false
     username: root
     password: root
   jpa:
