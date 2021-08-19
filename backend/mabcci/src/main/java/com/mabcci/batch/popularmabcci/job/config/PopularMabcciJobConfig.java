@@ -4,9 +4,7 @@ import com.mabcci.domain.member.domain.Member;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.database.JpaPagingItemReader;
@@ -103,7 +101,6 @@ public class PopularMabcciJobConfig {
     public ItemProcessor<Member, Member> popularMabcciUpdateItemProcessor() {
         return member -> {
             if (popularMabcciCount < MAX_POPULAR_MABCCI_COUNT) {
-                System.err.println(member.nickname().nickname() + " " + member.followings().size());
                 popularMabcciCount = Integer.sum(popularMabcciCount, ONE);
                 return member.updateToPopularMabcci(IS_POPULAR_MABCCI);
             }
