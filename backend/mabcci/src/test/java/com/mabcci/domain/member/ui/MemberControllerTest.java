@@ -101,6 +101,19 @@ class MemberControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
+    @DisplayName("MemberController findPopularMabccies() 메서드 테스트")
+    @Test
+    public void find_popular_mabccies_test() throws Exception {
+        final MemberFindSimpleResponses memberFindSimpleResponses =
+                new MemberFindSimpleResponses(Collections.emptyList());
+        given(memberFindService.findPopularMabccies()).willReturn(memberFindSimpleResponses);
+
+        mvc.perform(get("/api/members/mabcci/popular")
+                .content(objectMapper.writeValueAsString(memberFindSimpleResponses))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
 //    @DisplayName("MemberController findByNickName() 메서드 테스트")
 //    @Test
