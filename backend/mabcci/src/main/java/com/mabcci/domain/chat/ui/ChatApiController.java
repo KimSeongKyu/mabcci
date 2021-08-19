@@ -1,6 +1,7 @@
 package com.mabcci.domain.chat.ui;
 
 import com.mabcci.domain.auth.common.JwtUtil;
+import com.mabcci.domain.chat.dto.ChattingRoomCreateRequest;
 import com.mabcci.domain.chat.dto.ChattingRoomListResponse;
 import com.mabcci.domain.chat.dto.ChattingRoomResponse;
 import com.mabcci.domain.chat.application.ChatRoomFindService;
@@ -35,10 +36,10 @@ public class ChatApiController {
 
     // 채팅방을 만들고 roomId를 리턴한다 -> then 으로 다시 요청해서 접속해주십쇼
     @PostMapping("/api/chat/room")
-    public ResponseEntity<String> createChattingRoom(@Header("Authorization") String jwt, @Valid @RequestBody final Nickname nickname) {
+    public ResponseEntity<String> createChattingRoom(@RequestHeader("Authorization") String jwt, @Valid @RequestBody final ChattingRoomCreateRequest request) {
         final JwtUtil jwtUtil = new JwtUtil();
         final Nickname proposal = Nickname.of(jwtUtil.nickname(jwt));
-        final String roomId = chatRoomCreateService.createChattingRoom(proposal, nickname);
+        final String roomId = chatRoomCreateService.createChattingRoom(proposal, request.nickname());
         return ResponseEntity.ok().body(roomId);
     }
 
