@@ -11,6 +11,7 @@ import 포멀 from '../../../../../Asset/Images/포멀옷.png';
 import { baseUrl } from '../../../../../API/ApiUrl';
 import 기본프로필 from '../../../../../Asset/Images/기본프로필.jpg';
 import userphoto from './Images/userphoto.png';
+import { createChatRoomApi } from '../../../../../API/ChatAPI/ChatApi';
 
 const MabcciSearch = () => {
   const [searchContent, setSearchContent] = useState('');
@@ -65,9 +66,8 @@ const MabcciSearch = () => {
   };
 
   /* 스타일링 신청 이벤트 */
-  const stylingApplyHandler = nickname => {
-    window.open('', '_blank');
-    console.log(nickname, '스타일링 신청 페이지');
+  const stylingApplyHandler = async nickname => {
+    const response = await createChatRoomApi(nickname);
   };
 
   return (

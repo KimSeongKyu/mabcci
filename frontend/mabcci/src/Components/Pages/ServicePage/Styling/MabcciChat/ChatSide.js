@@ -21,6 +21,7 @@ const ChatSide = ({ chatMenu }) => {
       );
     });
   };
+
   return (
     <div className={`chat-side ${chatMenu ? 'active' : ''}`}>
       <header>
