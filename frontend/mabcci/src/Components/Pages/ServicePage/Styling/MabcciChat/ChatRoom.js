@@ -45,7 +45,7 @@ const ChatRoom = ({ setChatMenu, chatMenu, message, setMessage, chatInfo }) => {
       frame => {
         client.current.subscribe(
           `${baseUrl}/sub/chat/room/${chatInfo.roomId}`,
-          function (messages) {
+          messages => {
             console.log('구독');
             const recv = JSON.parse(messages.body);
             recvMessage(recv);
