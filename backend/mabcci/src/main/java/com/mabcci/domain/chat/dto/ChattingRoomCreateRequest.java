@@ -5,7 +5,7 @@ import com.mabcci.global.common.Nickname;
 
 public class ChattingRoomCreateRequest {
 
-    @JsonProperty("mabcci")
+    @JsonProperty("nickname")
     private Nickname nickname;
 
     public ChattingRoomCreateRequest() {
