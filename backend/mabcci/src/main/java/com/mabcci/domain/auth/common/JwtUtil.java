@@ -65,9 +65,9 @@ public class JwtUtil {
         payload.put(Claim.EXPIRATION_KEY, Long.sum(currentTime.getTime(), jwtTokenType.expirationTime()));
         payload.put(Claim.NOT_BEFORE_KEY, currentTime);
         payload.put(Claim.ISSUED_AT_KEY, currentTime);
-        payload.put(Claim.EMAIL_KEY, member.email());
-        payload.put(Claim.NICKNAME_KEY, member.nickname());
-        payload.put(Claim.ROLE_KEY, member.memberRole());
+        payload.put(Claim.EMAIL_KEY, member.email().email());
+        payload.put(Claim.NICKNAME_KEY, member.nickname().nickname());
+        payload.put(Claim.ROLE_KEY, member.memberRole().name());
     }
 
     public boolean isValidToken(final JwtToken jwtToken) {
@@ -81,8 +81,7 @@ public class JwtUtil {
 
     public String nickname(final String accessToken) {
         final Claims claims = getClaimsJws(accessToken).getBody();
-        final Nickname nickname = claims.get(Claim.NICKNAME_KEY, Nickname.class);
-        return nickname.nickname();
+        return claims.get(Claim.NICKNAME_KEY, String.class);
     }
 
     private Jws<Claims> getClaimsJws(final String accessToken) {
