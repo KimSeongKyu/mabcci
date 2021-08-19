@@ -160,7 +160,7 @@ const MyPageUpdate = (props) => {
               type="file"
               id="update-profile"
               style={{ display: 'none' }}
-              accept=".jpg,.jpeg,.png"
+              accept=".jpg,.jpeg,.png,.jfif"
               onChange={updateProfile}
             />
           </section>

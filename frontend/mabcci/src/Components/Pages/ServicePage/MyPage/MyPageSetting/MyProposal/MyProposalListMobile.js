@@ -129,21 +129,52 @@ const MyPageProposalListMobile = props => {
                     </div>
 
                     {receiveproposal.isReviewed == false ? (
-                      <button
-                        type="submit"
-                        onClick={openReviewBox}
-                        id={receiveproposal.id}
-                      >
-                        Review
-                      </button>
+                      <div style={{ display: 'flex' }}>
+                        <button
+                          type="submit"
+                          style={{ width: '5rem', height: '2rem' }}
+                          id={receiveproposal.id}
+                          onClick={goProposalDetail}
+                        >
+                          Open
+                        </button>
+                        <button
+                          type="submit"
+                          style={{
+                            width: '5rem',
+                            height: '2rem',
+                            backgroundColor: 'lightblue',
+                            marginRight: '20px'
+                          }}
+                          onClick={openReviewBox}
+                          id={receiveproposal.id}
+                        >
+                          리뷰작성
+                        </button>
+                      </div>
                     ) : (
-                      <button
-                        type="submit"
-                        id={receiveproposal.id}
-                        onClick={openReviewDetail}
-                      >
-                        Open
-                      </button>
+                      <div style={{ display: 'flex' }}>
+                        <button
+                          type="submit"
+                          style={{ width: '5rem', height: '2rem' }}
+                          id={receiveproposal.id}
+                          onClick={goProposalDetail}
+                        >
+                          Open
+                        </button>
+                        <button
+                          type="submit"
+                          style={{
+                            width: '5rem',
+                            height: '2rem',
+                            backgroundColor: 'lightgreen',
+                          }}
+                          id={receiveproposal.id}
+                          onClick={openReviewDetail}
+                        >
+                          리뷰보기
+                        </button>
+                      </div>
                     )}
                   </div>
                 );

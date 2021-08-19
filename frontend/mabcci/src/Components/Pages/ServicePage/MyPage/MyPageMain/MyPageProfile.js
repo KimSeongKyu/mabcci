@@ -12,10 +12,13 @@ import 기본프로필 from '../../../../../Asset/Images/기본프로필.jpg'
 import getUserInfo from '../../../../Common/getUserInfo';
 import { MdReplay } from 'react-icons/md';
 import FollowerListApi from '../../../../../API/MypageAPI/FollowerListApi'
+import { useHistory } from 'react-router-dom';
 
 
 const MyPageProfile = props => {
   const [profile, setProfile] = useState(false)
+
+  const history = useHistory();
 
   const userInfo = getUserInfo();
 
@@ -86,6 +89,10 @@ const MyPageProfile = props => {
       setIsFollower(false);
      }
    };
+
+   const goToChat = () => {
+     history.push('/chat');
+   }
 
   return (
     <>
@@ -174,7 +181,7 @@ const MyPageProfile = props => {
                 )}
                 {props.myInfo.role === 'MABCCI' &&
                 userInfo.nickname !== props.myInfo.nickname ? (
-                  <button type="submit" id="mypage-mabcci-styling-btn">
+                  <button type="submit" id="mypage-mabcci-styling-btn" onClick={goToChat}>
                     Styling 신청
                   </button>
                 ) : null}
@@ -205,7 +212,7 @@ const MyPageProfile = props => {
                   )}
                   {props.myInfo.role === 'MABCCI' &&
                   userInfo.nickname !== props.myInfo.nickname ? (
-                    <button type="submit" id="mypage-mabcci-styling-btn">
+                    <button type="submit" id="mypage-mabcci-styling-btn" onClick={goToChat}>
                       Styling 신청
                     </button>
                   ) : null}
