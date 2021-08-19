@@ -35,10 +35,10 @@ public class ChatApiController {
 
     // 채팅방을 만들고 roomId를 리턴한다 -> then 으로 다시 요청해서 접속해주십쇼
     @PostMapping("/api/chat/room")
-    public ResponseEntity<String> createChattingRoom(@Header("Authorization") String jwt, @Valid @RequestBody final Nickname mabcci) {
+    public ResponseEntity<String> createChattingRoom(@Header("Authorization") String jwt, @Valid @RequestBody final Nickname nickname) {
         final JwtUtil jwtUtil = new JwtUtil();
-        final Nickname firstNickname = Nickname.of(jwtUtil.nickname(jwt));
-        final String roomId = chatRoomCreateService.createChattingRoom(firstNickname, mabcci);
+        final Nickname proposal = Nickname.of(jwtUtil.nickname(jwt));
+        final String roomId = chatRoomCreateService.createChattingRoom(proposal, nickname);
         return ResponseEntity.ok().body(roomId);
     }
 
