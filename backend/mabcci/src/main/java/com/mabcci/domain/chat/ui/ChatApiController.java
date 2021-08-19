@@ -37,8 +37,8 @@ public class ChatApiController {
     @PostMapping("/api/chat/room")
     public ResponseEntity<String> createChattingRoom(@Header("Authorization") String jwt, @Valid @RequestBody final Nickname nickname) {
         final JwtUtil jwtUtil = new JwtUtil();
-        final Nickname firstNickname = Nickname.of(jwtUtil.nickname(jwt));
-        final String roomId = chatRoomCreateService.createChattingRoom(firstNickname, nickname);
+        final Nickname proposal = Nickname.of(jwtUtil.nickname(jwt));
+        final String roomId = chatRoomCreateService.createChattingRoom(proposal, nickname);
         return ResponseEntity.ok().body(roomId);
     }
 
