@@ -1,25 +1,71 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { FaLocationArrow } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import SockJS from 'sockjs-client';
+import Stomp from 'webstomp-client';
 import { sendMessageApi } from '../../../../../API/ChatAPI/ChatApi';
+import { baseUrl } from '../../../../../API/ApiUrl';
 
 const ChatRoom = ({ setChatMenu, chatMenu, message, setMessage, chatInfo }) => {
+  const client = useRef({});
+  const [contents, setContents] = useState([]);
+
+  const sendMessage = () => {
+    const messageData = {
+      type: 'TALK',
+      roomId: chatInfo.roomId,
+      sender: chatInfo.sender,
+      message,
+    };
+    console.log('send data', messageData);
+    client.current.send(
+      `${baseUrl}/pub/chat/message`,
+      JSON.stringify(messageData),
+      {
+        Authorization: localStorage.getItem('accessToken'),
+      },
+    );
+    setMessage('');
+  };
+
+  const recvMessage = recv => {
+    console.log(recv.userCount);
+    setContents(prev => [...prev, recv]);
+    console.log(contents);
+  };
+
+  const connect = () => {
+    if (!chatInfo.roomId) return;
+    const sock = new SockJS(`${baseUrl}/ws-stomp`);
+    client.current = Stomp.over(sock);
+
+    client.current.connect(
+      { token: localStorage.getItem('accessToken') },
+      frame => {
+        client.current.subscribe(
+          `${baseUrl}/sub/chat/room/${chatInfo.roomId}`,
+          function (messages) {
+            console.log('구독');
+            const recv = JSON.parse(messages.body);
+            recvMessage(recv);
+          },
+        );
+      },
+    );
+  };
+
+  useEffect(() => {
+    connect();
+    console.log('contents', contents);
+  }, [chatInfo.roomId]);
+
   const menuToggle = () => {
     setChatMenu(!chatMenu);
   };
 
   const typeMessage = e => {
     setMessage(e.target.value);
-  };
-
-  const sendMessage = async () => {
-    const messageData = {
-      roomId: chatInfo.roomId,
-      sender: chatInfo.sender,
-      message,
-    };
-    const response = await sendMessageApi(messageData);
   };
 
   return (

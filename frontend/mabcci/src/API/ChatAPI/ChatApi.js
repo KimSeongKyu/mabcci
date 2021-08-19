@@ -4,7 +4,6 @@ import instance from '../index';
 const accessToken = localStorage.getItem('accessToken');
 export const chatListApi = async nickname => {
   const chatListUrl = `/api/chat/rooms/${nickname}`;
-  // const mockUrl = `http://localhost/chat`;
   const response = await instance.get(chatListUrl);
   return response;
 };
