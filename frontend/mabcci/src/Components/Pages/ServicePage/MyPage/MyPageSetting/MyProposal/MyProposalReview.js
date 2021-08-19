@@ -5,13 +5,18 @@ import '../MySetting/MySetting.css';
 import './MyProposal.css';
 import {IoMdArrowBack} from 'react-icons/io';
 import { useState } from 'react';
+import ReviewWriteApi from '../../../../../../API/ReviewAPI/ReviewWriteApi';
+import getUserInfo from '../../../../../Common/getUserInfo'
 
-const MyProposalReview = props => {
+const MyProposalReview = (props) => {
+
+  const userInfo = getUserInfo();
 
   const [review, setReview] = useState({
     content: '',
-    star: 0,
-  })
+    starRating: '',
+    id: 0,
+  });
 
   const writeReivew = (e) => {
     setReview({
@@ -27,12 +32,20 @@ const MyProposalReview = props => {
   const clickStar = (e) => {
     setReview({
       ...review,
-      star: e.target.value,
-    })
+      starRating: e.target.value,
+    });
   }
 
-  const submitReview = () => {
-    console.log(review)
+  const submitReview = async () => {
+    const data = {
+      id: props.nowProposalId,
+      starRating: review.starRating,
+      content: review.content
+    };
+    const res = await ReviewWriteApi(data);
+    if (res.status === 204) {
+      window.location.replace(`/mypage/${userInfo.nickname}`);
+    }
   }
 
   return (
@@ -107,10 +120,11 @@ const MyProposalReview = props => {
             </div>
             <textarea
               onChange={writeReivew}
-              placeholder="리뷰를 남겨주세요"
+              placeholder="리뷰를 남겨주세요 (최대 100자)"
               id=""
               cols="40"
               rows="6"
+              maxLength="113"
             ></textarea>
           </div>
           <button type="submit" className="btn-sm" onClick={submitReview}>

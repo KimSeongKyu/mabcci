@@ -1,21 +1,21 @@
 .mypage-modal-container {
   width: 100%;
-  height: 160vh;
+  height: 160%;
   background-color: black;
   position: absolute;
   z-index: 2;
   opacity: 0.5;
-  transform: translateY(-35%);
+  transform: translateY(-33%);
 }
 
 .mypage-follow-modal-container {
   width: 100%;
-  height: 160vh;
+  height: 160%;
   background-color: black;
   position: absolute;
   z-index: 2;
   opacity: 0.5;
-  transform: translateY(-35%);
+  transform: translateY(-33%);
 }
 
 .mypage-modal-box-information p {
@@ -115,6 +115,7 @@
   margin-right: 5%;
   padding: 5px;
   border-radius: 10px;
+  width: 60px;
   color: white;
   background-color: var(--main-color-1);
   font-size: small;

@@ -13,6 +13,7 @@ import getUserInfo from '../../../../Common/getUserInfo';
 import { MdReplay } from 'react-icons/md';
 import FollowerListApi from '../../../../../API/MypageAPI/FollowerListApi'
 
+
 const MyPageProfile = props => {
   const [profile, setProfile] = useState(false)
 
