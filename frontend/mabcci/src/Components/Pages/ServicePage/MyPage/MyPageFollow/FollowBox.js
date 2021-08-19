@@ -63,13 +63,21 @@ const FollowBox = props => {
             return (
               <div className="mypage-modal-box-content" key={follower.name}>
                 <div className="mypage-modal-box-information">
-                  <img src={follower.picture == null ? 기본이미지
-                  :baseUrl + follower.picture} alt="하이" />
+                  <img
+                    src={
+                      follower.picture == null
+                        ? 기본이미지
+                        : baseUrl + follower.picture
+                    }
+                    alt="하이"
+                  />
                   <Link to={`/mypage/${follower.name}`} onClick={goToUserPage}>
                     <p>{follower.name}</p>
                   </Link>
                 </div>
-                <button type="submit">삭제</button>
+                <Link to={`/mypage/${follower.name}`} onClick={goToUserPage}>
+                  <button type="submit">구경하기</button>
+                </Link>
               </div>
             );
           })}
@@ -104,7 +112,9 @@ const FollowBox = props => {
                     <p>{following.name}</p>
                   </Link>
                 </div>
-                <button type="submit">팔로잉</button>
+                <Link to={`/mypage/${following.name}`} onClick={goToUserPage}>
+                  <button type="submit">구경하기</button>
+                </Link>
               </div>
             );
           })}

@@ -115,6 +115,7 @@
   margin-right: 5%;
   padding: 5px;
   border-radius: 10px;
+  width: 60px;
   color: white;
   background-color: var(--main-color-1);
   font-size: small;
