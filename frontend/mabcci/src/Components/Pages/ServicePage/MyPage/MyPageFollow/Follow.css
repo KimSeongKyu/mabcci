@@ -5,7 +5,7 @@
   position: absolute;
   z-index: 2;
   opacity: 0.5;
-  transform: translateY(-35%);
+  transform: translateY(-33%);
 }
 
 .mypage-follow-modal-container {
@@ -15,7 +15,7 @@
   position: absolute;
   z-index: 2;
   opacity: 0.5;
-  transform: translateY(-35%);
+  transform: translateY(-33%);
 }
 
 .mypage-modal-box-information p {

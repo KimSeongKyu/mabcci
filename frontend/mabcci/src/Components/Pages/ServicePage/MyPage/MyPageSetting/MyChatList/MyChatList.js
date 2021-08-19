@@ -1,7 +1,7 @@
 /* eslint-disable */
 import '../../MyPageFollow/Follow.css';
 import React from 'react';
-import 아라찌 from '../../MyPageMain/images/다운로드.jfif';
+import 기본프로필 from '../../../../../../Asset/Images/기본프로필.jpg';
 
 const MyChatList = props => {
 
@@ -27,7 +27,7 @@ const MyChatList = props => {
             </button>
           </div>
           <div className="mypage-modal-box-content">
-            <img src={아라찌} alt="하이" />
+            <img src={기본프로필} alt="하이" />
             <p>유저네임</p>
             <button type="submit">입장</button>
           </div>

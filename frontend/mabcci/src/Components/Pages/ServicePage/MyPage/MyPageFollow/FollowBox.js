@@ -61,7 +61,7 @@ const FollowBox = props => {
           </div>
           {followerList.map(follower => {
             return (
-              <div className="mypage-modal-box-content" key={follower}>
+              <div className="mypage-modal-box-content" key={follower.name}>
                 <div className="mypage-modal-box-information">
                   <img src={follower.picture == null ? 기본이미지
                   :baseUrl + follower.picture} alt="하이" />
@@ -90,7 +90,7 @@ const FollowBox = props => {
           </div>
           {followingList.map(following => {
             return (
-              <div className="mypage-modal-box-content">
+              <div className="mypage-modal-box-content" key={following}>
                 <div className="mypage-modal-box-information">
                   <img
                     src={

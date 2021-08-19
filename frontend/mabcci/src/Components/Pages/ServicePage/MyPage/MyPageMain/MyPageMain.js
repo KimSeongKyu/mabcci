@@ -61,6 +61,7 @@ function MyPageMain() {
 
       <MyChatList chatBox={chatBox} setChatBox={setChatBox} />
       <MyProposalList
+        myInfo={myInfo}
         proposalBox={proposalBox}
         setProposalBox={setProposalBox}
       />
@@ -69,6 +70,8 @@ function MyPageMain() {
         setProposalBox={setProposalBox}
         mobileMenu={mobileMenu}
         setMobileMenu={setMobileMenu}
+        setMyPageUpdate={setMyPageUpdate}
+        myInfo={myInfo}
       />
       {myInfo.categories ? (
         <MyPageMobileMenu

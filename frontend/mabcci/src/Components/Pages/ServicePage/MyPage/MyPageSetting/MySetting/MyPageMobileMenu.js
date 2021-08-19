@@ -92,6 +92,7 @@ const MyPageMobileMenu = props => {
   const goToMobileProposal = () => {
     props.setProposalBox(true)
     props.setMobileMenu(false);
+    props.setMyPageUpdate('none');
   };
 
   return (

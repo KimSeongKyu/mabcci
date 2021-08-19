@@ -1,19 +1,41 @@
 /* eslint-disable */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../MySetting/MySetting.css';
 import { IoArrowBackCircle } from 'react-icons/io5';
 import { useHistory } from 'react-router-dom';
-import 아라찌 from '../../MyPageMain/images/다운로드.jfif';
+import 기본이미지 from '../../../../../../Asset/Images/기본프로필.jpg'
+import { baseUrl } from '../../../../../../API/ApiUrl'
 import MyPageProposalReview from './MyProposalReview';
+import SuggestSuggestionListApi from '../../../../../../API/SuggestionAPI/SuggestSuggestionListApi'
+import ReceiveSuggestionListApi from '../../../../../../API/SuggestionAPI/ReceiveSuggestionListApi';
 
 const MyPageProposalListMobile = props => {
   const [reviewBox, setReviewBox] = useState(false);
 
-  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+  useEffect(async () => {
+    const suggestRes = await SuggestSuggestionListApi(props.myInfo.nickname);
+    setSuggestList(suggestRes);
+    const receiveRes = await ReceiveSuggestionListApi(props.myInfo.nickname);
+    setReceiveList(receiveRes);
+  }, [props.myInfo.nickname]);
+
+  const [nowProposalPage, setNowProposalPage] = useState('receive');
+
+  const seeSuggestList = () => {
+    setNowProposalPage('suggest');
+  };
+
+  const seeReceiveList = () => {
+    setNowProposalPage('receive');
+  };
+
+  const [suggestList, setSuggestList] = useState();
+  const [receiveList, setReceiveList] = useState();
 
   const goBack = () => {
     props.setProposalBox(false)
     props.setMobileMenu(true)
+    props.setMyPageUpdate('update')
   };  
 
   const goReview = () => {
@@ -38,18 +60,85 @@ const MyPageProposalListMobile = props => {
             </button>
             <h3>Proposal List</h3>
           </div>
-          <div className="mypage-modal-box-content mypage-mobile-proposal-box">
-            <img src={아라찌} alt="하이" />
-            <div className="mypage-proposal-box-info">
-              <h5>제안서 제목</h5>
-              <p>Mabcci 고은쨩</p>
-              <p>2021.08.09</p>
+          {props.myInfo.role == 'MABCCI' ? (
+            <div className="mypage-proposal-header">
+              <h5
+                style={
+                  nowProposalPage == 'receive' ? { color: '#f9a77c' } : null
+                }
+                onClick={seeReceiveList}
+              >
+                receive
+              </h5>
+              <h5
+                style={
+                  nowProposalPage == 'suggest' ? { color: '#f9a77c' } : null
+                }
+                onClick={seeSuggestList}
+              >
+                suggest
+              </h5>
             </div>
+          ) : null}
+          {nowProposalPage == 'receive' ? (
+            <div>
+              {receiveList.map(receiveproposal => {
+                return (
+                  <div
+                    className="mypage-modal-box-content mypage-mobile-proposal-box"
+                    key={receiveproposal.id}
+                  >
+                    <img
+                      src={
+                        receiveproposal.picture == null
+                          ? 기본이미지
+                          : baseUrl + receiveproposal.picture
+                      }
+                      alt="하이"
+                    />
+                    <div className="mypage-proposal-box-info">
+                      <h5>To {props.myInfo.nickname}</h5>
+                      <p>Mabcci {receiveproposal.nickname}</p>
+                      <p>{receiveproposal.createdDate.slice(0, 10)}</p>
+                    </div>
 
-            <button type="submit" onClick={goReview}>
-              Review
-            </button>
-          </div>
+                    <button type="submit" onClick={goReview}>
+                      Review
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div>
+              {suggestList.map(suggestproposal => {
+                return (
+                  <div
+                    className="mypage-modal-box-content mypage-mobile-proposal-box"
+                    key={suggestproposal.id}
+                  >
+                    <img
+                      src={
+                        suggestproposal.picture == null
+                          ? 기본이미지
+                          : baseUrl + suggestproposal.picture
+                      }
+                      alt="하이"
+                    />
+                    <div className="mypage-proposal-box-info">
+                      <h5>To {suggestproposal.nickname}</h5>
+                      <p>Mabcci {props.myInfo.nickname}</p>
+                      <p>{suggestproposal.createdDate.slice(0, 10)}</p>
+                    </div>
+
+                    <button type="submit" onClick={goReview}>
+                      Review
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       ) : null}
     </>

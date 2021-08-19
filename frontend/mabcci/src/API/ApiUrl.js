@@ -34,3 +34,7 @@ export const FollowListUrl = '/api/';
 /* Suggestion Url */
 export const SuggestionWriteUrl = '/api/proposals';
 export const SuggestionReadUrl = '/api/proposals/';
+export const SuggestSuggestionListUrl =
+  '/api/proposals?filter=suggested&nickname=';
+export const ReceivedSuggestionListUrl =
+  '/api/proposals?filter=received&nickname=';
