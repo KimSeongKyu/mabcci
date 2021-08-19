@@ -31,12 +31,12 @@ function MyPageReview(props) {
 
   useEffect(async () => {
     const entireReviewListRes = await ReviewEntireListReadApi(
-      userInfo.nickname,
+      props.myInfo.nickname,
     );
     if (entireReviewListRes.status === 200) {
       setEntireReviewList(entireReviewListRes.data);
     }
-    const reviewListRes = await ReviewListReadApi(userInfo.nickname);
+    const reviewListRes = await ReviewListReadApi(props.myInfo.nickname);
     if (reviewListRes.status === 200) {
       setReviewList(reviewListRes.data);
     }

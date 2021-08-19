@@ -111,7 +111,9 @@ function MyPageMain() {
             setMobileMenu={setMobileMenu}
           />
         ) : null}
-        {myInfo.role === 'MABCCI' ? <MyPageReview /> : null}
+        {myInfo.role === 'MABCCI' ? (
+          <MyPageReview myInfo={myInfo} setMyInfo={setMyInfo} />
+        ) : null}
         {myInfo.ootds ? <MyPageFeed myInfo={myInfo} /> : null}
       </div>
     </div>
