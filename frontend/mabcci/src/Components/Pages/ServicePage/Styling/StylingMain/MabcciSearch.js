@@ -67,7 +67,7 @@ const MabcciSearch = () => {
 
   /* 스타일링 신청 이벤트 */
   const stylingApplyHandler = async nickname => {
-    const mabcci = { mabcci: nickname };
+    const mabcci = { nickname };
     const response = await createChatRoomApi(mabcci);
   };
 
