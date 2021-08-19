@@ -1,21 +1,14 @@
 package com.mabcci.domain.member.ui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mabcci.domain.category.domain.Category;
 import com.mabcci.domain.member.application.MemberDeleteService;
 import com.mabcci.domain.member.application.MemberFindService;
 import com.mabcci.domain.member.application.MemberJoinService;
 import com.mabcci.domain.member.application.MemberUpdateService;
-import com.mabcci.domain.member.domain.BodyType;
-import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberSpecs;
-import com.mabcci.domain.member.dto.request.MemberDeleteRequest;
 import com.mabcci.domain.member.dto.request.MemberJoinRequest;
-import com.mabcci.domain.member.dto.request.MemberUpdateRequest;
-import com.mabcci.domain.member.dto.response.MemberFindByNicknameContainsResponses;
-import com.mabcci.domain.member.dto.response.MemberMyPageResponse;
-import com.mabcci.global.common.Nickname;
+import com.mabcci.domain.member.dto.response.MemberFindSimpleResponses;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,30 +18,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Set;
 
 import static com.mabcci.domain.member.application.MemberFindServiceTest.CATEGORY_NAME;
-import static com.mabcci.domain.member.domain.BodyType.INVERTED_TRIANGLE;
 import static com.mabcci.domain.member.domain.Gender.MAN;
-import static com.mabcci.domain.member.domain.Gender.WOMAN;
 import static com.mabcci.domain.member.domain.MemberRole.USER;
 import static com.mabcci.domain.member.domain.MemberSpecsTest.*;
-import static com.mabcci.domain.member.domain.MemberTest.DESCRIPTION;
 import static com.mabcci.global.common.EmailTest.EMAIL;
 import static com.mabcci.global.common.NicknameTest.NICKNAME;
 import static com.mabcci.global.common.PasswordTest.PASSWORD;
 import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -106,12 +91,25 @@ class MemberControllerTest {
     @DisplayName("MemberController findByNicknameContains() 메서드 테스트")
     @Test
     public void find_by_nickname_contains_test() throws Exception {
-        final MemberFindByNicknameContainsResponses memberFindByNicknameContainsResponses =
-                new MemberFindByNicknameContainsResponses(Collections.emptyList());
-        given(memberFindService.findByNicknameContains(any())).willReturn(memberFindByNicknameContainsResponses);
+        final MemberFindSimpleResponses memberFindSimpleResponses =
+                new MemberFindSimpleResponses(Collections.emptyList());
+        given(memberFindService.findByNicknameContains(any())).willReturn(memberFindSimpleResponses);
 
         mvc.perform(get("/api/members/search?nickname={nickname}", NICKNAME)
-                .content(objectMapper.writeValueAsString(memberFindByNicknameContainsResponses))
+                .content(objectMapper.writeValueAsString(memberFindSimpleResponses))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+    @DisplayName("MemberController findPopularMabccies() 메서드 테스트")
+    @Test
+    public void find_popular_mabccies_test() throws Exception {
+        final MemberFindSimpleResponses memberFindSimpleResponses =
+                new MemberFindSimpleResponses(Collections.emptyList());
+        given(memberFindService.findPopularMabccies()).willReturn(memberFindSimpleResponses);
+
+        mvc.perform(get("/api/members/mabcci/popular")
+                .content(objectMapper.writeValueAsString(memberFindSimpleResponses))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());

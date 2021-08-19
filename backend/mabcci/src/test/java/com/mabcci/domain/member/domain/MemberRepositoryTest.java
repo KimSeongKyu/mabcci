@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -131,6 +132,19 @@ class MemberRepositoryTest {
     void find_all_test() {
         testEntityManager.persist(member);
         final List<Member> members = memberRepository.findAll();
+
+        assertAll(
+                () -> assertThat(members).isNotNull(),
+                () -> assertThat(members.size()).isEqualTo(1)
+        );
+    }
+
+    @DisplayName("MemberRepository findAllByIsPopularMabcci 기능 테스트")
+    @Test
+    void find_all_by_is_popular_mabcci_test() {
+        ReflectionTestUtils.setField(member, "isPopularMabcci", true);
+        testEntityManager.persist(member);
+        final List<Member> members = memberRepository.findAllByIsPopularMabcci();
 
         assertAll(
                 () -> assertThat(members).isNotNull(),

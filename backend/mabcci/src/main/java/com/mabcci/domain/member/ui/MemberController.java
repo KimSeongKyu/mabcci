@@ -70,7 +70,7 @@ public class MemberController {
     }
 
     @GetMapping("/api/members/search")
-    public ResponseEntity<MemberFindByNicknameContainsResponses> findMemberByNicknameContains(@Valid @RequestParam final Nickname nickname) {
+    public ResponseEntity<MemberFindSimpleResponses> findMemberByNicknameContains(@Valid @RequestParam final Nickname nickname) {
         return ResponseEntity.ok().body(memberFindService.findByNicknameContains(nickname));
     }
 
@@ -87,6 +87,11 @@ public class MemberController {
                 .map(MemberFindMabcciResponse::ofMember)
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(new MemberFindMabcciResponses(responses));
+    }
+
+    @GetMapping("/api/members/mabcci/popular")
+    public ResponseEntity<MemberFindSimpleResponses> findPopularMabccies() {
+        return ResponseEntity.ok(memberFindService.findPopularMabccies());
     }
 
     @PostMapping("/api/members/update/{originalNickname}")

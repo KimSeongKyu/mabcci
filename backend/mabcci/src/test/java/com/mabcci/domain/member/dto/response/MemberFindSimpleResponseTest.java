@@ -22,9 +22,9 @@ import static com.mabcci.global.common.PhoneTest.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class MemberFindByNicknameContainsResponseTest {
+class MemberFindSimpleResponseTest {
 
-    private MemberFindByNicknameContainsResponse memberFindByNickNameContainsResponse;
+    private MemberFindSimpleResponse memberFindSimpleResponse;
     private Member member;
 
     @BeforeEach
@@ -39,38 +39,38 @@ class MemberFindByNicknameContainsResponseTest {
                 .picture(PICTURE)
                 .memberRole(MemberRole.USER)
                 .build();
-        memberFindByNickNameContainsResponse = MemberFindByNicknameContainsResponse.ofMember(member);
+        memberFindSimpleResponse = MemberFindSimpleResponse.ofMember(member);
     }
 
-    @DisplayName("MemberFindByNickNameContainsResponse 인스턴스 생성 여부 테스트")
+    @DisplayName("memberFindSimpleResponse 인스턴스 생성 여부 테스트")
     @Test
     void initialize() {
         assertAll(
-                () -> assertThat(memberFindByNickNameContainsResponse).isNotNull(),
-                () -> assertThat(memberFindByNickNameContainsResponse)
-                        .isExactlyInstanceOf(MemberFindByNicknameContainsResponse.class)
+                () -> assertThat(memberFindSimpleResponse).isNotNull(),
+                () -> assertThat(memberFindSimpleResponse)
+                        .isExactlyInstanceOf(MemberFindSimpleResponse.class)
         );
     }
 
-    @DisplayName("MemberFindByNickNameContainsResponse 인스턴스 getter 메서드들 테스트")
+    @DisplayName("memberFindSimpleResponse 인스턴스 getter 메서드들 테스트")
     @Test
     void getter_test() {
         assertAll(
-                () -> assertThat(memberFindByNickNameContainsResponse.nickname()).isEqualTo(NICKNAME),
-                () -> assertThat(memberFindByNickNameContainsResponse.picture()).isEqualTo(PICTURE)
+                () -> assertThat(memberFindSimpleResponse.nickname()).isEqualTo(NICKNAME),
+                () -> assertThat(memberFindSimpleResponse.picture()).isEqualTo(PICTURE)
         );
     }
 
-    @DisplayName("MemberFindByNickNameContainsResponse 인스턴스 프로퍼티 유효성 검증 테스트")
+    @DisplayName("memberFindSimpleResponse 인스턴스 프로퍼티 유효성 검증 테스트")
     @Test
     void validate_test() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        final MemberFindByNicknameContainsResponse invalidResponse =
-                new MemberFindByNicknameContainsResponse(null, "");
+        final MemberFindSimpleResponse invalidResponse =
+                new MemberFindSimpleResponse(null, "");
 
-        final Set<ConstraintViolation<MemberFindByNicknameContainsResponse>> invalidPropertiesOfValidResponse =
-                validator.validate(memberFindByNickNameContainsResponse);
-        final Set<ConstraintViolation<MemberFindByNicknameContainsResponse>> invalidPropertiesOfInvalidResponse =
+        final Set<ConstraintViolation<MemberFindSimpleResponse>> invalidPropertiesOfValidResponse =
+                validator.validate(memberFindSimpleResponse);
+        final Set<ConstraintViolation<MemberFindSimpleResponse>> invalidPropertiesOfInvalidResponse =
                 validator.validate(invalidResponse);
 
         assertAll(
