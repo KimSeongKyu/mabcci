@@ -6,7 +6,6 @@ import com.mabcci.domain.auth.domain.vo.JwtTokenType;
 import com.mabcci.domain.member.domain.Gender;
 import com.mabcci.domain.member.domain.Member;
 import com.mabcci.domain.member.domain.MemberRole;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -108,7 +107,7 @@ class JwtUtilTest {
     void create_secret_key_test() {
         final Key key = ReflectionTestUtils.invokeMethod(jwtUtil, "createSecretKey");
 
-        assertThat(key.getAlgorithm()).isEqualTo(SignatureAlgorithm.HS256.getJcaName());
+        assertThat(key.getAlgorithm()).isEqualTo("HmacSHA256");
     }
 
     @DisplayName("JwtUtil 인스턴스 jwtToken의 문자열 값 생성 테스트")
