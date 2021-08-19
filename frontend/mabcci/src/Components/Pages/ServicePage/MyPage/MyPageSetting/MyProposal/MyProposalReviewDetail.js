@@ -13,10 +13,13 @@ function MyProposalReviewDetail(props) {
 
   useEffect(async () => {
     const id = props.nowProposalId;
-    const res = await ReviewDetailApi(id);
-    if(res.status===200) {
-      setReviewDetail(res.data);
+    if (id) {
+      const res = await ReviewDetailApi(id);
+      if (res.status === 200) {
+        setReviewDetail(res.data);
+      }
     }
+
   }, [props.nowProposalId]);
 
   const userInfo = getUserInfo();
