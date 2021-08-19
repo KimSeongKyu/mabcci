@@ -46,9 +46,18 @@ public class MemberFindService {
     public MemberFindSimpleResponses findByNicknameContains(final Nickname nickname) {
         return new MemberFindSimpleResponses(
                 memberRepository.findByNicknameContains(nickname.nickname())
-                .stream()
-                .map(MemberFindSimpleResponse::ofMember)
-                .collect(Collectors.toList())
+                        .stream()
+                        .map(MemberFindSimpleResponse::ofMember)
+                        .collect(Collectors.toList())
+        );
+    }
+
+    public MemberFindSimpleResponses findPopularMabccies() {
+        return new MemberFindSimpleResponses(
+                memberRepository.findAllByIsPopularMabcci()
+                        .stream()
+                        .map(MemberFindSimpleResponse::ofMember)
+                        .collect(Collectors.toList())
         );
     }
 }
