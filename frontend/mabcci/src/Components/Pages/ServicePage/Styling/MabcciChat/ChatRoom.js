@@ -2,11 +2,26 @@ import React from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { FaLocationArrow } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { sendMessageApi } from '../../../../../API/ChatAPI/ChatApi';
 
-const ChatRoom = ({ setChatMenu, chatMenu }) => {
+const ChatRoom = ({ setChatMenu, chatMenu, message, setMessage, chatInfo }) => {
   const menuToggle = () => {
     setChatMenu(!chatMenu);
   };
+
+  const typeMessage = e => {
+    setMessage(e.target.value);
+  };
+
+  const sendMessage = async () => {
+    const messageData = {
+      roomId: chatInfo.roomId,
+      sender: chatInfo.sender,
+      message,
+    };
+    const response = await sendMessageApi(messageData);
+  };
+
   return (
     <div className="chat-room">
       <header>
@@ -73,9 +88,9 @@ const ChatRoom = ({ setChatMenu, chatMenu }) => {
               <p>최종제안서 보내기</p>
             </button>
           </Link>
-          <input type="text" />
+          <input type="text" value={message} onChange={typeMessage} />
           <div className="btn-chat">
-            <button type="button">
+            <button type="button" onClick={sendMessage}>
               <FaLocationArrow />
             </button>
           </div>

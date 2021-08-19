@@ -144,6 +144,10 @@
   bottom: 20px;
 }
 
+.chat-side-btn {
+  width: 100%;
+}
+
 @media screen and (max-width: 576px) {
   .chat-side {
     width: 0;
