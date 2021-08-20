@@ -32,7 +32,7 @@ public class PictureUtil {
 
     public Picture savePicture(final MultipartFile picture, final String directoryName) {
         final String fileName = makeFileName(makeFileExtension(picture.getContentType()));
-        final File file = new File(directoryName + File.separator + fileName);
+        final File file = new File(System.getProperty("user.home") + directoryName + File.separator + fileName);
 
         file.setWritable(false);
         file.setReadable(true);
