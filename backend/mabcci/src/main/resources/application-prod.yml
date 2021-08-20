@@ -23,4 +23,4 @@ secret:
 path:
   upload: "/images"
   resource: "file:///mabcci/images/prod"
-  real: "/mabcci/images/prod"
+  real: "mabcci/images/prod"
