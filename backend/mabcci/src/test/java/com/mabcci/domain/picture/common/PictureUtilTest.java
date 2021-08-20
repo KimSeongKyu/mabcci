@@ -59,7 +59,7 @@ public class PictureUtilTest {
         ));
 
         baseUrl = Paths.get("images").toString();
-        baseDirectory = Paths.get("C:", File.separator, "mabcci", File.separator, "images", File.separator, "local")
+        baseDirectory = Paths.get("mabcci", File.separator, "images", File.separator, "local")
                 .toString();
     }
 
@@ -145,7 +145,6 @@ public class PictureUtilTest {
     void make_directory_test() {
         ReflectionTestUtils.setField(pictureUtil, "baseDirectory", baseDirectory);
         final String directoryName = pictureUtil.makeDirectory(PictureType.OOTD);
-
         final File directory = new File(directoryName);
         assertThat(directory).exists();
 

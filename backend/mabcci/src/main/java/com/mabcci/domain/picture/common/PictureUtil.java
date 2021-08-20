@@ -32,7 +32,7 @@ public class PictureUtil {
 
     public Picture savePicture(final MultipartFile picture, final String directoryName) {
         final String fileName = makeFileName(makeFileExtension(picture.getContentType()));
-        final File file = new File(directoryName + File.separator + fileName);
+        final File file = new File(System.getProperty("user.home") + File.separator + directoryName + File.separator + fileName);
 
         file.setWritable(false);
         file.setReadable(true);
@@ -58,8 +58,8 @@ public class PictureUtil {
 
     public String makeDirectory(final PictureType pictureType) {
         final String directoryName = makeDirectoryName(pictureType);
-        final File file = new File(System.getProperty("user.home") + File.separator + directoryName);
-        file.mkdirs();
+        final File file = new File(directoryName);
+        boolean isMake = file.mkdirs();
         return directoryName;
     }
 
