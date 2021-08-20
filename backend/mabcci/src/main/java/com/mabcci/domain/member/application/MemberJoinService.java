@@ -7,6 +7,8 @@ import com.mabcci.domain.member.domain.MemberRepository;
 import com.mabcci.domain.member.domain.MemberSpecs;
 import com.mabcci.domain.membercategory.domain.MemberCategory;
 import com.mabcci.domain.picture.common.PictureUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

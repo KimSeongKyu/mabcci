@@ -12,6 +12,8 @@ import com.mabcci.domain.picture.common.PictureUtil;
 import com.mabcci.domain.picture.domain.Picture;
 import com.mabcci.domain.picture.domain.PictureType;
 import com.mabcci.global.common.Nickname;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +23,8 @@ import java.util.Set;
 
 @Service
 public class MemberUpdateService {
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final MemberRepository memberRepository;
     private final CategoryRepository categoryRepository;
@@ -49,6 +53,7 @@ public class MemberUpdateService {
 
     private Picture picture(final MultipartFile rawPicture) {
         final String pictureDirectory = pictureUtil.makeDirectory(PictureType.PROFILE);
+        log.info(pictureDirectory);
         return pictureUtil.savePicture(rawPicture, pictureDirectory);
     }
 
