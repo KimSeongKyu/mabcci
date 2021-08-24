@@ -202,6 +202,104 @@
   border-radius: 5px;
 }
 
+.mypage-review-list-box {
+  width: 80%;
+  margin: auto;
+  margin-top: 30px;
+  text-align: start;
+}
+
+.mypage-review-list-box p {
+  font-weight: 900;
+  color: var(--main-color-1);
+}
+
+.mypage-review-list-header {
+  border-bottom: solid 1px lightgray;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mypage-star-average {
+  padding: 10px;
+}
+
+.mypage-review-list {
+  display: flex;
+  padding: 5px;
+  padding-left: 0px;
+}
+
+.mypage-entire-review-list {
+  display: flex;
+  padding: 5px;
+  margin: 10px;
+  padding-left: 0px;
+}
+
+.mypage-entire-review-list div {
+  margin-left: 7px;
+}
+
+.mypage-entire-review-list img {
+  border-radius: 50px;
+  width: 40px;
+  height: 40px;
+}
+
+.mypage-review-list div {
+  width: 50%;
+  text-align: start;
+}
+
+.mypage-review-nickname {
+  width: 100px;
+  text-align: start;
+}
+
+.mypage-review-list-star {
+  font-size: 30px;
+  fill: var(--main-color-1);
+  stroke-width: 1;
+  padding: 3px;
+}
+
+.mypage-review-title-star {
+  font-size: 35px;
+  fill: var(--main-color-1);
+  stroke-width: 1;
+  padding: 3px;
+  margin-bottom: 6px;
+}
+
+.mypage-review-comment {
+  width: 40%;
+  text-align: start;
+}
+
+.mypage-review-userInfo {
+  display: flex;
+  width: 55%;
+}
+
+.mypage-entire-review-comment {
+  padding: 10px;
+  border: solid 1px lightgray;
+  border-radius: 10px;
+}
+
+.mypage-review-page-btn {
+  fill: var(--main-color-1);
+  font-size: 35px;
+  cursor: pointer;
+}
+
+.mypage-review-page-disabled-btn {
+  fill: lightgray;
+  font-size: 35px;
+  pointer-events: none;
+}
+
 .mypage-feed-container {
   border-top: solid 1px lightgray;
   margin-top: 30px;
@@ -317,6 +415,30 @@
 
   #mypage-mobile-category h5 {
     margin-bottom: 10px;
+  }
+
+  #mypage-entire-review-list-mobile {
+    display: block;
+    margin: auto;
+  }
+
+  .mypage-review-userInfo {
+    width: 100%;
+  }
+
+  .mypage-review-nickname {
+    width: 100%;
+    text-align: start;
+    margin-left: 5px;
+  }
+
+  .mypage-entire-review-comment {
+    width: 100%;
+    margin: 10px;
+    font-size: large;
+    padding: 10px;
+    border: solid 1px lightgray;
+    border-radius: 10px;
   }
 
   .mypage-feed {

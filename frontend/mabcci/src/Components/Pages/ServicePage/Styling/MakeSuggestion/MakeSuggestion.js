@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './MakeSuggestion.css';
+import { useHistory } from 'react-router-dom';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.min.css';
@@ -53,11 +54,13 @@ const imageProcess = (cloth, clothImage, addImage, removeImage) => {
 };
 
 const MakeSuggestion = () => {
+  const history = useHistory();
+  const userInfo = getUserInfo();
   const clothes = ['top', 'bottom', 'shoes', 'accessory'];
   const clothIcon = [IoShirt, GiArmoredPants, GiConverseShoe, FaShoppingBag];
   const [suggestion, setSuggestion] = useState({
-    targetMemberNickname: '썽',
-    mabcciNickname: '젠킨스',
+    targetMemberNickname: '지성팍',
+    mabcciNickname: userInfo.nickname,
     description: '',
     top: [null, new Blob()] /* [ImageURL, originImageURL] */,
     bottom: [null, new Blob()],
@@ -106,6 +109,7 @@ const MakeSuggestion = () => {
     data.append('accessory', suggestion.accessory[1]);
 
     const response = await SuggestionWriteApi(data);
+    history.push('/home');
   };
 
   return (

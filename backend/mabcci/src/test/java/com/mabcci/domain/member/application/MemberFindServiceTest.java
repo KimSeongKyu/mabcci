@@ -2,8 +2,8 @@ package com.mabcci.domain.member.application;
 
 import com.mabcci.domain.category.domain.Category;
 import com.mabcci.domain.member.domain.*;
-import com.mabcci.domain.member.dto.response.MemberFindByNicknameContainsResponse;
-import com.mabcci.domain.member.dto.response.MemberFindByNicknameContainsResponses;
+import com.mabcci.domain.member.dto.response.MemberFindSimpleResponse;
+import com.mabcci.domain.member.dto.response.MemberFindSimpleResponses;
 import com.mabcci.domain.member.dto.response.MemberListResponse;
 import com.mabcci.domain.member.dto.response.MemberFindByNickNameResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -84,15 +84,15 @@ public class MemberFindServiceTest {
     @Test
     void find_by_nickname_contains_test() {
         given(memberRepository.findByNicknameContains(any())).willReturn(List.of(member));
-        final MemberFindByNicknameContainsResponses memberFindByNicknameContainsResponses =
+        final MemberFindSimpleResponses memberFindSimpleResponses =
                 memberFindService.findByNicknameContains(NICKNAME);
 
-        final MemberFindByNicknameContainsResponse memberFindByNicknameContainsResponse =
-                memberFindByNicknameContainsResponses.members().get(0);
+        final MemberFindSimpleResponse memberFindSimpleResponse =
+                memberFindSimpleResponses.members().get(0);
 
         verify(memberRepository, times(1)).findByNicknameContains(any());
-        assertThat(memberFindByNicknameContainsResponse.nickname()).isEqualTo(NICKNAME);
-        assertThat(memberFindByNicknameContainsResponse.picture()).isEqualTo(PICTURE);
+        assertThat(memberFindSimpleResponse.nickname()).isEqualTo(NICKNAME);
+        assertThat(memberFindSimpleResponse.picture()).isEqualTo(PICTURE);
     }
 
     @DisplayName("MemberService 인스턴스 findAll() 기능 테스트")
@@ -109,6 +109,20 @@ public class MemberFindServiceTest {
                 () -> assertThat(memberListResponse.getNickname()).isEqualTo(member.nickname()),
                 () -> assertThat(memberListResponse.getGender()).isEqualTo(member.gender()),
                 () -> assertThat(memberListResponse.getRole()).isEqualTo(member.memberRole())
+        );
+    }
+
+    @DisplayName("MemberFindService 인스턴스 findPopularMabccies() 기능 테스트")
+    @Test
+    void find_popular_mabccies_test() {
+        final List list = new ArrayList(Arrays.asList(member));
+        given(memberRepository.findAllByIsPopularMabcci()).willReturn((list));
+        final MemberFindSimpleResponses memberFindSimpleResponses = memberFindService.findPopularMabccies();
+        final MemberFindSimpleResponse memberFindSimpleResponse = memberFindSimpleResponses.members().get(0);
+
+        assertAll(
+                () -> assertThat(memberFindSimpleResponse.nickname()).isEqualTo(member.nickname()),
+                () -> assertThat(memberFindSimpleResponse.picture()).isEqualTo(member.picture())
         );
     }
 

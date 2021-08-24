@@ -38,8 +38,6 @@ const MyPageUpdate = (props) => {
   }
 
   const submit = async () => {
-    console.log(props.myUpdateInfo);
-    console.log(props.updateData);
     const res = await MypageUpdateApi(
       props.updateData,
       props.myUpdateInfo.nickname,
@@ -53,8 +51,7 @@ const MyPageUpdate = (props) => {
       props.setMyPageUpdate('none');
       props.setMobileMenu(true);
     } else {
-      console.log(res.status);
-      alert('닉네임을 확인하세요');
+      alert('프로필사진을 변경해주세요');
     }
   };
 
@@ -96,7 +93,6 @@ const MyPageUpdate = (props) => {
       ...props.myUpdateInfo,
       bodyType: e.target.name,
     });
-    console.log(props.myUpdateInfo)
   };
 
     const styleBtnClick = e => {
@@ -164,7 +160,7 @@ const MyPageUpdate = (props) => {
               type="file"
               id="update-profile"
               style={{ display: 'none' }}
-              accept=".jpg,.jpeg,.png"
+              accept=".jpg,.jpeg,.png,.jfif"
               onChange={updateProfile}
             />
           </section>
@@ -185,6 +181,7 @@ const MyPageUpdate = (props) => {
             <div className="mypage-mobile-update-content">
               <h3>닉네임</h3>
               <input
+                style={{ pointerEvents:"none" }}
                 type="text"
                 value={props.myUpdateInfo.nickname}
                 name="nickname"

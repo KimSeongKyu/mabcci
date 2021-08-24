@@ -20,3 +20,5 @@ path:
   upload: "/images"
   resource: "file:///C:/mabcci/images/test"
   real: "C:/mabcci/images/test"
+secret:
+  key: "ssafy mabcci team kim kim joe lim choi"

@@ -19,16 +19,12 @@ spring:
         default_batch_fetch_size: 1000
         format_sql: true
   redis:
-    host: localhost
-    port: 6379
-
+    port: 6387
   freemarker:
     template-loader-path: classpath:/templates
-    # prefix: /chat
     suffix: .ftl
-
 path:
   upload: "/images"
-  resource: "file:///images/mabcci/images/local"
-  real: "Users/mabcci/images/local"
+  resource: "file:///mabcci/images/prod"
+  real: "mabcci/images/prod"
 

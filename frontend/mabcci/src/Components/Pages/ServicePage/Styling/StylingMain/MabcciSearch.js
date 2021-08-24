@@ -11,6 +11,7 @@ import 포멀 from '../../../../../Asset/Images/포멀옷.png';
 import { baseUrl } from '../../../../../API/ApiUrl';
 import 기본프로필 from '../../../../../Asset/Images/기본프로필.jpg';
 import userphoto from './Images/userphoto.png';
+import { createChatRoomApi } from '../../../../../API/ChatAPI/ChatApi';
 
 const MabcciSearch = () => {
   const [searchContent, setSearchContent] = useState('');
@@ -65,14 +66,9 @@ const MabcciSearch = () => {
   };
 
   /* 스타일링 신청 이벤트 */
-  const stylingApplyHandler = nickname => {
-    window.open('', '_blank');
-    console.log(nickname, '스타일링 신청 페이지');
-  };
-
-  /* Mabcci 마이페이지 이벤트 */
-  const mabcciPageHandler = nickname => {
-    console.log(nickname, 'Mabcci 마이페이지');
+  const stylingApplyHandler = async nickname => {
+    const mabcci = { nickname };
+    const response = await createChatRoomApi(mabcci);
   };
 
   return (
@@ -111,11 +107,7 @@ const MabcciSearch = () => {
         {filterMabcciList &&
           filterMabcciList.map(mabcci => (
             <div className="styling-mabcci" key={mabcci.nickname}>
-              <button
-                type="button"
-                onClick={() => mabcciPageHandler(mabcci.nickname)}
-                onKeyDown={() => mabcciPageHandler(mabcci.nickname)}
-              >
+              <button type="button">
                 <Link to={`/mypage/${mabcci.nickname}`}>
                   <img
                     className="styling-mabcci-photo"

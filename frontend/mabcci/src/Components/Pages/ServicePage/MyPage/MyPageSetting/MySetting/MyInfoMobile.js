@@ -62,8 +62,7 @@ const MyInfoMobile = props => {
       props.setMobileMenu(true);
         
     } else {
-      console.log(res.status)
-      alert('닉네임을 확인하세요')
+      alert('프로필사진을 변경해주세요');
     }
   }
 
@@ -88,6 +87,7 @@ const MyInfoMobile = props => {
             <div className="mypage-mobile-update-content">
               <h3>닉네임</h3>
               <input
+                style={{ pointerEvents: 'none' }}
                 type="text"
                 value={props.myUpdateInfo.nickname}
                 name="nickname"

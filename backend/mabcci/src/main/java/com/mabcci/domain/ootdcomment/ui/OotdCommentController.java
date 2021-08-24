@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
-@CrossOrigin(originPatterns = "http://localhost:*")
+@CrossOrigin(originPatterns = "*")
 @RestController
 public class OotdCommentController {
 

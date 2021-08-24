@@ -1,4 +1,4 @@
-export const baseUrl = 'http://localhost:8080';
+export const baseUrl = '/13.124.127.111:8080';
 
 /* AuthAPI Url */
 export const LoginUrl = '/auth/login';
@@ -34,3 +34,14 @@ export const FollowListUrl = '/api/';
 /* Suggestion Url */
 export const SuggestionWriteUrl = '/api/proposals';
 export const SuggestionReadUrl = '/api/proposals/';
+export const SuggestSuggestionListUrl =
+  '/api/proposals?filter=suggested&nickname=';
+export const ReceivedSuggestionListUrl =
+  '/api/proposals?filter=received&nickname=';
+
+/* Review Url */
+export const ReviewWriteUrl = '/api/proposals/reviews';
+export const ReviewListReadUrl = '/api/proposals/reviews?nickname=';
+export const ReviewEntireListReadUrl =
+  '/api/proposals/reviews/details?nickname=';
+export const ReviewDetailUrl = '/api/proposals/';

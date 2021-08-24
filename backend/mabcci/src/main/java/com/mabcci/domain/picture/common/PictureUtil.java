@@ -2,6 +2,8 @@ package com.mabcci.domain.picture.common;
 
 import com.mabcci.domain.picture.domain.Picture;
 import com.mabcci.domain.picture.domain.PictureType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -14,6 +16,8 @@ import java.time.format.DateTimeFormatter;
 
 @Component
 public class PictureUtil {
+
+    private Logger log = LoggerFactory.getLogger(getClass());
 
     private final static String TIME_FORMAT = "yyyyMMdd";
     private final static String PNG_FILE_EXTENSION = ".png";
@@ -28,10 +32,15 @@ public class PictureUtil {
 
     public Picture savePicture(final MultipartFile picture, final String directoryName) {
         final String fileName = makeFileName(makeFileExtension(picture.getContentType()));
-        final File file = new File(directoryName + File.separator + fileName);
+        final File file = new File(System.getProperty("user.home") + File.separator + directoryName + File.separator + fileName);
 
         file.setWritable(false);
         file.setReadable(true);
+
+        log.info("fileName {} ", fileName);
+        log.info("file.getName() {} ", file.getName());
+        log.info("file.getAbsolutePath() {} ", file.getAbsolutePath());
+        log.info("file.getPath() {} ", file.getPath());
 
         try {
             picture.transferTo(file);
@@ -50,7 +59,7 @@ public class PictureUtil {
     public String makeDirectory(final PictureType pictureType) {
         final String directoryName = makeDirectoryName(pictureType);
         final File file = new File(directoryName);
-        file.mkdirs();
+        boolean isMake = file.mkdirs();
         return directoryName;
     }
 

@@ -7,6 +7,13 @@ import 'swiper/components/navigation/navigation.min.css';
 import { Link } from 'react-router-dom';
 import PopularMabcciApi from '../../../../API/MabcciAPI/PopularMabcciApi';
 import userphoto from './Images/userphoto.png';
+import profile1 from './Images/profile1.jfif';
+import profile2 from './Images/profile2.jfif';
+import profile3 from './Images/profile3.jfif';
+import profile4 from './Images/profile4.jfif';
+import profile5 from './Images/profile5.jfif';
+import profile6 from './Images/profile6.jfif';
+import profile7 from './Images/profile7.jfif';
 
 SwiperCore.use([Navigation]);
 
@@ -20,7 +27,6 @@ const mabcciListPrint = (mabcciList, type) => {
           className="home-mabcci-photo"
           src={mabcci.picture}
           alt="mabcciPhoto"
-          width="100"
         />
         <h5>{mabcci.nickName}</h5>
       </div>
@@ -32,36 +38,36 @@ const PopularMabcci = () => {
   const [firstMabcciIdx, setfirstMabcciIdx] = useState(0);
   const [mabcciList, setMabcciList] = useState([
     {
-      nickName: '젠킨스1',
+      nickName: 'Hyunsix',
       picture: userphoto,
     },
     {
-      nickName: '젠킨스2',
-      picture: userphoto,
+      nickName: 'Woojaes',
+      picture: profile1,
     },
     {
-      nickName: '젠킨스3',
-      picture: userphoto,
+      nickName: 'Sungkyus',
+      picture: profile2,
     },
     {
-      nickName: '젠킨스4',
-      picture: userphoto,
+      nickName: 'Chang0s',
+      picture: profile3,
     },
     {
-      nickName: '젠킨스5',
-      picture: userphoto,
+      nickName: 'YoonA',
+      picture: profile4,
     },
     {
-      nickName: '젠킨스6',
-      picture: userphoto,
+      nickName: '임성애',
+      picture: profile5,
     },
     {
-      nickName: '젠킨스7',
-      picture: userphoto,
+      nickName: 'goSilver',
+      picture: profile6,
     },
     {
-      nickName: '젠킨스8',
-      picture: userphoto,
+      nickName: '젠킨스',
+      picture: profile7,
     },
   ]);
 
@@ -136,8 +142,6 @@ const Etc = () => {
   }, []);
 
   useEffect(() => {
-    console.log(window.scrollY);
-    console.log(fix);
     if (window.scrollY >= 370) {
       setFix({ ...fix, firstImage: true });
     }

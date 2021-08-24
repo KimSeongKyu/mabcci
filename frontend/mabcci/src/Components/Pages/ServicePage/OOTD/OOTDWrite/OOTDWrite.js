@@ -124,7 +124,6 @@ function OOTDWrite() {
 
   return (
     <div className="OOTDWrite-container">
-
       <h5>OOTD Write</h5>
 
       <div>

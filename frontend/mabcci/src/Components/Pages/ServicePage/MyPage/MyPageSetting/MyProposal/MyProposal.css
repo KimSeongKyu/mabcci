@@ -6,6 +6,16 @@
   margin-left: 10px;
 }
 
+.mypage-proposal-header {
+  display: flex;
+  justify-content: space-around;
+  padding: 5px;
+}
+
+.mypage-proposal-header h5 {
+  cursor: pointer;
+}
+
 .mypage-proposal-box-info p {
   font-size: xx-small;
 }

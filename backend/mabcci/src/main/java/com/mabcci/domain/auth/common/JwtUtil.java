@@ -5,6 +5,8 @@ import com.mabcci.domain.auth.domain.vo.ClaimType;
 import com.mabcci.domain.auth.domain.vo.JwtToken;
 import com.mabcci.domain.auth.domain.vo.JwtTokenType;
 import com.mabcci.domain.member.domain.Member;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -62,20 +64,30 @@ public class JwtUtil {
         payload.put(Claim.EXPIRATION_KEY, Long.sum(currentTime.getTime(), jwtTokenType.expirationTime()));
         payload.put(Claim.NOT_BEFORE_KEY, currentTime);
         payload.put(Claim.ISSUED_AT_KEY, currentTime);
-        payload.put(Claim.EMAIL_KEY, member.email());
-        payload.put(Claim.NICKNAME_KEY, member.nickname());
-        payload.put(Claim.ROLE_KEY, member.memberRole());
+        payload.put(Claim.EMAIL_KEY, member.email().email());
+        payload.put(Claim.NICKNAME_KEY, member.nickname().nickname());
+        payload.put(Claim.ROLE_KEY, member.memberRole().name());
     }
 
     public boolean isValidToken(final JwtToken jwtToken) {
         try {
-            Jwts.parserBuilder()
-                    .setSigningKey(createSecretKey())
-                    .build()
-                    .parseClaimsJws(jwtToken.jwtToken());
+            getClaimsJws(jwtToken.jwtToken());
             return true;
         } catch (Exception e) {
             return false;
         }
     }
+
+    public String nickname(final String accessToken) {
+        final Claims claims = getClaimsJws(accessToken).getBody();
+        return claims.get(Claim.NICKNAME_KEY, String.class);
+    }
+
+    private Jws<Claims> getClaimsJws(final String accessToken) {
+        return Jwts.parserBuilder()
+                .setSigningKey(createSecretKey())
+                .build()
+                .parseClaimsJws(accessToken);
+    }
+
 }

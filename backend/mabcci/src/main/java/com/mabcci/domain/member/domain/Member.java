@@ -11,6 +11,7 @@ import com.mabcci.global.common.Phone;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -58,6 +59,9 @@ public class Member extends BaseTimeEntity {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "member_specs_id")
     private MemberSpecs memberSpecs;
+
+    @Column(name = "member_is_popular_mabcci", nullable = false)
+    private Boolean isPopularMabcci;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private Set<MemberCategory> memberCategories = new HashSet<>();
@@ -154,6 +158,7 @@ public class Member extends BaseTimeEntity {
         this.picture = memberBuilder.picture;
         this.memberRole = memberBuilder.memberRole;
         this.memberSpecs = memberBuilder.memberSpecs;
+        isPopularMabcci = false;
     }
 
     public Long id() {
@@ -184,6 +189,10 @@ public class Member extends BaseTimeEntity {
 
     public MemberSpecs memberSpecs() {
         return memberSpecs;
+    }
+
+    public Boolean isPopularMabcci() {
+        return isPopularMabcci;
     }
 
     public Set<MemberCategory> memberCategories() { return memberCategories; }
@@ -218,6 +227,11 @@ public class Member extends BaseTimeEntity {
         updateMemberSpecs(memberSpecs.update(height, weight, footSize, bodyType));
     }
 
+    public Member updateToPopularMabcci(final Boolean isPopularMabcci) {
+        this.isPopularMabcci = isPopularMabcci;
+        return this;
+    }
+
     public void updateMemberSpecs(final MemberSpecs memberSpecs) {
         this.memberSpecs = memberSpecs;
     }
@@ -225,6 +239,19 @@ public class Member extends BaseTimeEntity {
     public void clearMemberCategory() {
         memberCategories.stream().forEach(memberCategory -> memberCategory.changeMember(null));
         memberCategories.clear();
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final Member member = (Member) o;
+        return Objects.equals(id(), member.id());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id());
     }
 
 }

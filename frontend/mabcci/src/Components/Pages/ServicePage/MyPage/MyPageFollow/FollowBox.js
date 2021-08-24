@@ -61,15 +61,23 @@ const FollowBox = props => {
           </div>
           {followerList.map(follower => {
             return (
-              <div className="mypage-modal-box-content" key={follower}>
+              <div className="mypage-modal-box-content" key={follower.name}>
                 <div className="mypage-modal-box-information">
-                  <img src={follower.picture == null ? 기본이미지
-                  :baseUrl + follower.picture} alt="하이" />
+                  <img
+                    src={
+                      follower.picture == null
+                        ? 기본이미지
+                        : baseUrl + follower.picture
+                    }
+                    alt="하이"
+                  />
                   <Link to={`/mypage/${follower.name}`} onClick={goToUserPage}>
                     <p>{follower.name}</p>
                   </Link>
                 </div>
-                <button type="submit">삭제</button>
+                <Link to={`/mypage/${follower.name}`} onClick={goToUserPage}>
+                  <button type="submit">구경하기</button>
+                </Link>
               </div>
             );
           })}
@@ -90,11 +98,11 @@ const FollowBox = props => {
           </div>
           {followingList.map(following => {
             return (
-              <div className="mypage-modal-box-content">
+              <div className="mypage-modal-box-content" key={following}>
                 <div className="mypage-modal-box-information">
                   <img
                     src={
-                      follower.picture === null
+                      following.picture == null
                         ? 기본이미지
                         : baseUrl + following.picture
                     }
@@ -104,7 +112,9 @@ const FollowBox = props => {
                     <p>{following.name}</p>
                   </Link>
                 </div>
-                <button type="submit">팔로잉</button>
+                <Link to={`/mypage/${following.name}`} onClick={goToUserPage}>
+                  <button type="submit">구경하기</button>
+                </Link>
               </div>
             );
           })}
